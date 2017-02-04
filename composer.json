@@ -1,0 +1,26 @@
+{
+    "name": "multidimensional/usps",
+    "description": "A USPS API Library for PHP.",
+    "authors": [{
+        "name": "multidimension.al",
+        "homepage": "https://multidimension.al",
+        "role": "Developer"
+    }],
+    "require": {
+        "php": ">=5.5",
+        "guzzlehttp/guzzle": "~6.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Multidimensional\\Usps\\": "lib"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Multidimensional\\Usps\\Test": "tests"
+        }
+    }
+}
