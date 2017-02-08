@@ -32,15 +32,9 @@ class CityStateLookup extends Usps
         
     }
     
-    public function addAddress(Address $address, $id = null)
+    public function addAddress(Address $address)
     {
-        
-        if (is_null($id)) {
-            $id = count($this->address) + 1;
-        }
-        
-        $this->addresss[$id] = array_merge(['@attributes' => ['ID' => $id]], $address->toArray());
-        
+        $this->addresss[] = $address->toArray();
     }
     
 }

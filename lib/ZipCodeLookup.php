@@ -25,22 +25,25 @@ class ZipCodeLookup extends Usps
      */
     private $apiClass = 'ZipCodeLookup';
     
-    protected $zipCodes = [];
+    protected $addresses = [];
     
     public function __construct(array $config = [])
     {
-        
+        parent::__construct($config);
     }
     
-    public function addZipCode(ZipCode $zipCode, $id = null)
+	/**
+	 * @param Address $address
+	 * @return true|false
+	 */
+    public function addAddress(Address $address)
     {
-        
-        if (is_null($id)) {
-            $id = count($this->zipcodes) + 1;
-        }
-        
-        $this->zipCodes[$id] = array_merge(['@attributes' => ['ID' => $id]], $zipCode->toArray());
-        
+		if (count($this->addresses) < 5) {
+			$this->addresses[] = $address->toArray();   
+			return true;
+		} else {
+			return false;	
+		}
     }
     
     /**
@@ -48,7 +51,7 @@ class ZipCodeLookup extends Usps
      */
     public function toArray()
     {
-        return $this->zipCode;
+        return $this->addresses;
     }
     
 }

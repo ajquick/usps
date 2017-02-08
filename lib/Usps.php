@@ -18,6 +18,8 @@ namespace Multidimensional\Usps;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Request;
+use Multidimensional\DomArray;
+use Multidimensional\XmlArray;
 
 class Usps
 {
@@ -47,7 +49,7 @@ class Usps
             $this->userId = $config['userId'];    
         }
         
-        $this->dom = new \DOMDocument();
+        $this->dom = new DOMArray();
         
     }
 
@@ -82,8 +84,8 @@ class Usps
     
     /**
      * @param string $apiClass
-     * @param SimpleXMLElement $xml
-     * @return SimpleXMLElement
+     * @param string $xml
+     * @return string
      */
     public function request($apiClass, $xml)
     {
@@ -106,5 +108,20 @@ class Usps
         
         return $response->xml();
         
-    }    
+    }
+	
+	public function buildXML($array)
+	{
+		$array['@USERID'] = $this->userId;
+		return $this->dom->loadArray($array);	
+	}
+	
+	public function validateXML(DOMDocument $dom)
+	{
+		if	($dom->schemaValidate('filename')) {
+			return true;
+		} else {
+			return false;	
+		}
+	}
 }

@@ -8,7 +8,8 @@
     }],
     "require": {
         "php": ">=5.5",
-        "guzzlehttp/guzzle": "~6.0"
+        "guzzlehttp/guzzle": "~6.0",
+		"multidimensional/dom-array": "*"
     },
     "require-dev": {
         "phpunit/phpunit": "*"

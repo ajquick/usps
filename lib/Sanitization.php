@@ -19,37 +19,37 @@ namespace Multidimensional\Usps;
 class Sanitization
 {
     
-	/**
-	 * @var array $typeArray
-	 */
+    /**
+     * @var array $typeArray
+     */
     public $typeArray = ['integer', 'decimal', 'string', 'boolean'];
     
     /**
-	 * @param array $config
-	 * @return void
-	 */
-	public function __construct(array $config = []) 
+     * @param array $config
+     * @return void
+     */
+    public function __construct(array $config = []) 
     {
         
     }
     
-	/**
-	 * @param array $array
-	 * @param array $rules
-	 * @return array
-	 */
+    /**
+     * @param array $array
+     * @param array $rules
+     * @return array
+     */
     public function sanitize($array, $rules)
     {
         $new_array = [];
         if (count($array)) {
             foreach ($array AS $key => $value) {    
                 if (in_array($key, array_keys($rules))) {
-					$new_array[$key] = $this->sanitizeField($key, $value, $rules[$key]);
+                    $new_array[$key] = $this->sanitizeField($key, $value, $rules[$key]);
                 }
             }
         }
         
-		return $new_array;
+        return $new_array;
     }
     
     /**

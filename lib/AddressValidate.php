@@ -20,26 +20,62 @@ use Multidimensional\Usps\Address;
 
 class AddressValidate extends Usps
 {
-    /**
-     * @var string
-     */
-    private $apiClass = 'Verify';
     
     protected $addresses = [];
+	
+	private $includeOptionalElements = false;
+	private $returnCarrierRoute = false;
     
     public function __construct(array $config = [])
     {
-        
+        parent::__construct($config);
     }
-    
-    public function addAddress(Address $address, $id = null)
+
+	/**
+	 * @param Address $address
+	 * @return true|false
+	 */
+    public function addAddress(Address $address)
     {
-        
-        if (is_null($id)) {
-            $id = count($this->address) + 1;
-        }
-        
-        $this->addresss[$id] = array_merge(['@attributes' => ['ID' => $id]], $address->toArray());
-        
+		if (count($this->addresses) < 5) {
+			$this->addresses[] = $address->toArray();   
+			return true;
+		} else {
+			return false;	
+		}
     }
+	
+	public function setIncludeOptionalElements($boolean)
+	{
+		$this->includeOptionalElements = (boolean) $boolean;
+	}
+	
+	public function setReturnCarrierRoute($boolean)
+	{
+		$this->returnCarrierRoute = (boolean) $boolean;
+	}
+	
+	/**
+	 * @return array
+	 */
+	private function buildArray()
+	{
+		$array = [];
+		if ($this->includeOptionalElements === true) {
+			$array['IncludeOptionalElements'] = 'true';
+		}
+		
+		if ($this->returnCarrierRoute === true) {
+			$array['ReturnCarrierRoute'] = 'true';
+		}
+		
+		$array['Address'] = $this->addresses;
+		
+		return $array;
+	}
+	
+	public function toArray()
+	{
+		return buildArray();
+	}
 }

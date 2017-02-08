@@ -22,13 +22,13 @@ class Address
 {
 
     /**
-	 * @var array $address
-	 */
+     * @var array $address
+     */
     public $address = [];
 
-	/**
-	 * @var array $fields
-	 */
+    /**
+     * @var array $fields
+     */
     public $fields = [
         '@ID' => [
             'type' => 'integer',
@@ -55,7 +55,7 @@ class Address
             'required' => [
                 'Zip5' => null
             ],
-            'pattern' => '[A-Z]{2}',
+            'pattern' => '[A-Z]{2}'
         ],
         'Urbanization' => [
             'type' => 'string'
@@ -64,7 +64,7 @@ class Address
             'type' => 'integer',
             'required' => [
                 [
-                    'City' => null
+                    'City' => null,
                     'State' => null
                 ]
             ],
@@ -75,32 +75,34 @@ class Address
             'pattern' => 'd{4}'
         ]
     ];
-	
-	/**
-	 * @param array $config
-	 * @return void
-	 */
+    
+    /**
+     * @param array $config
+     * @return void
+     */
     public function __construct(array $config = [])
     {
-		foreach ($config AS $key => $value) {
-			$this->setField($key, $value);
+        if (is_array($config)) {
+			foreach ($config AS $key => $value) {
+				$this->setField($key, $value);
+			}
 		}
-        $this->address += array_keys($this->fields);
+        $this->address += array_combine(array_keys($this->fields), array_fill(0, count($this->fields), null));
     }
     
-	/**
-	 * @param string $key
-	 * @param int|bool|string|float
-	 * @return void
-	 */
-	 public functon setField($key, $value) 
-	 { 
-		if (in_array($key, array_keys($this->fields)) {
-			$value = Sanitization->sanitizeField($key, $value, $this->fields[$key]);
-			$this->address[$key] = $value;
-		}
-	 }
-	
+    /**
+     * @param string $key
+     * @param int|bool|string|float
+     * @return void
+     */
+     public function setField($key, $value) 
+     { 
+        if (in_array($key, array_keys($this->fields))) {
+            $value = Sanitization->sanitizeField($key, $value, $this->fields[$key]);
+            $this->address[$key] = $value;
+        }
+     }
+    
     /**
      * @return array
      */
@@ -108,6 +110,85 @@ class Address
     {
         return $this->address;
     }
-    
-    
+	
+	/**
+	 * @param string $value
+	 * @return void
+	 */
+	public function setID($value)
+	{
+		$this->setField('@ID', $value);	
+	}
+
+	/**
+	 * @param string $value
+	 * @return void
+	 */
+	public function setFirmName($value)
+	{
+		$this->setField('FirmName', $value);	
+	}
+	
+	/**
+	 * @param string $value
+	 * @return void
+	 */	
+	public function setAddress1($value)
+	{
+		$this->setField('Address1', $value);	
+	}
+	
+	/**
+	 * @param string $value
+	 * @return void
+	 */	
+	public function setAddress2($value)
+	{
+		$this->setField('Address2', $value);	
+	}
+
+	/**
+	 * @param string $value
+	 * @return void
+	 */    
+	public function setCity($value)
+	{
+		$this->setField('City', $value);	
+	}
+
+	/**
+	 * @param string $value
+	 * @return void
+	 */    
+	public function setState($value)
+	{
+		$this->setField('State', $value);	
+	}
+
+	/**
+	 * @param string $value
+	 * @return void
+	 */	
+	public function setUrbanization($value)
+	{
+		$this->setField('Urbanization', $value);	
+	}
+
+	/**
+	 * @param int $value
+	 * @return void
+	 */	
+	public function setZip5($value)
+	{
+		$this->setField('Zip5', $value);	
+	}
+
+	/**
+	 * @param int $value
+	 * @return void
+	 */	
+	public function setZip4($value)
+	{
+		$this->setField('Zip4', $value);	
+	}
 }
