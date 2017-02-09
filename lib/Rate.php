@@ -16,7 +16,7 @@
 
 namespace Multidimensional\Usps;
 
-use Multidimensional\Usps\RateV4Package;
+use Multidimensional\Usps\Rate\Package;
 
 class Rate extends Usps
 {
@@ -45,7 +45,7 @@ class Rate extends Usps
         return $this->request($this->apiClass);    
     }
     
-    public function addPackage(RateV4Package $package)
+    public function addPackage(Rate\Package $package)
     {        
         $this->packages[] = $package->toArray();   
     }

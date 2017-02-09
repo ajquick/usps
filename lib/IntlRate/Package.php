@@ -20,13 +20,13 @@ class Package extends IntlRate
 {
 
     /**
-     * IntlRateV2Request / Package / Container
+     * IntlRate / Request / Package / Container
      */
     const CONTAINER_RECTANGULAR         = 'RECTANGULAR';
     const CONTAINER_NONRECTANGULAR      = 'NONRECTANGULAR';
 
     /**
-     * IntlRateV2Request / Package / MailType
+     * IntlRate / Request / Package / MailType
      */
     const MAIL_TYPE_ALL                 = 'ALL';
     const MAIL_TYPE_PACKAGE             = 'PACKAGE';
@@ -37,7 +37,7 @@ class Package extends IntlRate
     const MAIL_TYPE_FLATRATE            = 'FLATRATE';
 
     /**
-     * IntlRateV2Request / Package / Size
+     * IntlRate / Request / Package / Size
      */
     const SIZE_LARGE                    = 'LARGE';
     const SIZE_REGULAR                  = 'REGULAR';

@@ -24,7 +24,7 @@ class Package extends Rate
     protected $package = [];
     
     /**
-     * RateV4Request / Package / Container
+     * Rate / Request / Package / Container
      */
     const CONTAINER_VARIABLE                         = 'VARIABLE';
     const CONTAINER_FLAT_RATE_ENVELOPE               = 'FLAT RATE ENVELOPE';
@@ -43,7 +43,7 @@ class Package extends Rate
     const CONTAINER_NONRECTANGULAR                   = 'NONRECTANGULAR';
     
     /**
-     * RateV4Request / Package / FirstClassMailType
+     * Rate / Request / Package / FirstClassMailType
      */
     const FIRST_CLASS_MAIL_TYPE_LETTER               = 'LETTER';
     const FIRST_CLASS_MAIL_TYPE_FLAT                 = 'FLAT';
@@ -53,7 +53,7 @@ class Package extends Rate
     const FIRST_CLASS_MAIL_TYPE_PACKAGE_SERVICE      = 'PACKAGE SERVICE';
 
     /**
-     * RateV4Request / Package / Service
+     * Rate / Request / Package / Service
      */     
     const SERVICE_FIRST_CLASS                        = 'First Class';
     const SERVICE_FIRST_CLASS_COMMERCIAL             = 'First Class Commercial';
@@ -79,7 +79,7 @@ class Package extends Rate
     const SERVICE_PLUS                               = 'Plus';
     
     /**
-     * RateV4Request / Package / Size
+     * Rate / Request / Package / Size
      */
     const SIZE_LARGE                                 = 'LARGE';
     const SIZE_REGULAR                               = 'REGULAR';

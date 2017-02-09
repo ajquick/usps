@@ -39,7 +39,7 @@ class IntlRate extends Usps
         return $this->request($this->apiClass);    
     }
     
-    public function addPackage(IntlRateV2\Package $package, $id = null)
+    public function addPackage(IntlRate\Package $package, $id = null)
     {
         
         if (is_null($id)) {
