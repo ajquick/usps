@@ -14,13 +14,26 @@
  * is strictly forbidden unless prior written permission is obtained.
  */
 
-namespace Multidimensional\Usps;
+namespace Multidimensional\Usps\IntlRate\Package;
 
-class TrackV2 extends Usps
+use Multidimensional\Usps\IntlRate\Package;
+
+class ExtraServices extends Package
 {
-       /**
-     * @var string
+    
+    public $fields = [
+        'ExtraService' => [
+            'type' => 'integer',
+            'pattern' => '0|1|2|6|9'
+        ]
+    ];
+    
+    /**
+     * Registered Mail 0
+     * Insurance 1
+     * Return Receipt 2
+     * Certificate of Mailing 6
+     * Electronic USPS Delivery Confirmation International 9
      */
-    private $apiClass = 'TrackV2';
     
 }

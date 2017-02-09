@@ -16,34 +16,11 @@
 
 namespace Multidimensional\Usps;
 
-use Multidimensional\Usps\RateV4Package;
-
-class RateV4 extends Usps
+class Track extends Usps
 {
     /**
      * @var string
      */
-    private $apiClass = 'RateV4';
+    private $apiClass = 'TrackV2';
     
-    /**
-     * @var array
-     */
-    protected $packages = [];
-
-    public function __construct(array $config = [])
-    {
-        
-    }
-    
-    public function addPackage(RateV4Package $package, $id = null)
-    {
-        
-        if (is_null($id)) {
-            $id = count($this->packages) + 1;
-        }
-        
-        $this->packages[$id] = array_merge(['@attributes' => ['ID' => $id]], $package->toArray());
-        
-    }
-
 }

@@ -14,9 +14,9 @@
  * is strictly forbidden unless prior written permission is obtained.
  */
 
-namespace Multidimensional\Usps\IntlRateV2;
+namespace Multidimensional\Usps\IntlRate;
 
-class Package extends IntlRateV2
+class Package extends IntlRate
 {
 
     /**

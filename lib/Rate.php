@@ -16,33 +16,47 @@
 
 namespace Multidimensional\Usps;
 
-class IntlRateV2 extends Usps
+use Multidimensional\Usps\RateV4Package;
+
+class Rate extends Usps
 {
-    
     /**
      * @var string
      */
-    private $apiClass = 'IntlRateV2';
+    private $apiClass = 'RateV4';
     
     /**
      * @var array
      */
     protected $packages = [];
     
+    private $revision = 2;
+
     public function __construct(array $config = [])
     {
-        
-    }
-    
-    public function addPackage(IntlRateV2\Package $package, $id = null)
-    {
-        
-        if (is_null($id)) {
-            $id = count($this->packages) + 1;
+        parent::__construct($config);
+        if (isset($config['revision'])) {
+            $this->setRevision($config['revision']);    
         }
-        
-        $this->packages[$id] = array_merge(['@attributes' => ['ID' => $id]], $package->toArray());
-        
     }
     
+    public function getRate()
+    {
+        return $this->request($this->apiClass);    
+    }
+    
+    public function addPackage(RateV4Package $package)
+    {        
+        $this->packages[] = $package->toArray();   
+    }
+    
+    public function setRevision($value)
+    {
+        if ($value == 2) {
+            $this->revision = '2';
+        } else {
+            $this->revision = null;    
+        }
+    }
+
 }

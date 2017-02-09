@@ -14,9 +14,9 @@
  * is strictly forbidden unless prior written permission is obtained.
  */
 
-namespace Multidimensional\Usps\RateV4\Package;
+namespace Multidimensional\Usps\Rate\Package;
 
-use Multidimensional\Usps\RateV4\Package;
+use Multidimensional\Usps\Rate\Package;
 
 class Content extends Package
 {

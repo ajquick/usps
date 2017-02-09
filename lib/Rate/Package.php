@@ -14,9 +14,9 @@
  * is strictly forbidden unless prior written permission is obtained.
  */
 
-namespace Multidimensional\Usps\RateV4;
+namespace Multidimensional\Usps\Rate;
 
-class Package extends RateV4
+class Package extends Rate
 {
     /**
      * @var array
@@ -251,6 +251,172 @@ class Package extends RateV4
     public function __constuct(array $config = []) 
     {
                             
+    }
+    
+    /**
+     * @param string $key
+     * @param int|bool|string|float
+     * @return void
+     */
+     public function setField($key, $value) 
+     { 
+        if (in_array($key, array_keys($this->fields))) {
+            $value = Sanitization->sanitizeField($key, $value, $this->fields[$key]);
+            $this->address[$key] = $value;
+        }
+     }
+     
+    /**
+     * @param string $value
+     * @return void
+     */
+    public function setService($value)
+    {
+        $this->setField('Service', $value);    
+    }
+        
+    /**
+     * @param string $value
+     * @return void
+     */
+    public function setFirstClassMailType($value)
+    {
+        $this->setField('FirstClassMailType', $value);    
+    }
+    
+    /**
+     * @param string $value
+     * @return void
+     */
+    public function setZipOrigination($value)
+    {
+        $this->setField('ZipOrigination', $value);    
+    }
+        
+    /**
+     * @param string $value
+     * @return void
+     */
+    public function setZipDestination($value)
+    {
+        $this->setField('ZipDestination', $value);    
+    }
+    
+    /**
+     * @param string $value
+     * @return void
+     */
+    public function setPounds($value)
+    {
+        $this->setField('Pounds', $value);    
+    }
+    
+    /**
+     * @param string $value
+     * @return void
+     */
+    public function setOunces($value)
+    {
+        $this->setField('Ounces', $value);    
+    }
+    
+    /**
+     * @param string $value
+     * @return void
+     */
+    public function setSize($value)
+    {
+        $this->setField('Size', $value);    
+    }
+    
+    /**
+     * @param string $value
+     * @return void
+     */
+    public function setContainer($value)
+    {
+        $this->setField('Container', $value);    
+    }
+    
+    /**
+     * @param string $value
+     * @return void
+     */
+    public function setWidth($value)
+    {
+        $this->setField('Width', $value);    
+    }
+    
+    /**
+     * @param string $value
+     * @return void
+     */
+    public function setLength($value)
+    {
+        $this->setField('Length', $value);    
+    }
+    
+    /**
+     * @param string $value
+     * @return void
+     */
+    public function setHeight($value)
+    {
+        $this->setField('Height', $value);    
+    }
+    
+    /**
+     * @param string $value
+     * @return void
+     */
+    public function setGirth($value)
+    {
+        $this->setField('Girth', $value);    
+    }
+
+    /**
+     * @param string $value
+     * @return void
+     */
+    public function setValue($value)
+    {
+        $this->setField('Value', $value);    
+    }
+    
+    /**
+     * @param string $value
+     * @return void
+     */
+    public function setAmountToCollect($value)
+    {
+        $this->setField('AmountToCollect', $value);    
+    }
+    
+    /**
+     * @param string $value
+     * @return void
+     */
+    public function setGroundOnly($value)
+    {
+        $this->setField('GroundOnly', $value);    
+    }
+    
+    /**
+     * @param string $value
+     * @return void
+     */
+    public function setSortBy($value)
+    {
+        $this->setField('SortBy', $value);    
+    }
+    
+    /**
+     * @param string $value
+     * @return void
+     */
+    public function setMachinable($value)
+    {
+        $this->setField('Machinable', $value);    
     }
     
     /**
