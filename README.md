@@ -10,4 +10,42 @@
     process, and are protected by trade secret or copyright law.
     Dissemination of this information or reproduction of this material
     is strictly forbidden unless prior written permission is obtained.
+
+### Address Example
+
+There are multiple ways to create an Address object.
+
+```php
+$address1 = new Address(['@ID' => 1, 'Address2' => '123 Fake St.', 'City' => 'Springfield', 'State' => 'CA', 'Zip4' => 90210]);
+
+$address2 = new Address();
+$address2->setID('1');
+$address2->setAddress2('123 Fake St.');
+$address2->setCity('Springfield');
+$address2->setState('CA');
+$address2->setZip4(90210);
+```
+
+Both methods can be used, and address objects can be updated or overridden on the fly using the 'set' methods.
  
+### AddressValidate Example
+
+```php
+use Multidimensional\Usps;
+
+$address = new Address(['@ID' => 1, 'Address2' => '123 Fake St.', 'City' => 'Springfield', 'State' => 'CA', 'Zip4' => 90210]);
+$addressValidate = new AddressValidate();
+$addressValidate->addAddress($address);
+
+$response = $addressValidate->validate();
+
+if (!$addressValidate->isError()) {
+
+	//do stuff
+
+} else {
+	
+	$addressValidate->getErrorMessage();
+
+}
+```

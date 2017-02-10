@@ -29,6 +29,8 @@ class IntlRate extends Usps
      */
     protected $packages = [];
     
+    protected $revision = 2;
+    
     public function __construct(array $config = [])
     {
         parent::__construct($config);
@@ -39,15 +41,18 @@ class IntlRate extends Usps
         return $this->request($this->apiClass);    
     }
     
-    public function addPackage(IntlRate\Package $package, $id = null)
+    public function addPackage(IntlRate\Package $package)
     {
-        
-        if (is_null($id)) {
-            $id = count($this->packages) + 1;
+        $this->packages[] = $package->toArray();
+    }
+    
+    public function setRevision($value)
+    {
+        if ($value == 2) {
+            $this->revision = '2';
+        } else {
+            $this->revision = null;    
         }
-        
-        $this->packages[$id] = array_merge(['@attributes' => ['ID' => $id]], $package->toArray());
-        
     }
     
 }

@@ -23,48 +23,48 @@ class Track extends Usps
      */
     private $apiClass = 'TrackV2';
     
-	/**
-	 * @var array
-	 */
+    /**
+     * @var array
+     */
     protected $trackingNumbers = [];
-	
-	public $fields = [
-		'TrackID' => [
-			'required' => true
-		],
-		'@ID' => [
-			'type' => 'string',
-			'required' => true
-		]
-	];
+    
+    public $fields = [
+        'TrackID' => [
+            'required' => true
+        ],
+        '@ID' => [
+            'type' => 'string',
+            'required' => true
+        ]
+    ];
     
     public function __construct(array $config = [])
     {
         parent::__construct($config);
     }
         
-	/**
-	 * @param string $string
-	 */
+    /**
+     * @param string $string
+     */
     public function addTrackingNumber($string)
     {
         $this->trackingNumbers[] = $string;
     }
-	
-	/**
-	 * @return array
-	 */
-	public function track()
-	{
-		return $this->request($this->apiClass);	
-	}
     
-	/**
-	 * @return array
-	 */
-	 public function toArray()
-	 {
-		return $this->trackingNumbers; 
-	 }
-	
+    /**
+     * @return array
+     */
+    public function track()
+    {
+        return $this->request($this->apiClass);    
+    }
+    
+    /**
+     * @return array
+     */
+     public function toArray()
+     {
+        return $this->trackingNumbers; 
+     }
+    
 }

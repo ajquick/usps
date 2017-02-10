@@ -89,6 +89,11 @@ class AddressValidate extends Usps
      */
     public function validate()
     {
-        return $this->request($this->apiClass);
+        $xml = $this->buildXML($this->toArray());
+        if ($this->validateXML($xml, $this->apiClass)) {
+            return $this->request($this->apiClass);
+        }else{
+            return false;    
+        }
     }
 }

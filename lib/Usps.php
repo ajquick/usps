@@ -28,8 +28,11 @@ class Usps
     
     private $userId;
     private $password;
-    public $testMode = false;
     public $dom;
+    public $testMode = false;
+    protected $error = false;
+    protected $errorCode = null;
+    protected $errorMessage = null;
     
     private static $apiClasses = [
         'CityStateLookup' => 'CityStateLookupRequest',
@@ -87,11 +90,14 @@ class Usps
      * @param string $xml
      * @return string
      */
-    public function request($apiClass, $xml)
+    public function request($apiClass)
     {
     
         if (isset(self::$apiClasses[$apiClass]) || array_key_exists($apiClass, self::$apiClasses)) {
         } else {
+            $this->error = true;
+            $this->errorMessage = 'Invalid API Class';
+            $this->errorCode = '';
             return false;
         }
     
@@ -109,19 +115,58 @@ class Usps
         return $response->xml();
         
     }
-	
-	public function buildXML($array)
-	{
-		$array['@USERID'] = $this->userId;
-		return $this->dom->loadArray($array);	
-	}
-	
-	public function validateXML(DOMDocument $dom)
-	{
-		if	($dom->schemaValidate('filename')) {
-			return true;
-		} else {
-			return false;	
-		}
-	}
+    
+    protected function buildXML($array)
+    {
+        $array['@USERID'] = $this->userId;
+        return $this->dom->loadArray($array);    
+    }
+    
+    /**
+     * @param DOMDocument $dom
+     * @param string $apiClass
+     * @return bool
+     */
+    protected function validateXML(DOMDocument $dom, $apiClass)
+    {
+        $schemaPath = __DIR__ . '/../xsd/' . $this->apiClasses[$apiClass] . '.xsd';
+        if ($dom->schemaValidate($schemaPath)) {
+            return true;
+        } else {
+            $this->error = true;
+            $this->errorMessage = '';
+            $this->errorCode = '';
+            
+            return false;
+        }
+    }
+    
+    /**
+     * @return bool
+     */
+    public function isError()
+    {
+        if ($this->error) {
+            return true;
+        }else{
+            return false;    
+        }
+    }
+    
+    /**
+     * @return null|string
+     */
+    public function getErrorMessage()
+    {
+        return $this->errorMessage;
+    }
+    
+    /**
+     * @return null|string
+     */
+    public function getErrorCode()
+    {
+        return $this->errorCode;    
+    }
+    
 }

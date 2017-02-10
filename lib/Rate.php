@@ -30,7 +30,7 @@ class Rate extends Usps
      */
     protected $packages = [];
     
-    private $revision = 2;
+    protected $revision = 2;
 
     public function __construct(array $config = [])
     {
