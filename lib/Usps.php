@@ -140,6 +140,18 @@ class Usps
             return false;
         }
     }
+
+    /**
+     * @return bool
+     */
+    public function isSuccess()
+    {
+        if ($this->error) {
+            return false;
+        }else{
+            return true;    
+        }
+    }
     
     /**
      * @return bool

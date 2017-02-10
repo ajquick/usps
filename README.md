@@ -16,6 +16,7 @@
 There are multiple ways to create an Address object.
 
 ```php
+//Method 1
 $address1 = new Address([
     '@ID' => 1,
     'Address2' => '123 Fake St.',
@@ -24,7 +25,9 @@ $address1 = new Address([
     'Zip4' => 90210
 ]);
 
+//Method 2
 $address2 = new Address();
+
 $address2->setID('1');
 $address2->setAddress2('123 Fake St.');
 $address2->setCity('Springfield');
@@ -51,7 +54,7 @@ $addressValidate->addAddress($address);
 
 $response = $addressValidate->validate();
 
-if (!$addressValidate->isError()) {
+if ($addressValidate->isSuccess()) {
 
     //do stuff
 
