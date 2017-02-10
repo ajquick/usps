@@ -83,10 +83,10 @@ class Address
     public function __construct(array $config = [])
     {
         if (is_array($config)) {
-			foreach ($config AS $key => $value) {
-				$this->setField($key, $value);
-			}
-		}
+            foreach ($config AS $key => $value) {
+                $this->setField($key, $value);
+            }
+        }
         $this->address += array_combine(array_keys($this->fields), array_fill(0, count($this->fields), null));
     }
     
@@ -110,85 +110,85 @@ class Address
     {
         return $this->address;
     }
-	
-	/**
-	 * @param string $value
-	 * @return void
-	 */
-	public function setID($value)
-	{
-		$this->setField('@ID', $value);	
-	}
+    
+    /**
+     * @param string $value
+     * @return void
+     */
+    public function setID($value)
+    {
+        $this->setField('@ID', $value);    
+    }
 
-	/**
-	 * @param string $value
-	 * @return void
-	 */
-	public function setFirmName($value)
-	{
-		$this->setField('FirmName', $value);	
-	}
-	
-	/**
-	 * @param string $value
-	 * @return void
-	 */	
-	public function setAddress1($value)
-	{
-		$this->setField('Address1', $value);	
-	}
-	
-	/**
-	 * @param string $value
-	 * @return void
-	 */	
-	public function setAddress2($value)
-	{
-		$this->setField('Address2', $value);	
-	}
+    /**
+     * @param string $value
+     * @return void
+     */
+    public function setFirmName($value)
+    {
+        $this->setField('FirmName', $value);    
+    }
+    
+    /**
+     * @param string $value
+     * @return void
+     */    
+    public function setAddress1($value)
+    {
+        $this->setField('Address1', $value);    
+    }
+    
+    /**
+     * @param string $value
+     * @return void
+     */    
+    public function setAddress2($value)
+    {
+        $this->setField('Address2', $value);    
+    }
 
-	/**
-	 * @param string $value
-	 * @return void
-	 */    
-	public function setCity($value)
-	{
-		$this->setField('City', $value);	
-	}
+    /**
+     * @param string $value
+     * @return void
+     */    
+    public function setCity($value)
+    {
+        $this->setField('City', $value);    
+    }
 
-	/**
-	 * @param string $value
-	 * @return void
-	 */    
-	public function setState($value)
-	{
-		$this->setField('State', $value);	
-	}
+    /**
+     * @param string $value
+     * @return void
+     */    
+    public function setState($value)
+    {
+        $this->setField('State', $value);    
+    }
 
-	/**
-	 * @param string $value
-	 * @return void
-	 */	
-	public function setUrbanization($value)
-	{
-		$this->setField('Urbanization', $value);	
-	}
+    /**
+     * @param string $value
+     * @return void
+     */    
+    public function setUrbanization($value)
+    {
+        $this->setField('Urbanization', $value);    
+    }
 
-	/**
-	 * @param int $value
-	 * @return void
-	 */	
-	public function setZip5($value)
-	{
-		$this->setField('Zip5', $value);	
-	}
+    /**
+     * @param int $value
+     * @return void
+     */    
+    public function setZip5($value)
+    {
+        $this->setField('Zip5', $value);    
+    }
 
-	/**
-	 * @param int $value
-	 * @return void
-	 */	
-	public function setZip4($value)
-	{
-		$this->setField('Zip4', $value);	
-	}
+    /**
+     * @param int $value
+     * @return void
+     */    
+    public function setZip4($value)
+    {
+        $this->setField('Zip4', $value);    
+    }
 }

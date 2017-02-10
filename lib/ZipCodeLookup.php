@@ -32,18 +32,18 @@ class ZipCodeLookup extends Usps
         parent::__construct($config);
     }
     
-	/**
-	 * @param Address $address
-	 * @return true|false
-	 */
+    /**
+     * @param Address $address
+     * @return true|false
+     */
     public function addAddress(Address $address)
     {
-		if (count($this->addresses) < 5) {
-			$this->addresses[] = $address->toArray();   
-			return true;
-		} else {
-			return false;	
-		}
+        if (count($this->addresses) < 5) {
+            $this->addresses[] = $address->toArray();   
+            return true;
+        } else {
+            return false;    
+        }
     }
     
     /**
