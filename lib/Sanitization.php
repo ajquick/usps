@@ -9,14 +9,13 @@
  *
  * © 2017 Multidimension.al - All Rights Reserved
  * 
- * NOTICE:  All information contained herein is, and remains
- * the property of Multidimension.al and its suppliers,
- * if any.  The intellectual and technical concepts contained
- * herein are proprietary to Multidimension.al and its suppliers
- * and may be covered by U.S. and Foreign Patents, patents in
- * process, and are protected by trade secret or copyright law.
- * Dissemination of this information or reproduction of this material
- * is strictly forbidden unless prior written permission is obtained.
+ * NOTICE:  All information contained herein is, and remains the property of
+ * Multidimension.al and its suppliers, if any.  The intellectual and
+ * technical concepts contained herein are proprietary to Multidimension.al
+ * and its suppliers and may be covered by U.S. and Foreign Patents, patents in
+ * process, and are protected by trade secret or copyright law. Dissemination
+ * of this information or reproduction of this material is strictly forbidden
+ * unless prior written permission is obtained.
  */
 
 namespace Multidimensional\Usps;
@@ -45,16 +44,16 @@ class Sanitization
      */
     public function sanitize($array, $rules)
     {
-        $new_array = [];
+        $newArray = [];
         if (count($array)) {
             foreach ($array AS $key => $value) {    
                 if (in_array($key, array_keys($rules))) {
-                    $new_array[$key] = $this->sanitizeField($key, $value, $rules[$key]);
+                    $newArray[$key] = $this->sanitizeField($key, $value, $rules[$key]);
                 }
             }
         }
         
-        return $new_array;
+        return $newArray;
     }
     
     /**
@@ -64,15 +63,18 @@ class Sanitization
      */
     public function sanitizeField($key, $value, $rules)
     {
+        if (is_array($value)) {    
+            return $this->sanitize($value, $rules);    
+        }
+                    
         if (isset($rules['type']) && in_array($rules['type'], $this->typeArray)) {
-            $value = $this->{_sanitize.ucwords($rules['type'])}($value);            
-        } else if (isset($rules['type'])) {
-            //Function for 'object' types    
+            $value = $this->{sanitize.ucwords($rules['type'])}($value);            
         }
         
         if (isset($rules['pattern'])) {
-            //preg_replace
+            $value = preg_replace("/[^" . $rules['pattern'] . "]/", "", $value);
         }
+        
         
         return $value;
     }
@@ -81,7 +83,7 @@ class Sanitization
      * @param string|int $value
      * @return int
      */
-    private function _sanitizeInteger($value)
+    private function sanitizeInteger($value)
     {
         return filter_var($value, FILTER_SANITIZE_NUMBER_INT);
     }
@@ -90,7 +92,7 @@ class Sanitization
      * @param string $value
      * @return string
      */
-    private function _sanitizeString($value)
+    private function sanitizeString($value)
     {
         return filter_var($value, FILTER_SANITIZE_STRING);
     }
@@ -99,7 +101,7 @@ class Sanitization
      * @param string|float $value
      * @return float
      */
-    private function _sanitizeDecimal($value)
+    private function sanitizeDecimal($value)
     {
         return filter_var($value, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
     }
@@ -108,7 +110,7 @@ class Sanitization
      * @param string|bool $value
      * @return true|false|null
      */
-    private function _sanitizeBoolean($value)
+    private function sanitizeBoolean($value)
     {
         return filter_var($value, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
     }
