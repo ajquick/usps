@@ -3,7 +3,7 @@
   <xs:element name="RateV4Request">
     <xs:complexType>
       <xs:sequence>
-        <xs:element name="Revision" type="xs:int" />
+        <xs:element name="Revision" minOccurs="0" type="xs:int" />
         <xs:element name="Package" maxOccurs="25">
           <xs:complexType>
             <xs:sequence>
