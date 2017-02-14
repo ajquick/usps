@@ -22,8 +22,8 @@ namespace Multidimensional\Usps;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Request;
-use Multidimensional\DomArray;
-use Multidimensional\XmlArray;
+use Multidimensional\DomArray\DOMArray;
+use Multidimensional\XmlArray\XMLArray;
 
 class Usps
 {
