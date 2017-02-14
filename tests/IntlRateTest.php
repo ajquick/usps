@@ -21,7 +21,7 @@
 namespace Multidimensional\Usps\Test;
 
 use Multidimensional\Usps\IntlRate;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
 class IntlRateTest extends TestCase
 {    

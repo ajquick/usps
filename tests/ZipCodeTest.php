@@ -21,7 +21,7 @@
 namespace Multidimensional\Usps\Test;
 
 use Multidimensional\Usps\ZipCode;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
 class ZipCodeTest extends TestCase
 {

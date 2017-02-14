@@ -21,7 +21,7 @@
 namespace Multidimensional\Usps\Test;
 
 use Multidimensional\Usps;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
 class UspsTest extends TestCase
 {
