@@ -102,7 +102,7 @@ class Address
      public function setField($key, $value) 
      { 
         if (in_array($key, array_keys($this->fields))) {
-            $value = Sanitization->sanitizeField($key, $value, $this->fields[$key]);
+            $value = (new Sanitization)->sanitizeField($key, $value, $this->fields[$key]);
             $this->address[$key] = $value;
         }
      }
