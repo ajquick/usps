@@ -28,11 +28,11 @@ class RateTest extends TestCase
     public function testRevison()
     {
         $rate = new Rate();
-        $this->assertEqual($rate->revision, 2);
+        $this->assertEquals($rate->revision, 2);
         $rate->setRevision(1);
         $this->assertNull($rate->revision);
         $rate->setRevision(2);
-        $this->assertEqual($rate->revision, 2);
+        $this->assertEquals($rate->revision, 2);
         $rate->setRevision(true);
         $this->assertNull($rate->revision);
         $rate->setRevision(false);

@@ -28,11 +28,11 @@ class IntlRateTest extends TestCase
     public function testRevison()
     {
         $intlRate = new IntlRate();
-        $this->assertEqual($intlRate->revision, 2);
+        $this->assertEquals($intlRate->revision, 2);
         $intlRate->setRevision(1);
         $this->assertNull($intlRate->revision);
         $intlRate->setRevision(2);
-        $this->assertEqual($intlRate->revision, 2);
+        $this->assertEquals($intlRate->revision, 2);
         $intlRate->setRevision(true);
         $this->assertNull($intlRate->revision);
         $intlRate->setRevision(false);
