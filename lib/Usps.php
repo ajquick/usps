@@ -1,17 +1,21 @@
 <?php
-/**
+/**    __  ___      ____  _     ___                           _                    __
+ *    /  |/  /_  __/ / /_(_)___/ (_)___ ___  ___  ____  _____(_)___  ____   ____ _/ /
+ *   / /|_/ / / / / / __/ / __  / / __ `__ \/ _ \/ __ \/ ___/ / __ \/ __ \ / __ `/ / 
+ *  / /  / / /_/ / / /_/ / /_/ / / / / / / /  __/ / / (__  ) / /_/ / / / // /_/ / /  
+ * /_/  /_/\__,_/_/\__/_/\__,_/_/_/ /_/ /_/\___/_/ /_/____/_/\____/_/ /_(_)__,_/_/   
+ *                                                                                  
  * CONFIDENTIAL
  *
  * © 2017 Multidimension.al - All Rights Reserved
  * 
- * NOTICE:  All information contained herein is, and remains
- * the property of Multidimension.al and its suppliers,
- * if any.  The intellectual and technical concepts contained
- * herein are proprietary to Multidimension.al and its suppliers
- * and may be covered by U.S. and Foreign Patents, patents in
- * process, and are protected by trade secret or copyright law.
- * Dissemination of this information or reproduction of this material
- * is strictly forbidden unless prior written permission is obtained.
+ * NOTICE:  All information contained herein is, and remains the property of
+ * Multidimension.al and its suppliers, if any.  The intellectual and
+ * technical concepts contained herein are proprietary to Multidimension.al
+ * and its suppliers and may be covered by U.S. and Foreign Patents, patents in
+ * process, and are protected by trade secret or copyright law. Dissemination
+ * of this information or reproduction of this material is strictly forbidden
+ * unless prior written permission is obtained.
  */
 
 namespace Multidimensional\Usps;
@@ -36,7 +40,7 @@ class Usps
     
     private static $apiClasses = [
         'CityStateLookup' => 'CityStateLookupRequest',
-        'IntlRateV2'      => 'IntlRateV2Request'
+        'IntlRateV2'      => 'IntlRateV2Request',
         'RateV4'          => 'RateV4Request',
         'TrackV2'         => 'TrackFieldRequest',
         'Verify'          => 'AddressValidateRequest',
@@ -129,13 +133,20 @@ class Usps
      */
     protected function validateXML(DOMDocument $dom, $apiClass)
     {
+        libxml_use_internal_errors(true);
+        
         $schemaPath = __DIR__ . '/../xsd/' . $this->apiClasses[$apiClass] . '.xsd';
+        
         if ($dom->schemaValidate($schemaPath)) {
             return true;
         } else {
+            $error = libxml_get_errors();
+            
             $this->error = true;
-            $this->errorMessage = '';
-            $this->errorCode = '';
+            $this->errorMessage = trim($error->message);
+            $this->errorCode = $error->code;
+            
+            libxml_clear_errors();
             
             return false;
         }
