@@ -33,7 +33,7 @@ class IntlRate extends Usps
      */
     protected $packages = [];
     
-    protected $revision = 2;
+    public $revision = 2;
     
     public function __construct(array $config = [])
     {

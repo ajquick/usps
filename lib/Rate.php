@@ -34,7 +34,7 @@ class Rate extends Usps
      */
     protected $packages = [];
     
-    protected $revision = 2;
+    public $revision = 2;
     
     public $fields = [
         'Revison' => [
