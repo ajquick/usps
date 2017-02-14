@@ -9,7 +9,8 @@
     "require": {
         "php": ">=5.5",
         "guzzlehttp/guzzle": "~6.0",
-        "multidimensional/dom-array": "*"
+        "multidimensional/dom-array": "*",
+        "multidimensional/xml-array": "*"
     },
     "require-dev": {
         "phpunit/phpunit": "*"
@@ -21,7 +22,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Multidimensional\\Usps\\Test": "tests"
+            "Multidimensional\\Usps\\Test\\": "tests"
         }
     }
 }
