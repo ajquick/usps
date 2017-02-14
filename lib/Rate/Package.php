@@ -184,11 +184,11 @@ class Package extends Rate
         ],
         'SpecialServices' => [
             'type' => 'SpecialServices',
-            'fields' => (new SpecialServices)->fields
+            'fields' => SpecialServices->fields
         ],
         'Content' => [
             'type' => 'Content',
-            'fields' => (new Content)->fields
+            'fields' => Content->fields
         ],
         'GroundOnly' => [
             'type' => 'boolean',
