@@ -41,9 +41,6 @@ class IntlRateTest extends TestCase
         $this->assertNull($intlRate->revision);
         unset($intlRate);        
         $intlRate = new IntlRate(['revision' => 1]);
-        $this->assertNull($intlRate->revision);
-        
-    }    
+        $this->assertNull($intlRate->revision);   
     }
-    
 }
