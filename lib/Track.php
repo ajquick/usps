@@ -32,7 +32,7 @@ class Track extends Usps
      */
     protected $trackingNumbers = [];
     
-    public $fields = [
+    public static $fields = [
         'TrackID' => [
             'required' => true
         ],

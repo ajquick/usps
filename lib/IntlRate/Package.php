@@ -46,7 +46,7 @@ class Package extends IntlRate
     const SIZE_LARGE                    = 'LARGE';
     const SIZE_REGULAR                  = 'REGULAR';
 
-    public $fields = [
+    public static $fields = [
         '@ID' => [
             'type' => 'string'
         ],

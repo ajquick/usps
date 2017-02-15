@@ -25,7 +25,7 @@ class ZipCode
 
     protected $zipCode = [];
 
-    public $fields = [
+    public static $fields = [
         '@ID' => [
             'type' => 'integer',
             'required' => true
@@ -54,9 +54,9 @@ class ZipCode
      */
     public function setField($key, $value)
     {
-        if(isset($this->fields[$key]) || array_key_exists($key, $this->fields)){
+        if(isset(self::$fields[$key]) || array_key_exists($key, self::$fields)){
             
-            if (Validation->validateField($key, $value, $this->fields[$key])) {
+            if (Validation->validateField($key, $value, self::$fields[$key])) {
                 $this->zipCode[$key] = $value;
             }
         }    

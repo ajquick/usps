@@ -33,7 +33,7 @@ class AddressValidate extends Usps
     private $includeOptionalElements = false;
     private $returnCarrierRoute = false;
     
-    public $fields = [
+    public static $fields = [
         'IncludeOptionalElements' => [
             'type' => 'boolean'
         ],
@@ -42,7 +42,7 @@ class AddressValidate extends Usps
         ],
         'Address' => [
             'type' => 'Address',
-            'fields' => (new Address)->fields;
+            'fields' => Address::$fields;
         ]
     ];
     

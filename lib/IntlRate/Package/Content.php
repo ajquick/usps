@@ -34,7 +34,7 @@ class Content extends Package
     const CONTENT_TYPE_MEDICAL_SUPPLIES = 'MedicalSupplies';
     const CONTENT_TYPE_DOCUMENTS = 'Documents';
     
-    public $fields = [
+    public static $fields = [
         'ContentType' => [
             'type' => 'string',
             'required' => true,

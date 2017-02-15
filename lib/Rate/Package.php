@@ -94,7 +94,7 @@ class Package extends Rate
     /**
      * @var array $fields
      */
-    public $fields = [
+    public static $fields = [
         '@ID' => [
             'type' => 'string'
         ],
@@ -184,11 +184,11 @@ class Package extends Rate
         ],
         'SpecialServices' => [
             'type' => 'SpecialServices',
-            'fields' => SpecialServices->fields
+            'fields' => SpecialServices::$fields
         ],
         'Content' => [
             'type' => 'Content',
-            'fields' => Content->fields
+            'fields' => Content::$fields
         ],
         'GroundOnly' => [
             'type' => 'boolean',
@@ -269,8 +269,8 @@ class Package extends Rate
      */
      public function setField($key, $value) 
      { 
-        if (in_array($key, array_keys($this->fields))) {
-            $value = Sanitization->sanitizeField($key, $value, $this->fields[$key]);
+        if (in_array($key, array_keys(self::$fields))) {
+            $value = Sanitization->sanitizeField($key, $value, self::$fields[$key]);
             $this->address[$key] = $value;
         }
      }

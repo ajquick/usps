@@ -36,13 +36,13 @@ class Rate extends Usps
     
     public $revision = 2;
     
-    public $fields = [
+    public static $fields = [
         'Revison' => [
             'type' => 'integer'
         ],
         'Package' => [
             'type' => 'Package',
-            'fields' => (new Package)->fields;
+            'fields' => Package::$fields;
         ]
     ];
 

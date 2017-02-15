@@ -40,7 +40,7 @@ class Content extends Package
     const CONTENT_DESCRIPTION_ADULTBIRDS = 'ADULTBIRDS';
     const CONTENT_DESCRIPTION_OTHER = 'OTHER';
 
-    public $fields = [
+    public static $fields = [
         'ContentType' => [
             'type' => 'string',
             'pattern' => CONTENT_TYPE_HAZMAT.'|'.CONTENT_TYPE_CREMATEDREMAINS.'|'.CONTENT_TYPE_LIVES
