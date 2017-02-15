@@ -82,7 +82,7 @@ class Package extends IntlRate
         'Container' => [
             'type' => 'string',
             'required' => true,
-            'pattern' => (self::CONTAINER_RECTANGULAR . '|' . self::CONTAINER_NONRECTANGULAR)
+            'pattern' => self::CONTAINER_RECTANGULAR . '|' . self::CONTAINER_NONRECTANGULAR
         ],
         'Size' => [
             'type' => 'string',

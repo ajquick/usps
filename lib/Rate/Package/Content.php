@@ -43,12 +43,12 @@ class Content extends Package
     public static $fields = [
         'ContentType' => [
             'type' => 'string',
-            'pattern' => (self::CONTENT_TYPE_HAZMAT . '|' . self::CONTENT_TYPE_CREMATEDREMAINS . '|' . self::CONTENT_TYPE_LIVES)
+            'pattern' => self::CONTENT_TYPE_HAZMAT . '|' . self::CONTENT_TYPE_CREMATEDREMAINS . '|' . self::CONTENT_TYPE_LIVES
         ],
         'ContentDescription' => [
             'type' => 'string',
             'required' => ['ContentType' => self::CONTENT_TYPE_LIVES],
-            'pattern' => (self::CONTENT_DESCRIPTION_BEES . '|' . self::CONTENT_DESCRIPTION_DAYOLDPOULTRY . '|' . self::CONTENT_DESCRIPTION_ADULTBIRDS . '|' . self::CONTENT_DESCRIPTION_OTHER)
+            'pattern' => self::CONTENT_DESCRIPTION_BEES . '|' . self::CONTENT_DESCRIPTION_DAYOLDPOULTRY . '|' . self::CONTENT_DESCRIPTION_ADULTBIRDS . '|' . self::CONTENT_DESCRIPTION_OTHER
         ]
     ];
     
