@@ -138,7 +138,7 @@ class Package extends Rate
         'Size' => [
             'type' => 'string',
             'required' => true,
-            'pattern' => self::SIZE_REGULAR . '|' . self::SIZE_LARGE
+            'pattern' => (self::SIZE_REGULAR . '|' . self::SIZE_LARGE)
         ],
         'Width' => [
             'type' => 'decimal',
