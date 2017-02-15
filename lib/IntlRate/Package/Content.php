@@ -38,7 +38,7 @@ class Content extends Package
         'ContentType' => [
             'type' => 'string',
             'required' => true,
-            'pattern' => CONTENT_TYPE_CREMATED_REMAINS . '|' . CONTENT_TYPE_NONNEGOTIABLE_DOCUMENT . '|' .  CONTENT_TYPE_PHARMACEUTICALS . '|' . CONTENT_TYPE_MEDICAL_SUPPLIES . '|' . CONTENT_TYPE_DOCUMENTS
+            'pattern' => self::CONTENT_TYPE_CREMATED_REMAINS . '|' . self::CONTENT_TYPE_NONNEGOTIABLE_DOCUMENT . '|' .  self::CONTENT_TYPE_PHARMACEUTICALS . '|' . self::CONTENT_TYPE_MEDICAL_SUPPLIES . '|' . self::CONTENT_TYPE_DOCUMENTS
         ],
         'ContentDescription' => [
             'type' => 'string'

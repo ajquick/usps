@@ -108,9 +108,9 @@ class Usps
         $client = new Client();
         
         if ($this->testMode === true) {
-            $requestUri = TESTING_URI . '?API=' . $apiClass;
+            $requestUri = self::TESTING_URI . '?API=' . $apiClass;
         } else {
-            $requestUri = PRODUCTION_URI . '?API=' . $apiClass;
+            $requestUri = self::PRODUCTION_URI . '?API=' . $apiClass;
         }
         
         $request = new Request('POST', $requestUri, ['Content-Type' => 'text/xml; charset=UTF8'], $xml);

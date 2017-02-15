@@ -105,9 +105,9 @@ class Package extends Rate
         'FirstClassMailType' => [
             'type' => 'string',
             'required' => [
-                'Service' => SERVICE_FIRST_CLASS,
-                'Service' => SERVICE_FIRST_CLASS_COMMERCIAL,
-                'Service' => SERVICE_FIRST_CLASS_HFP_COMMERCIAL
+                'Service' => self::SERVICE_FIRST_CLASS,
+                'Service' => self::SERVICE_FIRST_CLASS_COMMERCIAL,
+                'Service' => self::SERVICE_FIRST_CLASS_HFP_COMMERCIAL
             ]
         ],
         'ZipOrigination' => [
@@ -133,43 +133,43 @@ class Package extends Rate
         'Container' => [
             'type' => 'string',
             'required' => true,
-            'default' => 'VARIABLE'
+            'default' => self::CONTAINER_VARIABLE
         ],
         'Size' => [
             'type' => 'string',
             'required' => true,
-            'pattern' => 'REGULAR|LARGE'
+            'pattern' => self::SIZE_REGULAR . '|' . self::SIZE_LARGE
         ],
         'Width' => [
             'type' => 'decimal',
             'required' => [
-                'Size' => SIZE_LARGE
+                'Size' => self::SIZE_LARGE
             ],
             'pattern' => 'd{0,10}'
         ],
         'Length' => [
             'type' => 'decimal',
             'required' => [
-                'Size' => SIZE_LARGE
+                'Size' => self::SIZE_LARGE
             ],
             'pattern' => 'd{0,10}'
         ],
         'Height' => [
             'type' => 'decimal',
             'required' => [
-                'Size' => SIZE_LARGE
+                'Size' => self::SIZE_LARGE
             ],
             'pattern' => 'd{0,10}'],
         'Girth' => [
             'type' => 'decimal',
             'required' => [
                 [
-                    'Size' => SIZE_LARGE,
-                    'Container' => CONTAINER_VARIABLE
+                    'Size' => self::SIZE_LARGE,
+                    'Container' => self::CONTAINER_VARIABLE
                 ],
                 [
-                    'Size' => SIZE_LARGE,
-                    'Container' => CONTAINER_NONRECTANGULAR
+                    'Size' => self::SIZE_LARGE,
+                    'Container' => self::CONTAINER_NONRECTANGULAR
                 ]
             ],
             'pattern' => 'd{0,10}'
@@ -202,43 +202,43 @@ class Package extends Rate
             'required' => [
                 [
                     [
-                        'Service' => SERVICE_FIRST_CLASS,
-                        'FirstClassMailType' => FIRST_CLASS_MAIL_TYPE_LETTER
+                        'Service' => self::SERVICE_FIRST_CLASS,
+                        'FirstClassMailType' => self::FIRST_CLASS_MAIL_TYPE_LETTER
                     ],
                 ],
                 [
                     [
-                        'Service' => SERVICE_FIRST_CLASS,
-                        'FirstClassMailType' => FIRST_CLASS_MAIL_TYPE_FLAT
+                        'Service' => self::SERVICE_FIRST_CLASS,
+                        'FirstClassMailType' => self::FIRST_CLASS_MAIL_TYPE_FLAT
                     ]
                 ],
                 [
                     [
-                        'Service' => SERVICE_FIRST_CLASS_COMMERCIAL,
-                        'FirstClassMailType' => FIRST_CLASS_MAIL_TYPE_LETTER
+                        'Service' => self::SERVICE_FIRST_CLASS_COMMERCIAL,
+                        'FirstClassMailType' => self::FIRST_CLASS_MAIL_TYPE_LETTER
                     ]
                 ],
                 [
                     [
-                        'Service' => SERVICE_FIRST_CLASS_COMMERCIAL,
-                        'FirstClassMailType' => FIRST_CLASS_MAIL_TYPE_FLAT
+                        'Service' => self::SERVICE_FIRST_CLASS_COMMERCIAL,
+                        'FirstClassMailType' => self::FIRST_CLASS_MAIL_TYPE_FLAT
                     ]
                 ],
                 [
                     [
-                        'Service' => SERVICE_FIRST_CLASS_HFP_COMMERCIAL,
-                        'FirstClassMailType' => FIRST_CLASS_MAIL_TYPE_LETTER
+                        'Service' => self::SERVICE_FIRST_CLASS_HFP_COMMERCIAL,
+                        'FirstClassMailType' => self::FIRST_CLASS_MAIL_TYPE_LETTER
                     ]
                 ],
                 [
                     [
-                        'Service' => SERVICE_FIRST_CLASS_HFP_COMMERCIAL,
-                        'FirstClassMailType' => FIRST_CLASS_MAIL_TYPE_FLAT
+                        'Service' => self::SERVICE_FIRST_CLASS_HFP_COMMERCIAL,
+                        'FirstClassMailType' => self::FIRST_CLASS_MAIL_TYPE_FLAT
                     ]
                 ],
-                ['Service' => SERVICE_ALL],
-                ['Service' => SERVICE_ONLINE],
-                ['Service' => SERVICE_GROUND]
+                ['Service' => self::SERVICE_ALL],
+                ['Service' => self::SERVICE_ONLINE],
+                ['Service' => self::SERVICE_GROUND]
              ],
         'ReturnLocations' => [
             'type' => 'boolean',

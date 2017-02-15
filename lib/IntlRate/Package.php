@@ -82,7 +82,7 @@ class Package extends IntlRate
         'Container' => [
             'type' => 'string',
             'required' => true,
-            'pattern' => CONTAINER_RECTANGULAR . '|' . CONTAINER_NONRECTANGULAR
+            'pattern' => self::CONTAINER_RECTANGULAR . '|' . self::CONTAINER_NONRECTANGULAR
         ],
         'Size' => [
             'type' => 'string',
@@ -91,27 +91,27 @@ class Package extends IntlRate
         'Width' => [
             'type' => 'integer',
             'required' => [
-                'Size' => SIZE_LARGE
+                'Size' => self::SIZE_LARGE
             ]
         ],
         'Length' => [
             'type' => 'integer',
             'required' => [
-                'Size' => SIZE_LARGE
+                'Size' => self::SIZE_LARGE
             ]
         ],
         'Height' => [
             'type' => 'integer',
             'required' => [
-                'Size' => SIZE_LARGE
+                'Size' => self::SIZE_LARGE
             ]
         ],
         'Girth' => [
             'type' => 'integer',
             'required' => [
                 [
-                    'Size' => SIZE_LARGE,
-                    'Container' => CONTAINER_NONRECTANGULAR
+                    'Size' => self::SIZE_LARGE,
+                    'Container' => self::CONTAINER_NONRECTANGULAR
                 ]
             ]
         ],
@@ -131,7 +131,8 @@ class Package extends IntlRate
             'pattern' => 'Y|N'
         ],
         'ExtraServices' => [
-            'type' => 'ExtraServices'
+            'type' => 'ExtraServices',
+			'fields' => ExtraServices::fields
         ],
         'AcceptanceDataTime' => [
             'type' => 'DateTime',
@@ -141,7 +142,8 @@ class Package extends IntlRate
             'type' => 'string'
         ],
         'Content' => [
-            'type' => 'Content'
+            'type' => 'Content',
+			'fields' => Content::fields
         ]
     ];
 
