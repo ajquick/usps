@@ -58,7 +58,7 @@ class Sanitization
             return self::sanitize($value, $rules);    
         }
                     
-        if (isset($rules['type']) && in_array($rules['type'], self::typeArray)) {
+        if (isset($rules['type']) && in_array($rules['type'], self::$typeArray)) {
             $value = self::{sanitize.ucwords($rules['type'])}($value);            
         }
         

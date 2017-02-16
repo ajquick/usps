@@ -44,10 +44,6 @@ class PackageTest extends TestCase
         $package->setAmountToCollect();
         $package->setGroundOnly();
         $package->setSortBy();
-        $package->setMachinable();
-        
-        
-        
+        $package->setMachinable();      
     }
-    
 }
