@@ -22,7 +22,7 @@ namespace Multidimensional\Usps\Rate\Package;
 
 use Multidimensional\Usps\Rate\Package;
 
-class SpecialServices extends Package
+class SpecialServices
 {
     
     public static $fields = [

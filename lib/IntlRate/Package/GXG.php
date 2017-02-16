@@ -22,7 +22,7 @@ namespace Multidimensional\Usps\IntlRate\Package;
 
 use Multidimensional\Usps\IntlRate\Package;
 
-class GXG extends Package
+class GXG
 {
     
     public static $fields = [

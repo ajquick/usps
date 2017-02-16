@@ -22,7 +22,7 @@ namespace Multidimensional\Usps\Rate\Package;
 
 use Multidimensional\Usps\Rate\Package;
 
-class Content extends Package
+class Content
 {
     
     /**

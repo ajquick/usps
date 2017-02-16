@@ -23,7 +23,7 @@ namespace Multidimensional\Usps\Rate;
 use Multidimensional\Usps\Rate\Package\Content;
 use Multidimensional\Usps\Rate\Package\SpecialServices;
 
-class Package extends Rate
+class Package
 {
     /**
      * @var array

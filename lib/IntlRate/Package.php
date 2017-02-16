@@ -20,7 +20,7 @@
 
 namespace Multidimensional\Usps\IntlRate;
 
-class Package extends IntlRate
+class Package
 {
 
     /**
