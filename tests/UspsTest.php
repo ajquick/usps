@@ -20,7 +20,7 @@
 
 namespace Multidimensional\Usps\Test;
 
-use Multidimensional\Usps;
+use Multidimensional\Usps\USPS;
 use PHPUnit\Framework\TestCase;
 
 class USPSTest extends TestCase
