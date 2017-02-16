@@ -22,7 +22,7 @@ namespace Multidimensional\Usps;
 
 use Multidimensional\Usps\Rate\Package;
 
-class Rate extends USPS
+class Rate extends Usps
 {
     /**
      * @var string

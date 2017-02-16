@@ -20,7 +20,7 @@
 
 namespace Multidimensional\Usps;
 
-class Track extends USPS
+class Track extends Usps
 {
     /**
      * @var string
