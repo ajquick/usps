@@ -52,7 +52,7 @@ class IntlRate extends USPS
     
     public function setRevision($value)
     {
-        if ($value == 2) {
+        if ($value === 2 || $value === '2') {
             $this->revision = '2';
         } else {
             $this->revision = null;    
