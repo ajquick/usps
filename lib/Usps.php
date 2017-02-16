@@ -25,7 +25,7 @@ use GuzzleHttp\Psr7\Request;
 use Multidimensional\DomArray\DOMArray;
 use Multidimensional\XmlArray\XMLArray;
 
-class Usps
+class USPS
 {
     const PRODUCTION_URI = 'https://secure.shippingapis.com/ShippingAPI.dll';
     const TESTING_URI = 'https://secure.shippingapis.com/ShippingAPITest.dll';

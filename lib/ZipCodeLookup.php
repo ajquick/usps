@@ -22,7 +22,7 @@ namespace Multidimensional\Usps;
 
 use Multidimensional\Usps\ZipCode;
 
-class ZipCodeLookup extends Usps
+class ZipCodeLookup extends USPS
 {
     /**
      * @var string

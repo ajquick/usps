@@ -23,7 +23,7 @@ namespace Multidimensional\Usps;
 use Multidimensional\Usps\Address;
 use Multidimensional\XmlArray;
 
-class AddressValidate extends Usps
+class AddressValidate extends USPS
 {
     
     public $apiClass = 'Verify';

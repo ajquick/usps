@@ -23,13 +23,13 @@ namespace Multidimensional\Usps\Test;
 use Multidimensional\Usps;
 use PHPUnit\Framework\TestCase;
 
-class UspsTest extends TestCase
+class USPSTest extends TestCase
 {
 	public $usps;
 	
 	public function setUp()
 	{
-		$this->usps = new Usps();
+		$this->usps = new USPS();
 	}
 	
 	public function tearDown()
