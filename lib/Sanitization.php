@@ -22,12 +22,7 @@ namespace Multidimensional\Usps;
 
 class Sanitization
 {
-    
-    /**
-     * @var array $typeArray
-     */
-    private static $typeArray = ['integer', 'decimal', 'string', 'boolean'];
-    
+        
     /**
      * @param array $array
      * @param array $rules
@@ -57,10 +52,18 @@ class Sanitization
         if (is_array($value)) {    
             return self::sanitize($value, $rules);    
         }
-                    
-        if (isset($rules['type']) && in_array($rules['type'], self::$typeArray)) {
-            $value = self::{sanitize.ucwords($rules['type'])}($value);            
-        }
+        
+		if (isset($rules['type'])) {        
+			if ($rules['type'] == 'integer') {
+				$value = self::sanitizeInteger($value);     
+			} elseif ($rules['type'] == 'string') {
+				$value = self::sanitizeString($value);     
+			} elseif ($rules['type'] == 'decimal') {
+				$value = self::sanitizeDecimal($value);     
+			} elseif ($rules['type'] == 'boolean') {
+				$value = self::sanitizeBoolean($value);            
+			}
+		}
         
         if (isset($rules['pattern'])) {
 			
