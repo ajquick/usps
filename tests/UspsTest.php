@@ -25,19 +25,30 @@ use PHPUnit\Framework\TestCase;
 
 class UspsTest extends TestCase
 {
+	public $usps;
+	
+	public function setUp()
+	{
+		$this->usps = new Usps();
+	}
+	
+	public function tearDown()
+	{
+		unset($this->usps);	
+	}
     
     public function testSetTestMode()
     {
-        $this->assertTrue($this->Usps->setTestMode());
-        $this->assertTrue($this->Usps->setTestMode(true));
-        $this->assertFalse($this->Usps->setTestMode(false));    
+        $this->assertTrue($this->usps->setTestMode());
+        $this->assertTrue($this->usps->setTestMode(true));
+        $this->assertFalse($this->usps->setTestMode(false));    
     }
     
     public function testSetProductionMode()
     {
-        $this->assertTrue($this->Usps->setProductionMode());
-        $this->assertTrue($this->Usps->setProductionMode(true));
-        $this->assertFalse($this->Usps->setProductionMode(false));            
+        $this->assertTrue($this->usps->setProductionMode());
+        $this->assertTrue($this->usps->setProductionMode(true));
+        $this->assertFalse($this->usps->setProductionMode(false));            
     }
     
 }
