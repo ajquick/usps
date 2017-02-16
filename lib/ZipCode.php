@@ -34,7 +34,7 @@ class ZipCode
         ],
         'Zip5' => [
             'type' => 'integer',
-            'required' => true
+            'required' => true,
             'pattern' => 'd{5}'
         ]
     ];

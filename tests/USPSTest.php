@@ -25,17 +25,17 @@ use PHPUnit\Framework\TestCase;
 
 class USPSTest extends TestCase
 {
-	public $usps;
-	
-	public function setUp()
-	{
-		$this->usps = new USPS();
-	}
-	
-	public function tearDown()
-	{
-		unset($this->usps);	
-	}
+    public $usps;
+    
+    public function setUp()
+    {
+        $this->usps = new USPS();
+    }
+    
+    public function tearDown()
+    {
+        unset($this->usps);    
+    }
     
     public function testSetTestMode()
     {

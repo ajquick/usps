@@ -42,7 +42,7 @@ class Rate extends USPS
         ],
         'Package' => [
             'type' => 'Package',
-            'fields' => Package::$fields;
+            'fields' => Package::$fields
         ]
     ];
 

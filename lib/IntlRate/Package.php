@@ -132,7 +132,7 @@ class Package
         ],
         'ExtraServices' => [
             'type' => 'ExtraServices',
-			'fields' => ExtraServices::fields
+            'fields' => ExtraServices::fields
         ],
         'AcceptanceDataTime' => [
             'type' => 'DateTime',
@@ -143,7 +143,7 @@ class Package
         ],
         'Content' => [
             'type' => 'Content',
-			'fields' => Content::fields
+            'fields' => Content::fields
         ]
     ];
 
