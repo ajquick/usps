@@ -26,29 +26,20 @@ class Sanitization
     /**
      * @var array $typeArray
      */
-    public $typeArray = ['integer', 'decimal', 'string', 'boolean'];
-    
-    /**
-     * @param array $config
-     * @return void
-     */
-    public function __construct(array $config = []) 
-    {
-        
-    }
+    private static $typeArray = ['integer', 'decimal', 'string', 'boolean'];
     
     /**
      * @param array $array
      * @param array $rules
      * @return array
      */
-    public function sanitize($array, $rules)
+    public static function sanitize($array, $rules)
     {
         $newArray = [];
         if (count($array)) {
             foreach ($array AS $key => $value) {    
                 if (in_array($key, array_keys($rules))) {
-                    $newArray[$key] = $this->sanitizeField($key, $value, $rules[$key]);
+                    $newArray[$key] = self::sanitizeField($key, $value, $rules[$key]);
                 }
             }
         }
@@ -61,14 +52,14 @@ class Sanitization
      * @param string $value
      * @param array $rules
      */
-    public function sanitizeField($key, $value, $rules)
+    public static function sanitizeField($key, $value, $rules)
     {
         if (is_array($value)) {    
-            return $this->sanitize($value, $rules);    
+            return self::sanitize($value, $rules);    
         }
                     
-        if (isset($rules['type']) && in_array($rules['type'], $this->typeArray)) {
-            $value = $this->{sanitize.ucwords($rules['type'])}($value);            
+        if (isset($rules['type']) && in_array($rules['type'], self::typeArray)) {
+            $value = self::{sanitize.ucwords($rules['type'])}($value);            
         }
         
         if (isset($rules['pattern'])) {
@@ -88,7 +79,7 @@ class Sanitization
      * @param string|int $value
      * @return int
      */
-    private function sanitizeInteger($value)
+    private static function sanitizeInteger($value)
     {
         return filter_var($value, FILTER_SANITIZE_NUMBER_INT);
     }
@@ -97,7 +88,7 @@ class Sanitization
      * @param string $value
      * @return string
      */
-    private function sanitizeString($value)
+    private static function sanitizeString($value)
     {
         return filter_var($value, FILTER_SANITIZE_STRING);
     }
@@ -106,7 +97,7 @@ class Sanitization
      * @param string|float $value
      * @return float
      */
-    private function sanitizeDecimal($value)
+    private static function sanitizeDecimal($value)
     {
         return filter_var($value, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
     }
@@ -115,7 +106,7 @@ class Sanitization
      * @param string|bool $value
      * @return true|false|null
      */
-    private function sanitizeBoolean($value)
+    private static function sanitizeBoolean($value)
     {
         return filter_var($value, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
     }

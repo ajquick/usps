@@ -20,6 +20,8 @@
 
 namespace Multidimensional\Usps;
 
+use Multidimensional\Usps\Validation;
+
 class ZipCode
 {
 
@@ -56,7 +58,7 @@ class ZipCode
     {
         if(isset(self::$fields[$key]) || array_key_exists($key, self::$fields)){
             
-            if (Validation->validateField($key, $value, self::$fields[$key])) {
+            if (Validation::validateField($key, $value, self::$fields[$key])) {
                 $this->zipCode[$key] = $value;
             }
         }    

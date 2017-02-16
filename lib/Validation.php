@@ -22,24 +22,24 @@ namespace Multidimensional\Usps;
 
 class Validation
 {
-    public $error = false;
-    public $errorMessage = null;
+    public static $error = false;
+    public static $errorMessage = null;
     
     /**
      * @param array $array
      * @param array $rules
      * @return bool
      */  
-    public function validate($array, $rules)
+    public static function validate($array, $rules)
     {
         if (is_array($array)) {
             foreach ($array AS $key => $value) {    
-                if (!isset($rules[$key]) || $this->validateField($value, $rules[$key], $key) !== true) {
+                if (!isset($rules[$key]) || self::validateField($value, $rules[$key], $key) !== true) {
                     return false;
                 }            
             }
             
-            if (!$this->checkRequired($array, $rules)) {
+            if (!self::checkRequired($array, $rules)) {
                 return false;            
             }
         }
@@ -53,34 +53,34 @@ class Validation
      * @param array $rules
      * @return bool
      */
-    public function validateField($value, $rules, $key = null)
+    public static function validateField($value, $rules, $key = null)
     {
         if(is_array($value) && isset($rules['fields'])) {
-            return $this->validate($value, $rules['fields']);
+            return self::validate($value, $rules['fields']);
         } elseif (is_array($value)) {
-            $this->setError(sprintf("Unexpected array found for key %s.", $key));
+            self::setError(sprintf("Unexpected array found for key %s.", $key));
             return false;
         }
         
         if (isset($rules['type'])) {
             if ($rules['type'] === 'integer') {
                 if ($value != (int) $value) {
-                    $this->setError(sprintf("Invalid integer %s != %s for key %s.", $value, (int) $value, $key));
+                    self::setError(sprintf("Invalid integer %s != %s for key %s.", $value, (int) $value, $key));
                     return false;    
                 }
             } elseif ($rules['type'] === 'decimal') {
                 if ($value != (float) $value) {
-                    $this->setError(sprintf("Invalid decimal %s != %s for key %s.", $value, (float) $value, $key));
+                    self::setError(sprintf("Invalid decimal %s != %s for key %s.", $value, (float) $value, $key));
                     return false;    
                 }
             } elseif ($rules['type'] === 'string') {
                 if ($value != (string) $value) {
-                    $this->setError(sprintf("Invalid string %s != %s for key %s.", $value, (string) $value, $key));
+                    self::setError(sprintf("Invalid string %s != %s for key %s.", $value, (string) $value, $key));
                     return false;    
                 }
             } elseif ($rules['type'] === 'boolean') {
                 if ($value != (bool) $value) {
-                    $this->setError(sprintf("Invalid boolean %s != %s for key %s.", $value, (bool) $value, $key));
+                    self::setError(sprintf("Invalid boolean %s != %s for key %s.", $value, (bool) $value, $key));
                     return false;    
                 }
             }                
@@ -92,7 +92,7 @@ class Validation
 			}
 			
 			if (!preg_match('/^' . $rules['pattern'] . '$/', $value)) {
-                $this->setError(sprintf("Invalid value %s does not match pattern '%s' for key %s.", $value, $rules['pattern'], $key));
+                self::setError(sprintf("Invalid value %s does not match pattern '%s' for key %s.", $value, $rules['pattern'], $key));
                 return false;    
             }
         }
@@ -105,7 +105,7 @@ class Validation
      * @param array $rules
      * @return bool
      */
-    public function checkRequired($array, $rules) {
+    public static function checkRequired($array, $rules) {
         
         foreach ($rules AS $key => $value) {
             if (isset($value['required']) && !isset($array[$key])) {
@@ -147,9 +147,9 @@ class Validation
     /**
      * @return bool
      */
-    public function isSuccess()
+    public static function isSuccess()
     {
-        if ($this->error) {
+        if (self::error) {
             return false;
         }else{
             return true;    
@@ -159,27 +159,27 @@ class Validation
     /**
      * @return bool
      */
-    public function isError()
+    public static function isError()
     {
-        return (bool) $this->error;    
+        return (bool) self::error;    
     }
     
     /**
      * @return null|string
      */
-    public function getErrorMessage()
+    public static function getErrorMessage()
     {
-        return $this->errorMessage;
+        return self::errorMessage;
     }
     
     /**
      * @param string $message
      * @return void
      */
-    private function setError($message)
+    private static function setError($message)
     {
-        $this->error = true;
-        $this->errorMessage = $message;
+        self::error = true;
+        self::errorMessage = $message;
         return;
     }
 }

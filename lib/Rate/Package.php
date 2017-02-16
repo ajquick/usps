@@ -22,6 +22,7 @@ namespace Multidimensional\Usps\Rate;
 
 use Multidimensional\Usps\Rate\Package\Content;
 use Multidimensional\Usps\Rate\Package\SpecialServices;
+use Multidimensional\Usps\Sanitization;
 
 class Package
 {
@@ -270,7 +271,7 @@ class Package
      public function setField($key, $value) 
      { 
         if (in_array($key, array_keys(self::$fields))) {
-            $value = Sanitization->sanitizeField($key, $value, self::$fields[$key]);
+            $value = Sanitization::sanitizeField($key, $value, self::$fields[$key]);
             $this->address[$key] = $value;
         }
      }
