@@ -22,7 +22,7 @@ namespace Multidimensional\Usps;
 
 use Multidimensional\Usps\Address;
 
-class CityStateLookup extends Usps
+class CityStateLookup extends USPS
 {
        /**
      * @var string

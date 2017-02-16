@@ -20,7 +20,7 @@
 
 namespace Multidimensional\Usps;
 
-class IntlRate extends Usps
+class IntlRate extends USPS
 {
     
     /**
