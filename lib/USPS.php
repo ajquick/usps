@@ -97,7 +97,7 @@ class USPS
     public function request($apiClass)
     {
     
-        if (isset(self::$apiClasses[$apiClass]) || array_key_exists($apiClass, self::$apiClasses)) {
+        if (self::$apiClasses[$apiClass] !== null || array_key_exists($apiClass, self::$apiClasses)) {
         } else {
             $this->error = true;
             $this->errorMessage = 'Invalid API Class';

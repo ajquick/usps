@@ -56,7 +56,7 @@ class ZipCode
      */
     public function setField($key, $value)
     {
-        if(isset(self::FIELDS[$key]) || array_key_exists($key, self::FIELDS)){
+        if(self::FIELDS[$key] !== null || array_key_exists($key, self::FIELDS)){
             
             if (Validation::validateField($key, $value, self::FIELDS[$key])) {
                 $this->zipCode[$key] = $value;
