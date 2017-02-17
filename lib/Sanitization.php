@@ -53,6 +53,15 @@ class Sanitization
             return self::sanitize($value, $rules);    
         }
         
+        if (isset($rules['pattern'])) {
+            
+            if ($rules['pattern'] == 'ISO 8601') {
+                $rules['pattern'] = '([\+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-2])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T\s]((([01]\d|2[0-3])((:?)[0-5]\d)?|24\:?00)([\.,]\d+(?!:))?)?(\17[0-5]\d([\.,]\d+)?)?([zZ]|([\+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?';
+            }
+            
+            $value = preg_replace("/[^" . $rules['pattern'] . "]/", "", $value);
+        }
+        
         if (isset($rules['type'])) {        
             if ($rules['type'] == 'integer') {
                 $value = self::sanitizeInteger($value);     
@@ -64,16 +73,7 @@ class Sanitization
                 $value = self::sanitizeBoolean($value);            
             }
         }
-        
-        if (isset($rules['pattern'])) {
-            
-            if ($rules['pattern'] == 'ISO 8601') {
-                $rules['pattern'] = '([\+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-2])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T\s]((([01]\d|2[0-3])((:?)[0-5]\d)?|24\:?00)([\.,]\d+(?!:))?)?(\17[0-5]\d([\.,]\d+)?)?([zZ]|([\+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?';
-            }
-            
-            $value = preg_replace("/[^" . $rules['pattern'] . "]/", "", $value);
-        }
-        
+                
         
         return $value;
     }
@@ -84,7 +84,7 @@ class Sanitization
      */
     private static function sanitizeInteger($value)
     {
-        return filter_var($value, FILTER_SANITIZE_NUMBER_INT);
+        return (int) filter_var($value, FILTER_SANITIZE_NUMBER_INT);
     }
     
     /**
@@ -102,7 +102,7 @@ class Sanitization
      */
     private static function sanitizeDecimal($value)
     {
-        return filter_var($value, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
+        return (float) filter_var($value, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
     }
 
     /**

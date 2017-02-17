@@ -27,8 +27,8 @@ class PackageTest extends TestCase
 {
     public function testNamedFunctions()
     {
-		$this->markTestIncomplete();
-		/*
+        $this->markTestIncomplete();
+        /*
         $package = new Package();
         $package->setService();
         $package->setFirstClassMailType();
@@ -47,6 +47,6 @@ class PackageTest extends TestCase
         $package->setGroundOnly();
         $package->setSortBy();
         $package->setMachinable();
-		*/
+        */
     }
 }

@@ -48,8 +48,8 @@ class Content
         'ContentDescription' => [
             'type' => 'string',
             'required' => [
-				'ContentType' => self::CONTENT_TYPE_LIVES
-			],
+                'ContentType' => self::CONTENT_TYPE_LIVES
+            ],
             'pattern' => self::CONTENT_DESCRIPTION_BEES . '|' . self::CONTENT_DESCRIPTION_DAYOLDPOULTRY . '|' . self::CONTENT_DESCRIPTION_ADULTBIRDS . '|' . self::CONTENT_DESCRIPTION_OTHER
         ]
     ];

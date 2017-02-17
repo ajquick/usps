@@ -38,7 +38,7 @@ class IntlRate extends USPS
     public function __construct(array $config = [])
     {
         parent::__construct($config);
-		if (isset($config['revision'])) {
+        if (isset($config['revision'])) {
             $this->setRevision($config['revision']);    
         }
     }
