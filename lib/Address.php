@@ -33,7 +33,7 @@ class Address
     /**
      * @var array $fields
      */
-    public static $fields = [
+    const FIELDS = [
         '@ID' => [
             'type' => 'integer',
             'required' => true
@@ -91,7 +91,7 @@ class Address
                 $this->setField($key, $value);
             }
         }
-        $this->address += array_combine(array_keys(self::$fields), array_fill(0, count(self::$fields), null));
+        $this->address += array_combine(array_keys(self::FIELDS), array_fill(0, count(self::FIELDS), null));
     }
     
     /**
@@ -101,8 +101,8 @@ class Address
      */
      public function setField($key, $value) 
      { 
-        if (in_array($key, array_keys(self::$fields))) {
-            $value = Sanitization::sanitizeField($key, $value, self::$fields[$key]);
+        if (in_array($key, array_keys(self::FIELDS))) {
+            $value = Sanitization::sanitizeField($key, $value, self::FIELDS[$key]);
             $this->address[$key] = $value;
         }
      }

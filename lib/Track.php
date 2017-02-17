@@ -32,7 +32,7 @@ class Track extends USPS
      */
     protected $trackingNumbers = [];
     
-    public static $fields = [
+    const FIELDS = [
         'TrackID' => [
             'required' => true
         ],

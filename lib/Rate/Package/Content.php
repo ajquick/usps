@@ -40,14 +40,16 @@ class Content
     const CONTENT_DESCRIPTION_ADULTBIRDS = 'ADULTBIRDS';
     const CONTENT_DESCRIPTION_OTHER = 'OTHER';
 
-    public static $fields = [
+    const FIELDS = [
         'ContentType' => [
             'type' => 'string',
             'pattern' => self::CONTENT_TYPE_HAZMAT . '|' . self::CONTENT_TYPE_CREMATEDREMAINS . '|' . self::CONTENT_TYPE_LIVES
         ],
         'ContentDescription' => [
             'type' => 'string',
-            'required' => ['ContentType' => self::CONTENT_TYPE_LIVES],
+            'required' => [
+				'ContentType' => self::CONTENT_TYPE_LIVES
+			],
             'pattern' => self::CONTENT_DESCRIPTION_BEES . '|' . self::CONTENT_DESCRIPTION_DAYOLDPOULTRY . '|' . self::CONTENT_DESCRIPTION_ADULTBIRDS . '|' . self::CONTENT_DESCRIPTION_OTHER
         ]
     ];

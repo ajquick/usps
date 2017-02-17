@@ -95,7 +95,7 @@ class Package
     /**
      * @var array $fields
      */
-    public static $fields = [
+    const FIELDS = [
         '@ID' => [
             'type' => 'string'
         ],
@@ -186,11 +186,11 @@ class Package
         ],
         'SpecialServices' => [
             'type' => 'SpecialServices',
-            'fields' => SpecialServices::$fields
+            'fields' => SpecialServices::FIELDS
         ],
         'Content' => [
             'type' => 'Content',
-            'fields' => Content::$fields
+            'fields' => Content::FIELDS
         ],
         'GroundOnly' => [
             'type' => 'boolean',
@@ -260,8 +260,8 @@ class Package
      */
      public function setField($key, $value) 
      { 
-        if (in_array($key, array_keys(self::$fields))) {
-            $value = Sanitization::sanitizeField($key, $value, self::$fields[$key]);
+        if (in_array($key, array_keys(self::FIELDS))) {
+            $value = Sanitization::sanitizeField($key, $value, self::FIELDS[$key]);
             $this->address[$key] = $value;
         }
      }

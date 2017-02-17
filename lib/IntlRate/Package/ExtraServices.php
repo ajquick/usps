@@ -25,7 +25,7 @@ use Multidimensional\Usps\IntlRate\Package;
 class ExtraServices
 {
     
-    public static $fields = [
+    const FIELDS = [
         'ExtraService' => [
             'type' => 'integer',
             'pattern' => '0|1|2|6|9'

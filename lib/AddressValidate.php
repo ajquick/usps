@@ -33,7 +33,7 @@ class AddressValidate extends USPS
     private $includeOptionalElements = false;
     private $returnCarrierRoute = false;
     
-    public static $fields = [
+    const FIELDS = [
         'IncludeOptionalElements' => [
             'type' => 'boolean'
         ],
@@ -42,7 +42,7 @@ class AddressValidate extends USPS
         ],
         'Address' => [
             'type' => 'Address',
-            'fields' => Address::$fields;
+            'fields' => Address::FIELDS;
         ]
     ];
     

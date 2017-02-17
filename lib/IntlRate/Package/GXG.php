@@ -25,7 +25,7 @@ use Multidimensional\Usps\IntlRate\Package;
 class GXG
 {
     
-    public static $fields = [
+    const FIELDS = [
         'POBoxFlag' => [
             'type' => 'string',
             'required' => true,

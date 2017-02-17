@@ -46,7 +46,7 @@ class Package
     const SIZE_LARGE                    = 'LARGE';
     const SIZE_REGULAR                  = 'REGULAR';
 
-    public static $fields = [
+    const FIELDS = [
         '@ID' => [
             'type' => 'string'
         ],
