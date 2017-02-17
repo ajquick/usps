@@ -1,14 +1,14 @@
 <?php
 /**    __  ___      ____  _     ___                           _                    __
  *    /  |/  /_  __/ / /_(_)___/ (_)___ ___  ___  ____  _____(_)___  ____   ____ _/ /
- *   / /|_/ / / / / / __/ / __  / / __ `__ \/ _ \/ __ \/ ___/ / __ \/ __ \ / __ `/ / 
- *  / /  / / /_/ / / /_/ / /_/ / / / / / / /  __/ / / (__  ) / /_/ / / / // /_/ / /  
- * /_/  /_/\__,_/_/\__/_/\__,_/_/_/ /_/ /_/\___/_/ /_/____/_/\____/_/ /_(_)__,_/_/   
- *                                                                                  
+ *   / /|_/ / / / / / __/ / __  / / __ `__ \/ _ \/ __ \/ ___/ / __ \/ __ \ / __ `/ /
+ *  / /  / / /_/ / / /_/ / /_/ / / / / / / /  __/ / / (__  ) / /_/ / / / // /_/ / /
+ * /_/  /_/\__,_/_/\__/_/\__,_/_/_/ /_/ /_/\___/_/ /_/____/_/\____/_/ /_(_)__,_/_/
+ *
  * CONFIDENTIAL
  *
  * © 2017 Multidimension.al - All Rights Reserved
- * 
+ *
  * NOTICE:  All information contained herein is, and remains the property of
  * Multidimension.al and its suppliers, if any.  The intellectual and
  * technical concepts contained herein are proprietary to Multidimension.al
@@ -62,7 +62,7 @@ class Package
 
     /**
      * Rate / Request / Package / Service
-     */     
+     */
     const SERVICE_FIRST_CLASS                        = 'First Class';
     const SERVICE_FIRST_CLASS_COMMERCIAL             = 'First Class Commercial';
     const SERVICE_FIRST_CLASS_HFP_COMMERCIAL         = 'First Class HFP Commercial';
@@ -248,9 +248,8 @@ class Package
         ]
     ];
 
-    public function __constuct(array $config = []) 
+    public function __constuct(array $config = [])
     {
-                            
     }
     
     /**
@@ -258,13 +257,13 @@ class Package
      * @param int|bool|string|float
      * @return void
      */
-     public function setField($key, $value) 
-     { 
+    public function setField($key, $value)
+    {
         if (in_array($key, array_keys(self::FIELDS))) {
             $value = Sanitization::sanitizeField($key, $value, self::FIELDS[$key]);
             $this->address[$key] = $value;
         }
-     }
+    }
      
     /**
      * @param string $value
@@ -272,7 +271,7 @@ class Package
      */
     public function setService($value)
     {
-        $this->setField('Service', $value);    
+        $this->setField('Service', $value);
     }
         
     /**
@@ -281,7 +280,7 @@ class Package
      */
     public function setFirstClassMailType($value)
     {
-        $this->setField('FirstClassMailType', $value);    
+        $this->setField('FirstClassMailType', $value);
     }
     
     /**
@@ -290,7 +289,7 @@ class Package
      */
     public function setZipOrigination($value)
     {
-        $this->setField('ZipOrigination', $value);    
+        $this->setField('ZipOrigination', $value);
     }
         
     /**
@@ -299,7 +298,7 @@ class Package
      */
     public function setZipDestination($value)
     {
-        $this->setField('ZipDestination', $value);    
+        $this->setField('ZipDestination', $value);
     }
     
     /**
@@ -308,7 +307,7 @@ class Package
      */
     public function setPounds($value)
     {
-        $this->setField('Pounds', $value);    
+        $this->setField('Pounds', $value);
     }
     
     /**
@@ -317,7 +316,7 @@ class Package
      */
     public function setOunces($value)
     {
-        $this->setField('Ounces', $value);    
+        $this->setField('Ounces', $value);
     }
     
     /**
@@ -326,7 +325,7 @@ class Package
      */
     public function setSize($value)
     {
-        $this->setField('Size', $value);    
+        $this->setField('Size', $value);
     }
     
     /**
@@ -335,7 +334,7 @@ class Package
      */
     public function setContainer($value)
     {
-        $this->setField('Container', $value);    
+        $this->setField('Container', $value);
     }
     
     /**
@@ -344,7 +343,7 @@ class Package
      */
     public function setWidth($value)
     {
-        $this->setField('Width', $value);    
+        $this->setField('Width', $value);
     }
     
     /**
@@ -353,7 +352,7 @@ class Package
      */
     public function setLength($value)
     {
-        $this->setField('Length', $value);    
+        $this->setField('Length', $value);
     }
     
     /**
@@ -362,7 +361,7 @@ class Package
      */
     public function setHeight($value)
     {
-        $this->setField('Height', $value);    
+        $this->setField('Height', $value);
     }
     
     /**
@@ -371,7 +370,7 @@ class Package
      */
     public function setGirth($value)
     {
-        $this->setField('Girth', $value);    
+        $this->setField('Girth', $value);
     }
 
     /**
@@ -380,7 +379,7 @@ class Package
      */
     public function setValue($value)
     {
-        $this->setField('Value', $value);    
+        $this->setField('Value', $value);
     }
     
     /**
@@ -389,7 +388,7 @@ class Package
      */
     public function setAmountToCollect($value)
     {
-        $this->setField('AmountToCollect', $value);    
+        $this->setField('AmountToCollect', $value);
     }
     
     /**
@@ -398,7 +397,7 @@ class Package
      */
     public function setGroundOnly($value)
     {
-        $this->setField('GroundOnly', $value);    
+        $this->setField('GroundOnly', $value);
     }
     
     /**
@@ -407,7 +406,7 @@ class Package
      */
     public function setSortBy($value)
     {
-        $this->setField('SortBy', $value);    
+        $this->setField('SortBy', $value);
     }
     
     /**
@@ -416,7 +415,7 @@ class Package
      */
     public function setMachinable($value)
     {
-        $this->setField('Machinable', $value);    
+        $this->setField('Machinable', $value);
     }
     
     /**
@@ -426,5 +425,4 @@ class Package
     {
         return $this->package;
     }
-
 }

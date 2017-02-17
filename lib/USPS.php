@@ -1,14 +1,14 @@
 <?php
 /**    __  ___      ____  _     ___                           _                    __
  *    /  |/  /_  __/ / /_(_)___/ (_)___ ___  ___  ____  _____(_)___  ____   ____ _/ /
- *   / /|_/ / / / / / __/ / __  / / __ `__ \/ _ \/ __ \/ ___/ / __ \/ __ \ / __ `/ / 
- *  / /  / / /_/ / / /_/ / /_/ / / / / / / /  __/ / / (__  ) / /_/ / / / // /_/ / /  
- * /_/  /_/\__,_/_/\__/_/\__,_/_/_/ /_/ /_/\___/_/ /_/____/_/\____/_/ /_(_)__,_/_/   
- *                                                                                  
+ *   / /|_/ / / / / / __/ / __  / / __ `__ \/ _ \/ __ \/ ___/ / __ \/ __ \ / __ `/ /
+ *  / /  / / /_/ / / /_/ / /_/ / / / / / / /  __/ / / (__  ) / /_/ / / / // /_/ / /
+ * /_/  /_/\__,_/_/\__/_/\__,_/_/_/ /_/ /_/\___/_/ /_/____/_/\____/_/ /_(_)__,_/_/
+ *
  * CONFIDENTIAL
  *
  * © 2017 Multidimension.al - All Rights Reserved
- * 
+ *
  * NOTICE:  All information contained herein is, and remains the property of
  * Multidimension.al and its suppliers, if any.  The intellectual and
  * technical concepts contained herein are proprietary to Multidimension.al
@@ -53,11 +53,10 @@ class USPS
     public function __construct(array $config = [])
     {
         if (isset($config['userId'])) {
-            $this->userId = $config['userId'];    
+            $this->userId = $config['userId'];
         }
         
         $this->dom = new DOMArray();
-        
     }
 
     /**
@@ -117,13 +116,12 @@ class USPS
         $response = $client->send($request);
         
         return $response->xml();
-        
     }
     
     protected function buildXML($array)
     {
         $array['@USERID'] = $this->userId;
-        return $this->dom->loadArray($array);    
+        return $this->dom->loadArray($array);
     }
     
     /**
@@ -159,8 +157,8 @@ class USPS
     {
         if ($this->error) {
             return false;
-        }else{
-            return true;    
+        } else {
+            return true;
         }
     }
     
@@ -171,8 +169,8 @@ class USPS
     {
         if ($this->error) {
             return true;
-        }else{
-            return false;    
+        } else {
+            return false;
         }
     }
     
@@ -189,7 +187,6 @@ class USPS
      */
     public function getErrorCode()
     {
-        return $this->errorCode;    
+        return $this->errorCode;
     }
-    
 }

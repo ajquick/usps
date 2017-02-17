@@ -1,14 +1,14 @@
 <?php
 /**    __  ___      ____  _     ___                           _                    __
  *    /  |/  /_  __/ / /_(_)___/ (_)___ ___  ___  ____  _____(_)___  ____   ____ _/ /
- *   / /|_/ / / / / / __/ / __  / / __ `__ \/ _ \/ __ \/ ___/ / __ \/ __ \ / __ `/ / 
- *  / /  / / /_/ / / /_/ / /_/ / / / / / / /  __/ / / (__  ) / /_/ / / / // /_/ / /  
- * /_/  /_/\__,_/_/\__/_/\__,_/_/_/ /_/ /_/\___/_/ /_/____/_/\____/_/ /_(_)__,_/_/   
- *                                                                                  
+ *   / /|_/ / / / / / __/ / __  / / __ `__ \/ _ \/ __ \/ ___/ / __ \/ __ \ / __ `/ /
+ *  / /  / / /_/ / / /_/ / /_/ / / / / / / /  __/ / / (__  ) / /_/ / / / // /_/ / /
+ * /_/  /_/\__,_/_/\__/_/\__,_/_/_/ /_/ /_/\___/_/ /_/____/_/\____/_/ /_(_)__,_/_/
+ *
  * CONFIDENTIAL
  *
  * © 2017 Multidimension.al - All Rights Reserved
- * 
+ *
  * NOTICE:  All information contained herein is, and remains the property of
  * Multidimension.al and its suppliers, if any.  The intellectual and
  * technical concepts contained herein are proprietary to Multidimension.al
@@ -99,13 +99,13 @@ class Address
      * @param int|bool|string|float
      * @return void
      */
-     public function setField($key, $value) 
-     { 
+    public function setField($key, $value)
+    {
         if (in_array($key, array_keys(self::FIELDS))) {
             $value = Sanitization::sanitizeField($key, $value, self::FIELDS[$key]);
             $this->address[$key] = $value;
         }
-     }
+    }
     
     /**
      * @return array
@@ -121,7 +121,7 @@ class Address
      */
     public function setID($value)
     {
-        $this->setField('@ID', $value);    
+        $this->setField('@ID', $value);
     }
 
     /**
@@ -130,69 +130,69 @@ class Address
      */
     public function setFirmName($value)
     {
-        $this->setField('FirmName', $value);    
+        $this->setField('FirmName', $value);
     }
     
     /**
      * @param string $value
      * @return void
-     */    
+     */
     public function setAddress1($value)
     {
-        $this->setField('Address1', $value);    
+        $this->setField('Address1', $value);
     }
     
     /**
      * @param string $value
      * @return void
-     */    
+     */
     public function setAddress2($value)
     {
-        $this->setField('Address2', $value);    
+        $this->setField('Address2', $value);
     }
 
     /**
      * @param string $value
      * @return void
-     */    
+     */
     public function setCity($value)
     {
-        $this->setField('City', $value);    
+        $this->setField('City', $value);
     }
 
     /**
      * @param string $value
      * @return void
-     */    
+     */
     public function setState($value)
     {
-        $this->setField('State', $value);    
+        $this->setField('State', $value);
     }
 
     /**
      * @param string $value
      * @return void
-     */    
+     */
     public function setUrbanization($value)
     {
-        $this->setField('Urbanization', $value);    
+        $this->setField('Urbanization', $value);
     }
 
     /**
      * @param int $value
      * @return void
-     */    
+     */
     public function setZip5($value)
     {
-        $this->setField('Zip5', $value);    
+        $this->setField('Zip5', $value);
     }
 
     /**
      * @param int $value
      * @return void
-     */    
+     */
     public function setZip4($value)
     {
-        $this->setField('Zip4', $value);    
+        $this->setField('Zip4', $value);
     }
 }

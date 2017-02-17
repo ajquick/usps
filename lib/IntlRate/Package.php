@@ -1,14 +1,14 @@
 <?php
 /**    __  ___      ____  _     ___                           _                    __
  *    /  |/  /_  __/ / /_(_)___/ (_)___ ___  ___  ____  _____(_)___  ____   ____ _/ /
- *   / /|_/ / / / / / __/ / __  / / __ `__ \/ _ \/ __ \/ ___/ / __ \/ __ \ / __ `/ / 
- *  / /  / / /_/ / / /_/ / /_/ / / / / / / /  __/ / / (__  ) / /_/ / / / // /_/ / /  
- * /_/  /_/\__,_/_/\__/_/\__,_/_/_/ /_/ /_/\___/_/ /_/____/_/\____/_/ /_(_)__,_/_/   
- *                                                                                  
+ *   / /|_/ / / / / / __/ / __  / / __ `__ \/ _ \/ __ \/ ___/ / __ \/ __ \ / __ `/ /
+ *  / /  / / /_/ / / /_/ / /_/ / / / / / / /  __/ / / (__  ) / /_/ / / / // /_/ / /
+ * /_/  /_/\__,_/_/\__/_/\__,_/_/_/ /_/ /_/\___/_/ /_/____/_/\____/_/ /_(_)__,_/_/
+ *
  * CONFIDENTIAL
  *
  * © 2017 Multidimension.al - All Rights Reserved
- * 
+ *
  * NOTICE:  All information contained herein is, and remains the property of
  * Multidimension.al and its suppliers, if any.  The intellectual and
  * technical concepts contained herein are proprietary to Multidimension.al
@@ -136,7 +136,7 @@ class Package
         ],
         'AcceptanceDataTime' => [
             'type' => 'DateTime',
-            'pattern' => 'ISO 8601'        
+            'pattern' => 'ISO 8601'
         ],
         'DestinationPostalCode' => [
             'type' => 'string'
@@ -147,7 +147,7 @@ class Package
         ]
     ];
 
-    public function __constuct(array $config = []) 
+    public function __constuct(array $config = [])
     {
         
         //Required
@@ -163,6 +163,5 @@ class Package
         //Length
         //Height
         //Girth
-        
     }
 }
