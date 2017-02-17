@@ -84,7 +84,7 @@ class Sanitization
      */
     private static function sanitizeInteger($value)
     {
-        return (int) filter_var($value, FILTER_SANITIZE_NUMBER_INT);
+        return filter_var($value, FILTER_SANITIZE_NUMBER_INT);
     }
     
     /**
@@ -102,7 +102,7 @@ class Sanitization
      */
     private static function sanitizeDecimal($value)
     {
-        return (float) filter_var($value, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
+        return filter_var($value, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
     }
 
     /**
