@@ -31,9 +31,7 @@ class AddressTest extends TestCase
         $address = new Address();
         $result = $address->toArray();
         $expected = ['@ID' => null, 'FirmName' => null, 'Address1' => null, 'Address2' => null, 'City' => null, 'State' => null, 'Urbanization' => null, 'Zip5' => null, 'Zip4' => null];
-        ksort($result);
-        ksort($expected);
-        $this->assertEquals($result, $expected);
+        $this->assertEquals($expected, $result);
     }
     
     public function testShortAddress()
@@ -44,15 +42,11 @@ class AddressTest extends TestCase
         ]);
         $result = $address->toArray();
         $expected = ['@ID' => 123, 'FirmName' => null, 'Address1' => null, 'Address2' => null, 'City' => null, 'State' => null, 'Urbanization' => null, 'Zip5' => 90210, 'Zip4' => null];
-        ksort($result);
-        ksort($expected);
-        $this->assertEquals($result, $expected);
+        $this->assertEquals($expected, $result);
         $address->setField('Zip5', 90211);
         $result = $address->toArray();
         $expected = ['@ID' => 123, 'FirmName' => null, 'Address1' => null, 'Address2' => null, 'City' => null, 'State' => null, 'Urbanization' => null, 'Zip5' => 90211, 'Zip4' => null];
-        ksort($result);
-        ksort($expected);
-        $this->assertEquals($result, $expected);
+        $this->assertEquals($expected, $result);
     }
     
     public function testFullAddress()
@@ -67,9 +61,7 @@ class AddressTest extends TestCase
         ]);
         $result = $address->toArray();
         $expected = ['@ID' => 123, 'FirmName' => 'XYZ Corp', 'Address1' => null, 'Address2' => '123 Fake St.', 'City' => 'Los Angeles', 'State' => 'NY', 'Urbanization' => null, 'Zip5' => 90210, 'Zip4' => null];
-        ksort($result);
-        ksort($expected);
-        $this->assertEquals($result, $expected);        
+        $this->assertEquals($expected, $result);        
     }
     
     public function testSetFields()
@@ -83,9 +75,7 @@ class AddressTest extends TestCase
         $address->setField('Zip5', 90210);
         $result = $address->toArray();
         $expected = ['@ID' => 123, 'FirmName' => 'XYZ Corp', 'Address1' => null, 'Address2' => '123 Fake St.', 'City' => 'Los Angeles', 'State' => 'NY', 'Urbanization' => null, 'Zip5' => 90210, 'Zip4' => null];
-        ksort($result);
-        ksort($expected);
-        $this->assertEquals($result, $expected);    
+        $this->assertEquals($expected, $result);    
     }
     
     public function testManualSetFields()
@@ -102,9 +92,7 @@ class AddressTest extends TestCase
         $address->setZip4(1234);
         $result = $address->toArray();
         $expected = ['@ID' => 123, 'FirmName' => 'XYZ Corp', 'Address1' => 'Apt 1.', 'Address2' => '123 Fake St.', 'City' => 'Los Angeles', 'State' => 'NY', 'Urbanization' => 'ABC', 'Zip5' => 90210, 'Zip4' => 1234];
-        ksort($result);
-        ksort($expected);
-        $this->assertEquals($result, $expected);    
+        $this->assertEquals($expected, $result);    
     }
     
 }
