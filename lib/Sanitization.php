@@ -32,7 +32,7 @@ class Sanitization
     {
         $newArray = [];
         if (count($array)) {
-            foreach ($array AS $key => $value) {    
+            foreach ($array as $key => $value) {    
                 if (in_array($key, array_keys($rules))) {
                     $newArray[$key] = self::sanitizeField($key, $value, $rules[$key]);
                 }

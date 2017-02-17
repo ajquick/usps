@@ -121,7 +121,7 @@ class AddressValidate extends USPS
     private function parseResult($result)
     {
         $array = (new XMLArray)->generateArray($result);
-        foreach ($array AS $key => $value) {
+        foreach ($array as $key => $value) {
             unset($array[$key]['@ID']);
             $array[$value['@ID']] = $array[$key];
             unset($array[$key]);

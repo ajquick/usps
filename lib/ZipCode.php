@@ -42,7 +42,7 @@ class ZipCode
     public function __construct(array $config = [])
     {
         if (count($config)) {
-            foreach ($config AS $key => $value) {
+            foreach ($config as $key => $value) {
                 $this->setField($key, $value);
             }
         }

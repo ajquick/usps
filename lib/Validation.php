@@ -33,7 +33,7 @@ class Validation
     public static function validate($array, $rules)
     {
         if (is_array($array)) {
-            foreach ($array AS $key => $value) {    
+            foreach ($array as $key => $value) {    
                 if (!isset($rules[$key]) || self::validateField($value, $rules[$key], $key) !== true) {
                     return false;
                 }            
@@ -107,13 +107,13 @@ class Validation
      */
     public static function checkRequired($array, $rules) {
         
-        foreach ($rules AS $key => $value) {
+        foreach ($rules as $key => $value) {
             if (isset($value['required']) && !isset($array[$key])) {
                 $failure = true;
                 if (is_array($value['required'])) {
-                    foreach ($value['required'] AS $key2 => $value2) {
+                    foreach ($value['required'] as $key2 => $value2) {
                         if (is_array($value)) {
-                            foreach ($value2 AS $key3 => $value3) {
+                            foreach ($value2 as $key3 => $value3) {
                                 
                             }
                         } else {
