@@ -1,5 +1,6 @@
 <?php
-/**    __  ___      ____  _     ___                           _                    __
+/**
+ *     __  ___      ____  _     ___                           _                    __
  *    /  |/  /_  __/ / /_(_)___/ (_)___ ___  ___  ____  _____(_)___  ____   ____ _/ /
  *   / /|_/ / / / / / __/ / __  / / __ `__ \/ _ \/ __ \/ ___/ / __ \/ __ \ / __ `/ /
  *  / /  / / /_/ / / /_/ / /_/ / / / / / / /  __/ / / (__  ) / /_/ / / / // /_/ / /
@@ -126,7 +127,7 @@ class USPS
     
     /**
      * @param DOMDocument $dom
-     * @param string $apiClass
+     * @param string      $apiClass
      * @return bool
      */
     protected function validateXML(DOMDocument $dom, $apiClass)

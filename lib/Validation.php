@@ -1,5 +1,6 @@
 <?php
-/**    __  ___      ____  _     ___                           _                    __
+/**
+ *     __  ___      ____  _     ___                           _                    __
  *    /  |/  /_  __/ / /_(_)___/ (_)___ ___  ___  ____  _____(_)___  ____   ____ _/ /
  *   / /|_/ / / / / / __/ / __  / / __ `__ \/ _ \/ __ \/ ___/ / __ \/ __ \ / __ `/ /
  *  / /  / / /_/ / / /_/ / /_/ / / / / / / /  __/ / / (__  ) / /_/ / / / // /_/ / /
@@ -50,7 +51,7 @@ class Validation
     /**
      * @param string $key
      * @param string $value
-     * @param array $rules
+     * @param array  $rules
      * @return bool
      */
     public static function validateField($value, $rules, $key = null)
