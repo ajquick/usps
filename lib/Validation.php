@@ -125,7 +125,7 @@ class Validation
                                 if (!isset($array[$key2]) && $array[$key2] != $value2) {
                                     $failure = false;    
                                 }
-                            }.
+                            }
                         }
                     }
                 } elseif ($value['required'] === true || $value['required'] == 'true') {
