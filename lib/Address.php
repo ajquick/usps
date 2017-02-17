@@ -72,11 +72,11 @@ class Address
                     'State' => null
                 ]
             ],
-            'pattern' => 'd{5}'
+            'pattern' => '\d{5}'
         ],
         'Zip4' => [
             'type' => 'integer',
-            'pattern' => 'd{4}'
+            'pattern' => '\d{4}'
         ]
     ];
     

@@ -53,12 +53,12 @@ class Package
         'Pounds' => [
             'type' => 'decimal',
             'required' => true,
-            'pattern' => 'd{0,10}'
+            'pattern' => '\d{0,10}'
         ],
         'Ounces' => [
             'type' => 'decimal',
             'required' => true,
-            'pattern' => 'd{0,10}'
+            'pattern' => '\d{0,10}'
         ],
         'Machinable' => [
             'type' => 'boolean',
@@ -120,7 +120,7 @@ class Package
             'required' => [
                 'Country' => 'Canada'
             ],
-            'pattern' => 'd{5}'
+            'pattern' => '\d{5}'
         ],
         'CommercialFlag' => [
             'type' => 'string',

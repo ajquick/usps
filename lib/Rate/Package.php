@@ -114,22 +114,22 @@ class Package
         'ZipOrigination' => [
             'type' => 'integer',
             'required' => true,
-            'pattern' => 'd{5}'
+            'pattern' => '\d{5}'
         ],
         'ZipDestination' => [
             'type' => 'integer',
             'required' => true,
-            'pattern' => 'd{5}'
+            'pattern' => '\d{5}'
         ],
         'Pounds' => [
             'type' => 'decimal',
             'required' => true,
-            'pattern' => 'd{0,10}'
+            'pattern' => '\d{0,10}'
         ],
         'Ounces' => [
             'type' => 'decimal',
             'required' => true,
-            'pattern' => 'd{0,10}'
+            'pattern' => '\d{0,10}'
         ],
         'Container' => [
             'type' => 'string',
@@ -146,21 +146,21 @@ class Package
             'required' => [
                 'Size' => self::SIZE_LARGE
             ],
-            'pattern' => 'd{0,10}'
+            'pattern' => '\d{0,10}'
         ],
         'Length' => [
             'type' => 'decimal',
             'required' => [
                 'Size' => self::SIZE_LARGE
             ],
-            'pattern' => 'd{0,10}'
+            'pattern' => '\d{0,10}'
         ],
         'Height' => [
             'type' => 'decimal',
             'required' => [
                 'Size' => self::SIZE_LARGE
             ],
-            'pattern' => 'd{0,10}'
+            'pattern' => '\d{0,10}'
         ],
         'Girth' => [
             'type' => 'decimal',
@@ -174,15 +174,15 @@ class Package
                     'Container' => self::CONTAINER_NONRECTANGULAR
                 ]
             ],
-            'pattern' => 'd{0,10}'
+            'pattern' => '\d{0,10}'
         ],
         'Value' => [
             'type' => 'decimal',
-            'pattern' => 'd{0,10}'
+            'pattern' => '\d{0,10}'
         ],
         'AmountToCollect' => [
             'type' => 'decimal',
-            'pattern' => 'd{0,10}'
+            'pattern' => '\d{0,10}'
         ],
         'SpecialServices' => [
             'type' => 'SpecialServices',
@@ -240,11 +240,11 @@ class Package
         ],
         'DropOffTime' => [
             'type' => 'string',
-            'pattern' => 'd{2}:d{2}'
+            'pattern' => '\d{2}:d{2}'
         ],
         'ShipDate' => [
             'type' => 'string',
-            'pattern' => 'd{4}-d{2}-d{2}'
+            'pattern' => '\d{4}-d{2}-d{2}'
         ]
     ];
 
