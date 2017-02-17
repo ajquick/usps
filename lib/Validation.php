@@ -22,8 +22,8 @@ namespace Multidimensional\Usps;
 
 class Validation
 {
-    public static $error = false;
-    public static $errorMessage = null;
+    public $error = false;
+    public $errorMessage = null;
     
     /**
      * @param array $array
@@ -178,8 +178,8 @@ class Validation
      */
     private static function setError($message)
     {
-        self::error = true;
-        self::errorMessage = $message;
+        $this->error = true;
+        $thos->errorMessage = $message;
         return;
     }
 }
