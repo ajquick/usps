@@ -26,49 +26,49 @@ class Track extends USPS
 /**
  * @var string
  */
-private $apiClass = 'TrackV2';
+    private $apiClass = 'TrackV2';
 
 /**
  * @var array
  */
-protected $trackingNumbers = [];
+    protected $trackingNumbers = [];
 
-const FIELDS = [
-'TrackID' => [
-'required' => true
-],
-'@ID' => [
-'type' => 'string',
-'required' => true
-]
-];
+    const FIELDS = [
+    'TrackID' => [
+    'required' => true
+    ],
+    '@ID' => [
+    'type' => 'string',
+    'required' => true
+    ]
+    ];
 
-public function __construct(array $config = [])
-{
-parent::__construct($config);
-}
+    public function __construct(array $config = [])
+    {
+        parent::__construct($config);
+    }
 
 /**
  * @param string $string
  */
-public function addTrackingNumber($string)
-{
-$this->trackingNumbers[] = $string;
-}
+    public function addTrackingNumber($string)
+    {
+        $this->trackingNumbers[] = $string;
+    }
 
 /**
  * @return array
  */
-public function track()
-{
-return $this->request($this->apiClass);
-}
+    public function track()
+    {
+        return $this->request($this->apiClass);
+    }
 
 /**
  * @return array
  */
-public function toArray()
-{
-return $this->trackingNumbers;
-}
+    public function toArray()
+    {
+        return $this->trackingNumbers;
+    }
 }

@@ -28,34 +28,34 @@ class ZipCodeLookup extends USPS
 /**
  * @var string
  */
-private $apiClass = 'ZipCodeLookup';
+    private $apiClass = 'ZipCodeLookup';
 
-protected $addresses = [];
+    protected $addresses = [];
 
-public function __construct(array $config = [])
-{
-parent::__construct($config);
-}
+    public function __construct(array $config = [])
+    {
+        parent::__construct($config);
+    }
 
 /**
  * @param Address $address
  * @return true|false
  */
-public function addAddress(Address $address)
-{
-if (count($this->addresses) < 5) {
-$this->addresses[] = $address->toArray();
-return true;
-} else {
-return false;
-}
-}
+    public function addAddress(Address $address)
+    {
+        if (count($this->addresses) < 5) {
+            $this->addresses[] = $address->toArray();
+            return true;
+        } else {
+            return false;
+        }
+    }
 
 /**
  * @return array
  */
-public function toArray()
-{
-return $this->addresses;
-}
+    public function toArray()
+    {
+        return $this->addresses;
+    }
 }

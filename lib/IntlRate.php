@@ -21,10 +21,10 @@
     */
 
     namespace Multidimensional\Usps;
-    }
+ }
 
     class IntlRate extends USPS
-    {
+{
 
     /**
  * @var string

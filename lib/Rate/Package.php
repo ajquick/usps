@@ -30,137 +30,137 @@ class Package
 /**
  * @var array
  */
-protected $package = [];
+    protected $package = [];
 
 /**
  * Rate / Request / Package / Container
  */
-const CONTAINER_VARIABLE = 'VARIABLE';
-const CONTAINER_FLAT_RATE_ENVELOPE   = 'FLAT RATE ENVELOPE';
-const CONTAINER_PADDED_FLAT_RATE_ENVELOPE= 'PADDED FLAT RATE ENVELOPE';
-const CONTAINER_LEGAL_FLAT_RATE_ENVELOPE = 'LEGAL FLAT RATE ENVELOPE';
-const CONTAINER_SM_FLAT_RATE_ENVELOPE= 'SM FLAT RATE ENVELOPE';
-const CONTAINER_WINDOW_FLAT_RATE_ENVELOPE= 'WINDOW FLAT RATE ENVELOPE';
-const CONTAINER_GIFT_CARD_FLAT_RATE_ENVELOPE = 'GIFT CARD FLAT RATE ENVELOPE';
-const CONTAINER_FLAT_RATE_BOX= 'FLAT RATE BOX';
-const CONTAINER_SM_FLAT_RATE_BOX = 'SM FLAT RATE BOX';
-const CONTAINER_MD_FLAT_RATE_BOX = 'MD FLAT RATE BOX';
-const CONTAINER_LG_FLAT_RATE_BOX = 'LG FLAT RATE BOX';
-const CONTAINER_REGIONALRATEBOXA = 'REGIONALRATEBOXA';
-const CONTAINER_REGIONALRATEBOXB = 'REGIONALRATEBOXB';
-const CONTAINER_RECTANGULAR  = 'RECTANGULAR';
-const CONTAINER_NONRECTANGULAR   = 'NONRECTANGULAR';
+    const CONTAINER_VARIABLE = 'VARIABLE';
+    const CONTAINER_FLAT_RATE_ENVELOPE   = 'FLAT RATE ENVELOPE';
+    const CONTAINER_PADDED_FLAT_RATE_ENVELOPE= 'PADDED FLAT RATE ENVELOPE';
+    const CONTAINER_LEGAL_FLAT_RATE_ENVELOPE = 'LEGAL FLAT RATE ENVELOPE';
+    const CONTAINER_SM_FLAT_RATE_ENVELOPE= 'SM FLAT RATE ENVELOPE';
+    const CONTAINER_WINDOW_FLAT_RATE_ENVELOPE= 'WINDOW FLAT RATE ENVELOPE';
+    const CONTAINER_GIFT_CARD_FLAT_RATE_ENVELOPE = 'GIFT CARD FLAT RATE ENVELOPE';
+    const CONTAINER_FLAT_RATE_BOX= 'FLAT RATE BOX';
+    const CONTAINER_SM_FLAT_RATE_BOX = 'SM FLAT RATE BOX';
+    const CONTAINER_MD_FLAT_RATE_BOX = 'MD FLAT RATE BOX';
+    const CONTAINER_LG_FLAT_RATE_BOX = 'LG FLAT RATE BOX';
+    const CONTAINER_REGIONALRATEBOXA = 'REGIONALRATEBOXA';
+    const CONTAINER_REGIONALRATEBOXB = 'REGIONALRATEBOXB';
+    const CONTAINER_RECTANGULAR  = 'RECTANGULAR';
+    const CONTAINER_NONRECTANGULAR   = 'NONRECTANGULAR';
 
 /**
  * Rate / Request / Package / FirstClassMailType
  */
-const FIRST_CLASS_MAIL_TYPE_LETTER   = 'LETTER';
-const FIRST_CLASS_MAIL_TYPE_FLAT = 'FLAT';
-const FIRST_CLASS_MAIL_TYPE_PARCEL   = 'PARCEL';
-const FIRST_CLASS_MAIL_TYPE_POSTCARD = 'POSTCARD';
-const FIRST_CLASS_MAIL_TYPE_PACKAGE  = 'PACKAGE';
-const FIRST_CLASS_MAIL_TYPE_PACKAGE_SERVICE  = 'PACKAGE SERVICE';
+    const FIRST_CLASS_MAIL_TYPE_LETTER   = 'LETTER';
+    const FIRST_CLASS_MAIL_TYPE_FLAT = 'FLAT';
+    const FIRST_CLASS_MAIL_TYPE_PARCEL   = 'PARCEL';
+    const FIRST_CLASS_MAIL_TYPE_POSTCARD = 'POSTCARD';
+    const FIRST_CLASS_MAIL_TYPE_PACKAGE  = 'PACKAGE';
+    const FIRST_CLASS_MAIL_TYPE_PACKAGE_SERVICE  = 'PACKAGE SERVICE';
 
 /**
  * Rate / Request / Package / Service
  */
-const SERVICE_FIRST_CLASS= 'First Class';
-const SERVICE_FIRST_CLASS_COMMERCIAL = 'First Class Commercial';
-const SERVICE_FIRST_CLASS_HFP_COMMERCIAL = 'First Class HFP Commercial';
-const SERVICE_PRIORITY   = 'Priority';
-const SERVICE_PRIORITY_COMMERCIAL= 'Priority Commercial';
-const SERVICE_PRIORITY_CPP   = 'Priority Cpp';
-const SERVICE_PRIORITY_HFP_COMMERCIAL= 'Priority HFP Commercial';
-const SERVICE_PRIORITY_HFP_CPP   = 'Priority HFP CPP';
-const SERVICE_PRIORITY_EXPRESS   = 'Priority Mail Express';
-const SERVICE_PRIORITY_EXPRESS_COMMERCIAL= 'Priority Mail Express Commercial';
-const SERVICE_PRIORITY_EXPRESS_CPP   = 'Priority Mail Express CPP';
-const SERVICE_PRIORITY_EXPRESS_SH= 'Priority Mail Express SH';
-const SERVICE_PRIORITY_EXPRESS_SH_COMMERCIAL = 'Priority Mail Express SH COMMERCIAL';
-const SERVICE_PRIORITY_EXPRESS_HFP   = 'Priority Mail Express HFP';
-const SERVICE_PRIORITY_EXPRESS_HFP_COMMERCIAL= 'Priority Mail Express HFP COMMERCIAL';
-const SERVICE_PRIORITY_EXPRESS_HFP_CPP   = 'Priority Mail Express HFP CPP';
-const SERVICE_GROUND = 'Retail Ground';
-const SERVICE_MEDIA  = 'Media';
-const SERVICE_LIBRARY= 'Library';
-const SERVICE_ALL= 'All';
-const SERVICE_ONLINE = 'Online';
-const SERVICE_PLUS   = 'Plus';
+    const SERVICE_FIRST_CLASS= 'First Class';
+    const SERVICE_FIRST_CLASS_COMMERCIAL = 'First Class Commercial';
+    const SERVICE_FIRST_CLASS_HFP_COMMERCIAL = 'First Class HFP Commercial';
+    const SERVICE_PRIORITY   = 'Priority';
+    const SERVICE_PRIORITY_COMMERCIAL= 'Priority Commercial';
+    const SERVICE_PRIORITY_CPP   = 'Priority Cpp';
+    const SERVICE_PRIORITY_HFP_COMMERCIAL= 'Priority HFP Commercial';
+    const SERVICE_PRIORITY_HFP_CPP   = 'Priority HFP CPP';
+    const SERVICE_PRIORITY_EXPRESS   = 'Priority Mail Express';
+    const SERVICE_PRIORITY_EXPRESS_COMMERCIAL= 'Priority Mail Express Commercial';
+    const SERVICE_PRIORITY_EXPRESS_CPP   = 'Priority Mail Express CPP';
+    const SERVICE_PRIORITY_EXPRESS_SH= 'Priority Mail Express SH';
+    const SERVICE_PRIORITY_EXPRESS_SH_COMMERCIAL = 'Priority Mail Express SH COMMERCIAL';
+    const SERVICE_PRIORITY_EXPRESS_HFP   = 'Priority Mail Express HFP';
+    const SERVICE_PRIORITY_EXPRESS_HFP_COMMERCIAL= 'Priority Mail Express HFP COMMERCIAL';
+    const SERVICE_PRIORITY_EXPRESS_HFP_CPP   = 'Priority Mail Express HFP CPP';
+    const SERVICE_GROUND = 'Retail Ground';
+    const SERVICE_MEDIA  = 'Media';
+    const SERVICE_LIBRARY= 'Library';
+    const SERVICE_ALL= 'All';
+    const SERVICE_ONLINE = 'Online';
+    const SERVICE_PLUS   = 'Plus';
 
 /**
  * Rate / Request / Package / Size
  */
-const SIZE_LARGE = 'LARGE';
-const SIZE_REGULAR   = 'REGULAR';
+    const SIZE_LARGE = 'LARGE';
+    const SIZE_REGULAR   = 'REGULAR';
 
 /**
  * @var array $fields
  */
-const FIELDS = [
-'@ID' => [
-'type' => 'string'
-],
-'Service' => [
-'type' => 'string',
-'required' => true
-],
-'FirstClassMailType' => [
-'type' => 'string',
-'required' => [
-'Service' => self::SERVICE_FIRST_CLASS,
-'Service' => self::SERVICE_FIRST_CLASS_COMMERCIAL,
-'Service' => self::SERVICE_FIRST_CLASS_HFP_COMMERCIAL
-]
-],
-'ZipOrigination' => [
-'type' => 'integer',
-'required' => true,
-'pattern' => '\d{5}'
-],
-'ZipDestination' => [
-'type' => 'integer',
-'required' => true,
-'pattern' => '\d{5}'
-],
-'Pounds' => [
-'type' => 'decimal',
-'required' => true,
-'pattern' => '\d{0,10}'
-],
-'Ounces' => [
-'type' => 'decimal',
-'required' => true,
-'pattern' => '\d{0,10}'
-],
-'Container' => [
-'type' => 'string',
-'required' => true,
-'default' => self::CONTAINER_VARIABLE
-],
-'Size' => [
-'type' => 'string',
-'required' => true,
-'pattern' => self::SIZE_REGULAR . '|' . self::SIZE_LARGE
-],
-'Width' => [
-'type' => 'decimal',
-'required' => [
-'Size' => self::SIZE_LARGE
-],
-'pattern' => '\d{0,10}'
-],
-'Length' => [
-'type' => 'decimal',
-'required' => [
-'Size' => self::SIZE_LARGE
-],
-'pattern' => '\d{0,10}'
-],
-'Height' => [
-'type' => 'decimal',
-'required' => [
-'Size' => self::SIZE_LARGE
-],
+    const FIELDS = [
+    '@ID' => [
+    'type' => 'string'
+    ],
+    'Service' => [
+    'type' => 'string',
+    'required' => true
+    ],
+    'FirstClassMailType' => [
+    'type' => 'string',
+    'required' => [
+    'Service' => self::SERVICE_FIRST_CLASS,
+    'Service' => self::SERVICE_FIRST_CLASS_COMMERCIAL,
+    'Service' => self::SERVICE_FIRST_CLASS_HFP_COMMERCIAL
+    ]
+    ],
+    'ZipOrigination' => [
+    'type' => 'integer',
+    'required' => true,
+    'pattern' => '\d{5}'
+    ],
+    'ZipDestination' => [
+    'type' => 'integer',
+    'required' => true,
+    'pattern' => '\d{5}'
+    ],
+    'Pounds' => [
+    'type' => 'decimal',
+    'required' => true,
+    'pattern' => '\d{0,10}'
+    ],
+    'Ounces' => [
+    'type' => 'decimal',
+    'required' => true,
+    'pattern' => '\d{0,10}'
+    ],
+    'Container' => [
+    'type' => 'string',
+    'required' => true,
+    'default' => self::CONTAINER_VARIABLE
+    ],
+    'Size' => [
+    'type' => 'string',
+    'required' => true,
+    'pattern' => self::SIZE_REGULAR . '|' . self::SIZE_LARGE
+    ],
+    'Width' => [
+    'type' => 'decimal',
+    'required' => [
+    'Size' => self::SIZE_LARGE
+    ],
+    'pattern' => '\d{0,10}'
+    ],
+    'Length' => [
+    'type' => 'decimal',
+    'required' => [
+    'Size' => self::SIZE_LARGE
+    ],
+    'pattern' => '\d{0,10}'
+    ],
+    'Height' => [
+    'type' => 'decimal',
+    'required' => [
+    'Size' => self::SIZE_LARGE
+    ],
             'pattern' => '\d{0,10}'
         ],
         'Girth' => [

@@ -28,16 +28,16 @@ class CityStateLookup extends USPS
    /**
  * @var string
  */
-private $apiClass = 'CityStateLookup';
+    private $apiClass = 'CityStateLookup';
 
-protected $addresses = [];
+    protected $addresses = [];
 
-public function __construct(array $config = [])
-{
-}
+    public function __construct(array $config = [])
+    {
+    }
 
-public function addAddress(Address $address)
-{
-$this->addresss[] = $address->toArray();
-}
+    public function addAddress(Address $address)
+    {
+        $this->addresss[] = $address->toArray();
+    }
 }

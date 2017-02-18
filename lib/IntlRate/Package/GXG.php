@@ -26,20 +26,20 @@ use Multidimensional\Usps\IntlRate\Package;
 class GXG
 {
 
-const FIELDS = [
-'POBoxFlag' => [
-'type' => 'string',
-'required' => true,
-'pattern' => 'Y|N'
-],
-'GiftFlag' => [
-'type' => 'string',
-'required' => true,
-'pattern' => 'Y|N'
-]
-];
+    const FIELDS = [
+    'POBoxFlag' => [
+    'type' => 'string',
+    'required' => true,
+    'pattern' => 'Y|N'
+    ],
+    'GiftFlag' => [
+    'type' => 'string',
+    'required' => true,
+    'pattern' => 'Y|N'
+    ]
+    ];
 
-public function __construct()
-{
-}
+    public function __construct()
+    {
+    }
 }

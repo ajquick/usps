@@ -26,12 +26,12 @@ use Multidimensional\Usps\IntlRate\Package;
 class ExtraServices
 {
 
-const FIELDS = [
-'ExtraService' => [
-'type' => 'integer',
-'pattern' => '0|1|2|6|9'
-]
-];
+    const FIELDS = [
+    'ExtraService' => [
+    'type' => 'integer',
+    'pattern' => '0|1|2|6|9'
+    ]
+    ];
 
 /**
  * Registered Mail 0
