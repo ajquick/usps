@@ -23,29 +23,39 @@ namespace Multidimensional\Usps;
 
 class Validation
 {
-    public $error = false;
-    public $errorMessage = null;
+    public $error;
+    public $errorMessage;
+    
+    public function __construct()
+    {
+        $this->error = false;
+        $this->errorMessage = null;
+    }
     
     /**
      * @param array $array
      * @param array $rules
      * @return bool
      */
-    public static function validate($array, $rules)
+    public function validate($array, $rules)
     {
         if (is_array($array)) {
             foreach ($array as $key => $value) {
-                if (!isset($rules[$key]) || self::validateField($value, $rules[$key], $key) !== true) {
+                if (!isset($rules[$key]) || $this->validateField($value, $rules[$key], $key) !== true) {
                     return false;
                 }
             }
             
-            if (!self::checkRequired($array, $rules)) {
+            if (!$this->checkRequired($array, $rules)) {
                 return false;
             }
         }
-        
-        return true;
+ 
+         if ($this->isSuccess()) {
+            return true;
+        }else{
+            return false;    
+        }
     }
     
     /**
@@ -54,36 +64,21 @@ class Validation
      * @param array  $rules
      * @return bool
      */
-    public static function validateField($value, $rules, $key = null)
+    public function validateField($value, $rules, $key = null)
     {
         if (is_array($value) && isset($rules['fields'])) {
-            return self::validate($value, $rules['fields']);
+            return $this->validate($value, $rules['fields']);
         } elseif (is_array($value)) {
-            self::setError(sprintf("Unexpected array found for key %s.", $key));
+            $this->setError(sprintf("Unexpected array found for key %s.", $key));
             return false;
         }
         
         if (isset($rules['type'])) {
-            if ($rules['type'] === 'integer') {
-                if ($value != (int) $value) {
-                    self::setError(sprintf("Invalid integer %s != %s for key %s.", $value, (int) $value, $key));
-                    return false;
-                }
-            } elseif ($rules['type'] === 'decimal') {
-                if ($value != (float) $value) {
-                    self::setError(sprintf("Invalid decimal %s != %s for key %s.", $value, (float) $value, $key));
-                    return false;
-                }
-            } elseif ($rules['type'] === 'string') {
-                if ($value != (string) $value) {
-                    self::setError(sprintf("Invalid string %s != %s for key %s.", $value, (string) $value, $key));
-                    return false;
-                }
-            } elseif ($rules['type'] === 'boolean') {
-                if ($value != (bool) $value) {
-                    self::setError(sprintf("Invalid boolean %s != %s for key %s.", $value, (bool) $value, $key));
-                    return false;
-                }
+            if (($rules['type'] === 'integer' && !$this->validateInteger($value, $key)) ||
+				($rules['type'] === 'decimal' && !$this->validateDecimal($value, $key)) ||
+				($rules['type'] === 'string'  && !$this->validateString ($value, $key)) ||
+                ($rules['type'] === 'boolean' && !$this->validateBoolean($value, $key))){
+                return false;
             }
         }
         
@@ -93,7 +88,7 @@ class Validation
             }
             
             if (!preg_match('/^' . $rules['pattern'] . '$/', $value)) {
-                self::setError(sprintf("Invalid value %s does not match pattern '%s' for key %s.", $value, $rules['pattern'], $key));
+                $this->setError(sprintf("Invalid value %s does not match pattern '%s' for key %s.", $value, $rules['pattern'], $key));
                 return false;
             }
         }
@@ -106,51 +101,53 @@ class Validation
      * @param array $rules
      * @return bool
      */
-    public static function checkRequired($array, $rules)
+    public function checkRequired($array, $rules)
     {
-        
-        foreach ($rules as $key => $value) {
-            if (isset($value['required']) && !isset($array[$key])) {
-                $failure = true;
-                if (is_array($value['required'])) {
-                    foreach ($value['required'] as $key2 => $value2) {
-                        if (is_array($value)) {
-                            foreach ($value2 as $key3 => $value3) {
-                            }
-                        } else {
-                            if ($value2 === null || $value2 == 'null') {
-                                if (!isset($array[$key2]) && $array[$key2] !== null && $array[$key2] != 'null') {
-                                    $failure = false;
+        if (is_array($rules)) {
+            foreach ($rules as $key => $value) {
+                if (isset($value['required']) && !isset($array[$key])) {
+                    $failure = true;
+                    if (is_array($value['required'])) {
+                        foreach ($value['required'] as $key2 => $value2) {
+                            if (is_array($value)) {
+                                foreach ($value2 as $key3 => $value3) {
                                 }
                             } else {
-                                if (!isset($array[$key2]) && $array[$key2] != $value2) {
-                                    $failure = false;
+                                if ($value2 === null || $value2 == 'null') {
+                                    if (!isset($array[$key2]) && $array[$key2] !== null && $array[$key2] != 'null') {
+                                        $failure = false;
+                                    }
+                                } else {
+                                    if (!isset($array[$key2]) && $array[$key2] != $value2) {
+                                        $failure = false;
+                                    }
                                 }
                             }
                         }
+                    } elseif ($value['required'] === true || $value['required'] == 'true') {
+                        if (!isset($array[$key])) {
+                            return false;
+                        } else {
+                            $failure = false;
+                        }
                     }
-                } elseif ($value['required'] === true || $value['required'] == 'true') {
-                    if (!isset($array[$key])) {
+                    if ($failure === true) {
                         return false;
-                    } else {
-                        $failure = false;
                     }
-                }
-                if ($failure === true) {
-                    return false;
                 }
             }
+            return true;
+        }else{
+            return false;    
         }
-        
-        return true;
     }
     
     /**
      * @return bool
      */
-    public static function isSuccess()
+    public function isSuccess()
     {
-        if (self::error) {
+        if ($this->error) {
             return false;
         } else {
             return true;
@@ -160,27 +157,115 @@ class Validation
     /**
      * @return bool
      */
-    public static function isError()
+    public function isError()
     {
-        return (bool) self::error;
+        return (bool) $this->error;
     }
     
     /**
      * @return null|string
      */
-    public static function getErrorMessage()
+    public function getErrorMessage()
     {
-        return self::errorMessage;
+        return $this->errorMessage;
     }
     
     /**
      * @param string $message
      * @return void
      */
-    private static function setError($message)
+    private function setError($message)
     {
         $this->error = true;
         $thos->errorMessage = $message;
+        
         return;
+    }
+    
+    /**
+     * @return void
+     */
+    public function clearError()
+    {
+        $this->error = false;
+        $thos->errorMessage = null;
+        
+        return;
+    }
+    
+	/**
+	 * @param int $value
+	 * @param string|null $key
+	 * @return true|false
+	 */
+    protected function validateInteger($value, $key = null)
+    {
+        if ($value != (int) $value) {
+			if (is_null($key)) {
+				$this->setError(sprintf("Invalid integer %s != %s.", $value, (int) $value));
+			} else {
+            	$this->setError(sprintf("Invalid integer %s != %s for key %s.", $value, (int) $value, $key));
+			}
+            return false;
+        }
+        
+        return true;    
+    }
+	
+	/**
+	 * @param float $value
+	 * @param string|null $key
+	 * @return true|false
+	 */
+    protected function validateDecimal($value, $key = null)
+    {
+        if ($value != (float) $value) {
+			if (is_null($key)) {
+				$this->setError(sprintf("Invalid decimal %s != %s.", $value, (float) $value));
+			} else {
+            	$this->setError(sprintf("Invalid decimal %s != %s for key %s.", $value, (float) $value, $key));
+			}
+            return false;
+        }
+        
+        return true;    
+    }
+	
+	/**
+	 * @param string $value
+	 * @param string|null $key
+	 * @return true|false
+	 */
+    protected function validateString($value, $key = null)
+    {
+        if ($value != (string) $value) {
+			if (is_null($key)) {
+				$this->setError(sprintf("Invalid string %s != %s.", $value, (string) $value));
+			} else {
+            	$this->setError(sprintf("Invalid string %s != %s for key %s.", $value, (string) $value, $key));
+			}
+            return false;
+        }
+        
+        return true;
+    }
+
+	/**
+	 * @param bool $value
+	 * @param string|null $key
+	 * @return true|false
+	 */
+    protected function validateBoolean($value, $key = null)
+    {
+        if ($value != (bool) $value) {
+			if (is_null($key)) {
+				$this->setError(sprintf("Invalid boolean %s != %s.", $value, (bool) $value));
+			} else {
+            	$this->setError(sprintf("Invalid boolean %s != %s for key %s.", $value, (bool) $value, $key));
+			}
+            return false;
+        }
+        
+        return true;
     }
 }

@@ -26,6 +26,7 @@ use Multidimensional\Usps\Validation;
 class ZipCode
 {
 
+    private $validation;
     protected $zipCode = [];
 
     const FIELDS = [
@@ -40,13 +41,22 @@ class ZipCode
         ]
     ];
     
+    /**
+     * @param array $config
+     * @return void
+     */
     public function __construct(array $config = [])
     {
-        if (count($config)) {
+        if (is_array($config)) {
             foreach ($config as $key => $value) {
                 $this->setField($key, $value);
             }
         }
+        $this->zipCode += array_combine(array_keys(self::FIELDS), array_fill(0, count(self::FIELDS), null));
+        
+        $this->validation = new Validation();
+        
+        return;
     }
     
     /**
@@ -57,10 +67,35 @@ class ZipCode
     public function setField($key, $value)
     {
         if (self::FIELDS[$key] !== null || array_key_exists($key, self::FIELDS)) {
-            if (Validation::validateField($key, $value, self::FIELDS[$key])) {
+            if (Sanitization::sanitizeField($key, $value, self::FIELDS[$key])) {
                 $this->zipCode[$key] = $value;
             }
         }
+        
+        return;
+    }
+    
+    
+    /**
+     * @param string $value
+     * @return void
+     */
+    public function setID($value)
+    {
+        $this->setField('@ID', $value);
+        
+        return;
+    }
+    
+    /**
+     * @param int    $value
+     * @return void
+     */
+    public function setZip5($value)
+    {
+        $this->setField('Zip5', $value);
+        
+        return;
     }
     
     /**
@@ -70,13 +105,19 @@ class ZipCode
     public function deleteField($key)
     {
         unset($this->zipCode[$key]);
+        
+        return;
     }
     
     /**
-     * @return array
+     * @return array|null
      */
     public function toArray()
     {
-        return $this->zipCode;
+        if ($this->validation->validate($this->zipCode, self::FIELDS)) {
+            return $this->zipCode;
+        }
+        
+        return null;
     }
 }

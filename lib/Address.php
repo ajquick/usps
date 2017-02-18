@@ -26,6 +26,8 @@ use Multidimensional\Usps\Sanitization;
 class Address
 {
 
+    private $validation;
+
     /**
      * @var array $address
      */
@@ -93,11 +95,15 @@ class Address
             }
         }
         $this->address += array_combine(array_keys(self::FIELDS), array_fill(0, count(self::FIELDS), null));
+        
+        $this->validation = new Validation();
+        
+        return;
     }
     
     /**
-     * @param string                $key
-     * @param int|bool|string|float
+     * @param string $key
+     * @param mixed
      * @return void
      */
     public function setField($key, $value)
@@ -106,14 +112,20 @@ class Address
             $value = Sanitization::sanitizeField($key, $value, self::FIELDS[$key]);
             $this->address[$key] = $value;
         }
+        
+        return;
     }
     
     /**
-     * @return array
+     * @return array|null
      */
     public function toArray()
     {
-        return $this->address;
+        if (Validation::validate($this->address, self::FIELDS)) {
+            return $this->address;
+        }
+        
+        return null;
     }
     
     /**
@@ -123,6 +135,8 @@ class Address
     public function setID($value)
     {
         $this->setField('@ID', $value);
+        
+        return;
     }
 
     /**
@@ -132,6 +146,8 @@ class Address
     public function setFirmName($value)
     {
         $this->setField('FirmName', $value);
+        
+        return;
     }
     
     /**
@@ -141,6 +157,8 @@ class Address
     public function setAddress1($value)
     {
         $this->setField('Address1', $value);
+        
+        return;
     }
     
     /**
@@ -150,6 +168,8 @@ class Address
     public function setAddress2($value)
     {
         $this->setField('Address2', $value);
+        
+        return;
     }
 
     /**
@@ -159,6 +179,8 @@ class Address
     public function setCity($value)
     {
         $this->setField('City', $value);
+        
+        return;
     }
 
     /**
@@ -168,6 +190,8 @@ class Address
     public function setState($value)
     {
         $this->setField('State', $value);
+        
+        return;
     }
 
     /**
@@ -177,6 +201,8 @@ class Address
     public function setUrbanization($value)
     {
         $this->setField('Urbanization', $value);
+        
+        return;
     }
 
     /**
@@ -186,6 +212,8 @@ class Address
     public function setZip5($value)
     {
         $this->setField('Zip5', $value);
+        
+        return;
     }
 
     /**
@@ -195,5 +223,7 @@ class Address
     public function setZip4($value)
     {
         $this->setField('Zip4', $value);
+        
+        return;
     }
 }
