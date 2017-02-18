@@ -88,7 +88,7 @@ class ZipCode
     }
     
     /**
-     * @param int    $value
+     * @param int $value
      * @return void
      */
     public function setZip5($value)

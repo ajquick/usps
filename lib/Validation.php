@@ -51,10 +51,10 @@ class Validation
             }
         }
  
-         if ($this->isSuccess()) {
+        if ($this->isSuccess()) {
             return true;
-        }else{
-            return false;    
+        } else {
+            return false;
         }
     }
     
@@ -74,10 +74,11 @@ class Validation
         }
         
         if (isset($rules['type'])) {
-            if (($rules['type'] === 'integer' && !$this->validateInteger($value, $key)) ||
-				($rules['type'] === 'decimal' && !$this->validateDecimal($value, $key)) ||
-				($rules['type'] === 'string'  && !$this->validateString ($value, $key)) ||
-                ($rules['type'] === 'boolean' && !$this->validateBoolean($value, $key))){
+            if (($rules['type'] === 'integer' && !$this->validateInteger($value, $key))
+                || ($rules['type'] === 'decimal' && !$this->validateDecimal($value, $key))
+                || ($rules['type'] === 'string'  && !$this->validateString($value, $key))
+                || ($rules['type'] === 'boolean' && !$this->validateBoolean($value, $key))
+            ) {
                 return false;
             }
         }
@@ -137,8 +138,8 @@ class Validation
                 }
             }
             return true;
-        }else{
-            return false;    
+        } else {
+            return false;
         }
     }
     
@@ -193,76 +194,76 @@ class Validation
         return;
     }
     
-	/**
-	 * @param int $value
-	 * @param string|null $key
-	 * @return true|false
-	 */
+    /**
+     * @param int         $value
+     * @param string|null $key
+     * @return true|false
+     */
     protected function validateInteger($value, $key = null)
     {
         if ($value != (int) $value) {
-			if (is_null($key)) {
-				$this->setError(sprintf("Invalid integer %s != %s.", $value, (int) $value));
-			} else {
-            	$this->setError(sprintf("Invalid integer %s != %s for key %s.", $value, (int) $value, $key));
-			}
+            if (is_null($key)) {
+                      $this->setError(sprintf("Invalid integer %s != %s.", $value, (int) $value));
+            } else {
+                      $this->setError(sprintf("Invalid integer %s != %s for key %s.", $value, (int) $value, $key));
+            }
             return false;
         }
         
-        return true;    
+        return true;
     }
-	
-	/**
-	 * @param float $value
-	 * @param string|null $key
-	 * @return true|false
-	 */
+    
+    /**
+     * @param float       $value
+     * @param string|null $key
+     * @return true|false
+     */
     protected function validateDecimal($value, $key = null)
     {
         if ($value != (float) $value) {
-			if (is_null($key)) {
-				$this->setError(sprintf("Invalid decimal %s != %s.", $value, (float) $value));
-			} else {
-            	$this->setError(sprintf("Invalid decimal %s != %s for key %s.", $value, (float) $value, $key));
-			}
+            if (is_null($key)) {
+                      $this->setError(sprintf("Invalid decimal %s != %s.", $value, (float) $value));
+            } else {
+                      $this->setError(sprintf("Invalid decimal %s != %s for key %s.", $value, (float) $value, $key));
+            }
             return false;
         }
         
-        return true;    
+        return true;
     }
-	
-	/**
-	 * @param string $value
-	 * @param string|null $key
-	 * @return true|false
-	 */
+    
+    /**
+     * @param string      $value
+     * @param string|null $key
+     * @return true|false
+     */
     protected function validateString($value, $key = null)
     {
         if ($value != (string) $value) {
-			if (is_null($key)) {
-				$this->setError(sprintf("Invalid string %s != %s.", $value, (string) $value));
-			} else {
-            	$this->setError(sprintf("Invalid string %s != %s for key %s.", $value, (string) $value, $key));
-			}
+            if (is_null($key)) {
+                      $this->setError(sprintf("Invalid string %s != %s.", $value, (string) $value));
+            } else {
+                      $this->setError(sprintf("Invalid string %s != %s for key %s.", $value, (string) $value, $key));
+            }
             return false;
         }
         
         return true;
     }
 
-	/**
-	 * @param bool $value
-	 * @param string|null $key
-	 * @return true|false
-	 */
+    /**
+     * @param bool        $value
+     * @param string|null $key
+     * @return true|false
+     */
     protected function validateBoolean($value, $key = null)
     {
         if ($value != (bool) $value) {
-			if (is_null($key)) {
-				$this->setError(sprintf("Invalid boolean %s != %s.", $value, (bool) $value));
-			} else {
-            	$this->setError(sprintf("Invalid boolean %s != %s for key %s.", $value, (bool) $value, $key));
-			}
+            if (is_null($key)) {
+                      $this->setError(sprintf("Invalid boolean %s != %s.", $value, (bool) $value));
+            } else {
+                      $this->setError(sprintf("Invalid boolean %s != %s for key %s.", $value, (bool) $value, $key));
+            }
             return false;
         }
         
