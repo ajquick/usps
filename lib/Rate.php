@@ -38,13 +38,13 @@ class Rate extends USPS
     public $revision = 2;
 
     const FIELDS = [
-    'Revison' => [
-    'type' => 'integer'
-    ],
-    'Package' => [
-    'type' => 'Package',
-    'fields' => Package::FIELDS
-    ]
+        'Revison' => [
+            'type' => 'integer'
+        ],
+        'Package' => [
+            'type' => 'Package',
+            'fields' => Package::FIELDS
+        ]
     ];
 
     public function __construct(array $config = [])

@@ -97,70 +97,70 @@ class Package
  * @var array $fields
  */
     const FIELDS = [
-    '@ID' => [
-    'type' => 'string'
-    ],
-    'Service' => [
-    'type' => 'string',
-    'required' => true
-    ],
-    'FirstClassMailType' => [
-    'type' => 'string',
-    'required' => [
-    'Service' => self::SERVICE_FIRST_CLASS,
-    'Service' => self::SERVICE_FIRST_CLASS_COMMERCIAL,
-    'Service' => self::SERVICE_FIRST_CLASS_HFP_COMMERCIAL
-    ]
-    ],
-    'ZipOrigination' => [
-    'type' => 'integer',
-    'required' => true,
-    'pattern' => '\d{5}'
-    ],
-    'ZipDestination' => [
-    'type' => 'integer',
-    'required' => true,
-    'pattern' => '\d{5}'
-    ],
-    'Pounds' => [
-    'type' => 'decimal',
-    'required' => true,
-    'pattern' => '\d{0,10}'
-    ],
-    'Ounces' => [
-    'type' => 'decimal',
-    'required' => true,
-    'pattern' => '\d{0,10}'
-    ],
-    'Container' => [
-    'type' => 'string',
-    'required' => true,
-    'default' => self::CONTAINER_VARIABLE
-    ],
-    'Size' => [
-    'type' => 'string',
-    'required' => true,
-    'pattern' => self::SIZE_REGULAR . '|' . self::SIZE_LARGE
-    ],
-    'Width' => [
-    'type' => 'decimal',
-    'required' => [
-    'Size' => self::SIZE_LARGE
-    ],
-    'pattern' => '\d{0,10}'
-    ],
-    'Length' => [
-    'type' => 'decimal',
-    'required' => [
-    'Size' => self::SIZE_LARGE
-    ],
-    'pattern' => '\d{0,10}'
-    ],
-    'Height' => [
-    'type' => 'decimal',
-    'required' => [
-    'Size' => self::SIZE_LARGE
-    ],
+        '@ID' => [
+            'type' => 'string'
+        ],
+        'Service' => [
+            'type' => 'string',
+            'required' => true
+        ],
+        'FirstClassMailType' => [
+            'type' => 'string',
+            'required' => [
+                'Service' => self::SERVICE_FIRST_CLASS,
+                'Service' => self::SERVICE_FIRST_CLASS_COMMERCIAL,
+                'Service' => self::SERVICE_FIRST_CLASS_HFP_COMMERCIAL
+            ]
+        ],
+        'ZipOrigination' => [
+            'type' => 'integer',
+            'required' => true,
+            'pattern' => '\d{5}'
+        ],
+        'ZipDestination' => [
+            'type' => 'integer',
+            'required' => true,
+            'pattern' => '\d{5}'
+        ],
+        'Pounds' => [
+            'type' => 'decimal',
+            'required' => true,
+            'pattern' => '\d{0,10}'
+        ],
+        'Ounces' => [
+            'type' => 'decimal',
+            'required' => true,
+            'pattern' => '\d{0,10}'
+        ],
+        'Container' => [
+            'type' => 'string',
+            'required' => true,
+            'default' => self::CONTAINER_VARIABLE
+        ],
+        'Size' => [
+            'type' => 'string',
+            'required' => true,
+            'pattern' => self::SIZE_REGULAR . '|' . self::SIZE_LARGE
+        ],
+        'Width' => [
+            'type' => 'decimal',
+            'required' => [
+                'Size' => self::SIZE_LARGE
+            ],
+            'pattern' => '\d{0,10}'
+        ],
+        'Length' => [
+            'type' => 'decimal',
+            'required' => [
+                'Size' => self::SIZE_LARGE
+            ],
+            'pattern' => '\d{0,10}'
+        ],
+        'Height' => [
+            'type' => 'decimal',
+            'required' => [
+                'Size' => self::SIZE_LARGE
+            ],
             'pattern' => '\d{0,10}'
         ],
         'Girth' => [
