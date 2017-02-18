@@ -30,13 +30,29 @@ class ZipCodeTest extends TestCase
     {
         $config = ['@ID' => 0, 'Zip5' => 80110];
         $zipCode = new ZipCode($config);
-        $this->assertSame($zipCode->toArray(), $config);
+		$result = $zipCode->toArray();
+		$expected = $config;
+        $this->assertEquals($expected, $result);
+		
         $zipCode->deleteField('@ID'); 
         $zipCode->deleteField('Zip5');
-        $this->assertSame($zipCode->toArray(), []);
+		$result = $zipCode->toArray();
+		$expected = null;
+        $this->assertEquals($expected, $result);
+		
         $zipCode->setField('@ID', 123);
         $zipCode->setField('Zip5', 90210);
-        $this->assertSame($zipCode->toArray(), ['@ID' => 123, 'Zip5' => 90210]);
+		$result = $zipCode->toArray();
+		$expected = ['@ID' => 123, 'Zip5' => 90210];
+        $this->assertEquals($expected, $result);
     }
     
+	public function testBlank()
+	{
+		$zipCode = new ZipCode();
+		$result = $zipCode->toArray();
+		$expected = null;
+        $this->assertEquals($expected, $result);
+	}
+	
 }
