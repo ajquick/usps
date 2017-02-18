@@ -1,7 +1,7 @@
 <?php
 /**
- *     __  ___      ____  _     ___                           _                    __
- *    /  |/  /_  __/ / /_(_)___/ (_)___ ___  ___  ____  _____(_)___  ____   ____ _/ /
+ * __  ___  ____  _ ___   ___
+ */  |/  /_  __/ / /_(_)___/ (_)___ ___  ___  ____  _____(_)___  ____   ____ _/ /
  *   / /|_/ / / / / / __/ / __  / / __ `__ \/ _ \/ __ \/ ___/ / __ \/ __ \ / __ `/ /
  *  / /  / / /_/ / / /_/ / /_/ / / / / / / /  __/ / / (__  ) / /_/ / / / // /_/ / /
  * /_/  /_/\__,_/_/\__/_/\__,_/_/_/ /_/ /_/\___/_/ /_/____/_/\____/_/ /_(_)__,_/_/
@@ -23,43 +23,43 @@ namespace Multidimensional\Usps;
 
 class IntlRate extends USPS
 {
-    
-    /**
-     * @var string
-     */
-    private $apiClass = 'IntlRateV2';
-    
-    /**
-     * @var array
-     */
-    protected $packages = [];
-    
-    public $revision = 2;
-    
-    public function __construct(array $config = [])
-    {
-        parent::__construct($config);
-        if (isset($config['revision'])) {
-            $this->setRevision($config['revision']);
-        }
-    }
-    
-    public function getRate()
-    {
-        return $this->request($this->apiClass);
-    }
-    
-    public function addPackage(IntlRate\Package $package)
-    {
-        $this->packages[] = $package->toArray();
-    }
-    
-    public function setRevision($value)
-    {
-        if (intval($value) === 2) {
-            $this->revision = '2';
-        } else {
-            $this->revision = null;
-        }
-    }
+
+/**
+ * @var string
+ */
+private $apiClass = 'IntlRateV2';
+
+/**
+ * @var array
+ */
+protected $packages = [];
+
+public $revision = 2;
+
+public function __construct(array $config = [])
+{
+parent::__construct($config);
+if (isset($config['revision'])) {
+$this->setRevision($config['revision']);
+}
+}
+
+public function getRate()
+{
+return $this->request($this->apiClass);
+}
+
+public function addPackage(IntlRate\Package $package)
+{
+$this->packages[] = $package->toArray();
+}
+
+public function setRevision($value)
+{
+if (intval($value) === 2) {
+$this->revision = '2';
+} else {
+$this->revision = null;
+}
+}
 }

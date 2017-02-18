@@ -45,8 +45,8 @@ class Content
         'ContentType' => [
             'type' => 'string',
             'pattern' => self::CONTENT_TYPE_HAZMAT . '|' .
-				self::CONTENT_TYPE_CREMATEDREMAINS . '|' .
-				self::CONTENT_TYPE_LIVES
+                self::CONTENT_TYPE_CREMATEDREMAINS . '|' .
+                self::CONTENT_TYPE_LIVES
         ],
         'ContentDescription' => [
             'type' => 'string',
@@ -54,9 +54,9 @@ class Content
                 'ContentType' => self::CONTENT_TYPE_LIVES
             ],
             'pattern' => self::CONTENT_DESCRIPTION_BEES . '|' .
-				self::CONTENT_DESCRIPTION_DAYOLDPOULTRY . '|' .
-				self::CONTENT_DESCRIPTION_ADULTBIRDS . '|' .
-				self::CONTENT_DESCRIPTION_OTHER
+                self::CONTENT_DESCRIPTION_DAYOLDPOULTRY . '|' .
+                self::CONTENT_DESCRIPTION_ADULTBIRDS . '|' .
+                self::CONTENT_DESCRIPTION_OTHER
         ]
     ];
     

@@ -1,7 +1,7 @@
 <?php
 /**
- *     __  ___      ____  _     ___                           _                    __
- *    /  |/  /_  __/ / /_(_)___/ (_)___ ___  ___  ____  _____(_)___  ____   ____ _/ /
+ * __  ___  ____  _ ___   ___
+ */  |/  /_  __/ / /_(_)___/ (_)___ ___  ___  ____  _____(_)___  ____   ____ _/ /
  *   / /|_/ / / / / / __/ / __  / / __ `__ \/ _ \/ __ \/ ___/ / __ \/ __ \ / __ `/ /
  *  / /  / / /_/ / / /_/ / /_/ / / / / / / /  __/ / / (__  ) / /_/ / / / // /_/ / /
  * /_/  /_/\__,_/_/\__/_/\__,_/_/_/ /_/ /_/\___/_/ /_/____/_/\____/_/ /_(_)__,_/_/
@@ -23,52 +23,52 @@ namespace Multidimensional\Usps;
 
 class Track extends USPS
 {
-    /**
-     * @var string
-     */
-    private $apiClass = 'TrackV2';
-    
-    /**
-     * @var array
-     */
-    protected $trackingNumbers = [];
-    
-    const FIELDS = [
-        'TrackID' => [
-            'required' => true
-        ],
-        '@ID' => [
-            'type' => 'string',
-            'required' => true
-        ]
-    ];
-    
-    public function __construct(array $config = [])
-    {
-        parent::__construct($config);
-    }
-        
-    /**
-     * @param string $string
-     */
-    public function addTrackingNumber($string)
-    {
-        $this->trackingNumbers[] = $string;
-    }
-    
-    /**
-     * @return array
-     */
-    public function track()
-    {
-        return $this->request($this->apiClass);
-    }
-    
-    /**
-     * @return array
-     */
-    public function toArray()
-    {
-        return $this->trackingNumbers;
-    }
+/**
+ * @var string
+ */
+private $apiClass = 'TrackV2';
+
+/**
+ * @var array
+ */
+protected $trackingNumbers = [];
+
+const FIELDS = [
+'TrackID' => [
+'required' => true
+],
+'@ID' => [
+'type' => 'string',
+'required' => true
+]
+];
+
+public function __construct(array $config = [])
+{
+parent::__construct($config);
+}
+
+/**
+ * @param string $string
+ */
+public function addTrackingNumber($string)
+{
+$this->trackingNumbers[] = $string;
+}
+
+/**
+ * @return array
+ */
+public function track()
+{
+return $this->request($this->apiClass);
+}
+
+/**
+ * @return array
+ */
+public function toArray()
+{
+return $this->trackingNumbers;
+}
 }

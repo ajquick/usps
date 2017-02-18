@@ -1,7 +1,7 @@
 <?php
 /**
- *     __  ___      ____  _     ___                           _                    __
- *    /  |/  /_  __/ / /_(_)___/ (_)___ ___  ___  ____  _____(_)___  ____   ____ _/ /
+ * __  ___  ____  _ ___   ___
+ */  |/  /_  __/ / /_(_)___/ (_)___ ___  ___  ____  _____(_)___  ____   ____ _/ /
  *   / /|_/ / / / / / __/ / __  / / __ `__ \/ _ \/ __ \/ ___/ / __ \/ __ \ / __ `/ /
  *  / /  / / /_/ / / /_/ / /_/ / / / / / / /  __/ / / (__  ) / /_/ / / / // /_/ / /
  * /_/  /_/\__,_/_/\__/_/\__,_/_/_/ /_/ /_/\___/_/ /_/____/_/\____/_/ /_(_)__,_/_/
@@ -25,28 +25,28 @@ use Multidimensional\Usps\IntlRate\Package;
 
 class Content
 {
-    
-    /**
-     * IntlRateV2Request / Package / Content / ContentType
-     */
-    const CONTENT_TYPE_CREMATED_REMAINS = 'CrematedRemains';
-    const CONTENT_TYPE_NONNEGOTIABLE_DOCUMENT = 'NonnegotiableDocument';
-    const CONTENT_TYPE_PHARMACEUTICALS = 'Pharmaceuticals';
-    const CONTENT_TYPE_MEDICAL_SUPPLIES = 'MedicalSupplies';
-    const CONTENT_TYPE_DOCUMENTS = 'Documents';
-    
-    const FIELDS = [
-        'ContentType' => [
-            'type' => 'string',
-            'required' => true,
-            'pattern' => self::CONTENT_TYPE_CREMATED_REMAINS . '|' .
-				self::CONTENT_TYPE_NONNEGOTIABLE_DOCUMENT . '|' .
-				self::CONTENT_TYPE_PHARMACEUTICALS . '|' .
-				self::CONTENT_TYPE_MEDICAL_SUPPLIES . '|' .
-				self::CONTENT_TYPE_DOCUMENTS
-        ],
-        'ContentDescription' => [
-            'type' => 'string'
-        ]
-    ];
+
+/**
+ * IntlRateV2Request / Package / Content / ContentType
+ */
+const CONTENT_TYPE_CREMATED_REMAINS = 'CrematedRemains';
+const CONTENT_TYPE_NONNEGOTIABLE_DOCUMENT = 'NonnegotiableDocument';
+const CONTENT_TYPE_PHARMACEUTICALS = 'Pharmaceuticals';
+const CONTENT_TYPE_MEDICAL_SUPPLIES = 'MedicalSupplies';
+const CONTENT_TYPE_DOCUMENTS = 'Documents';
+
+const FIELDS = [
+'ContentType' => [
+'type' => 'string',
+'required' => true,
+'pattern' => self::CONTENT_TYPE_CREMATED_REMAINS . '|' .
+self::CONTENT_TYPE_NONNEGOTIABLE_DOCUMENT . '|' .
+self::CONTENT_TYPE_PHARMACEUTICALS . '|' .
+self::CONTENT_TYPE_MEDICAL_SUPPLIES . '|' .
+self::CONTENT_TYPE_DOCUMENTS
+],
+'ContentDescription' => [
+'type' => 'string'
+]
+];
 }
