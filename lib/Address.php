@@ -121,7 +121,7 @@ class Address
      */
     public function toArray()
     {
-        if (Validation::validate($this->address, self::FIELDS)) {
+        if ($this->validation->validate($this->address, self::FIELDS)) {
             return $this->address;
         }
         
