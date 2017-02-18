@@ -39,7 +39,11 @@ class Content
         'ContentType' => [
             'type' => 'string',
             'required' => true,
-            'pattern' => self::CONTENT_TYPE_CREMATED_REMAINS . '|' . self::CONTENT_TYPE_NONNEGOTIABLE_DOCUMENT . '|' .  self::CONTENT_TYPE_PHARMACEUTICALS . '|' . self::CONTENT_TYPE_MEDICAL_SUPPLIES . '|' . self::CONTENT_TYPE_DOCUMENTS
+            'pattern' => self::CONTENT_TYPE_CREMATED_REMAINS . '|' .
+				self::CONTENT_TYPE_NONNEGOTIABLE_DOCUMENT . '|' .
+				self::CONTENT_TYPE_PHARMACEUTICALS . '|' .
+				self::CONTENT_TYPE_MEDICAL_SUPPLIES . '|' .
+				self::CONTENT_TYPE_DOCUMENTS
         ],
         'ContentDescription' => [
             'type' => 'string'
