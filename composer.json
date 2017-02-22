@@ -11,7 +11,7 @@
         "guzzlehttp/guzzle": "~6.0",
         "multidimensional/dom-array": "*",
         "multidimensional/xml-array": "*",
-		"multidimensional/array-validation": "*"
+        "multidimensional/array-validation": "*"
     },
     "require-dev": {
         "phpunit/phpunit": "*",

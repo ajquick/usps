@@ -48,104 +48,113 @@ class Package
     const SIZE_REGULAR  = 'REGULAR';
 
     const FIELDS = [
-    '@ID' => [
-    'type' => 'string'
-    ],
-    'Pounds' => [
-    'type' => 'decimal',
-    'required' => true,
-    'pattern' => '\d{0,10}'
-    ],
-    'Ounces' => [
-    'type' => 'decimal',
-    'required' => true,
-    'pattern' => '\d{0,10}'
-    ],
-    'Machinable' => [
-    'type' => 'boolean',
-    'default' => true
-    ],
-    'MailType' => [
-    'type' => 'string',
-    'required' => true
-    ],
-    'GXG' => [
-    'type' => 'GXG'
-    ],
-    'ValueOfContents' => [
-    'type' => 'string',
-    'required' => true
-    ],
-    'Country' => [
-    'type' => 'string',
-    'required' => true
-    ],
-    'Container' => [
-    'type' => 'string',
-    'required' => true,
-    'pattern' => self::CONTAINER_RECTANGULAR . '|' . self::CONTAINER_NONRECTANGULAR
-    ],
-    'Size' => [
-    'type' => 'string',
-    'required' => true
-    ],
-    'Width' => [
-    'type' => 'integer',
-    'required' => [
-    'Size' => self::SIZE_LARGE
-    ]
-    ],
-    'Length' => [
-    'type' => 'integer',
-    'required' => [
-    'Size' => self::SIZE_LARGE
-    ]
-    ],
-    'Height' => [
-    'type' => 'integer',
-    'required' => [
-    'Size' => self::SIZE_LARGE
-    ]
-    ],
-    'Girth' => [
-    'type' => 'integer',
-    'required' => [
-    [
-    'Size' => self::SIZE_LARGE,
-    'Container' => self::CONTAINER_NONRECTANGULAR
-    ]
-    ]
-    ],
-    'OriginZip' => [
-    'type' => 'integer',
-    'required' => [
-    'Country' => 'Canada'
-    ],
-    'pattern' => '\d{5}'
-    ],
-    'CommercialFlag' => [
-    'type' => 'string',
-    'pattern' => 'Y|N'
-    ],
-    'CommercialPlusFlag' => [
-    'type' => 'string',
-    'pattern' => 'Y|N'
-    ],
-    'ExtraServices' => [
-    'type' => 'ExtraServices',
-    'fields' => ExtraServices::fields
-    ],
-    'AcceptanceDataTime' => [
-    'type' => 'DateTime',
-    'pattern' => 'ISO 8601'
-    ],
-    'DestinationPostalCode' => [
-    'type' => 'string'
-    ],
-    'Content' => [
-    'type' => 'Content',
-    'fields' => Content::fields
-    ]
+        '@ID' => [
+            'type' => 'string'
+        ],
+        'Pounds' => [
+            'type' => 'decimal',
+            'required' => true,
+            'pattern' => '\d{0,10}'
+        ],
+        'Ounces' => [
+            'type' => 'decimal',
+            'required' => true,
+            'pattern' => '\d{0,10}'
+        ],
+        'Machinable' => [
+            'type' => 'boolean',
+            'default' => true
+        ],
+        'MailType' => [
+            'type' => 'string',
+            'required' => true
+        ],
+        'GXG' => [
+            'type' => 'GXG'
+        ],
+        'ValueOfContents' => [
+            'type' => 'string',
+            'required' => true
+        ],
+        'Country' => [
+            'type' => 'string',
+            'required' => true
+        ],
+        'Container' => [
+            'type' => 'string',
+            'required' => true,
+            'values' => [
+                self::CONTAINER_RECTANGULAR,
+                self::CONTAINER_NONRECTANGULAR
+            ]
+        ],
+        'Size' => [
+            'type' => 'string',
+            'required' => true
+        ],
+        'Width' => [
+            'type' => 'integer',
+            'required' => [
+                'Size' => self::SIZE_LARGE
+            ]
+        ],
+        'Length' => [
+            'type' => 'integer',
+            'required' => [
+                'Size' => self::SIZE_LARGE
+            ]
+        ],
+        'Height' => [
+            'type' => 'integer',
+            'required' => [
+                'Size' => self::SIZE_LARGE
+            ]
+        ],
+        'Girth' => [
+            'type' => 'integer',
+            'required' => [
+                [
+                    'Size' => self::SIZE_LARGE,
+                    'Container' => self::CONTAINER_NONRECTANGULAR
+                ]
+            ]
+        ],
+        'OriginZip' => [
+            'type' => 'integer',
+            'required' => [
+                'Country' => 'Canada'
+            ],
+            'pattern' => '\d{5}'
+        ],
+        'CommercialFlag' => [
+            'type' => 'string',
+            'values' => [
+                'Y',
+                'N'
+            ]
+        ],
+        'CommercialPlusFlag' => [
+            'type' => 'string',
+            'values' => [
+                'Y',
+                'N'
+            ]
+        ],
+        'ExtraServices' => [
+            'type' => 'ExtraServices',
+            'fields' => ExtraServices::fields
+        ],
+        'AcceptanceDataTime' => [
+            'type' => 'DateTime',
+            'pattern' => 'ISO 8601'
+        ],
+        'DestinationPostalCode' => [
+            'type' => 'string'
+        ],
+        'Content' => [
+            'type' => 'Content',
+            'fields' => Content::fields
+        ]
     ];
 
     public function __constuct(array $config = [])

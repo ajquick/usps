@@ -27,10 +27,16 @@ class ExtraServices
 {
 
     const FIELDS = [
-    'ExtraService' => [
-    'type' => 'integer',
-    'pattern' => '0|1|2|6|9'
-    ]
+        'ExtraService' => [
+            'type' => 'integer',
+            'values' => [
+                0,
+                1,
+                2,
+                6,
+                9
+            ]
+        ]
     ];
 
 /**

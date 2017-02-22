@@ -27,16 +27,22 @@ class GXG
 {
 
     const FIELDS = [
-    'POBoxFlag' => [
-    'type' => 'string',
-    'required' => true,
-    'pattern' => 'Y|N'
-    ],
-    'GiftFlag' => [
-    'type' => 'string',
-    'required' => true,
-    'pattern' => 'Y|N'
-    ]
+        'POBoxFlag' => [
+            'type' => 'string',
+            'required' => true,
+            'values' => [
+                'Y',
+                'N'
+            ]
+        ],
+        'GiftFlag' => [
+            'type' => 'string',
+            'required' => true,
+            'values' => [
+                'Y',
+                'N'
+            ]
+        ]
     ];
 
     public function __construct()

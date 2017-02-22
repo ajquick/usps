@@ -140,7 +140,10 @@ class Package
         'Size' => [
             'type' => 'string',
             'required' => true,
-            'pattern' => self::SIZE_REGULAR . '|' . self::SIZE_LARGE
+            'values' => [
+                self::SIZE_REGULAR,
+                self::SIZE_LARGE
+            ]
         ],
         'Width' => [
             'type' => 'decimal',
