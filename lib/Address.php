@@ -22,7 +22,7 @@
 namespace Multidimensional\Usps;
 
 use Multidimensional\ArrayValidation\Validation;
-use Multidimensional\Usps\Sanitization;
+use Multidimensional\ArraySanitization\Sanitization;
 
 class Address
 {

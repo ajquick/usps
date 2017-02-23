@@ -23,7 +23,7 @@ namespace Multidimensional\Usps\Rate;
 
 use Multidimensional\Usps\Rate\Package\Content;
 use Multidimensional\Usps\Rate\Package\SpecialServices;
-use Multidimensional\Usps\Sanitization;
+use Multidimensional\ArraySanitization\Sanitization;
 
 class Package
 {
