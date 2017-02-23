@@ -21,9 +21,10 @@
 
 namespace Multidimensional\Usps\Rate;
 
+use Multidimensional\ArraySanitization\Sanitization;
+use Multidimensional\ArrayValidation\Validation;
 use Multidimensional\Usps\Rate\Package\Content;
 use Multidimensional\Usps\Rate\Package\SpecialServices;
-use Multidimensional\ArraySanitization\Sanitization;
 
 class Package
 {

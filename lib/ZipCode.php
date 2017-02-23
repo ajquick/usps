@@ -21,6 +21,7 @@
 
 namespace Multidimensional\Usps;
 
+use Multidimensional\ArraySanitization\Sanitization;
 use Multidimensional\ArrayValidation\Validation;
 
 class ZipCode

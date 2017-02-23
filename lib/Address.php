@@ -21,8 +21,8 @@
 
 namespace Multidimensional\Usps;
 
-use Multidimensional\ArrayValidation\Validation;
 use Multidimensional\ArraySanitization\Sanitization;
+use Multidimensional\ArrayValidation\Validation;
 
 class Address
 {
