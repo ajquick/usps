@@ -37,7 +37,7 @@ class ZipCodeTest extends TestCase
         $zipCode->deleteField('@ID'); 
         $zipCode->deleteField('Zip5');
         $result = $zipCode->toArray();
-        $expected = null;
+        $expected = [];
         $this->assertEquals($expected, $result);
         
         $zipCode->setField('@ID', 123);
@@ -51,7 +51,7 @@ class ZipCodeTest extends TestCase
     {
         $zipCode = new ZipCode();
         $result = $zipCode->toArray();
-        $expected = null;
+        $expected = [];
         $this->assertEquals($expected, $result);
     }
     
