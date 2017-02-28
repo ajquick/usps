@@ -51,7 +51,7 @@ class ZipCodeTest extends TestCase
     {
         $zipCode = new ZipCode();
         $result = $zipCode->toArray();
-        $expected = [];
+        $expected = ['@ID' => null, 'Zip5' => null];
         $this->assertEquals($expected, $result);
     }
     
