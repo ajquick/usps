@@ -165,6 +165,7 @@
                   <xs:sequence>
                     <xs:element name="SpecialService" maxOccurs="10">
                       <xs:simpleType>
+
                         <xs:restriction base="xs:string">
                           <xs:enumeration value="100" />
                           <xs:enumeration value="101" />
@@ -202,14 +203,7 @@
                   </xs:sequence>
                 </xs:complexType>
               </xs:element>
-              <xs:element name="GroundOnly" default="false" nillable="true">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:enumeration value="false" />
-                    <xs:enumeration value="true" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
+              <xs:element name="GroundOnly" default="false" nillable="true" type="xs:boolean" />
               <xs:element name="SortBy" nillable="true">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
@@ -220,31 +214,9 @@
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="Machinable" nillable="true">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:whiteSpace value="collapse" />
-                    <xs:enumeration value="true" />
-                    <xs:enumeration value="false" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="ReturnLocations" default="true" nillable="true">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:enumeration value="true" />
-                    <xs:enumeration value="false" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="ReturnServiceInfo" nillable="true">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:enumeration value="true" />
-                    <xs:enumeration value="false" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
+              <xs:element name="Machinable" nillable="true" type="xs:boolean" />
+              <xs:element name="ReturnLocations" default="true" nillable="true" type="xs:boolean" />
+              <xs:element name="ReturnServiceInfo" nillable="true" type="xs:boolean" />
               <xs:element name="DropOffTime" type="xs:string" nillable="true" />
               <xs:element name="ShipDate" minOccurs="0">
                 <xs:complexType>
