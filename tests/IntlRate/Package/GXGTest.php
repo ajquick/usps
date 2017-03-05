@@ -18,35 +18,12 @@
  * unless prior written permission is obtained.
  */
 
-namespace Multidimensional\Usps\Test\Rate;
+namespace Multidimensional\Usps\Test\IntlRate\Package;
 
-use Multidimensional\Usps\Rate\Package;
+use Multidimensional\Usps\IntlRate\Package\GXG;
 use PHPUnit\Framework\TestCase;
 
-class PackageTest extends TestCase
+class GXGTest extends TestCase
 {
-    public function testNamedFunctions()
-    {
-        $this->markTestIncomplete();
-        /*
-        $package = new Package();
-        $package->setService();
-        $package->setFirstClassMailType();
-        $package->setZipOrigination();
-        $package->setZipDestination();
-        $package->setPounds();
-        $package->setOunces();
-        $package->setSize();
-        $package->setContainer();
-        $package->setWidth();
-        $package->setLength();
-        $package->setHeight();
-        $package->setGirth();
-        $package->setValue();
-        $package->setAmountToCollect();
-        $package->setGroundOnly();
-        $package->setSortBy();
-        $package->setMachinable();
-        */
-    }
+	
 }

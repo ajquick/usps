@@ -21,10 +21,23 @@
 
 namespace Multidimensional\Usps\IntlRate\Package;
 
-use Multidimensional\Usps\IntlRate\Package;
+use Multidimensional\ArraySanitization\Sanitization;
+use Multidimensional\ArrayValidation\Validation;
 
 class ExtraServices
 {
+	private $validation;
+
+	/**
+	 * @var $services
+	 */
+    public $service = [];
+
+	const EXTRA_SERVICE_REGISTERED_MAIL = 0;
+	const EXTRA_SERVICE_INSURANCE = 1;
+	const EXTRA_SERVICE_RETURN_RECEIPT = 2;
+	const EXTRA_SERVICE_CERTIFICATE_OF_MAILING = 6;
+	const EXTRA_SERVICE_ELECTRONIC_DELIVERY_CONFIRMATION = 9;
 
     const FIELDS = [
         'ExtraService' => [
@@ -38,12 +51,38 @@ class ExtraServices
             ]
         ]
     ];
+	
+    public function __construct(array $config = [])
+    {
+        /*if (is_array($config)) {
+            foreach ($config as $key => $value) {
+                $this->setField($key, $value);
+            }
+        }*/
+        
+        $this->validation = new Validation();
+        
+        return;
+    }
+	
+	public function toArray()
+	{
+		if ($this->validation->validate($this->service, self::FIELDS)) {
+            return $this->service;
+        }
+        
+        return null;
+	}
+	
+	public function addService($value)
+	{
+        $value = Sanitization::sanitizeField('ExtraService', $value, self::FIELDS['ExtraService']);
+		$this->services['ExtraService'] = $value;
+	}
+	
+	public function removeService()
+	{
+		unset($this->services['ExtraService']);
+	}
 
-/**
- * Registered Mail 0
- * Insurance 1
- * Return Receipt 2
- * Certificate of Mailing 6
- * Electronic USPS Delivery Confirmation International 9
- */
 }

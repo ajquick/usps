@@ -25,6 +25,12 @@ use Multidimensional\Usps\IntlRate\Package;
 
 class GXG
 {
+	public $gxg = [];
+	
+	const GXG_POBOXFLAG_YES = 'Y';
+	const GXG_POBOXFLAG_NO = 'N';
+	const GXG_GIFTFLAG_YES = 'Y';
+	const GXG_GIFTFLAG_NO = 'N';
 
     const FIELDS = [
         'POBoxFlag' => [
@@ -45,7 +51,31 @@ class GXG
         ]
     ];
 
-    public function __construct()
+    public function __construct(array $config = [])
     {
+        if (is_array($config)) {
+            foreach ($config as $key => $value) {
+                $this->setField($key, $value);
+            }
+        }
+        
+        $this->validation = new Validation();
+        
+        return;
     }
+	
+	public function setField($key, $value)
+	{
+		if (in_array($key, array_keys(self::FIELDS))) {
+            $value = Sanitization::sanitizeField($key, $value, self::FIELDS[$key]);
+            $this->gxg[$key] = $value;
+        }
+        
+        return;		
+	}
+	
+	public function toArray()
+	{
+		return $this->gxg;	
+	}
 }
