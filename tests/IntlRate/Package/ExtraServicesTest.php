@@ -36,15 +36,15 @@ class ExtraServicesTest extends TestCase
     {
         $this->extraServices = new ExtraServices([0]);
         $result = $this->extraServices->toArray();
-        $expected = ['ExtraServices' => 0];
+        $expected = ['ExtraService' => 0];
         $this->assertEquals($expected, $result);
         $this->extraServices->addService(1);
         $result = $this->extraServices->toArray();
-        $expected = ['ExtraServices' => 1];
+        $expected = ['ExtraService' => 1];
         $this->assertEquals($expected, $result);
         $this->extraServices->addService("0");
         $result = $this->extraServices->toArray();
-        $expected = ['ExtraServices' => 0];
+        $expected = ['ExtraService' => 0];
         $this->assertEquals($expected, $result);
     }
     
@@ -52,7 +52,7 @@ class ExtraServicesTest extends TestCase
     {
         $this->extraServices = new ExtraServices([ExtraServices::REGISTERED_MAIL]);
         $result = $this->extraServices->toArray();
-        $expected = ['ExtraServices' => 0];
+        $expected = ['ExtraService' => 0];
         $this->assertEquals($expected, $result);
     }
         
@@ -60,7 +60,7 @@ class ExtraServicesTest extends TestCase
     {
         $this->extraServices = new ExtraServices([ExtraServices::INSURANCE]);
         $result = $this->extraServices->toArray();
-        $expected = ['ExtraServices' => 1];
+        $expected = ['ExtraService' => 1];
         $this->assertEquals($expected, $result);
     }
     
@@ -68,7 +68,7 @@ class ExtraServicesTest extends TestCase
     {
         $this->extraServices = new ExtraServices([ExtraServices::RETURN_RECEIPT]);
         $result = $this->extraServices->toArray();
-        $expected = ['ExtraServices' => 2];
+        $expected = ['ExtraService' => 2];
         $this->assertEquals($expected, $result);
     }
     
@@ -76,7 +76,7 @@ class ExtraServicesTest extends TestCase
     {
         $this->extraServices = new ExtraServices([ExtraServices::CERTIFICATE_OF_MAILING]);
         $result = $this->extraServices->toArray();
-        $expected = ['ExtraServices' => 6];
+        $expected = ['ExtraService' => 6];
         $this->assertEquals($expected, $result);
     }
     
@@ -84,7 +84,7 @@ class ExtraServicesTest extends TestCase
     {
         $this->extraServices = new ExtraServices([ExtraServices::ELECTRONIC_DELIVERY_CONFIRMATION]);
         $result = $this->extraServices->toArray();
-        $expected = ['ExtraServices' => 9];
+        $expected = ['ExtraService' => 9];
         $this->assertEquals($expected, $result);
     }
     
@@ -95,7 +95,7 @@ class ExtraServicesTest extends TestCase
         $this->assertNull($result);
         $this->extraServices->addService(6);
         $result = $this->extraServices->toArray();
-        $expected = ['ExtraServices' => 6];
+        $expected = ['ExtraService' => 6];
         $this->assertEquals($expected, $result);
         $this->extraServices->addService(5);
         $result = $this->extraServices->toArray();
