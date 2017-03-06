@@ -34,12 +34,34 @@ class ContentTest extends TestCase
     
     public function testNormal()
     {
-        $this->markTestIncomplete('This test has not been implemented yet.');
+        $this->content = new Content(['ContentType' => Content::TYPE_HAZMAT]);    
+        $result = $this->content->toArray();
+        $expected = ['ContentType' => 'HAZMAT', 'ContentDescription' => null];
+        $this->assertEquals($expected, $result);
+        $this->content->setContentType(Content::TYPE_CREMATEDREMAINS);
+        $result = $this->content->toArray();
+        $expected = ['ContentType' => 'CREMATEDREMAINS', 'ContentDescription' => null];
+        $this->assertEquals($expected, $result);
+        $this->content->setContentType(Content::TYPE_LIVES);
+        $this->content->setContentDescription(Content::DESCRIPTION_OTHER);
+        $result = $this->content->toArray();
+        $expected = ['ContentType' => 'LIVES', 'ContentDescription' => 'OTHER'];
+        $this->assertEquals($expected, $result);
     }
     
     public function testFailure()
     {
-        $this->markTestIncomplete('This test has not been implemented yet.');
+        $this->content = new Content();
+        $result = $this->content->toArray();
+        $expected = ['ContentType' => null, 'ContentDescription' => null];
+        $this->assertEquals($expected, $result);
+        $this->content->setContentType(Content::TYPE_HAZMAT);
+        $result = $this->content->toArray();
+        $expected = ['ContentType' => 'HAZMAT', 'ContentDescription' => null];
+        $this->assertEquals($expected, $result);
+        $this->content->setContentType('Not a valid value.');
+        $result = $this->content->toArray();
+        $this->assertNull($result);
     }
     
     public function testTypeLives()
