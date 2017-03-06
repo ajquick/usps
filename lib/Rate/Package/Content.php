@@ -26,7 +26,7 @@ use Multidimensional\ArrayValidation\Validation;
 
 class Content
 {
-    public $content;
+    public $content = [];
     
     /**
      * Content Type Constants
