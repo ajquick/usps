@@ -21,6 +21,9 @@
 
 namespace Multidimensional\Usps\IntlRate;
 
+use Multidimensional\ArraySanitization\Sanitization;
+use Multidimensional\ArrayValidation\Validation;
+
 class Package
 {
 

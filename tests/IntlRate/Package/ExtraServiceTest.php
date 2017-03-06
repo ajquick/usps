@@ -20,95 +20,95 @@
 
 namespace Multidimensional\Usps\Test\IntlRate\Package;
 
-use Multidimensional\Usps\IntlRate\Package\ExtraService;
+use Multidimensional\Usps\IntlRate\Package\ExtraServicess;
 use PHPUnit\Framework\TestCase;
 
-class ExtraServiceTest extends TestCase
+class ExtraServicesTest extends TestCase
 {
-    public $extraService;
+    public $extraServices;
     
     public function tearDown()
     {
-        unset($this->extraService);
+        unset($this->extraServices);
     }
     
     public function testNormal()
     {
-        $this->extraService = new ExtraService([0]);
-        $result = $this->extraService->toArray();
-        $expected = ['ExtraService' => 0];
-        $this->assertEqual($expected, $result);
-        $this->extraService->addService(1);
-        $result = $this->extraService->toArray();
-        $expected = ['ExtraService' => 1];
-        $this->assertEqual($expected, $result);
-        $this->extraService->addService("0");
-        $result = $this->extraService->toArray();
-        $expected = ['ExtraService' => 0];
-        $this->assertEqual($expected, $result);
+        $this->extraServices = new ExtraServices([0]);
+        $result = $this->extraServices->toArray();
+        $expected = ['ExtraServices' => 0];
+        $this->assertEquals($expected, $result);
+        $this->extraServices->addService(1);
+        $result = $this->extraServices->toArray();
+        $expected = ['ExtraServices' => 1];
+        $this->assertEquals($expected, $result);
+        $this->extraServices->addService("0");
+        $result = $this->extraServices->toArray();
+        $expected = ['ExtraServices' => 0];
+        $this->assertEquals($expected, $result);
     }
     
     public function testRegisteredMail()
     {
-        $this->extraService = new ExtraService([ExtraService::REGISTERED_MAIL]);
-        $result = $this->extraService->toArray();
-        $expected = ['ExtraService' => 0];
-        $this->assertEqual($expected, $result);
+        $this->extraServices = new ExtraServices([ExtraServices::REGISTERED_MAIL]);
+        $result = $this->extraServices->toArray();
+        $expected = ['ExtraServices' => 0];
+        $this->assertEquals($expected, $result);
     }
         
     public function testInsurance()
     {
-        $this->extraService = new ExtraService([ExtraService::INSURANCE]);
-        $result = $this->extraService->toArray();
-        $expected = ['ExtraService' => 1];
-        $this->assertEqual($expected, $result);
+        $this->extraServices = new ExtraServices([ExtraServices::INSURANCE]);
+        $result = $this->extraServices->toArray();
+        $expected = ['ExtraServices' => 1];
+        $this->assertEquals($expected, $result);
     }
     
     public function testReturnReceipt()
     {
-        $this->extraService = new ExtraService([ExtraService::RETURN_RECEIPT]);
-        $result = $this->extraService->toArray();
-        $expected = ['ExtraService' => 2];
-        $this->assertEqual($expected, $result);
+        $this->extraServices = new ExtraServices([ExtraServices::RETURN_RECEIPT]);
+        $result = $this->extraServices->toArray();
+        $expected = ['ExtraServices' => 2];
+        $this->assertEquals($expected, $result);
     }
     
     public function testCertificateOfMailing()
     {
-        $this->extraService = new ExtraService([ExtraService::CERTIFICATE_OF_MAILING]);
-        $result = $this->extraService->toArray();
-        $expected = ['ExtraService' => 6];
-        $this->assertEqual($expected, $result);
+        $this->extraServices = new ExtraServices([ExtraServices::CERTIFICATE_OF_MAILING]);
+        $result = $this->extraServices->toArray();
+        $expected = ['ExtraServices' => 6];
+        $this->assertEquals($expected, $result);
     }
     
     public function testElectronicDeliveryConfirmation()
     {
-        $this->extraService = new ExtraService([ExtraService::ELECTRONIC_DELIVERY_CONFIRMATION]);
-        $result = $this->extraService->toArray();
-        $expected = ['ExtraService' => 9];
-        $this->assertEqual($expected, $result);
+        $this->extraServices = new ExtraServices([ExtraServices::ELECTRONIC_DELIVERY_CONFIRMATION]);
+        $result = $this->extraServices->toArray();
+        $expected = ['ExtraServices' => 9];
+        $this->assertEquals($expected, $result);
     }
     
     public function testFailure()
     {
-        $this->extraService = new ExtraService();
-        $result = $this->extraService->toArray();
+        $this->extraServices = new ExtraServices();
+        $result = $this->extraServices->toArray();
         $this->assertNull($result);
-        $this->extraService->addService(6);
-        $result = $this->extraService->toArray();
-        $expected = ['ExtraService' => 6];
-        $this->assertEqual($expected, $result);
-        $this->extraService->addService(5);
-        $result = $this->extraService->toArray();
+        $this->extraServices->addService(6);
+        $result = $this->extraServices->toArray();
+        $expected = ['ExtraServices' => 6];
+        $this->assertEquals($expected, $result);
+        $this->extraServices->addService(5);
+        $result = $this->extraServices->toArray();
         $this->assertNull($result);
     }
     
     public function testConstants()
     {
-        $this->assertEqual(0, ExtraService::REGISTERED_MAIL);
-        $this->assertEqual(1, ExtraService::INSURANCE);    
-        $this->assertEqual(2, ExtraService::RETURN_RECEIPT);    
-        $this->assertEqual(6, ExtraService::CERTIFICATE_OF_MAILING);    
-        $this->assertEqual(9, ExtraService::ELECTRONIC_DELIVERY_CONFIRMATION);    
+        $this->assertEquals(0, ExtraServices::REGISTERED_MAIL);
+        $this->assertEquals(1, ExtraServices::INSURANCE);    
+        $this->assertEquals(2, ExtraServices::RETURN_RECEIPT);    
+        $this->assertEquals(6, ExtraServices::CERTIFICATE_OF_MAILING);    
+        $this->assertEquals(9, ExtraServices::ELECTRONIC_DELIVERY_CONFIRMATION);    
     }
     
 }

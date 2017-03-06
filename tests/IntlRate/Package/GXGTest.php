@@ -39,7 +39,7 @@ class GXGTest extends TestCase
         $result = $this->gxg->toArray();
         $this->assertNotNull($result);
         $expected = ['POBoxFlag' => 'Y', 'GiftFlag' => 'N'];
-        $this->assertEqual($expected, $result);
+        $this->assertEquals($expected, $result);
     }
     
     public function testSetFields()
@@ -50,13 +50,13 @@ class GXGTest extends TestCase
         $result = $this->gxg->toArray();
         $this->assertNotNull($result);
         $expected = ['POBoxFlag' => 'Y', 'GiftFlag' => 'Y'];
-        $this->assertEqual($expected, $result);
+        $this->assertEquals($expected, $result);
         $this->gxg->setPOBoxFlag(GXG_POBOXFLAG_NO);
         $this->gxg->setGiftFlag(GXG_GIFTFLAG_NO);
         $result = $this->gxg->toArray();
         $this->assertNotNull($result);
         $expected = ['POBoxFlag' => 'N', 'GiftFlag' => 'N'];
-        $this->assertEqual($expected, $result);
+        $this->assertEquals($expected, $result);
     }
     
     public function testFailure()
@@ -69,7 +69,7 @@ class GXGTest extends TestCase
         $result = $this->gxg->toArray();
         $this->assertNotNull($result);
         $expected = ['POBoxFlag' => 'Y', 'GiftFlag' => 'Y'];
-        $this->assertEqual($expected, $result);
+        $this->assertEquals($expected, $result);
         $this->gxg->setPOBoxFlag("NOT A VALID ANSWER");
         $result = $this->gxg->toArray();
         $this->assertNull($result);

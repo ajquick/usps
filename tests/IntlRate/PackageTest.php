@@ -28,17 +28,17 @@ class PackageTest extends TestCase
 
     public function testConstants()
     {
-        $this->assertEqual('RECTANGULAR', Package::CONTAINER_RECTANGULAR);
-        $this->assertEqual('NONRECTANGULAR', Package::CONTAINER_NONRECTANGULAR);
-        $this->assertEqual('ALL', Package::MAIL_TYPE_ALL);
-        $this->assertEqual('PACKAGE', Package::MAIL_TYPE_PACKAGE);
-        $this->assertEqual('POSTCARDS', Package::MAIL_TYPE_POSTCARDS );
-        $this->assertEqual('ENVELOPE', Package::MAIL_TYPE_ENVELOPE);
-        $this->assertEqual('LETTER', Package::MAIL_TYPE_LETTER);
-        $this->assertEqual('LARGEENVELOPE', Package::MAIL_TYPE_LARGEENVELOPE );
-        $this->assertEqual('FLATRATE', Package::MAIL_TYPE_FLATRATE);
-        $this->assertEqual('LARGE', Package::SIZE_LARGE);
-        $this->assertEqual('REGULAR', Package::SIZE_REGULAR);    
+        $this->assertEquals('RECTANGULAR', Package::CONTAINER_RECTANGULAR);
+        $this->assertEquals('NONRECTANGULAR', Package::CONTAINER_NONRECTANGULAR);
+        $this->assertEquals('ALL', Package::MAIL_TYPE_ALL);
+        $this->assertEquals('PACKAGE', Package::MAIL_TYPE_PACKAGE);
+        $this->assertEquals('POSTCARDS', Package::MAIL_TYPE_POSTCARDS );
+        $this->assertEquals('ENVELOPE', Package::MAIL_TYPE_ENVELOPE);
+        $this->assertEquals('LETTER', Package::MAIL_TYPE_LETTER);
+        $this->assertEquals('LARGEENVELOPE', Package::MAIL_TYPE_LARGEENVELOPE );
+        $this->assertEquals('FLATRATE', Package::MAIL_TYPE_FLATRATE);
+        $this->assertEquals('LARGE', Package::SIZE_LARGE);
+        $this->assertEquals('REGULAR', Package::SIZE_REGULAR);    
     }
     
 }
