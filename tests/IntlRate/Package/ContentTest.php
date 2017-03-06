@@ -26,46 +26,46 @@ use PHPUnit\Framework\TestCase;
 class ContentTest extends TestCase
 {
     public $content;
-	
-	public function tearDown()
-	{
-		unset($this->content);	
-	}
-	
+    
+    public function tearDown()
+    {
+        unset($this->content);    
+    }
+    
     public function testNormal()
     {
         $this->content = new Content();
-		$this->content->setContentType(Content::TYPE_DOCUMENTS);
-		$result = $this->content->toArray();
-		$expected = ['ContentType' => Content::TYPE_DOCUMENTS, 'ContentDescription' => null];
-		$this->assertEquals($expected, $result);
-		$this->content->setContentDescription('This is something.');
-		$result = $this->content->toArray();
-		$expected = ['ContentType' => Content::TYPE_DOCUMENTS, 'ContentDescription' => 'This is something.'];
-		$this->assertEquals($expected, $result);
+        $this->content->setContentType(Content::TYPE_DOCUMENTS);
+        $result = $this->content->toArray();
+        $expected = ['ContentType' => Content::TYPE_DOCUMENTS, 'ContentDescription' => null];
+        $this->assertEquals($expected, $result);
+        $this->content->setContentDescription('This is something.');
+        $result = $this->content->toArray();
+        $expected = ['ContentType' => Content::TYPE_DOCUMENTS, 'ContentDescription' => 'This is something.'];
+        $this->assertEquals($expected, $result);
     }
-	
-	public function testFailure()
-	{
-		$this->content = new Content();
-		$result = $this->content->toArray();
-		$this->assertNull($result);
-		$this->content->setContentType(Content::TYPE_DOCUMENTS);
-		$result = $this->content->toArray();
-		$expected = ['ContentType' => Content::TYPE_DOCUMENTS, 'ContentDescription' => null];
-		$this->assertEquals($expected, $result);
-		$this->content->setContentType('Not a valid type');
-		$result = $this->content->toArray();
-		$this->assertNull($result);			
-	}
-	
-	public function testConstants()
-	{
-		$this->assertEquals('CrematedRemains', Content::TYPE_CREMATED_REMAINS);
-		$this->assertEquals('NonnegotiableDocument', Content::TYPE_NONNEGOTIABLE_DOCUMENT);
-		$this->assertEquals('Pharmaceuticals', Content::TYPE_PHARMACEUTICALS);
-		$this->assertEquals('MedicalSupplies', Content::TYPE_MEDICAL_SUPPLIES);
-		$this->assertEquals('Documents', Content::TYPE_DOCUMENTS);	
-	}
     
+    public function testFailure()
+    {
+        $this->content = new Content();
+        $result = $this->content->toArray();
+        $expected = ['ContentType' => null, 'ContentDescription' => null];
+        $this->assertEquals($expected, $result);
+        $this->content->setContentType(Content::TYPE_DOCUMENTS);
+        $result = $this->content->toArray();
+        $expected = ['ContentType' => Content::TYPE_DOCUMENTS, 'ContentDescription' => null];
+        $this->assertEquals($expected, $result);
+        $this->content->setContentType('Not a valid type');
+        $result = $this->content->toArray();
+        $this->assertNull($result);            
+    }
+    
+    public function testConstants()
+    {
+        $this->assertEquals('CrematedRemains', Content::TYPE_CREMATED_REMAINS);
+        $this->assertEquals('NonnegotiableDocument', Content::TYPE_NONNEGOTIABLE_DOCUMENT);
+        $this->assertEquals('Pharmaceuticals', Content::TYPE_PHARMACEUTICALS);
+        $this->assertEquals('MedicalSupplies', Content::TYPE_MEDICAL_SUPPLIES);
+        $this->assertEquals('Documents', Content::TYPE_DOCUMENTS);    
+    } 
 }

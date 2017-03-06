@@ -25,46 +25,89 @@ use Multidimensional\Usps\Rate\Package;
 
 class Content
 {
+    public $content;
     
     /**
-     * RateV4Request / Package / Content / ContentType
+     * Content Type Constants
      */
-    const CONTENT_TYPE_HAZMAT = 'HAZMAT';
-    const CONTENT_TYPE_CREMATEDREMAINS = 'CREMATEDREMAINS';
-    const CONTENT_TYPE_LIVES = 'LIVES';
+    const TYPE_HAZMAT = 'HAZMAT';
+    const TYPE_CREMATEDREMAINS = 'CREMATEDREMAINS';
+    const TYPE_LIVES = 'LIVES';
     
     /**
-     * RateV4Request / Package / Content / ContentDescription
+     * Content Description Constants
      */
-    const CONTENT_DESCRIPTION_BEES = 'BEES';
-    const CONTENT_DESCRIPTION_DAYOLDPOULTRY = 'DAYOLDPOULTRY';
-    const CONTENT_DESCRIPTION_ADULTBIRDS = 'ADULTBIRDS';
-    const CONTENT_DESCRIPTION_OTHER = 'OTHER';
+    const DESCRIPTION_BEES = 'BEES';
+    const DESCRIPTION_DAYOLDPOULTRY = 'DAYOLDPOULTRY';
+    const DESCRIPTION_ADULTBIRDS = 'ADULTBIRDS';
+    const DESCRIPTION_OTHER = 'OTHER';
 
     const FIELDS = [
         'ContentType' => [
             'type' => 'string',
             'values' => [
-                self::CONTENT_TYPE_HAZMAT,
-                self::CONTENT_TYPE_CREMATEDREMAINS,
-                self::CONTENT_TYPE_LIVES
+                self::TYPE_HAZMAT,
+                self::TYPE_CREMATEDREMAINS,
+                self::TYPE_LIVES
             ]
         ],
         'ContentDescription' => [
             'type' => 'string',
             'required' => [
-                'ContentType' => self::CONTENT_TYPE_LIVES
+                'ContentType' => self::TYPE_LIVES
             ],
             'values' => [
-                self::CONTENT_DESCRIPTION_BEES,
-                self::CONTENT_DESCRIPTION_DAYOLDPOULTRY,
-                self::CONTENT_DESCRIPTION_ADULTBIRDS,
-                self::CONTENT_DESCRIPTION_OTHER
+                self::DESCRIPTION_BEES,
+                self::DESCRIPTION_DAYOLDPOULTRY,
+                self::DESCRIPTION_ADULTBIRDS,
+                self::DESCRIPTION_OTHER
             ]
         ]
     ];
     
-    public function __construct()
+    public function __construct(array $config = [])
     {
+        if (is_array($config)) {
+            foreach ($config as $key => $value) {
+                $this->setField($key, $value);
+            }
+        }
+        
+        $this->content += array_combine(array_keys(self::FIELDS), array_fill(0, count(self::FIELDS), null));
+        
+        $this->validation = new Validation();
+        
+        return;
+    }
+    
+    public function setField($key, $value)
+    {
+        if (in_array($key, array_keys(self::FIELDS))) {
+            $value = Sanitization::sanitizeField($key, $value, self::FIELDS[$key]);
+            $this->content[$key] = $value;
+        }
+        
+        return;        
+    }
+    
+    public function toArray()
+    {
+        if (is_array($this->content)
+            && count($this->content)
+            && $this->validation->validate($this->content, self::FIELDS)) {
+            return $this->content;
+        }
+        
+        return null;
+    }
+    
+    public function setContentType($value)
+    {
+        $this->setField('ContentType', $value);    
+    }
+    
+    public function setContentDescription($value)
+    {
+        $this->setField('ContentDescription', $value);    
     }
 }

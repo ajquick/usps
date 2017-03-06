@@ -26,12 +26,12 @@ use Multidimensional\ArrayValidation\Validation;
 
 class Content
 {
-	
-	public $content = [];
+    
+    public $content = [];
 
-	/**
-	 * IntlRateV2Request / Package / Content / ContentType
-	 */
+    /**
+     * IntlRateV2Request / Package / Content / ContentType
+     */
     const TYPE_CREMATED_REMAINS = 'CrematedRemains';
     const TYPE_NONNEGOTIABLE_DOCUMENT = 'NonnegotiableDocument';
     const TYPE_PHARMACEUTICALS = 'Pharmaceuticals';
@@ -54,9 +54,9 @@ class Content
             'type' => 'string'
         ]
     ];
-	
-	public function __construct(array $config = [])
-	{
+    
+    public function __construct(array $config = [])
+    {
         if (is_array($config)) {
             foreach ($config as $key => $value) {
                 $this->setField($key, $value);
@@ -83,21 +83,21 @@ class Content
     public function toArray()
     {
         if (is_array($this->content)
-			&& count($this->content)
-			&& $this->validation->validate($this->content, self::FIELDS)) {
+            && count($this->content)
+            && $this->validation->validate($this->content, self::FIELDS)) {
             return $this->content;
         }
         
         return null;
     }
-	
-	public function setContentType($value)
-	{
-		$this->setField('ContentType', $value);	
-	}
-	
-	public function setContentDescription($value)
-	{
-		$this->setField('ContentDescription', $value);	
-	}
+    
+    public function setContentType($value)
+    {
+        $this->setField('ContentType', $value);    
+    }
+    
+    public function setContentDescription($value)
+    {
+        $this->setField('ContentDescription', $value);    
+    }
 }
