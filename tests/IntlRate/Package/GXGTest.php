@@ -63,7 +63,8 @@ class GXGTest extends TestCase
     {
         $this->gxg = new GXG();
         $result = $this->gxg->toArray();
-        $this->assertNull($result);
+        $expected = ['POBoxFlag' => null, 'GiftFlag' => null];
+        $this->assertEquals($expected, $result);
         $this->gxg->setPOBoxFlag(GXG::POBOXFLAG_YES);
         $this->gxg->setGiftFlag(GXG::GIFTFLAG_YES);
         $result = $this->gxg->toArray();

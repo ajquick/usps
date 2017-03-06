@@ -43,11 +43,11 @@ class ExtraServices
         'ExtraService' => [
             'type' => 'integer',
             'values' => [
-                0,
-                1,
-                2,
-                6,
-                9
+                SELF::REGISTERED_MAIL,
+                SELF::INSURANCE,
+                SELF::RETURN_RECEIPT,
+                SELF::CERTIFICATE_OF_MAILING,
+                SELF::ELECTRONIC_DELIVERY_CONFIRMATION
             ]
         ]
     ];
@@ -56,9 +56,9 @@ class ExtraServices
     {
         if (is_array($config)) {
             foreach ($config as $key => $value) {
-				if ($key == 'ExtraService' || in_array($value, SELF::FIELDS['ExtraServices']['values'])) {
-                	$this->addService($value);					
-				}
+                if ($key == 'ExtraService' || in_array($value, SELF::FIELDS['ExtraServices']['values'])) {
+                    $this->addService($value);                    
+                }
             }
         }
         
@@ -85,7 +85,7 @@ class ExtraServices
      */
     public function addService($value)
     {
-        $value = Sanitization::sanitizeField('ExtraService', $value, self::FIELDS['ExtraService']);
+        $value = Sanitization::sanitizeField('ExtraService', $value, self::FIELDS);
         $this->services['ExtraService'] = $value;
         
         return;
