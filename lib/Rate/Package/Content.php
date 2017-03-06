@@ -26,6 +26,7 @@ use Multidimensional\ArrayValidation\Validation;
 
 class Content
 {
+    private $validation;
     public $content = [];
     
     /**

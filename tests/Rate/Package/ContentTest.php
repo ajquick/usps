@@ -50,6 +50,18 @@ class ContentTest extends TestCase
         $result = $this->content->toArray();
         $expected = ['ContentType' => 'LIVES', 'ContentDescription' => 'BEES'];
         $this->assertEquals($expected, $result);
+        $this->content->setContentDescription(Content::DESCRIPTION_DAYOLDPOULTRY);
+        $result = $this->content->toArray();
+        $expected = ['ContentType' => 'LIVES', 'ContentDescription' => 'DAYOLDPOULTRY'];
+        $this->assertEquals($expected, $result);
+        $this->content->setContentDescription(Content::DESCRIPTION_ADULTBIRDS);
+        $result = $this->content->toArray();
+        $expected = ['ContentType' => 'LIVES', 'ContentDescription' => 'ADULTBIRDS'];
+        $this->assertEquals($expected, $result);
+        $this->content->setContentDescription(Content::DESCRIPTION_OTHER);
+        $result = $this->content->toArray();
+        $expected = ['ContentType' => 'LIVES', 'ContentDescription' => 'OTHER'];
+        $this->assertEquals($expected, $result);
     }
     
     public function testConstants()
