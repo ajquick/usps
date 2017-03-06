@@ -72,7 +72,7 @@ class ExtraServices
      */
     public function toArray()
     {
-        if ($this->validation->validate($this->service, self::FIELDS)) {
+        if (is_array($this->service) && count($this->service) && $this->validation->validate($this->service, self::FIELDS)) {
             return $this->service;
         }
         
