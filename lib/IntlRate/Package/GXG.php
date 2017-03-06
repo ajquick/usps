@@ -28,10 +28,10 @@ class GXG
 {
     public $gxg = [];
     
-    const GXG_POBOXFLAG_YES = 'Y';
-    const GXG_POBOXFLAG_NO = 'N';
-    const GXG_GIFTFLAG_YES = 'Y';
-    const GXG_GIFTFLAG_NO = 'N';
+    const POBOXFLAG_YES = 'Y';
+    const POBOXFLAG_NO = 'N';
+    const GIFTFLAG_YES = 'Y';
+    const GIFTFLAG_NO = 'N';
 
     const FIELDS = [
         'POBoxFlag' => [

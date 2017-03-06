@@ -20,7 +20,7 @@
 
 namespace Multidimensional\Usps\Test\IntlRate\Package;
 
-use Multidimensional\Usps\IntlRate\Package\ExtraServicess;
+use Multidimensional\Usps\IntlRate\Package\ExtraServices;
 use PHPUnit\Framework\TestCase;
 
 class ExtraServicesTest extends TestCase

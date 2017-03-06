@@ -35,7 +35,7 @@ class GXGTest extends TestCase
     public function testNormal()
     {
         $this->gxg = new GXG(['POBoxFlag' => 'Y']);
-        $this->gxg->setGiftFlag(GXG_GIFTFLAG_NO);
+        $this->gxg->setGiftFlag(GXG::GIFTFLAG_NO);
         $result = $this->gxg->toArray();
         $this->assertNotNull($result);
         $expected = ['POBoxFlag' => 'Y', 'GiftFlag' => 'N'];
@@ -45,14 +45,14 @@ class GXGTest extends TestCase
     public function testSetFields()
     {
         $this->gxg = new GXG();
-        $this->gxg->setPOBoxFlag(GXG_POBOXFLAG_YES);
-        $this->gxg->setGiftFlag(GXG_GIFTFLAG_YES);
+        $this->gxg->setPOBoxFlag(GXG::POBOXFLAG_YES);
+        $this->gxg->setGiftFlag(GXG::GIFTFLAG_YES);
         $result = $this->gxg->toArray();
         $this->assertNotNull($result);
         $expected = ['POBoxFlag' => 'Y', 'GiftFlag' => 'Y'];
         $this->assertEquals($expected, $result);
-        $this->gxg->setPOBoxFlag(GXG_POBOXFLAG_NO);
-        $this->gxg->setGiftFlag(GXG_GIFTFLAG_NO);
+        $this->gxg->setPOBoxFlag(GXG::POBOXFLAG_NO);
+        $this->gxg->setGiftFlag(GXG::GIFTFLAG_NO);
         $result = $this->gxg->toArray();
         $this->assertNotNull($result);
         $expected = ['POBoxFlag' => 'N', 'GiftFlag' => 'N'];
@@ -64,8 +64,8 @@ class GXGTest extends TestCase
         $this->gxg = new GXG();
         $result = $this->gxg->toArray();
         $this->assertNull($result);
-        $this->gxg->setPOBoxFlag(GXG_POBOXFLAG_YES);
-        $this->gxg->setGiftFlag(GXG_GIFTFLAG_YES);
+        $this->gxg->setPOBoxFlag(GXG::POBOXFLAG_YES);
+        $this->gxg->setGiftFlag(GXG::GIFTFLAG_YES);
         $result = $this->gxg->toArray();
         $this->assertNotNull($result);
         $expected = ['POBoxFlag' => 'Y', 'GiftFlag' => 'Y'];
