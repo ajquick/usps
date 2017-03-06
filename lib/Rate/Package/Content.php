@@ -21,7 +21,8 @@
 
 namespace Multidimensional\Usps\Rate\Package;
 
-use Multidimensional\Usps\Rate\Package;
+use Multidimensional\ArraySanitization\Sanitization;
+use Multidimensional\ArrayValidation\Validation;
 
 class Content
 {

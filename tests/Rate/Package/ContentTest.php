@@ -61,6 +61,5 @@ class ContentTest extends TestCase
         $this->assertEquals('DAYOLDPOULTRY', Content::DESCRIPTION_DAYOLDPOULTRY);
         $this->assertEquals('ADULTBIRDS', Content::DESCRIPTION_ADULTBIRDS);
         $this->assertEquals('OTHER', Content::DESCRIPTION_OTHER);
-    }
-        
+    }    
 }
