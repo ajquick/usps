@@ -25,7 +25,7 @@ use PHPUnit\Framework\TestCase;
 
 class SpecialServicesTest extends TestCase
 {
-	
+    
     public $specialServices;
     
     public function tearDown()
@@ -36,5 +36,5 @@ class SpecialServicesTest extends TestCase
     public function testNormal()
     {
         $this->markTestIncomplete('This test has not been implemented yet.');
-    }	
+    }    
 }
