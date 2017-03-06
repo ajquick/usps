@@ -1,10 +1,40 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Untitled Document</title>
-</head>
+<?php
+/**    __  ___      ____  _     ___                           _                    __
+ *    /  |/  /_  __/ / /_(_)___/ (_)___ ___  ___  ____  _____(_)___  ____   ____ _/ /
+ *   / /|_/ / / / / / __/ / __  / / __ `__ \/ _ \/ __ \/ ___/ / __ \/ __ \ / __ `/ / 
+ *  / /  / / /_/ / / /_/ / /_/ / / / / / / /  __/ / / (__  ) / /_/ / / / // /_/ / /  
+ * /_/  /_/\__,_/_/\__/_/\__,_/_/_/ /_/ /_/\___/_/ /_/____/_/\____/_/ /_(_)__,_/_/   
+ *                                                                                  
+ * CONFIDENTIAL
+ *
+ * © 2017 Multidimension.al - All Rights Reserved
+ * 
+ * NOTICE:  All information contained herein is, and remains the property of
+ * Multidimension.al and its suppliers, if any.  The intellectual and
+ * technical concepts contained herein are proprietary to Multidimension.al
+ * and its suppliers and may be covered by U.S. and Foreign Patents, patents in
+ * process, and are protected by trade secret or copyright law. Dissemination
+ * of this information or reproduction of this material is strictly forbidden
+ * unless prior written permission is obtained.
+ */
 
-<body>
-</body>
-</html>
+namespace Multidimensional\Usps\Test\Rate\Package;
+
+use Multidimensional\Usps\Rate\Package\SpecialServices;
+use PHPUnit\Framework\TestCase;
+
+class SpecialServicesTest extends TestCase
+{
+	
+    public $specialServices;
+    
+    public function tearDown()
+    {
+        unset($this->specialServices);    
+    }
+    
+    public function testNormal()
+    {
+        $this->markTestIncomplete('This test has not been implemented yet.');
+    }	
+}
