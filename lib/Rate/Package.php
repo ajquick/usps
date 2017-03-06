@@ -38,12 +38,12 @@ class Package
  */
     const CONTAINER_VARIABLE = 'VARIABLE';
     const CONTAINER_FLAT_RATE_ENVELOPE   = 'FLAT RATE ENVELOPE';
-    const CONTAINER_PADDED_FLAT_RATE_ENVELOPE= 'PADDED FLAT RATE ENVELOPE';
+    const CONTAINER_PADDED_FLAT_RATE_ENVELOPE = 'PADDED FLAT RATE ENVELOPE';
     const CONTAINER_LEGAL_FLAT_RATE_ENVELOPE = 'LEGAL FLAT RATE ENVELOPE';
-    const CONTAINER_SM_FLAT_RATE_ENVELOPE= 'SM FLAT RATE ENVELOPE';
-    const CONTAINER_WINDOW_FLAT_RATE_ENVELOPE= 'WINDOW FLAT RATE ENVELOPE';
+    const CONTAINER_SM_FLAT_RATE_ENVELOPE = 'SM FLAT RATE ENVELOPE';
+    const CONTAINER_WINDOW_FLAT_RATE_ENVELOPE = 'WINDOW FLAT RATE ENVELOPE';
     const CONTAINER_GIFT_CARD_FLAT_RATE_ENVELOPE = 'GIFT CARD FLAT RATE ENVELOPE';
-    const CONTAINER_FLAT_RATE_BOX= 'FLAT RATE BOX';
+    const CONTAINER_FLAT_RATE_BOX = 'FLAT RATE BOX';
     const CONTAINER_SM_FLAT_RATE_BOX = 'SM FLAT RATE BOX';
     const CONTAINER_MD_FLAT_RATE_BOX = 'MD FLAT RATE BOX';
     const CONTAINER_LG_FLAT_RATE_BOX = 'LG FLAT RATE BOX';
@@ -65,26 +65,26 @@ class Package
 /**
  * Rate / Request / Package / Service
  */
-    const SERVICE_FIRST_CLASS= 'First Class';
+    const SERVICE_FIRST_CLASS = 'First Class';
     const SERVICE_FIRST_CLASS_COMMERCIAL = 'First Class Commercial';
     const SERVICE_FIRST_CLASS_HFP_COMMERCIAL = 'First Class HFP Commercial';
     const SERVICE_PRIORITY   = 'Priority';
-    const SERVICE_PRIORITY_COMMERCIAL= 'Priority Commercial';
+    const SERVICE_PRIORITY_COMMERCIAL = 'Priority Commercial';
     const SERVICE_PRIORITY_CPP   = 'Priority Cpp';
     const SERVICE_PRIORITY_HFP_COMMERCIAL= 'Priority HFP Commercial';
     const SERVICE_PRIORITY_HFP_CPP   = 'Priority HFP CPP';
     const SERVICE_PRIORITY_EXPRESS   = 'Priority Mail Express';
-    const SERVICE_PRIORITY_EXPRESS_COMMERCIAL= 'Priority Mail Express Commercial';
+    const SERVICE_PRIORITY_EXPRESS_COMMERCIAL = 'Priority Mail Express Commercial';
     const SERVICE_PRIORITY_EXPRESS_CPP   = 'Priority Mail Express CPP';
-    const SERVICE_PRIORITY_EXPRESS_SH= 'Priority Mail Express SH';
+    const SERVICE_PRIORITY_EXPRESS_SH = 'Priority Mail Express SH';
     const SERVICE_PRIORITY_EXPRESS_SH_COMMERCIAL = 'Priority Mail Express SH COMMERCIAL';
     const SERVICE_PRIORITY_EXPRESS_HFP   = 'Priority Mail Express HFP';
-    const SERVICE_PRIORITY_EXPRESS_HFP_COMMERCIAL= 'Priority Mail Express HFP COMMERCIAL';
+    const SERVICE_PRIORITY_EXPRESS_HFP_COMMERCIAL = 'Priority Mail Express HFP COMMERCIAL';
     const SERVICE_PRIORITY_EXPRESS_HFP_CPP   = 'Priority Mail Express HFP CPP';
     const SERVICE_GROUND = 'Retail Ground';
     const SERVICE_MEDIA  = 'Media';
-    const SERVICE_LIBRARY= 'Library';
-    const SERVICE_ALL= 'All';
+    const SERVICE_LIBRARY = 'Library';
+    const SERVICE_ALL = 'All';
     const SERVICE_ONLINE = 'Online';
     const SERVICE_PLUS   = 'Plus';
 

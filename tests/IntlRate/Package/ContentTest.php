@@ -23,7 +23,7 @@ namespace Multidimensional\Usps\Test\IntlRate\Package;
 use Multidimensional\Usps\IntlRate\Package\Content;
 use PHPUnit\Framework\TestCase;
 
-class GXGTest extends TestCase
+class ContentTest extends TestCase
 {
-	
+    
 }

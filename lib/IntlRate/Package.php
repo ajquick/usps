@@ -36,15 +36,15 @@ class Package
     const MAIL_TYPE_ALL = 'ALL';
     const MAIL_TYPE_PACKAGE = 'PACKAGE';
     const MAIL_TYPE_POSTCARDS   = 'POSTCARDS';
-    const MAIL_TYPE_ENVELOPE= 'ENVELOPE';
+    const MAIL_TYPE_ENVELOPE = 'ENVELOPE';
     const MAIL_TYPE_LETTER  = 'LETTER';
     const MAIL_TYPE_LARGEENVELOPE   = 'LARGEENVELOPE';
-    const MAIL_TYPE_FLATRATE= 'FLATRATE';
+    const MAIL_TYPE_FLATRATE = 'FLATRATE';
 
 /**
  * IntlRate / Request / Package / Size
  */
-    const SIZE_LARGE= 'LARGE';
+    const SIZE_LARGE = 'LARGE';
     const SIZE_REGULAR  = 'REGULAR';
 
     const FIELDS = [

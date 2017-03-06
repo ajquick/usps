@@ -25,12 +25,12 @@ use Multidimensional\Usps\IntlRate\Package;
 
 class GXG
 {
-	public $gxg = [];
-	
-	const GXG_POBOXFLAG_YES = 'Y';
-	const GXG_POBOXFLAG_NO = 'N';
-	const GXG_GIFTFLAG_YES = 'Y';
-	const GXG_GIFTFLAG_NO = 'N';
+    public $gxg = [];
+    
+    const GXG_POBOXFLAG_YES = 'Y';
+    const GXG_POBOXFLAG_NO = 'N';
+    const GXG_GIFTFLAG_YES = 'Y';
+    const GXG_GIFTFLAG_NO = 'N';
 
     const FIELDS = [
         'POBoxFlag' => [
@@ -59,23 +59,39 @@ class GXG
             }
         }
         
+        $this->gxg += array_combine(array_keys(self::FIELDS), array_fill(0, count(self::FIELDS), null));
+        
         $this->validation = new Validation();
         
         return;
     }
-	
-	public function setField($key, $value)
-	{
-		if (in_array($key, array_keys(self::FIELDS))) {
+    
+    public function setField($key, $value)
+    {
+        if (in_array($key, array_keys(self::FIELDS))) {
             $value = Sanitization::sanitizeField($key, $value, self::FIELDS[$key]);
             $this->gxg[$key] = $value;
         }
         
-        return;		
-	}
-	
-	public function toArray()
-	{
-		return $this->gxg;	
-	}
+        return;        
+    }
+    
+    public function toArray()
+    {
+        if ($this->validation->validate($this->gxg, self::FIELDS)) {
+            return $this->gxg;
+        }
+        
+        return null;
+    }
+    
+    public function setGiftFlag($value)
+    {
+        $this->setField('GiftFlag', $value);    
+    }
+    
+    public function setPOBoxFlag($value)
+    {
+        $this->setField('POBoxFlag', $value);    
+    }
 }

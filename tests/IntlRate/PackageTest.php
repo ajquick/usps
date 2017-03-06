@@ -25,5 +25,20 @@ use PHPUnit\Framework\TestCase;
 
 class PackageTest extends TestCase
 {
-	
+
+    public function testConstants()
+    {
+        $this->assertEqual('RECTANGULAR', Package::CONTAINER_RECTANGULAR);
+        $this->assertEqual('NONRECTANGULAR', Package::CONTAINER_NONRECTANGULAR);
+        $this->assertEqual('ALL', Package::MAIL_TYPE_ALL);
+        $this->assertEqual('PACKAGE', Package::MAIL_TYPE_PACKAGE);
+        $this->assertEqual('POSTCARDS', Package::MAIL_TYPE_POSTCARDS );
+        $this->assertEqual('ENVELOPE', Package::MAIL_TYPE_ENVELOPE);
+        $this->assertEqual('LETTER', Package::MAIL_TYPE_LETTER);
+        $this->assertEqual('LARGEENVELOPE', Package::MAIL_TYPE_LARGEENVELOPE );
+        $this->assertEqual('FLATRATE', Package::MAIL_TYPE_FLATRATE);
+        $this->assertEqual('LARGE', Package::SIZE_LARGE);
+        $this->assertEqual('REGULAR', Package::SIZE_REGULAR);    
+    }
+    
 }

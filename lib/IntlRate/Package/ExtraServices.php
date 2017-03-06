@@ -26,18 +26,18 @@ use Multidimensional\ArrayValidation\Validation;
 
 class ExtraServices
 {
-	private $validation;
+    private $validation;
 
-	/**
-	 * @var $services
-	 */
+    /**
+     * @var $services
+     */
     public $service = [];
 
-	const EXTRA_SERVICE_REGISTERED_MAIL = 0;
-	const EXTRA_SERVICE_INSURANCE = 1;
-	const EXTRA_SERVICE_RETURN_RECEIPT = 2;
-	const EXTRA_SERVICE_CERTIFICATE_OF_MAILING = 6;
-	const EXTRA_SERVICE_ELECTRONIC_DELIVERY_CONFIRMATION = 9;
+    const REGISTERED_MAIL = 0;
+    const INSURANCE = 1;
+    const RETURN_RECEIPT = 2;
+    const CERTIFICATE_OF_MAILING = 6;
+    const ELECTRONIC_DELIVERY_CONFIRMATION = 9;
 
     const FIELDS = [
         'ExtraService' => [
@@ -51,38 +51,41 @@ class ExtraServices
             ]
         ]
     ];
-	
+    
     public function __construct(array $config = [])
     {
-        /*if (is_array($config)) {
-            foreach ($config as $key => $value) {
-                $this->setField($key, $value);
+        if (is_array($config)) {
+            foreach ($config as $value) {
+                $this->addService($value);
             }
-        }*/
+        }
         
         $this->validation = new Validation();
         
         return;
     }
-	
-	public function toArray()
-	{
-		if ($this->validation->validate($this->service, self::FIELDS)) {
+    
+    /**
+     * @return array|null
+     */
+    public function toArray()
+    {
+        if ($this->validation->validate($this->service, self::FIELDS)) {
             return $this->service;
         }
         
         return null;
-	}
-	
-	public function addService($value)
-	{
+    }
+    
+    /**
+     * @param string|int $value
+     * @return void
+     */
+    public function addService($value)
+    {
         $value = Sanitization::sanitizeField('ExtraService', $value, self::FIELDS['ExtraService']);
-		$this->services['ExtraService'] = $value;
-	}
-	
-	public function removeService()
-	{
-		unset($this->services['ExtraService']);
-	}
-
+        $this->services['ExtraService'] = $value;
+        
+        return;
+    }
 }
