@@ -72,7 +72,9 @@ class ExtraServices
      */
     public function toArray()
     {
-        if (is_array($this->service) && count($this->service) && $this->validation->validate($this->service, self::FIELDS)) {
+        if (is_array($this->service)
+			&& count($this->service)
+			&& $this->validation->validate($this->service, self::FIELDS)) {
             return $this->service;
         }
         
@@ -85,7 +87,7 @@ class ExtraServices
      */
     public function addService($value)
     {
-        $value = Sanitization::sanitizeField('ExtraService', $value, self::FIELDS);
+        $value = Sanitization::sanitizeField('ExtraService', $value, self::FIELDS['ExtraService']);
         $this->service['ExtraService'] = $value;
         
         return;

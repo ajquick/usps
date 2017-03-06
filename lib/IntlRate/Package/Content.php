@@ -25,30 +25,78 @@ use Multidimensional\Usps\IntlRate\Package;
 
 class Content
 {
+	
+	public $content = [];
 
-/**
- * IntlRateV2Request / Package / Content / ContentType
- */
-    const CONTENT_TYPE_CREMATED_REMAINS = 'CrematedRemains';
-    const CONTENT_TYPE_NONNEGOTIABLE_DOCUMENT = 'NonnegotiableDocument';
-    const CONTENT_TYPE_PHARMACEUTICALS = 'Pharmaceuticals';
-    const CONTENT_TYPE_MEDICAL_SUPPLIES = 'MedicalSupplies';
-    const CONTENT_TYPE_DOCUMENTS = 'Documents';
+	/**
+	 * IntlRateV2Request / Package / Content / ContentType
+	 */
+    const TYPE_CREMATED_REMAINS = 'CrematedRemains';
+    const TYPE_NONNEGOTIABLE_DOCUMENT = 'NonnegotiableDocument';
+    const TYPE_PHARMACEUTICALS = 'Pharmaceuticals';
+    const TYPE_MEDICAL_SUPPLIES = 'MedicalSupplies';
+    const TYPE_DOCUMENTS = 'Documents';
 
     const FIELDS = [
         'ContentType' => [
             'type' => 'string',
             'required' => true,
             'values' => [
-                self::CONTENT_TYPE_CREMATED_REMAINS,
-                self::CONTENT_TYPE_NONNEGOTIABLE_DOCUMENT,
-                self::CONTENT_TYPE_PHARMACEUTICALS,
-                self::CONTENT_TYPE_MEDICAL_SUPPLIES,
-                self::CONTENT_TYPE_DOCUMENTS
+                self::TYPE_CREMATED_REMAINS,
+                self::TYPE_NONNEGOTIABLE_DOCUMENT,
+                self::TYPE_PHARMACEUTICALS,
+                self::TYPE_MEDICAL_SUPPLIES,
+                self::TYPE_DOCUMENTS
             ]
         ],
         'ContentDescription' => [
             'type' => 'string'
         ]
     ];
+	
+	public function __construct(array $config = [])
+	{
+        if (is_array($config)) {
+            foreach ($config as $key => $value) {
+                $this->setField($key, $value);
+            }
+        }
+        
+        $this->content += array_combine(array_keys(self::FIELDS), array_fill(0, count(self::FIELDS), null));
+        
+        $this->validation = new Validation();
+        
+        return;
+    }
+    
+    public function setField($key, $value)
+    {
+        if (in_array($key, array_keys(self::FIELDS))) {
+            $value = Sanitization::sanitizeField($key, $value, self::FIELDS[$key]);
+            $this->content[$key] = $value;
+        }
+        
+        return;        
+    }
+    
+    public function toArray()
+    {
+        if (is_array($this->content)
+			&& count($this->content)
+			&& $this->validation->validate($this->content, self::FIELDS)) {
+            return $this->content;
+        }
+        
+        return null;
+    }
+	
+	public function setContentType($value)
+	{
+		$this->setField('ContentType', $value);	
+	}
+	
+	public function setContentDescription($value)
+	{
+		$this->setField('ContentDescription', $value);	
+	}
 }
