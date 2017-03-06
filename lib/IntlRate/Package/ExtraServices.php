@@ -86,7 +86,7 @@ class ExtraServices
     public function addService($value)
     {
         $value = Sanitization::sanitizeField('ExtraService', $value, self::FIELDS);
-        $this->services['ExtraService'] = $value;
+        $this->service['ExtraService'] = $value;
         
         return;
     }
