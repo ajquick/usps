@@ -35,7 +35,7 @@ class SpecialServicesTest extends TestCase
     
     public function testNormal()
     {
-        $this->specialServices = new ExtraServices([100]);
+        $this->specialServices = new SpecialServices([100]);
         $result = $this->specialServices->toArray();
         $expected = ['SpecialService' => 100];
         $this->assertEquals($expected, $result);
