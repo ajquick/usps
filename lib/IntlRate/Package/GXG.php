@@ -74,7 +74,7 @@ class GXG
             $this->gxg[$key] = $value;
         }
         
-        return;        
+        return;
     }
     
     public function toArray()
@@ -88,11 +88,11 @@ class GXG
     
     public function setGiftFlag($value)
     {
-        $this->setField('GiftFlag', $value);    
+        $this->setField('GiftFlag', $value);
     }
     
     public function setPOBoxFlag($value)
     {
-        $this->setField('POBoxFlag', $value);    
+        $this->setField('POBoxFlag', $value);
     }
 }

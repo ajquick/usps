@@ -57,7 +57,7 @@ class ExtraServices
         if (is_array($config)) {
             foreach ($config as $key => $value) {
                 if ($key == 'ExtraService' || in_array($value, SELF::FIELDS['ExtraServices']['values'])) {
-                    $this->addService($value);                    
+                    $this->addService($value);
                 }
             }
         }

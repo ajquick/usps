@@ -88,7 +88,7 @@ class Content
             $this->content[$key] = $value;
         }
         
-        return;        
+        return;
     }
     
     public function toArray()
@@ -104,11 +104,11 @@ class Content
     
     public function setContentType($value)
     {
-        $this->setField('ContentType', $value);    
+        $this->setField('ContentType', $value);
     }
     
     public function setContentDescription($value)
     {
-        $this->setField('ContentDescription', $value);    
+        $this->setField('ContentDescription', $value);
     }
 }
