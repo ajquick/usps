@@ -46,7 +46,7 @@ class ContentTest extends TestCase
     {
         $this->content = new Content();    
         $this->content->setContentType(Content::TYPE_LIVES);
-        $this->conetnt->setContentDescription(Content::TYPE_BEES);
+        $this->conetnt->setContentDescription(Content::DESCRIPTION_BEES);
         $result = $this->content->toArray();
         $expected = ['ContentType' => 'LIVES', 'ContentDescription' => 'BEES'];
         $this->assertEquals($expected, $result);
