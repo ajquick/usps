@@ -92,7 +92,8 @@ class ExtraServicesTest extends TestCase
     {
         $this->extraServices = new ExtraServices();
         $result = $this->extraServices->toArray();
-        $this->assertNull($result);
+		$expected = ['POBoxFlag' => null, 'GiftFlag' => null];
+        $this->assertEquals($expected, $result);
         $this->extraServices->addService(6);
         $result = $this->extraServices->toArray();
         $expected = ['ExtraServices' => 6];

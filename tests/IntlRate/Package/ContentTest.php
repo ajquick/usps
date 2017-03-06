@@ -26,4 +26,9 @@ use PHPUnit\Framework\TestCase;
 class ContentTest extends TestCase
 {
     
+    public function testNormal()
+    {
+        $this->markTestIncomplete();    
+    }
+    
 }

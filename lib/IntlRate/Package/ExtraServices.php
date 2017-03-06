@@ -55,8 +55,10 @@ class ExtraServices
     public function __construct(array $config = [])
     {
         if (is_array($config)) {
-            foreach ($config as $value) {
-                $this->addService($value);
+            foreach ($config as $key => $value) {
+				if ($key == 'ExtraService' || in_array($value, SELF::FIELDS['ExtraServices']['values'])) {
+                	$this->addService($value);					
+				}
             }
         }
         
