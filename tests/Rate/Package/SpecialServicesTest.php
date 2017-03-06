@@ -35,8 +35,33 @@ class SpecialServicesTest extends TestCase
     
     public function testNormal()
     {
-        $this->markTestIncomplete('This test has not been implemented yet.');
+        $this->specialServices = new ExtraServices([100]);
+        $result = $this->specialServices->toArray();
+        $expected = ['SpecialService' => 100];
+        $this->assertEquals($expected, $result);
+        $this->specialServices->addService(101);
+        $result = $this->specialServices->toArray();
+        $expected = ['SpecialService' => 101];
+        $this->assertEquals($expected, $result);
+        $this->specialServices->addService("100");
+        $result = $this->specialServices->toArray();
+        $expected = ['SpecialService' => 100];
+        $this->assertEquals($expected, $result);
     }
+	
+	public function testFailure()
+	{
+		$this->specialServices = new SpecialServices();
+        $result = $this->specialServices->toArray();
+        $this->assertNull($result);
+        $this->specialServices->addService(100);
+        $result = $this->specialServices->toArray();
+        $expected = ['SpecialService' => 100];
+        $this->assertEquals($expected, $result);
+        $this->specialServices->addService(666);
+        $result = $this->specialServices->toArray();
+        $this->assertNull($result);
+	}
     
     public function testConstants()
     {
