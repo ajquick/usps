@@ -400,7 +400,11 @@ class Package
      */
     public function toArray()
     {
-        return $this->package;   
+        if ($this->validation->validate($this->package, self::FIELDS)) {
+            return $this->package;
+        }
+        
+        return null;  
     }
     
     /**
