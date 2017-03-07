@@ -23,19 +23,27 @@ namespace Multidimensional\Usps\IntlRate;
 
 use Multidimensional\ArraySanitization\Sanitization;
 use Multidimensional\ArrayValidation\Validation;
+use Multidimensional\Usps\IntlRate\Package\Content;
+use Multidimensional\Usps\IntlRate\Package\ExtraServices;
+use Multidimensional\Usps\IntlRate\Package\GXG;
 
 class Package
 {
-
-/**
- * IntlRate / Request / Package / Container
- */
+    
+    /**
+     * @var array
+     */
+        protected $package = [];
+    
+    /**
+     * IntlRate / Request / Package / Container
+     */
     const CONTAINER_RECTANGULAR = 'RECTANGULAR';
     const CONTAINER_NONRECTANGULAR  = 'NONRECTANGULAR';
 
-/**
- * IntlRate / Request / Package / MailType
- */
+    /**
+     * IntlRate / Request / Package / MailType
+     */
     const MAIL_TYPE_ALL = 'ALL';
     const MAIL_TYPE_PACKAGE = 'PACKAGE';
     const MAIL_TYPE_POSTCARDS   = 'POSTCARDS';
@@ -44,9 +52,9 @@ class Package
     const MAIL_TYPE_LARGEENVELOPE   = 'LARGEENVELOPE';
     const MAIL_TYPE_FLATRATE = 'FLATRATE';
 
-/**
- * IntlRate / Request / Package / Size
- */
+    /**
+     * IntlRate / Request / Package / Size
+     */
     const SIZE_LARGE = 'LARGE';
     const SIZE_REGULAR  = 'REGULAR';
 
@@ -74,6 +82,7 @@ class Package
         ],
         'GXG' => [
             'type' => 'GXG'
+			'fields' => GXG::FIELDS
         ],
         'ValueOfContents' => [
             'type' => 'string',
@@ -145,7 +154,7 @@ class Package
         ],
         'ExtraServices' => [
             'type' => 'ExtraServices',
-            'fields' => ExtraServices::fields
+            'fields' => ExtraServices::FIELDS
         ],
         'AcceptanceDataTime' => [
             'type' => 'DateTime',
@@ -156,29 +165,35 @@ class Package
         ],
         'Content' => [
             'type' => 'Content',
-            'fields' => Content::fields
+            'fields' => Content::FIELDS
         ]
     ];
 
     public function __constuct(array $config = [])
     {
-
-        //Required
-        //ID
-        //Pounds
-        //Ounces
-        //MailType
-        //ValueOfContents
-        //Country
-        //Container
-        //Size
-        //Width
-        //Length
-        //Height
-        //Girth
+        if (is_array($config)) {
+            foreach ($config as $key => $value) {
+                $this->setField($key, $value);
+            }
+        }
+        
+        $this->package += array_combine(array_keys(self::FIELDS), array_fill(0, count(self::FIELDS), null));
+        
+        $this->validation = new Validation();
+        
+        return;
     }
-	
-	
+    
+    public function setField($key, $value)
+    {
+        if (in_array($key, array_keys(self::FIELDS))) {
+            $value = Sanitization::sanitizeField($key, $value, self::FIELDS[$key]);
+            $this->package[$key] = $value;
+        }
+        
+        return;
+    }
+    
     /**
      * @param string $value
      * @return void
@@ -187,7 +202,7 @@ class Package
     {
         $this->setField('Pounds', $value);
     }
-	
+    
     /**
      * @param string $value
      * @return void
@@ -196,7 +211,7 @@ class Package
     {
         $this->setField('Ounces', $value);
     }
-	
+    
     /**
      * @param string $value
      * @return void
@@ -205,7 +220,7 @@ class Package
     {
         $this->setField('Machinable', $value);
     }
-	
+    
     /**
      * @param string $value
      * @return void
@@ -214,7 +229,7 @@ class Package
     {
         $this->setField('MailType', $value);
     }
-	
+    
     /**
      * @param string $value
      * @return void
@@ -223,7 +238,7 @@ class Package
     {
         $this->setField('ValueOfContents', $value);
     }
-	
+    
     /**
      * @param string $value
      * @return void
@@ -232,7 +247,7 @@ class Package
     {
         $this->setField('Country', $value);
     }
-	
+    
     /**
      * @param string $value
      * @return void
@@ -241,7 +256,7 @@ class Package
     {
         $this->setField('Container', $value);
     }
-	
+    
     /**
      * @param string $value
      * @return void
@@ -250,7 +265,7 @@ class Package
     {
         $this->setField('Size', $value);
     }
-	
+    
     /**
      * @param string $value
      * @return void
@@ -259,7 +274,7 @@ class Package
     {
         $this->setField('Width', $value);
     }
-	
+    
     /**
      * @param string $value
      * @return void
@@ -268,7 +283,7 @@ class Package
     {
         $this->setField('Length', $value);
     }
-	
+    
     /**
      * @param string $value
      * @return void
@@ -277,7 +292,7 @@ class Package
     {
         $this->setField('Height', $value);
     }
-	
+    
     /**
      * @param string $value
      * @return void
@@ -286,7 +301,7 @@ class Package
     {
         $this->setField('Girth', $value);
     }
-	
+    
     /**
      * @param string $value
      * @return void
@@ -295,7 +310,7 @@ class Package
     {
         $this->setField('OriginZip', $value);
     }
-	
+    
     /**
      * @param string $value
      * @return void
@@ -304,7 +319,7 @@ class Package
     {
         $this->setField('CommercialFlag', $value);
     }
-	
+    
     /**
      * @param string $value
      * @return void
@@ -313,7 +328,7 @@ class Package
     {
         $this->setField('CommercialPlusFlag', $value);
     }
-	
+    
     /**
      * @param string $value
      * @return void
@@ -322,7 +337,7 @@ class Package
     {
         $this->setField('ExtraServices', $value);
     }
-	
+    
     /**
      * @param string $value
      * @return void
@@ -331,7 +346,7 @@ class Package
     {
         $this->setField('AcceptanceDataTime', $value);
     }
-	
+    
     /**
      * @param string $value
      * @return void
@@ -340,24 +355,24 @@ class Package
     {
         $this->setField('DestinationPostalCode', $value);
     }
-	
-	public function toArray()
-	{
-			
-	}
-	
-	public function addContent($array) 
-	{
-			
-	}
-	
-	public function addExtraService($array)
-	{
-		
-	}
-	
-	public function addGXG($array)
-	{
-		
-	}
+    
+    public function toArray()
+    {
+        return $this->package;   
+    }
+    
+    public function addContent($array) 
+    {
+            
+    }
+    
+    public function addExtraServices($array)
+    {
+        
+    }
+    
+    public function addGXG($array)
+    {
+        
+    }
 }

@@ -255,8 +255,19 @@ class Package
 
     public function __constuct(array $config = [])
     {
+        if (is_array($config)) {
+            foreach ($config as $key => $value) {
+                $this->setField($key, $value);
+            }
+        }
+        
+        $this->gxg += array_combine(array_keys(self::FIELDS), array_fill(0, count(self::FIELDS), null));
+        
+        $this->validation = new Validation();
+        
+        return;
     }
-    
+        
     /**
      * @param string                $key
      * @param int|bool|string|float
@@ -430,14 +441,14 @@ class Package
     {
         return $this->package;
     }
-	
-	public function addContent($array)
-	{
-		
-	}
-	
-	public function addSpecialServices($array)
-	{
-		
-	}
+    
+    public function addContent($array)
+    {
+        
+    }
+    
+    public function addSpecialServices($array)
+    {
+        
+    }
 }
