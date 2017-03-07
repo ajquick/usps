@@ -84,7 +84,7 @@ class Package
             'required' => true
         ],
         'GXG' => [
-            'type' => 'GXG'
+            'type' => 'GXG',
             'fields' => GXG::FIELDS
         ],
         'ValueOfContents' => [
