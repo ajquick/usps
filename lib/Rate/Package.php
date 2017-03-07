@@ -470,7 +470,7 @@ class Package
     }
     
     /**
-     * @return array
+     * @return array|null
      */
     public function toArray()
     {

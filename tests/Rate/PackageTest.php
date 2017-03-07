@@ -21,10 +21,26 @@
 namespace Multidimensional\Usps\Test\Rate;
 
 use Multidimensional\Usps\Rate\Package;
+use Multidimensional\Usps\Rate\Package\Content;
+use Multidimensional\Usps\Rate\Package\SpecialServices;
 use PHPUnit\Framework\TestCase;
 
 class PackageTest extends TestCase
 {
+    public $package;
+    public $defaultArray = [];
+    
+    public function setUp()
+    {
+        $this->defaultArray = [];
+    }
+    
+    public function tearDown()
+    {
+        unset($this->package);
+        unset($this->defaultArray);
+    }
+    
     public function testNamedFunctions()
     {
         $this->markTestIncomplete();
@@ -49,6 +65,27 @@ class PackageTest extends TestCase
         $package->setMachinable();
         */
     }
+    
+    public function testAddContent()
+    {
+        $this->package = new Package($this->defaultArray);
+        $content = new Content(['ContentType' => Content::TYPE_HAZMAT]);
+        $this->package->addContent($content);
+        $result = $this->package->toArray();
+        $expected = [];
+        $this->assertEquals($expected, $result);
+    }
+    
+    public function testAddSpecialServices()
+    {
+        $this->package = new Package($this->defaultArray);
+        $extraServices = new SpecialServices([SpecialServices::INSURANCE]);
+        $this->package->addSpecialServices($specialServices);
+        $result = $this->package->toArray();
+        $expected = [];
+        $this->assertEquals($expected, $result);
+    }
+    
     
     public function testConstants()
     {
