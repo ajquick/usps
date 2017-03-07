@@ -28,7 +28,7 @@ class Rate extends USPS
 /**
  * @var string
  */
-    private $apiClass = 'RateV4';
+    protected $apiClass = 'RateV4';
 
 /**
  * @var array

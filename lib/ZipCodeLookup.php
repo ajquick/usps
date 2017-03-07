@@ -28,7 +28,7 @@ class ZipCodeLookup extends USPS
 /**
  * @var string
  */
-    private $apiClass = 'ZipCodeLookup';
+    protected $apiClass = 'ZipCodeLookup';
 
     protected $addresses = [];
 

@@ -27,7 +27,7 @@ use Multidimensional\ArrayValidation\Validation;
 class Address
 {
 
-    private $validation;
+    protected $validation;
 
     /**
      * @var array $address

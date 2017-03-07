@@ -31,15 +31,15 @@ class USPS
     const PRODUCTION_URI = 'https://secure.shippingapis.com/ShippingAPI.dll';
     const TESTING_URI = 'https://secure.shippingapis.com/ShippingAPITest.dll';
 
-    private $userId;
-    private $password;
+    protected $userId;
+    protected $password;
     public $dom;
     public $testMode = false;
     protected $error = false;
     protected $errorCode = null;
     protected $errorMessage = null;
 
-    private static $apiClasses = [
+    protected static $apiClasses = [
     'CityStateLookup' => 'CityStateLookupRequest',
     'IntlRateV2'  => 'IntlRateV2Request',
     'RateV4'  => 'RateV4Request',

@@ -27,7 +27,7 @@ use Multidimensional\ArrayValidation\Validation;
 class ZipCode
 {
 
-    private $validation;
+    protected $validation;
     protected $zipCode = [];
 
     const FIELDS = [

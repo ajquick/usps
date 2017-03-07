@@ -31,8 +31,8 @@ class AddressValidate extends USPS
 
     protected $addresses = [];
 
-    private $includeOptionalElements = false;
-    private $returnCarrierRoute = false;
+    protected $includeOptionalElements = false;
+    protected $returnCarrierRoute = false;
 
     const FIELDS = [
     'IncludeOptionalElements' => [
@@ -119,7 +119,7 @@ class AddressValidate extends USPS
  * @param string $result
  * @return array
  */
-    private function parseResult($result)
+    protected function parseResult($result)
     {
         $array = (new XMLArray)->generateArray($result);
         foreach ($array as $key => $value) {

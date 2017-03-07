@@ -26,7 +26,7 @@ use Multidimensional\ArrayValidation\Validation;
 
 class SpecialServices
 {
-    private $validation;
+    protected $validation;
     public $service = [];
     
     const INSURANCE = 100;

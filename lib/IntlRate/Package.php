@@ -33,7 +33,10 @@ class Package
     /**
      * @var array
      */
-        protected $package = [];
+    protected $package = [];
+    protected $content = [];
+    protected $extraServices = [];
+    protected $gxg = [];
     
     /**
      * IntlRate / Request / Package / Container
@@ -82,7 +85,7 @@ class Package
         ],
         'GXG' => [
             'type' => 'GXG'
-			'fields' => GXG::FIELDS
+            'fields' => GXG::FIELDS
         ],
         'ValueOfContents' => [
             'type' => 'string',
@@ -392,23 +395,40 @@ class Package
         return;
     }
     
+    /**
+     * @return array
+     */
     public function toArray()
     {
         return $this->package;   
     }
     
-    public function addContent($array) 
+    /**
+     * @param Package\Content $content
+     * @return void
+     */
+    public function addContent(Package\Content $content)
     {
-            
-    }
-    
-    public function addExtraServices($array)
-    {
+        $this->content[] = $content->toArray();
         
     }
     
-    public function addGXG($array)
+    /**
+     * @param Package\ExtraServices $extraServices
+     * @return void
+     */
+    public function addExtraServices(Package\ExtraServices $extraServices)
     {
+        $this->extraServices[] = $extraServices->toArray();
+    }
+    
+    /**
+     * @param Package\GXG $gxg
+     * @return void
+     */
+    public function addGXG(Package\GXG $gxg)
+    {
+        $this->gxg[] = $gxg->toArray();
         
     }
 }

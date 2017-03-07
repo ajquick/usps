@@ -476,13 +476,22 @@ class Package
         return $this->package;
     }
     
-    public function addContent($array)
+    /**
+     * @param Package\Content $content
+     * @return void
+     */
+    public function addContent(Package\Content $content)
     {
+        $this->content[] = $content->toArray();
         
     }
     
-    public function addSpecialServices($array)
+    /**
+     * @param Package\ExtraServices $extraServices
+     * @return void
+     */
+    public function addExtraServices(Package\SpecialServices $specialServices)
     {
-        
+        $this->specialServices[] = $specialServices->toArray();
     }
 }

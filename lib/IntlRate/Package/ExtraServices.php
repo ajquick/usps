@@ -26,7 +26,7 @@ use Multidimensional\ArrayValidation\Validation;
 
 class ExtraServices
 {
-    private $validation;
+    protected $validation;
 
     /**
      * @var $services

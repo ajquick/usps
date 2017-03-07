@@ -27,7 +27,7 @@ class IntlRate extends USPS
     /**
      * @var string
      */
-    private $apiClass = 'IntlRateV2';
+    protected $apiClass = 'IntlRateV2';
     
     /**
      * @var array

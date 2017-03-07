@@ -26,7 +26,7 @@ class Track extends USPS
 /**
  * @var string
  */
-    private $apiClass = 'TrackV2';
+    protected $apiClass = 'TrackV2';
 
 /**
  * @var array
