@@ -27,7 +27,8 @@ use Multidimensional\ArrayValidation\Validation;
 class Content
 {
     
-    public $content = [];
+    protected $content = [];
+    protected $validation;
 
     /**
      * IntlRateV2Request / Package / Content / ContentType

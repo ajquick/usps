@@ -37,6 +37,7 @@ class Package
     protected $content = [];
     protected $extraServices = [];
     protected $gxg = [];
+    protected $validation;
     
     /**
      * IntlRate / Request / Package / Container

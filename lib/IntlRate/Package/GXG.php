@@ -26,7 +26,8 @@ use Multidimensional\ArrayValidation\Validation;
 
 class GXG
 {
-    public $gxg = [];
+    protected $gxg = [];
+    protected $validation;
     
     const POBOXFLAG_YES = 'Y';
     const POBOXFLAG_NO = 'N';

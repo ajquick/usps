@@ -101,14 +101,14 @@ class ExtraServicesTest extends TestCase
         $result = $this->extraServices->toArray();
         $this->assertNull($result);
     }
-	
-	public function testOtherInputMethod()
-	{
-		$this->extraServices = new ExtraServices(['ExtraService' => ExtraServices::INSURANCE]);
+    
+    public function testOtherInputMethod()
+    {
+        $this->extraServices = new ExtraServices(['ExtraService' => ExtraServices::INSURANCE]);
         $result = $this->extraServices->toArray();
         $expected = ['ExtraService' => 1];
         $this->assertEquals($expected, $result);
-	}
+    }
     
     public function testConstants()
     {

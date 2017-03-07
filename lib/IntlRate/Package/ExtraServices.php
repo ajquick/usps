@@ -26,12 +26,11 @@ use Multidimensional\ArrayValidation\Validation;
 
 class ExtraServices
 {
-    protected $validation;
-
     /**
      * @var $services
      */
-    public $service = [];
+    protected $service = [];
+    protected $validation;
 
     const REGISTERED_MAIL = 0;
     const INSURANCE = 1;

@@ -28,50 +28,50 @@ use PHPUnit\Framework\TestCase;
 
 class PackageTest extends TestCase
 {
-	public $package;
-	public $defaultArray = [];
-	
-	public function setUp()
-	{
-		$this->defaultArray = [];
-	}
-	
-	public function tearDown()
-	{
-		unset($this->package);
-		unset($this->defaultArray);
-	}
-	
-	public function testAddContent()
-	{
-		$this->package = new Package($this->defaultArray);
-		$content = new Content(['ContentType' => Content::TYPE_DOCUMENTS]);
-		$this->package->addContent($content);
-		$result = $this->package->toArray();
-		$expected = [];
-		$this->assertEquals($expected, $result);
-	}
-	
-	public function testAddExtraServices()
-	{
-		$this->package = new Package($this->defaultArray);
-		$extraServices = new ExtraServices([ExtraServices::REGISTERED_MAIL]);
-		$this->package->addExtraServices($extraServices);
-		$result = $this->package->toArray();
-		$expected = [];
-		$this->assertEquals($expected, $result);
-	}
-	
-	public function testAddGXG()
-	{
-		$this->package = new Package($this->defaultArray);
-		$gxg = new GXG(['POBoxFlag' => GXG::POBOXFLAG_YES, 'GiftFlag' => GXG::GIFTFLAG_YES]);
-		$this->package->addGXG($gxg);
-		$result = $this->package->toArray();
-		$expected = [];
-		$this->assertEquals($expected, $result);
-	}
-	
+    public $package;
+    public $defaultArray = [];
+    
+    public function setUp()
+    {
+        $this->defaultArray = [];
+    }
+    
+    public function tearDown()
+    {
+        unset($this->package);
+        unset($this->defaultArray);
+    }
+    
+    public function testAddContent()
+    {
+        $this->package = new Package($this->defaultArray);
+        $content = new Content(['ContentType' => Content::TYPE_DOCUMENTS]);
+        $this->package->addContent($content);
+        $result = $this->package->toArray();
+        $expected = [];
+        $this->assertEquals($expected, $result);
+    }
+    
+    public function testAddExtraServices()
+    {
+        $this->package = new Package($this->defaultArray);
+        $extraServices = new ExtraServices([ExtraServices::REGISTERED_MAIL]);
+        $this->package->addExtraServices($extraServices);
+        $result = $this->package->toArray();
+        $expected = [];
+        $this->assertEquals($expected, $result);
+    }
+    
+    public function testAddGXG()
+    {
+        $this->package = new Package($this->defaultArray);
+        $gxg = new GXG(['POBoxFlag' => GXG::POBOXFLAG_YES, 'GiftFlag' => GXG::GIFTFLAG_YES]);
+        $this->package->addGXG($gxg);
+        $result = $this->package->toArray();
+        $expected = [];
+        $this->assertEquals($expected, $result);
+    }
+    
     public function testConstants()
     {
         $this->assertEquals('RECTANGULAR', Package::CONTAINER_RECTANGULAR);

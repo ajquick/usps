@@ -28,14 +28,15 @@ use Multidimensional\Usps\Rate\Package\SpecialServices;
 
 class Package
 {
-/**
- * @var array
- */
+    /**
+     * @var array
+     */
     protected $package = [];
+    protected $validation;
 
-/**
- * Rate / Request / Package / Container
- */
+    /**
+     * Rate / Request / Package / Container
+     */
     const CONTAINER_VARIABLE = 'VARIABLE';
     const CONTAINER_FLAT_RATE_ENVELOPE   = 'FLAT RATE ENVELOPE';
     const CONTAINER_PADDED_FLAT_RATE_ENVELOPE = 'PADDED FLAT RATE ENVELOPE';
@@ -52,9 +53,9 @@ class Package
     const CONTAINER_RECTANGULAR  = 'RECTANGULAR';
     const CONTAINER_NONRECTANGULAR   = 'NONRECTANGULAR';
 
-/**
- * Rate / Request / Package / FirstClassMailType
- */
+    /**
+     * Rate / Request / Package / FirstClassMailType
+     */
     const FIRST_CLASS_MAIL_TYPE_LETTER   = 'LETTER';
     const FIRST_CLASS_MAIL_TYPE_FLAT = 'FLAT';
     const FIRST_CLASS_MAIL_TYPE_PARCEL   = 'PARCEL';
@@ -62,9 +63,9 @@ class Package
     const FIRST_CLASS_MAIL_TYPE_PACKAGE  = 'PACKAGE';
     const FIRST_CLASS_MAIL_TYPE_PACKAGE_SERVICE  = 'PACKAGE SERVICE';
 
-/**
- * Rate / Request / Package / Service
- */
+    /**
+     * Rate / Request / Package / Service
+     */
     const SERVICE_FIRST_CLASS = 'First Class';
     const SERVICE_FIRST_CLASS_COMMERCIAL = 'First Class Commercial';
     const SERVICE_FIRST_CLASS_HFP_COMMERCIAL = 'First Class HFP Commercial';
@@ -88,15 +89,15 @@ class Package
     const SERVICE_ONLINE = 'Online';
     const SERVICE_PLUS   = 'Plus';
 
-/**
- * Rate / Request / Package / Size
- */
+    /**
+     * Rate / Request / Package / Size
+     */
     const SIZE_LARGE = 'LARGE';
     const SIZE_REGULAR   = 'REGULAR';
 
-/**
- * @var array $fields
- */
+    /**
+     * @var array $fields
+     */
     const FIELDS = [
         '@ID' => [
             'type' => 'string'
@@ -473,7 +474,7 @@ class Package
      */
     public function toArray()
     {
-		if ($this->validation->validate($this->package, self::FIELDS)) {
+        if ($this->validation->validate($this->package, self::FIELDS)) {
             return $this->package;
         }
         
