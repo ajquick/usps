@@ -201,6 +201,8 @@ class Package
     public function setPounds($value)
     {
         $this->setField('Pounds', $value);
+
+        return;
     }
     
     /**
@@ -210,6 +212,8 @@ class Package
     public function setOunces($value)
     {
         $this->setField('Ounces', $value);
+
+        return;
     }
     
     /**
@@ -219,6 +223,8 @@ class Package
     public function setMachinable($value)
     {
         $this->setField('Machinable', $value);
+
+        return;
     }
     
     /**
@@ -228,6 +234,8 @@ class Package
     public function setMailType($value)
     {
         $this->setField('MailType', $value);
+
+        return;
     }
     
     /**
@@ -237,6 +245,8 @@ class Package
     public function setValueOfContents($value)
     {
         $this->setField('ValueOfContents', $value);
+
+        return;
     }
     
     /**
@@ -246,6 +256,8 @@ class Package
     public function setCountry($value)
     {
         $this->setField('Country', $value);
+
+        return;
     }
     
     /**
@@ -255,6 +267,8 @@ class Package
     public function setContainer($value)
     {
         $this->setField('Container', $value);
+
+        return;
     }
     
     /**
@@ -264,6 +278,8 @@ class Package
     public function setSize($value)
     {
         $this->setField('Size', $value);
+
+        return;
     }
     
     /**
@@ -273,6 +289,8 @@ class Package
     public function setWidth($value)
     {
         $this->setField('Width', $value);
+
+        return;
     }
     
     /**
@@ -282,6 +300,8 @@ class Package
     public function setLength($value)
     {
         $this->setField('Length', $value);
+
+        return;
     }
     
     /**
@@ -291,6 +311,8 @@ class Package
     public function setHeight($value)
     {
         $this->setField('Height', $value);
+
+        return;
     }
     
     /**
@@ -300,6 +322,8 @@ class Package
     public function setGirth($value)
     {
         $this->setField('Girth', $value);
+
+        return;
     }
     
     /**
@@ -309,6 +333,8 @@ class Package
     public function setOriginZip($value)
     {
         $this->setField('OriginZip', $value);
+
+        return;
     }
     
     /**
@@ -318,6 +344,8 @@ class Package
     public function setCommercialFlag($value)
     {
         $this->setField('CommercialFlag', $value);
+
+        return;
     }
     
     /**
@@ -327,6 +355,8 @@ class Package
     public function setCommercialPlusFlag($value)
     {
         $this->setField('CommercialPlusFlag', $value);
+
+        return;
     }
     
     /**
@@ -336,6 +366,8 @@ class Package
     public function setExtraServices($value)
     {
         $this->setField('ExtraServices', $value);
+
+        return;
     }
     
     /**
@@ -345,6 +377,8 @@ class Package
     public function setAcceptanceDataTime($value)
     {
         $this->setField('AcceptanceDataTime', $value);
+
+        return;
     }
     
     /**
@@ -354,6 +388,8 @@ class Package
     public function setDestinationPostalCode($value)
     {
         $this->setField('DestinationPostalCode', $value);
+
+        return;
     }
     
     public function toArray()

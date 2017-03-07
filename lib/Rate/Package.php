@@ -288,6 +288,8 @@ class Package
     public function setService($value)
     {
         $this->setField('Service', $value);
+
+        return;
     }
         
     /**
@@ -297,6 +299,8 @@ class Package
     public function setFirstClassMailType($value)
     {
         $this->setField('FirstClassMailType', $value);
+
+        return;
     }
     
     /**
@@ -306,6 +310,8 @@ class Package
     public function setZipOrigination($value)
     {
         $this->setField('ZipOrigination', $value);
+
+        return;
     }
         
     /**
@@ -315,6 +321,8 @@ class Package
     public function setZipDestination($value)
     {
         $this->setField('ZipDestination', $value);
+
+        return;
     }
     
     /**
@@ -324,6 +332,8 @@ class Package
     public function setPounds($value)
     {
         $this->setField('Pounds', $value);
+
+        return;
     }
     
     /**
@@ -333,6 +343,8 @@ class Package
     public function setOunces($value)
     {
         $this->setField('Ounces', $value);
+
+        return;
     }
     
     /**
@@ -342,6 +354,8 @@ class Package
     public function setSize($value)
     {
         $this->setField('Size', $value);
+
+        return;
     }
     
     /**
@@ -351,6 +365,8 @@ class Package
     public function setContainer($value)
     {
         $this->setField('Container', $value);
+
+        return;
     }
     
     /**
@@ -360,6 +376,8 @@ class Package
     public function setWidth($value)
     {
         $this->setField('Width', $value);
+
+        return;
     }
     
     /**
@@ -369,6 +387,8 @@ class Package
     public function setLength($value)
     {
         $this->setField('Length', $value);
+
+        return;
     }
     
     /**
@@ -378,6 +398,8 @@ class Package
     public function setHeight($value)
     {
         $this->setField('Height', $value);
+
+        return;
     }
     
     /**
@@ -387,6 +409,8 @@ class Package
     public function setGirth($value)
     {
         $this->setField('Girth', $value);
+
+        return;
     }
 
     /**
@@ -396,6 +420,8 @@ class Package
     public function setValue($value)
     {
         $this->setField('Value', $value);
+
+        return;
     }
     
     /**
@@ -405,6 +431,8 @@ class Package
     public function setAmountToCollect($value)
     {
         $this->setField('AmountToCollect', $value);
+
+        return;
     }
     
     /**
@@ -414,6 +442,8 @@ class Package
     public function setGroundOnly($value)
     {
         $this->setField('GroundOnly', $value);
+
+        return;
     }
     
     /**
@@ -423,6 +453,8 @@ class Package
     public function setSortBy($value)
     {
         $this->setField('SortBy', $value);
+
+        return;
     }
     
     /**
@@ -432,6 +464,8 @@ class Package
     public function setMachinable($value)
     {
         $this->setField('Machinable', $value);
+
+        return;
     }
     
     /**
