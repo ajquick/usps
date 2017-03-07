@@ -59,47 +59,47 @@ class ContentTest extends TestCase
         $result = $this->content->toArray();
         $this->assertNull($result);            
     }
-	
-	public function testCrematedRemains()
-	{
-		$this->content = new Content(['ContentType' => Content::TYPE_CREMATED_REMAINS]);
-		$result = $this->content->toArray();
-		$expected = ['ContentType' => 'CrematedRemains', 'ContentDescription' => null];
-        $this->assertEquals($expected, $result);
-	}
-	
-	public function testNonnegotiableDocument()
-	{
-		$this->content = new Content(['ContentType' => Content::TYPE_NONNEGOTIABLE_DOCUMENT]);
-		$result = $this->content->toArray();
-		$expected = ['ContentType' => 'NonnegotiableDocument', 'ContentDescription' => null];
-        $this->assertEquals($expected, $result);
-	}
-	
-	public function testPharmaceuticals()
-	{
-		$this->content = new Content(['ContentType' => Content::TYPE_PHARMACEUTICALS]);
-		$result = $this->content->toArray();
-		$expected = ['ContentType' => 'Pharmaceuticals', 'ContentDescription' => null];
-        $this->assertEquals($expected, $result);
-	}
     
-	public function testMedicalSupplies()
-	{
-		$this->content = new Content(['ContentType' => Content::TYPE_MEDICAL_SUPPLIES]);
-		$result = $this->content->toArray();
-		$expected = ['ContentType' => 'MedicalSupplies', 'ContentDescription' => null];
+    public function testCrematedRemains()
+    {
+        $this->content = new Content(['ContentType' => Content::TYPE_CREMATED_REMAINS]);
+        $result = $this->content->toArray();
+        $expected = ['ContentType' => 'CrematedRemains', 'ContentDescription' => null];
         $this->assertEquals($expected, $result);
-	}
-	
-	public function testDocuments()
-	{
-		$this->content = new Content(['ContentType' => Content::TYPE_DOCUMENTS]);
-		$result = $this->content->toArray();
-		$expected = ['ContentType' => 'Documents', 'ContentDescription' => null];
+    }
+    
+    public function testNonnegotiableDocument()
+    {
+        $this->content = new Content(['ContentType' => Content::TYPE_NONNEGOTIABLE_DOCUMENT]);
+        $result = $this->content->toArray();
+        $expected = ['ContentType' => 'NonnegotiableDocument', 'ContentDescription' => null];
         $this->assertEquals($expected, $result);
-	}
-	
+    }
+    
+    public function testPharmaceuticals()
+    {
+        $this->content = new Content(['ContentType' => Content::TYPE_PHARMACEUTICALS]);
+        $result = $this->content->toArray();
+        $expected = ['ContentType' => 'Pharmaceuticals', 'ContentDescription' => null];
+        $this->assertEquals($expected, $result);
+    }
+    
+    public function testMedicalSupplies()
+    {
+        $this->content = new Content(['ContentType' => Content::TYPE_MEDICAL_SUPPLIES]);
+        $result = $this->content->toArray();
+        $expected = ['ContentType' => 'MedicalSupplies', 'ContentDescription' => null];
+        $this->assertEquals($expected, $result);
+    }
+    
+    public function testDocuments()
+    {
+        $this->content = new Content(['ContentType' => Content::TYPE_DOCUMENTS]);
+        $result = $this->content->toArray();
+        $expected = ['ContentType' => 'Documents', 'ContentDescription' => null];
+        $this->assertEquals($expected, $result);
+    }
+    
     public function testConstants()
     {
         $this->assertEquals('CrematedRemains', Content::TYPE_CREMATED_REMAINS);

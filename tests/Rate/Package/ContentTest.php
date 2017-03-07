@@ -64,22 +64,22 @@ class ContentTest extends TestCase
         $this->assertNull($result);
     }
     
-	public function testTypeHazmat()
-	{
-		$this->content = new Content(['ContentType' => Content::TYPE_HAZMAT]);
+    public function testTypeHazmat()
+    {
+        $this->content = new Content(['ContentType' => Content::TYPE_HAZMAT]);
         $result = $this->content->toArray();
         $expected = ['ContentType' => 'HAZMAT', 'ContentDescription' => null];
         $this->assertEquals($expected, $result);
-	}
-	
-	public function testTypeCrematedRemains()
-	{
-		$this->content = new Content(['ContentType' => Content::TYPE_CREMATED_REMAINS]);
+    }
+    
+    public function testTypeCrematedRemains()
+    {
+        $this->content = new Content(['ContentType' => Content::TYPE_CREMATED_REMAINS]);
         $result = $this->content->toArray();
         $expected = ['ContentType' => 'CREMATEDREMAINS', 'ContentDescription' => null];
         $this->assertEquals($expected, $result);
-	}
-	
+    }
+    
     public function testTypeLives()
     {
         $this->content = new Content();    
@@ -100,6 +100,15 @@ class ContentTest extends TestCase
         $result = $this->content->toArray();
         $expected = ['ContentType' => 'LIVES', 'ContentDescription' => 'OTHER'];
         $this->assertEquals($expected, $result);
+    }
+    
+    public function testTypeLivesFailure()
+    {
+        $this->content = new Content();    
+        $this->content->setContentType(Content::TYPE_LIVES);
+        $this->content->setContentDescription(null);
+        $result = $this->content->toArray();
+        $this->assertNull($result);
     }
     
     public function testConstants()
