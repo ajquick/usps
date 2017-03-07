@@ -38,7 +38,7 @@ class ContentTest extends TestCase
         $result = $this->content->toArray();
         $expected = ['ContentType' => 'HAZMAT', 'ContentDescription' => null];
         $this->assertEquals($expected, $result);
-        $this->content->setContentType(Content::TYPE_CREMATEDREMAINS);
+        $this->content->setContentType(Content::TYPE_CREMATED_REMAINS);
         $result = $this->content->toArray();
         $expected = ['ContentType' => 'CREMATEDREMAINS', 'ContentDescription' => null];
         $this->assertEquals($expected, $result);
@@ -64,6 +64,22 @@ class ContentTest extends TestCase
         $this->assertNull($result);
     }
     
+	public function testTypeHazmat()
+	{
+		$this->content = new Content(['ContentType' => Content::TYPE_HAZMAT]);
+        $result = $this->content->toArray();
+        $expected = ['ContentType' => 'HAZMAT', 'ContentDescription' => null];
+        $this->assertEquals($expected, $result);
+	}
+	
+	public function testTypeCrematedRemains()
+	{
+		$this->content = new Content(['ContentType' => Content::TYPE_CREMATED_REMAINS]);
+        $result = $this->content->toArray();
+        $expected = ['ContentType' => 'CREMATEDREMAINS', 'ContentDescription' => null];
+        $this->assertEquals($expected, $result);
+	}
+	
     public function testTypeLives()
     {
         $this->content = new Content();    
@@ -72,11 +88,11 @@ class ContentTest extends TestCase
         $result = $this->content->toArray();
         $expected = ['ContentType' => 'LIVES', 'ContentDescription' => 'BEES'];
         $this->assertEquals($expected, $result);
-        $this->content->setContentDescription(Content::DESCRIPTION_DAYOLDPOULTRY);
+        $this->content->setContentDescription(Content::DESCRIPTION_DAY_OLD_POULTRY);
         $result = $this->content->toArray();
         $expected = ['ContentType' => 'LIVES', 'ContentDescription' => 'DAYOLDPOULTRY'];
         $this->assertEquals($expected, $result);
-        $this->content->setContentDescription(Content::DESCRIPTION_ADULTBIRDS);
+        $this->content->setContentDescription(Content::DESCRIPTION_ADULT_BIRDS);
         $result = $this->content->toArray();
         $expected = ['ContentType' => 'LIVES', 'ContentDescription' => 'ADULTBIRDS'];
         $this->assertEquals($expected, $result);
@@ -89,11 +105,11 @@ class ContentTest extends TestCase
     public function testConstants()
     {
         $this->assertEquals('HAZMAT', Content::TYPE_HAZMAT);
-        $this->assertEquals('CREMATEDREMAINS', Content::TYPE_CREMATEDREMAINS);
+        $this->assertEquals('CREMATEDREMAINS', Content::TYPE_CREMATED_REMAINS);
         $this->assertEquals('LIVES', Content::TYPE_LIVES);
         $this->assertEquals('BEES', Content::DESCRIPTION_BEES);
-        $this->assertEquals('DAYOLDPOULTRY', Content::DESCRIPTION_DAYOLDPOULTRY);
-        $this->assertEquals('ADULTBIRDS', Content::DESCRIPTION_ADULTBIRDS);
+        $this->assertEquals('DAYOLDPOULTRY', Content::DESCRIPTION_DAY_OLD_POULTRY);
+        $this->assertEquals('ADULTBIRDS', Content::DESCRIPTION_ADULT_BIRDS);
         $this->assertEquals('OTHER', Content::DESCRIPTION_OTHER);
     }    
 }

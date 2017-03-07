@@ -33,15 +33,15 @@ class Content
      * Content Type Constants
      */
     const TYPE_HAZMAT = 'HAZMAT';
-    const TYPE_CREMATEDREMAINS = 'CREMATEDREMAINS';
+    const TYPE_CREMATED_REMAINS = 'CREMATEDREMAINS';
     const TYPE_LIVES = 'LIVES';
     
     /**
      * Content Description Constants
      */
     const DESCRIPTION_BEES = 'BEES';
-    const DESCRIPTION_DAYOLDPOULTRY = 'DAYOLDPOULTRY';
-    const DESCRIPTION_ADULTBIRDS = 'ADULTBIRDS';
+    const DESCRIPTION_DAY_OLD_POULTRY = 'DAYOLDPOULTRY';
+    const DESCRIPTION_ADULT_BIRDS = 'ADULTBIRDS';
     const DESCRIPTION_OTHER = 'OTHER';
 
     const FIELDS = [
@@ -49,7 +49,7 @@ class Content
             'type' => 'string',
             'values' => [
                 self::TYPE_HAZMAT,
-                self::TYPE_CREMATEDREMAINS,
+                self::TYPE_CREMATED_REMAINS,
                 self::TYPE_LIVES
             ]
         ],
@@ -60,8 +60,8 @@ class Content
             ],
             'values' => [
                 self::DESCRIPTION_BEES,
-                self::DESCRIPTION_DAYOLDPOULTRY,
-                self::DESCRIPTION_ADULTBIRDS,
+                self::DESCRIPTION_DAY_OLD_POULTRY,
+                self::DESCRIPTION_ADULT_BIRDS,
                 self::DESCRIPTION_OTHER
             ]
         ]
