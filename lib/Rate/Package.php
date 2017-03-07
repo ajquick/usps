@@ -430,4 +430,14 @@ class Package
     {
         return $this->package;
     }
+	
+	public function addContent($array)
+	{
+		
+	}
+	
+	public function addSpecialServices($array)
+	{
+		
+	}
 }

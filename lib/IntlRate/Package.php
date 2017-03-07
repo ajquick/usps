@@ -177,4 +177,187 @@ class Package
         //Height
         //Girth
     }
+	
+	
+    /**
+     * @param string $value
+     * @return void
+     */
+    public function setPounds($value)
+    {
+        $this->setField('Pounds', $value);
+    }
+	
+    /**
+     * @param string $value
+     * @return void
+     */
+    public function setOunces($value)
+    {
+        $this->setField('Ounces', $value);
+    }
+	
+    /**
+     * @param string $value
+     * @return void
+     */
+    public function setMachinable($value)
+    {
+        $this->setField('Machinable', $value);
+    }
+	
+    /**
+     * @param string $value
+     * @return void
+     */
+    public function setMailType($value)
+    {
+        $this->setField('MailType', $value);
+    }
+	
+    /**
+     * @param string $value
+     * @return void
+     */
+    public function setValueOfContents($value)
+    {
+        $this->setField('ValueOfContents', $value);
+    }
+	
+    /**
+     * @param string $value
+     * @return void
+     */
+    public function setCountry($value)
+    {
+        $this->setField('Country', $value);
+    }
+	
+    /**
+     * @param string $value
+     * @return void
+     */
+    public function setContainer($value)
+    {
+        $this->setField('Container', $value);
+    }
+	
+    /**
+     * @param string $value
+     * @return void
+     */
+    public function setSize($value)
+    {
+        $this->setField('Size', $value);
+    }
+	
+    /**
+     * @param string $value
+     * @return void
+     */
+    public function setWidth($value)
+    {
+        $this->setField('Width', $value);
+    }
+	
+    /**
+     * @param string $value
+     * @return void
+     */
+    public function setLength($value)
+    {
+        $this->setField('Length', $value);
+    }
+	
+    /**
+     * @param string $value
+     * @return void
+     */
+    public function setHeight($value)
+    {
+        $this->setField('Height', $value);
+    }
+	
+    /**
+     * @param string $value
+     * @return void
+     */
+    public function setGirth($value)
+    {
+        $this->setField('Girth', $value);
+    }
+	
+    /**
+     * @param string $value
+     * @return void
+     */
+    public function setOriginZip($value)
+    {
+        $this->setField('OriginZip', $value);
+    }
+	
+    /**
+     * @param string $value
+     * @return void
+     */
+    public function setCommercialFlag($value)
+    {
+        $this->setField('CommercialFlag', $value);
+    }
+	
+    /**
+     * @param string $value
+     * @return void
+     */
+    public function setCommercialPlusFlag($value)
+    {
+        $this->setField('CommercialPlusFlag', $value);
+    }
+	
+    /**
+     * @param string $value
+     * @return void
+     */
+    public function setExtraServices($value)
+    {
+        $this->setField('ExtraServices', $value);
+    }
+	
+    /**
+     * @param string $value
+     * @return void
+     */
+    public function setAcceptanceDataTime($value)
+    {
+        $this->setField('AcceptanceDataTime', $value);
+    }
+	
+    /**
+     * @param string $value
+     * @return void
+     */
+    public function setDestinationPostalCode($value)
+    {
+        $this->setField('DestinationPostalCode', $value);
+    }
+	
+	public function toArray()
+	{
+			
+	}
+	
+	public function addContent($array) 
+	{
+			
+	}
+	
+	public function addExtraService($array)
+	{
+		
+	}
+	
+	public function addGXG($array)
+	{
+		
+	}
 }
