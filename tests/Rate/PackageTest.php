@@ -37,8 +37,8 @@ class PackageTest extends TestCase
     
     public function tearDown()
     {
-        unset($this->package);
-        unset($this->defaultArray);
+        $this->package = null;
+		$this->defaultArray = [];
     }
     
     public function testNamedFunctions()
