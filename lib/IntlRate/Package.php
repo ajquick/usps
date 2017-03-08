@@ -160,7 +160,7 @@ class Package
             'type' => 'ExtraServices',
             'fields' => ExtraServices::FIELDS
         ],
-        'AcceptanceDataTime' => [
+        'AcceptanceDateTime' => [
             'type' => 'DateTime',
             'pattern' => 'ISO 8601'
         ],

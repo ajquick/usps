@@ -29,7 +29,7 @@ use PHPUnit\Framework\TestCase;
 class PackageTest extends TestCase
 {
     public $package;
-    public $defaultArray = [];
+    public $defaultArray = ['@ID' => 123, 'Pounds' => 0, 'Ounces' => 16.5, 'Machinable' => true, 'MailType' => 'ALL', 'ValueOfContents' => '10.0', 'Country' => 'Albania', 'Size' => 'REGULAR'];
     
     public function setUp()
     {
