@@ -402,6 +402,9 @@ class Package
 			$array['GXG'] = $this->gxg;
 		}
 		
+		#DEBUGGING
+		var_export($array);
+		
         if ($this->validation->validate($array, self::FIELDS)) {
             return $array;
         }

@@ -29,6 +29,8 @@ use Multidimensional\Usps\Rate\Package\SpecialServices;
 class Package
 {
     protected $package = [];
+	protected $content = [];
+    protected $specialServices = [];
     protected $validation;
 
     const CONTAINER_VARIABLE = 'VARIABLE';
@@ -453,8 +455,21 @@ class Package
      */
     public function toArray()
     {
-        if ($this->validation->validate($this->package, self::FIELDS)) {
-            return $this->package;
+		$array = $this->package;
+		
+		if (is_array($this->content) && count($this->content)){
+			$array['Content'] = $this->content;
+		}
+		
+		if (is_array($this->specialServices) && count($this->specialServices)){
+			$array['SpecialServices'] = $this->specialServices;
+		}
+		
+		#DEBUGGING
+		var_export($array);
+		
+        if ($this->validation->validate($array, self::FIELDS)) {
+            return $array;
         }
         
         return null;
