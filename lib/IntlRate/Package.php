@@ -30,24 +30,15 @@ use Multidimensional\Usps\IntlRate\Package\GXG;
 class Package
 {
     
-    /**
-     * @var array
-     */
+
     protected $package = [];
     protected $content = [];
     protected $extraServices = [];
     protected $gxg = [];
     protected $validation;
     
-    /**
-     * IntlRate / Request / Package / Container
-     */
     const CONTAINER_RECTANGULAR = 'RECTANGULAR';
     const CONTAINER_NONRECTANGULAR  = 'NONRECTANGULAR';
-
-    /**
-     * IntlRate / Request / Package / MailType
-     */
     const MAIL_TYPE_ALL = 'ALL';
     const MAIL_TYPE_PACKAGE = 'PACKAGE';
     const MAIL_TYPE_POSTCARDS   = 'POSTCARDS';
@@ -55,10 +46,6 @@ class Package
     const MAIL_TYPE_LETTER  = 'LETTER';
     const MAIL_TYPE_LARGEENVELOPE   = 'LARGEENVELOPE';
     const MAIL_TYPE_FLATRATE = 'FLATRATE';
-
-    /**
-     * IntlRate / Request / Package / Size
-     */
     const SIZE_LARGE = 'LARGE';
     const SIZE_REGULAR  = 'REGULAR';
 
@@ -401,8 +388,22 @@ class Package
      */
     public function toArray()
     {
-        if ($this->validation->validate($this->package, self::FIELDS)) {
-            return $this->package;
+		$array = $this->package;
+		
+		if (is_array($this->content) && count($this->content)){
+			$array['Content'] = $this->content;
+		}
+		
+		if (is_array($this->extraServices) && count($this->extraServices)){
+			$array['ExtraServices'] = $this->extraServices;
+		}
+		
+		if (is_array($this->gxg) && count($this->gxg)){
+			$array['GXG'] = $this->gxg;
+		}
+		
+        if ($this->validation->validate($array, self::FIELDS)) {
+            return $array;
         }
         
         return null;  
