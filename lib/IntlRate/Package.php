@@ -162,6 +162,9 @@ class Package
 
     public function __constuct(array $config = [])
     {
+		#DEBUGGING
+		var_export($config);
+		
         if (is_array($config)) {
             foreach ($config as $key => $value) {
                 $this->setField($key, $value);
@@ -170,6 +173,9 @@ class Package
         
         $this->package += array_combine(array_keys(self::FIELDS), array_fill(0, count(self::FIELDS), null));
         
+		#DEBUGGING
+		var_export($this->package);
+		
         $this->validation = new Validation();
         
         return;
@@ -388,7 +394,13 @@ class Package
      */
     public function toArray()
     {
+		#DEBUGGING
+		var_export($this->package);
+		
         $array = $this->package;
+		
+		#DEBUGGING
+        var_export($array);
         
         if (is_array($this->content) && count($this->content)){
             $array['Content'] = $this->content;
