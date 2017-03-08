@@ -388,23 +388,23 @@ class Package
      */
     public function toArray()
     {
-		$array = $this->package;
-		
-		if (is_array($this->content) && count($this->content)){
-			$array['Content'] = $this->content;
-		}
-		
-		if (is_array($this->extraServices) && count($this->extraServices)){
-			$array['ExtraServices'] = $this->extraServices;
-		}
-		
-		if (is_array($this->gxg) && count($this->gxg)){
-			$array['GXG'] = $this->gxg;
-		}
-		
-		#DEBUGGING
-		var_export($array);
-		
+        $array = $this->package;
+        
+        if (is_array($this->content) && count($this->content)){
+            $array['Content'] = $this->content;
+        }
+        
+        if (is_array($this->extraServices) && count($this->extraServices)){
+            $array['ExtraServices'] = $this->extraServices;
+        }
+        
+        if (is_array($this->gxg) && count($this->gxg)){
+            $array['GXG'] = $this->gxg;
+        }
+        
+        #DEBUGGING
+        var_export($array);
+        
         if ($this->validation->validate($array, self::FIELDS)) {
             return $array;
         }

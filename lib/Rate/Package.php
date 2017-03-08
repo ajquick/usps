@@ -29,7 +29,7 @@ use Multidimensional\Usps\Rate\Package\SpecialServices;
 class Package
 {
     protected $package = [];
-	protected $content = [];
+    protected $content = [];
     protected $specialServices = [];
     protected $validation;
 
@@ -243,7 +243,7 @@ class Package
             }
         }
         
-        $this->gxg += array_combine(array_keys(self::FIELDS), array_fill(0, count(self::FIELDS), null));
+        $this->package += array_combine(array_keys(self::FIELDS), array_fill(0, count(self::FIELDS), null));
         
         $this->validation = new Validation();
         
@@ -259,7 +259,7 @@ class Package
     {
         if (in_array($key, array_keys(self::FIELDS))) {
             $value = Sanitization::sanitizeField($key, $value, self::FIELDS[$key]);
-            $this->address[$key] = $value;
+            $this->package[$key] = $value;
         }
     }
      
@@ -455,19 +455,19 @@ class Package
      */
     public function toArray()
     {
-		$array = $this->package;
-		
-		if (is_array($this->content) && count($this->content)){
-			$array['Content'] = $this->content;
-		}
-		
-		if (is_array($this->specialServices) && count($this->specialServices)){
-			$array['SpecialServices'] = $this->specialServices;
-		}
-		
-		#DEBUGGING
-		var_export($array);
-		
+        $array = $this->package;
+        
+        if (is_array($this->content) && count($this->content)){
+            $array['Content'] = $this->content;
+        }
+        
+        if (is_array($this->specialServices) && count($this->specialServices)){
+            $array['SpecialServices'] = $this->specialServices;
+        }
+        
+        #DEBUGGING
+        var_export($array);
+        
         if ($this->validation->validate($array, self::FIELDS)) {
             return $array;
         }
@@ -489,7 +489,7 @@ class Package
      * @param Package\ExtraServices $extraServices
      * @return void
      */
-    public function addExtraServices(Package\SpecialServices $specialServices)
+    public function addSpecialServices(Package\SpecialServices $specialServices)
     {
         $this->specialServices[] = $specialServices->toArray();
     }
