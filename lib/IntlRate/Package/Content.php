@@ -30,9 +30,6 @@ class Content
     protected $content = [];
     protected $validation;
 
-    /**
-     * IntlRateV2Request / Package / Content / ContentType
-     */
     const TYPE_CREMATED_REMAINS = 'CrematedRemains';
     const TYPE_NONNEGOTIABLE_DOCUMENT = 'NonnegotiableDocument';
     const TYPE_PHARMACEUTICALS = 'Pharmaceuticals';

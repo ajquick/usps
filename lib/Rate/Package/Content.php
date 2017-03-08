@@ -26,19 +26,12 @@ use Multidimensional\ArrayValidation\Validation;
 
 class Content
 {
+    protected $content = [];
     protected $validation;
-    public $content = [];
     
-    /**
-     * Content Type Constants
-     */
     const TYPE_HAZMAT = 'HAZMAT';
     const TYPE_CREMATED_REMAINS = 'CREMATEDREMAINS';
     const TYPE_LIVES = 'LIVES';
-    
-    /**
-     * Content Description Constants
-     */
     const DESCRIPTION_BEES = 'BEES';
     const DESCRIPTION_DAY_OLD_POULTRY = 'DAYOLDPOULTRY';
     const DESCRIPTION_ADULT_BIRDS = 'ADULTBIRDS';

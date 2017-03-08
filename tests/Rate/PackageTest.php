@@ -79,7 +79,7 @@ class PackageTest extends TestCase
     public function testAddSpecialServices()
     {
         $this->package = new Package($this->defaultArray);
-        $extraServices = new SpecialServices([SpecialServices::INSURANCE]);
+        $specialServices = new SpecialServices([SpecialServices::INSURANCE]);
         $this->package->addSpecialServices($specialServices);
         $result = $this->package->toArray();
         $expected = [];

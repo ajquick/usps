@@ -25,7 +25,7 @@ use PHPUnit\Framework\TestCase;
 
 class GXGTest extends TestCase
 {
-    public $gxg;
+    protected $gxg;
         
     public function tearDown()
     {

@@ -405,7 +405,9 @@ class Package
         #DEBUGGING
         var_export($array);
         
-        if ($this->validation->validate($array, self::FIELDS)) {
+        if (is_array($array)
+            && count($array)
+			&& $this->validation->validate($array, self::FIELDS)) {
             return $array;
         }
         

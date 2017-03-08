@@ -25,7 +25,7 @@ use PHPUnit\Framework\TestCase;
 
 class ExtraServicesTest extends TestCase
 {
-    public $extraServices;
+    protected $extraServices;
     
     public function tearDown()
     {
