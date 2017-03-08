@@ -108,12 +108,10 @@ class Package
         'Pounds' => [
             'type' => 'decimal',
             'required' => true,
-            'pattern' => '\d{0,10}'
         ],
         'Ounces' => [
             'type' => 'decimal',
             'required' => true,
-            'pattern' => '\d{0,10}'
         ],
         'Container' => [
             'type' => 'string',
@@ -132,22 +130,19 @@ class Package
             'type' => 'decimal',
             'required' => [
                 'Size' => self::SIZE_LARGE
-            ],
-            'pattern' => '\d{0,10}'
+            ]
         ],
         'Length' => [
             'type' => 'decimal',
             'required' => [
                 'Size' => self::SIZE_LARGE
-            ],
-            'pattern' => '\d{0,10}'
+            ]
         ],
         'Height' => [
             'type' => 'decimal',
             'required' => [
                 'Size' => self::SIZE_LARGE
-            ],
-            'pattern' => '\d{0,10}'
+            ]
         ],
         'Girth' => [
             'type' => 'decimal',
@@ -160,16 +155,13 @@ class Package
                     'Size' => self::SIZE_LARGE,
                     'Container' => self::CONTAINER_NONRECTANGULAR
                 ]
-            ],
-            'pattern' => '\d{0,10}'
+            ]
         ],
         'Value' => [
-            'type' => 'decimal',
-            'pattern' => '\d{0,10}'
+            'type' => 'decimal'
         ],
         'AmountToCollect' => [
-            'type' => 'decimal',
-            'pattern' => '\d{0,10}'
+            'type' => 'decimal'
         ],
         'SpecialServices' => [
             'type' => 'SpecialServices',

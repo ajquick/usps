@@ -32,7 +32,7 @@ class PackageTest extends TestCase
     
     public function setUp()
     {
-        $this->defaultArray = ['@ID' => 123, 'Service' => 'All', 'FirstClassMailType' => 'PARCEL', 'ZipOrigination' => 01234, 'ZipDestination' => 90210, 'Pounds' => 0, 'Ounces' => 32, 'Container' => 'VARIABLE', 'Size' => 'REGULAR'];
+        $this->defaultArray = ['@ID' => '123', 'Service' => 'All', 'FirstClassMailType' => 'PARCEL', 'ZipOrigination' => 01234, 'ZipDestination' => 90210, 'Pounds' => 0, 'Ounces' => 32, 'Container' => 'VARIABLE', 'Size' => 'REGULAR'];
     }
     
     public function tearDown()

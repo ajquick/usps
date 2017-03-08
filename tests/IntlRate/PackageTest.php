@@ -33,7 +33,7 @@ class PackageTest extends TestCase
     
     public function setUp()
     {
-        $this->defaultArray = ['@ID' => 123, 'Pounds' => 0, 'Ounces' => 16.5, 'Machinable' => true, 'MailType' => 'ALL', 'ValueOfContents' => '10.0', 'Country' => 'Albania', 'Size' => 'REGULAR'];
+        $this->defaultArray = ['@ID' => '123', 'Pounds' => 0, 'Ounces' => 16.5, 'Machinable' => true, 'MailType' => 'ALL', 'ValueOfContents' => '10.0', 'Country' => 'Albania', 'Size' => 'REGULAR'];
     }
     
     public function tearDown()

@@ -53,13 +53,11 @@ class Package
         ],
         'Pounds' => [
             'type' => 'decimal',
-            'required' => true,
-            'pattern' => '\d{0,10}'
+            'required' => true
         ],
         'Ounces' => [
             'type' => 'decimal',
-            'required' => true,
-            'pattern' => '\d{0,10}'
+            'required' => true
         ],
         'Machinable' => [
             'type' => 'boolean',
