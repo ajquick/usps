@@ -41,6 +41,14 @@ class PackageTest extends TestCase
         $this->package = null;
 		$this->defaultArray = [];
     }
+	
+	public function testDefaultArray()
+	{
+		$this->package = new Package($this->defaultArray);
+        $result = $this->package->toArray();
+        $expected = $this->defaultArray;
+        $this->assertEquals($expected, $result);	
+	}
     
     public function testAddContent()
     {
