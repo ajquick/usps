@@ -235,7 +235,7 @@ class Package
         ]
     ];
 
-    public function __constuct(array $config = [])
+    public function __construct(array $config = [])
     {
         if (is_array($config)) {
             foreach ($config as $key => $value) {
@@ -464,9 +464,6 @@ class Package
         if (is_array($this->specialServices) && count($this->specialServices)){
             $array['SpecialServices'] = $this->specialServices;
         }
-        
-        #DEBUGGING
-        var_export($array);
         
         if (is_array($array)
             && count($array)

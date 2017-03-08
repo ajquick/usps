@@ -29,8 +29,6 @@ use Multidimensional\Usps\IntlRate\Package\GXG;
 
 class Package
 {
-    
-
     protected $package = [];
     protected $content = [];
     protected $extraServices = [];
@@ -160,11 +158,8 @@ class Package
         ]
     ];
 
-    public function __constuct(array $config = [])
+    public function __construct(array $config = [])
     {
-		#DEBUGGING
-		var_export($config);
-		
         if (is_array($config)) {
             foreach ($config as $key => $value) {
                 $this->setField($key, $value);
@@ -172,9 +167,6 @@ class Package
         }
         
         $this->package += array_combine(array_keys(self::FIELDS), array_fill(0, count(self::FIELDS), null));
-        
-		#DEBUGGING
-		var_export($this->package);
 		
         $this->validation = new Validation();
         
@@ -394,14 +386,8 @@ class Package
      */
     public function toArray()
     {
-		#DEBUGGING
-		var_export($this->package);
-		
         $array = $this->package;
 		
-		#DEBUGGING
-        var_export($array);
-        
         if (is_array($this->content) && count($this->content)){
             $array['Content'] = $this->content;
         }
@@ -413,9 +399,6 @@ class Package
         if (is_array($this->gxg) && count($this->gxg)){
             $array['GXG'] = $this->gxg;
         }
-        
-        #DEBUGGING
-        var_export($array);
         
         if (is_array($array)
             && count($array)
