@@ -404,6 +404,8 @@ class Package
             return $array;
         }
         
+		var_export($this->validation->getErrorMessage());
+		
         return null;  
     }
     
