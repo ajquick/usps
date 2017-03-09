@@ -46,7 +46,7 @@ class PackageTest extends TestCase
 	{
 		$this->package = new Package($this->defaultArray);
         $result = $this->package->toArray();
-        $expected = $this->defaultArray;
+        $expected = $this->defaultArray + ['GXG' => null, 'Container' => null, 'Width' => null, 'Length' => null, 'Height' => null, 'Girth' => null, 'OriginZip' => null, 'CommercialFlag' => null, 'CommercialPlusFlag' => null, 'ExtraServices' => null, 'AcceptanceDateTime' => null, 'DestinationPostalCode' => null, 'Content' => null];
         $this->assertEquals($expected, $result);	
 	}
     
