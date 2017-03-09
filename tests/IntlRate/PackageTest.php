@@ -56,6 +56,7 @@ class PackageTest extends TestCase
         $content = new Content(['ContentType' => Content::TYPE_DOCUMENTS]);
         $this->package->addContent($content);
         $result = $this->package->toArray();
+		var_export($result);
         $expected = [];
         $this->assertEquals($expected, $result);
     }
@@ -66,6 +67,7 @@ class PackageTest extends TestCase
         $extraServices = new ExtraServices([ExtraServices::REGISTERED_MAIL]);
         $this->package->addExtraServices($extraServices);
         $result = $this->package->toArray();
+		var_export($result);
         $expected = [];
         $this->assertEquals($expected, $result);
     }
@@ -76,6 +78,7 @@ class PackageTest extends TestCase
         $gxg = new GXG(['POBoxFlag' => GXG::POBOXFLAG_YES, 'GiftFlag' => GXG::GIFTFLAG_YES]);
         $this->package->addGXG($gxg);
         $result = $this->package->toArray();
+		var_export($result);
         $expected = [];
         $this->assertEquals($expected, $result);
     }
