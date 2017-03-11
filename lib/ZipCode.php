@@ -41,10 +41,9 @@ class ZipCode
             'pattern' => '\d{5}'
         ]
     ];
-    
+
     /**
      * @param array $config
-     * @return void
      */
     public function __construct(array $config = [])
     {

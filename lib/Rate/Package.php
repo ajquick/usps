@@ -479,10 +479,11 @@ class Package
         $this->content[] = $content->toArray();
         
     }
-    
+
     /**
-     * @param Package\ExtraServices $extraServices
+     * @param SpecialServices $specialServices
      * @return void
+     * @internal param Package\ExtraServices $extraServices
      */
     public function addSpecialServices(Package\SpecialServices $specialServices)
     {

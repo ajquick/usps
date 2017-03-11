@@ -48,9 +48,9 @@ class USPS
     'ZipCodeLookup'   => 'ZipCodeLookupRequest'
     ];
 
-/**
- * @return void
- */
+    /**
+     * @param array $config
+     */
     public function __construct(array $config = [])
     {
         if (isset($config['userId'])) {
@@ -60,9 +60,11 @@ class USPS
         $this->dom = new DOMArray();
     }
 
-/**
- * @return void
- */
+    /**
+     * @param $userId
+     * @param $password
+     * @return void
+     */
     public function setCredentials($userId, $password)
     {
         $this->userId = $userId;
@@ -89,11 +91,11 @@ class USPS
         return $boolean;
     }
 
-/**
- * @param string $apiClass
- * @param string $xml
- * @return string
- */
+    /**
+     * @param string $apiClass
+     * @return string
+     * @internal param string $xml
+     */
     public function request($apiClass)
     {
 

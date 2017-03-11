@@ -43,7 +43,7 @@ class AddressValidate extends USPS
     ],
     'Address' => [
     'type' => 'Address',
-    'fields' => Address::FIELDS;
+    'fields' => Address::FIELDS
     ]
     ];
 
