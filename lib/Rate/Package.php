@@ -457,11 +457,15 @@ class Package
             $array['SpecialServices'] = $this->specialServices;
         }
         
+		try {
         if (is_array($array)
             && count($array)
 			&& $this->validation->validate($array, self::FIELDS)) {
             return $array;
         }
+		} catch (ValidationException $e) {
+			
+		}
         
         return null;
     }

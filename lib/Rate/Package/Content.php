@@ -87,11 +87,15 @@ class Content
     
     public function toArray()
     {
+		try {
         if (is_array($this->content)
             && count($this->content)
             && $this->validation->validate($this->content, self::FIELDS)) {
             return $this->content;
         }
+		} catch (ValidationException $e) {
+			
+		}
         
         return null;
     }

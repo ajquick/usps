@@ -398,13 +398,17 @@ class Package
             $array['GXG'] = $this->gxg;
         }
         
+		try {
+		
         if (is_array($array)
             && count($array)
 			&& $this->validation->validate($array, self::FIELDS)) {
             return $array;
         }
         
+		} catch (ValidationException $e) {		
 		var_export($this->validation->getErrorMessage());
+		}
 		
         return null;  
     }
