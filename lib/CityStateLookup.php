@@ -39,6 +39,6 @@ class CityStateLookup extends USPS
 
     public function addAddress(Address $address)
     {
-        $this->addresss[] = $address->toArray();
+        $this->addresses[] = $address->toArray();
     }
 }

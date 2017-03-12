@@ -42,11 +42,11 @@ class ExtraServices
         'ExtraService' => [
             'type' => 'integer',
             'values' => [
-                SELF::REGISTERED_MAIL,
-                SELF::INSURANCE,
-                SELF::RETURN_RECEIPT,
-                SELF::CERTIFICATE_OF_MAILING,
-                SELF::ELECTRONIC_DELIVERY_CONFIRMATION
+                self::REGISTERED_MAIL,
+                self::INSURANCE,
+                self::RETURN_RECEIPT,
+                self::CERTIFICATE_OF_MAILING,
+                self::ELECTRONIC_DELIVERY_CONFIRMATION
             ]
         ]
     ];
@@ -55,7 +55,7 @@ class ExtraServices
     {
         if (is_array($config)) {
             foreach ($config as $key => $value) {
-                if ($key == 'ExtraService' || in_array($value, SELF::FIELDS['ExtraServices']['values'])) {
+                if ($key == 'ExtraService' || in_array($value, self::FIELDS['ExtraServices']['values'])) {
                     $this->addService($value);
                 }
             }

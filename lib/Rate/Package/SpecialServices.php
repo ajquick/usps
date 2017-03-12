@@ -102,7 +102,7 @@ class SpecialServices
     {
         if (is_array($config)) {
             foreach ($config as $key => $value) {
-                if ($key == 'SpecialService' || in_array($value, SELF::FIELDS['SpecialServices']['values'])) {
+                if ($key == 'SpecialService' || in_array($value, self::FIELDS['SpecialServices']['values'])) {
                     $this->addService($value);
                 }
             }
