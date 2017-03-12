@@ -90,9 +90,15 @@ class Package
         'FirstClassMailType' => [
             'type' => 'string',
             'required' => [
-                'Service' => self::SERVICE_FIRST_CLASS,
-                'Service' => self::SERVICE_FIRST_CLASS_COMMERCIAL,
+                [
+                        'Service' => self::SERVICE_FIRST_CLASS
+                ],
+                [
+                'Service' => self::SERVICE_FIRST_CLASS_COMMERCIAL
+                ],
+                [
                 'Service' => self::SERVICE_FIRST_CLASS_HFP_COMMERCIAL
+                ]
             ]
         ],
         'ZipOrigination' => [
@@ -250,7 +256,7 @@ class Package
     public function setField($key, $value)
     {
         if (in_array($key, array_keys(self::FIELDS))) {
-            $value = Sanitization::sanitizeField($key, $value, self::FIELDS[$key]);
+            $value = Sanitization::sanitizeField($value, self::FIELDS[$key]);
             $this->package[$key] = $value;
         }
     }

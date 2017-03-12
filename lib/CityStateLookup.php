@@ -34,6 +34,7 @@ class CityStateLookup extends USPS
 
     public function __construct(array $config = [])
     {
+        parent::__construct($config);
     }
 
     public function addAddress(Address $address)

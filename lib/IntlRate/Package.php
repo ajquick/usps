@@ -174,7 +174,7 @@ class Package
     public function setField($key, $value)
     {
         if (in_array($key, array_keys(self::FIELDS))) {
-            $value = Sanitization::sanitizeField($key, $value, self::FIELDS[$key]);
+            $value = Sanitization::sanitizeField($value, self::FIELDS[$key]);
             $this->package[$key] = $value;
         }
         

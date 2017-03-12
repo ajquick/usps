@@ -67,7 +67,7 @@ class ZipCode
     public function setField($key, $value)
     {
         if (self::FIELDS[$key] !== null || array_key_exists($key, self::FIELDS)) {
-            if (Sanitization::sanitizeField($key, $value, self::FIELDS[$key])) {
+            if (Sanitization::sanitizeField($value, self::FIELDS[$key])) {
                 $this->zipCode[$key] = $value;
             }
         }

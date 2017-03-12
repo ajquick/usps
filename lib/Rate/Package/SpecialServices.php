@@ -137,7 +137,7 @@ class SpecialServices
      */
     public function addService($value)
     {
-        $value = Sanitization::sanitizeField('SpecialService', $value, self::FIELDS['SpecialService']);
+        $value = Sanitization::sanitizeField($value, self::FIELDS['SpecialService']);
         $this->service['SpecialService'] = $value;
         
         return;

@@ -247,7 +247,7 @@
       <xs:pattern value="\d{4}-\d{2}-\d{2}" />
     </xs:restriction>
   </xs:simpleType>
-  <xs:group name="Content" minOccurs="0">
+  <xs:group name="Content">
     <xs:sequence>
       <xs:element name="ContentType" minOccurs="0">
         <xs:simpleType>

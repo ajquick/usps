@@ -78,7 +78,7 @@ class Content
     public function setField($key, $value)
     {
         if (in_array($key, array_keys(self::FIELDS))) {
-            $value = Sanitization::sanitizeField($key, $value, self::FIELDS[$key]);
+            $value = Sanitization::sanitizeField(self::FIELDS[$key]);
             $this->content[$key] = $value;
         }
         
