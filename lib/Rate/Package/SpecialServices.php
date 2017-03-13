@@ -118,15 +118,14 @@ class SpecialServices
      */
     public function toArray()
     {
-		try {
-        if (is_array($this->service)
+        try {
+            if (is_array($this->service)
             && count($this->service)
             && $this->validation->validate($this->service, self::FIELDS)) {
-            return $this->service;
+                return $this->service;
+            }
+        } catch (ValidationException $e) {
         }
-		} catch (ValidationException $e) {
-			
-		}
         
         return null;
     }

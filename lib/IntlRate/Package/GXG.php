@@ -80,13 +80,12 @@ class GXG
     
     public function toArray()
     {
-		try {
-        if ($this->validation->validate($this->gxg, self::FIELDS)) {
-            return $this->gxg;
+        try {
+            if ($this->validation->validate($this->gxg, self::FIELDS)) {
+                return $this->gxg;
+            }
+        } catch (ValidationException $e) {
         }
-		} catch (ValidationException $e) {
-			
-		}
         
         return null;
     }

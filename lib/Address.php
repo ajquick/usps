@@ -121,15 +121,12 @@ class Address
      */
     public function toArray()
     {
-		try {
-			
-			if ($this->validation->validate($this->address, self::FIELDS)) {
-				return $this->address;
-			}
-		
-		} catch (ValidationException $e) {
-			
-		}
+        try {
+            if ($this->validation->validate($this->address, self::FIELDS)) {
+                return $this->address;
+            }
+        } catch (ValidationException $e) {
+        }
         
         return null;
     }

@@ -165,7 +165,7 @@ class Package
         }
         
         $this->package += array_combine(array_keys(self::FIELDS), array_fill(0, count(self::FIELDS), null));
-		
+        
         $this->validation = new Validation();
         
         return;
@@ -385,32 +385,30 @@ class Package
     public function toArray()
     {
         $array = $this->package;
-		
-        if (is_array($this->content) && count($this->content)){
+        
+        if (is_array($this->content) && count($this->content)) {
             $array['Content'] = $this->content;
         }
         
-        if (is_array($this->extraServices) && count($this->extraServices)){
+        if (is_array($this->extraServices) && count($this->extraServices)) {
             $array['ExtraServices'] = $this->extraServices;
         }
         
-        if (is_array($this->gxg) && count($this->gxg)){
+        if (is_array($this->gxg) && count($this->gxg)) {
             $array['GXG'] = $this->gxg;
         }
         
-		try {
-		
-        if (is_array($array)
+        try {
+            if (is_array($array)
             && count($array)
-			&& $this->validation->validate($array, self::FIELDS)) {
-            return $array;
+            && $this->validation->validate($array, self::FIELDS)) {
+                return $array;
+            }
+        } catch (ValidationException $e) {
+            var_export($this->validation->getErrorMessage());
         }
         
-		} catch (ValidationException $e) {		
-		var_export($this->validation->getErrorMessage());
-		}
-		
-        return null;  
+        return null;
     }
     
     /**
@@ -420,7 +418,6 @@ class Package
     public function addContent(Package\Content $content)
     {
         $this->content[] = $content->toArray();
-        
     }
     
     /**
@@ -439,6 +436,5 @@ class Package
     public function addGXG(Package\GXG $gxg)
     {
         $this->gxg[] = $gxg->toArray();
-        
     }
 }

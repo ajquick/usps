@@ -114,13 +114,12 @@ class ZipCode
      */
     public function toArray()
     {
-		try {
-        if ($this->validation->validate($this->zipCode, self::FIELDS)) {
-            return $this->zipCode;
+        try {
+            if ($this->validation->validate($this->zipCode, self::FIELDS)) {
+                return $this->zipCode;
+            }
+        } catch (ValidationException $e) {
         }
-		} catch (ValidationException $e) {
-			
-		}
         
         return null;
     }

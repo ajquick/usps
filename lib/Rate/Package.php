@@ -455,23 +455,22 @@ class Package
     {
         $array = $this->package;
         
-        if (is_array($this->content) && count($this->content)){
+        if (is_array($this->content) && count($this->content)) {
             $array['Content'] = $this->content;
         }
         
-        if (is_array($this->specialServices) && count($this->specialServices)){
+        if (is_array($this->specialServices) && count($this->specialServices)) {
             $array['SpecialServices'] = $this->specialServices;
         }
         
-		try {
-        if (is_array($array)
+        try {
+            if (is_array($array)
             && count($array)
-			&& $this->validation->validate($array, self::FIELDS)) {
-            return $array;
+            && $this->validation->validate($array, self::FIELDS)) {
+                return $array;
+            }
+        } catch (ValidationException $e) {
         }
-		} catch (ValidationException $e) {
-			
-		}
         
         return null;
     }
@@ -483,7 +482,6 @@ class Package
     public function addContent(Package\Content $content)
     {
         $this->content[] = $content->toArray();
-        
     }
 
     /**
