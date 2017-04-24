@@ -22,6 +22,7 @@
 namespace Multidimensional\Usps\Test;
 
 use Multidimensional\Usps\Address;
+use Multidimensional\Usps\Exception\AddressException;
 use PHPUnit\Framework\TestCase;
 
 class AddressTest extends TestCase
@@ -30,24 +31,36 @@ class AddressTest extends TestCase
     public function testEmptyAddress()
     {
         $address = new Address();
-        $result = $address->toArray();
-        $expected = ['@ID' => null, 'FirmName' => null, 'Address1' => null, 'Address2' => null, 'City' => null, 'State' => null, 'Urbanization' => null, 'Zip5' => null, 'Zip4' => null];
-        $this->assertEquals($expected, $result);
+        try {
+            $result = $address->toArray();
+            $this->assertNull($result);
+        } catch (AddressException $e) {
+            $this->assertEquals('Required value not found for key: @ID.', $e->getMessage());
+        }
     }
     
     public function testShortAddress()
     {
         $address = new Address([
             '@ID' => 123,
-            'Zip5' => 90210
+            'Zip5' => '90210'
         ]);
-        $result = $address->toArray();
-        $expected = ['@ID' => 123, 'FirmName' => null, 'Address1' => null, 'Address2' => null, 'City' => null, 'State' => null, 'Urbanization' => null, 'Zip5' => 90210, 'Zip4' => null];
-        $this->assertEquals($expected, $result);
-        $address->setField('Zip5', 90211);
-        $result = $address->toArray();
-        $expected = ['@ID' => 123, 'FirmName' => null, 'Address1' => null, 'Address2' => null, 'City' => null, 'State' => null, 'Urbanization' => null, 'Zip5' => 90211, 'Zip4' => null];
-        $this->assertEquals($expected, $result);
+
+        try {
+            $result = $address->toArray();
+            $this->assertNull($result);
+        } catch (AddressException $e) {
+            $this->assertEquals('Required value not found for key: Address2.', $e->getMessage());
+        }
+
+        $address->setField('Zip5', '90211');
+
+        try {
+            $result = $address->toArray();
+            $this->assertNull($result);
+        } catch (AddressException $e) {
+            $this->assertEquals('Required value not found for key: Address2.', $e->getMessage());
+        }
     }
     
     public function testFullAddress()
@@ -58,11 +71,11 @@ class AddressTest extends TestCase
             'Address2' => '123 Fake St.',
             'City' => 'Los Angeles',
             'State' => 'NY',
-            'Zip5' => 90210
+            'Zip5' => '90210'
         ]);
         $result = $address->toArray();
-        $expected = ['@ID' => 123, 'FirmName' => 'XYZ Corp', 'Address1' => null, 'Address2' => '123 Fake St.', 'City' => 'Los Angeles', 'State' => 'NY', 'Urbanization' => null, 'Zip5' => 90210, 'Zip4' => null];
-        $this->assertEquals($expected, $result);        
+        $expected = ['@ID' => 123, 'FirmName' => 'XYZ Corp', 'Address1' => null, 'Address2' => '123 Fake St.', 'City' => 'Los Angeles', 'State' => 'NY', 'Urbanization' => null, 'Zip5' => '90210', 'Zip4' => null];
+        $this->assertEquals($expected, $result);
     }
     
     public function testSetFields()
@@ -73,10 +86,10 @@ class AddressTest extends TestCase
         $address->setField('Address2', '123 Fake St.');
         $address->setField('City', 'Los Angeles');
         $address->setField('State', 'NY');
-        $address->setField('Zip5', 90210);
+        $address->setField('Zip5', '90210');
         $result = $address->toArray();
-        $expected = ['@ID' => 123, 'FirmName' => 'XYZ Corp', 'Address1' => null, 'Address2' => '123 Fake St.', 'City' => 'Los Angeles', 'State' => 'NY', 'Urbanization' => null, 'Zip5' => 90210, 'Zip4' => null];
-        $this->assertEquals($expected, $result);    
+        $expected = ['@ID' => 123, 'FirmName' => 'XYZ Corp', 'Address1' => null, 'Address2' => '123 Fake St.', 'City' => 'Los Angeles', 'State' => 'NY', 'Urbanization' => null, 'Zip5' => '90210', 'Zip4' => null];
+        $this->assertEquals($expected, $result);
     }
     
     public function testManualSetFields()
@@ -89,11 +102,25 @@ class AddressTest extends TestCase
         $address->setCity('Los Angeles');
         $address->setState('NY');
         $address->setUrbanization('ABC');
-        $address->setZip5(90210);
-        $address->setZip4(1234);
+        $address->setZip5('90210');
+        $address->setZip4('1234');
         $result = $address->toArray();
-        $expected = ['@ID' => 123, 'FirmName' => 'XYZ Corp', 'Address1' => 'Apt 1.', 'Address2' => '123 Fake St.', 'City' => 'Los Angeles', 'State' => 'NY', 'Urbanization' => 'ABC', 'Zip5' => 90210, 'Zip4' => 1234];
-        $this->assertEquals($expected, $result);    
+        $expected = ['@ID' => 123, 'FirmName' => 'XYZ Corp', 'Address1' => 'Apt 1.', 'Address2' => '123 Fake St.', 'City' => 'Los Angeles', 'State' => 'NY', 'Urbanization' => 'ABC', 'Zip5' => '90210', 'Zip4' => '1234'];
+        $this->assertEquals($expected, $result);
     }
-    
+
+    public function testID()
+    {
+        $address = new Address([
+            'ID' => 123,
+            'FirmName' => 'XYZ Corp',
+            'Address2' => '123 Fake St.',
+            'City' => 'Los Angeles',
+            'State' => 'NY',
+            'Zip5' => '90210'
+        ]);
+        $result = $address->toArray();
+        $expected = ['@ID' => 123, 'FirmName' => 'XYZ Corp', 'Address1' => null, 'Address2' => '123 Fake St.', 'City' => 'Los Angeles', 'State' => 'NY', 'Urbanization' => null, 'Zip5' => '90210', 'Zip4' => null];
+        $this->assertEquals($expected, $result);
+    }
 }

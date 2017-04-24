@@ -21,6 +21,7 @@
 
 namespace Multidimensional\Usps\Test\Rate\Package;
 
+use Multidimensional\Usps\Rate\Package\Exception\SpecialServicesException;
 use Multidimensional\Usps\Rate\Package\SpecialServices;
 use PHPUnit\Framework\TestCase;
 
@@ -31,7 +32,7 @@ class SpecialServicesTest extends TestCase
     
     public function tearDown()
     {
-        unset($this->specialServices);    
+        unset($this->specialServices);
     }
     
     public function testNormal()
@@ -60,8 +61,12 @@ class SpecialServicesTest extends TestCase
         $expected = ['SpecialService' => 100];
         $this->assertEquals($expected, $result);
         $this->specialServices->addService(666);
-        $result = $this->specialServices->toArray();
-        $this->assertNull($result);
+        try {
+            $result = $this->specialServices->toArray();
+            $this->assertNull($result);
+        } catch (SpecialServicesException $e) {
+            $this->assertEquals('Invalid value "666" for key: SpecialService. Did you mean "156"?', $e->getMessage());
+        }
     }
     
     public function testInsurance()
@@ -302,7 +307,7 @@ class SpecialServicesTest extends TestCase
         $result = $this->specialServices->toArray();
         $expected = ['SpecialService' => 180];
         $this->assertEquals($expected, $result);
-    }    
+    }
     
     public function testConstants()
     {
@@ -335,6 +340,6 @@ class SpecialServicesTest extends TestCase
         $this->assertEquals(177, SpecialServices::INSURANCE_RESTRICTED_DELIVERY);
         $this->assertEquals(178, SpecialServices::INSURANCE_RESTRICTED_DELIVERY_PRIORITY);
         $this->assertEquals(179, SpecialServices::INSURANCE_RESTRICTED_DELIVERY_PRIORITY_EXPRESS);
-        $this->assertEquals(180, SpecialServices::INSURANCE_RESTRICTED_DELIVERY_BULK);    
+        $this->assertEquals(180, SpecialServices::INSURANCE_RESTRICTED_DELIVERY_BULK);
     }
 }

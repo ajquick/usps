@@ -22,12 +22,13 @@
 namespace Multidimensional\Usps\IntlRate\Package;
 
 use Multidimensional\ArraySanitization\Sanitization;
+use Multidimensional\ArrayValidation\Exception\ValidationException;
 use Multidimensional\ArrayValidation\Validation;
+use Multidimensional\Usps\IntlRate\Package\Exception\GXGException;
 
 class GXG
 {
     protected $gxg = [];
-    protected $validation;
     
     const POBOXFLAG_YES = 'Y';
     const POBOXFLAG_NO = 'N';
@@ -39,16 +40,16 @@ class GXG
             'type' => 'string',
             'required' => true,
             'values' => [
-                'Y',
-                'N'
+                self::POBOXFLAG_YES,
+                self::POBOXFLAG_NO
             ]
         ],
         'GiftFlag' => [
             'type' => 'string',
             'required' => true,
             'values' => [
-                'Y',
-                'N'
+                self::GIFTFLAG_YES,
+                self::GIFTFLAG_NO
             ]
         ]
     ];
@@ -63,8 +64,6 @@ class GXG
         
         $this->gxg += array_combine(array_keys(self::FIELDS), array_fill(0, count(self::FIELDS), null));
         
-        $this->validation = new Validation();
-        
         return;
     }
     
@@ -77,24 +76,37 @@ class GXG
         
         return;
     }
-    
+
+    /**
+     * @return array|null
+     * @throws GXGException
+     */
     public function toArray()
     {
         try {
-            if ($this->validation->validate($this->gxg, self::FIELDS)) {
-                return $this->gxg;
+            if (is_array($this->gxg) && count($this->gxg)) {
+                Validation::validate($this->gxg, self::FIELDS);
+            } else {
+                return null;
             }
         } catch (ValidationException $e) {
+            throw new GXGException($e->getMessage());
         }
-        
-        return null;
+
+        return $this->gxg;
     }
-    
+
+    /**
+     * @param $value
+     */
     public function setGiftFlag($value)
     {
         $this->setField('GiftFlag', $value);
     }
-    
+
+    /**
+     * @param $value
+     */
     public function setPOBoxFlag($value)
     {
         $this->setField('POBoxFlag', $value);

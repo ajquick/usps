@@ -21,6 +21,7 @@
 
 namespace Multidimensional\Usps\Test\IntlRate\Package;
 
+use Multidimensional\Usps\IntlRate\Package\Exception\GXGException;
 use Multidimensional\Usps\IntlRate\Package\GXG;
 use PHPUnit\Framework\TestCase;
 
@@ -30,7 +31,7 @@ class GXGTest extends TestCase
         
     public function tearDown()
     {
-        unset($this->gxg);    
+        unset($this->gxg);
     }
     
     public function testNormal()
@@ -63,17 +64,33 @@ class GXGTest extends TestCase
     public function testFailure()
     {
         $this->gxg = new GXG();
-        $result = $this->gxg->toArray();
-        $expected = ['POBoxFlag' => null, 'GiftFlag' => null];
-        $this->assertEquals($expected, $result);
+        try {
+            $result = $this->gxg->toArray();
+            $this->assertNull($result);
+        } catch (GXGException $e) {
+            $this->assertEquals('Required value not found for key: POBoxFlag.', $e->getMessage());
+        }
         $this->gxg->setPOBoxFlag(GXG::POBOXFLAG_YES);
         $this->gxg->setGiftFlag(GXG::GIFTFLAG_YES);
         $result = $this->gxg->toArray();
         $this->assertNotNull($result);
         $expected = ['POBoxFlag' => 'Y', 'GiftFlag' => 'Y'];
         $this->assertEquals($expected, $result);
+
         $this->gxg->setPOBoxFlag("NOT A VALID ANSWER");
-        $result = $this->gxg->toArray();
-        $this->assertNull($result);
+        try {
+            $result = $this->gxg->toArray();
+            $this->assertNull($result);
+        } catch (GXGException $e) {
+            $this->assertEquals('Invalid value "NOT A VALID ANSWER" for key: POBoxFlag. Did you mean "N"?', $e->getMessage());
+        }
+    }
+
+    public function testConstants()
+    {
+        $this->assertEquals('Y', GXG::POBOXFLAG_YES);
+        $this->assertEquals('N', GXG::POBOXFLAG_NO);
+        $this->assertEquals('Y', GXG::GIFTFLAG_YES);
+        $this->assertEquals('N', GXG::GIFTFLAG_NO);
     }
 }

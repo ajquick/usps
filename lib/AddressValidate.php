@@ -22,12 +22,14 @@
 namespace Multidimensional\Usps;
 
 use Multidimensional\Usps\Address;
+use Multidimensional\Usps\Exception\AddressValidateException;
 use Multidimensional\XmlArray;
 
 class AddressValidate extends USPS
 {
 
-    public $apiClass = 'Verify';
+    protected $apiClass = 'Verify';
+    protected $apiMethod = 'AddressValidateRequest';
 
     protected $addresses = [];
 
@@ -35,90 +37,102 @@ class AddressValidate extends USPS
     protected $returnCarrierRoute = false;
 
     const FIELDS = [
-    'IncludeOptionalElements' => [
-    'type' => 'boolean'
-    ],
-    'ReturnCarrierRoute' => [
-    'type' => 'boolean'
-    ],
-    'Address' => [
-    'type' => 'Address',
-    'fields' => Address::FIELDS
-    ]
+        'AddressValidateRequest' => [
+            'type' => 'array',
+            'fields' => [
+                'IncludeOptionalElements' => [
+                    'type' => 'boolean'
+                ],
+                'ReturnCarrierRoute' => [
+                    'type' => 'boolean'
+                ],
+                'Address' => [
+                    'type' => 'group',
+                    'fields' => Address::FIELDS
+                ]
+            ]
+        ]
     ];
 
     public function __construct(array $config = [])
     {
         parent::__construct($config);
+        if (isset($config['IncludeOptionalElements'])) {
+            $this->setIncludeOptionalElements($config['IncludeOptionalElements']);
+        }
+        if (isset($config['ReturnCarrierRoute'])) {
+            $this->setReturnCarrierRoute($config['ReturnCarrierRoute']);
+        }
     }
 
-/**
- * @param Address $address
- * @return true|false
- */
+    /**
+     * @param \Multidimensional\Usps\Address $address
+     * @return bool
+     * @throws AddressValidateException
+     */
     public function addAddress(Address $address)
     {
         if (count($this->addresses) < 5) {
             $this->addresses[] = $address->toArray();
             return true;
-        } else {
-            return false;
         }
+
+        throw new AddressValidateException('Address not added. You can only have a maximum of 5 addresses included in each look up request.');
     }
 
-/**
- * @param bool $boolean
- */
+    /**
+     * @param bool $boolean
+     * @return void
+     */
     public function setIncludeOptionalElements($boolean)
     {
         $this->includeOptionalElements = (bool) $boolean;
     }
 
-/**
- * @param bool $boolean
- */
+    /**
+     * @param bool $boolean
+     * @return void
+     */
     public function setReturnCarrierRoute($boolean)
     {
         $this->returnCarrierRoute = (bool) $boolean;
     }
 
-/**
- * @return array
- */
+    /**
+     * @return array
+     */
     public function toArray()
     {
         $array = [];
         if ($this->includeOptionalElements === true) {
-            $array['IncludeOptionalElements'] = 'true';
+            $array['AddressValidateRequest']['IncludeOptionalElements'] = 'true';
         }
 
         if ($this->returnCarrierRoute === true) {
-            $array['ReturnCarrierRoute'] = 'true';
+            $array['AddressValidateRequest']['ReturnCarrierRoute'] = 'true';
         }
 
-        $array['Address'] = $this->addresses;
+        $array['AddressValidateRequest']['Address'] = $this->addresses;
 
         return $array;
     }
 
-/**
- * @return array
- */
+    /**
+     * @return array
+     */
     public function validate()
     {
         $xml = $this->buildXML($this->toArray());
-        if ($this->validateXML($xml, $this->apiClass)) {
-            $result = $this->request($this->apiClass);
+        if ($this->validateXML($xml)) {
+            $result = $this->request($xml);
             return $this->parseResult($result);
-        } else {
-            return false;
         }
     }
 
-/**
- * @param string $result
- * @return array
- */
+    /**
+     * @param string $result
+     * @return array
+     */
     protected function parseResult($result)
     {
         $array = (new XMLArray)->generateArray($result);

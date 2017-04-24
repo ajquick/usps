@@ -24,6 +24,7 @@ namespace Multidimensional\Usps;
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Request;
 use Multidimensional\DomArray\DOMArray;
+use Multidimensional\Usps\Exception\USPSException;
 use Multidimensional\XmlArray\XMLArray;
 
 class USPS
@@ -33,19 +34,16 @@ class USPS
 
     protected $userId;
     protected $password;
-    public $dom;
+    public $domArray;
     public $testMode = false;
-    protected $error = false;
-    protected $errorCode = null;
-    protected $errorMessage = null;
 
     protected static $apiClasses = [
-    'CityStateLookup' => 'CityStateLookupRequest',
-    'IntlRateV2'  => 'IntlRateV2Request',
-    'RateV4'  => 'RateV4Request',
-    'TrackV2' => 'TrackFieldRequest',
-    'Verify'  => 'AddressValidateRequest',
-    'ZipCodeLookup'   => 'ZipCodeLookupRequest'
+        'CityStateLookup'   => 'CityStateLookupRequest',
+        'IntlRateV2'        => 'IntlRateV2Request',
+        'RateV4'            => 'RateV4Request',
+        'TrackV2'           => 'TrackFieldRequest',
+        'Verify'            => 'AddressValidateRequest',
+        'ZipCodeLookup'     => 'ZipCodeLookupRequest'
     ];
 
     /**
@@ -56,8 +54,11 @@ class USPS
         if (isset($config['userId'])) {
             $this->userId = $config['userId'];
         }
+        if (isset($config['password'])) {
+            $this->password = $config['password'];
+        }
 
-        $this->dom = new DOMArray();
+        $this->domArray = new DOMArray();
     }
 
     /**
@@ -65,54 +66,48 @@ class USPS
      * @param $password
      * @return void
      */
-    public function setCredentials($userId, $password)
+    public function setCredentials($userId, $password = null)
     {
         $this->userId = $userId;
         $this->password = $password;
     }
 
-/**
- * @param bool $boolean
- * @return bool
- */
+    /**
+     * @param bool $boolean
+     * @return void
+     */
     public function setTestMode($boolean = true)
     {
-        return $this->testMode = (bool) $boolean;
-    }
-
-/**
- * @param bool $boolean
- * @return bool
- */
-    public function setProductionMode($boolean = true)
-    {
-        $this->testMode = (bool) !$boolean;
-
-        return $boolean;
+        $this->testMode = (bool) $boolean;
     }
 
     /**
-     * @param string $apiClass
-     * @return string
-     * @internal param string $xml
+     * @param bool $boolean
+     * @return void
      */
-    public function request($apiClass)
+    public function setProductionMode($boolean = true)
+    {
+        $this->testMode = (bool) !$boolean;
+    }
+
+    /**
+     * @param string $xml
+     * @return string
+     */
+    public function request($xml)
     {
 
-        if (self::$apiClasses[$apiClass] !== null || array_key_exists($apiClass, self::$apiClasses)) {
+        if (self::apiClasses[$this->apiClass] !== null || array_key_exists($this->apiClass, self::apiClasses)) {
         } else {
-            $this->error = true;
-            $this->errorMessage = 'Invalid API Class';
-            $this->errorCode = '';
-            return false;
+            throw new USPSException('Invalid API Class.');
         }
 
         $client = new Client();
 
         if ($this->testMode === true) {
-            $requestUri = self::TESTING_URI . '?API=' . $apiClass;
+            $requestUri = self::TESTING_URI . '?API=' . $this->apiClass;
         } else {
-            $requestUri = self::PRODUCTION_URI . '?API=' . $apiClass;
+            $requestUri = self::PRODUCTION_URI . '?API=' . $this->apiClass;
         }
 
         $request = new Request('POST', $requestUri, ['Content-Type' => 'text/xml; charset=UTF8'], $xml);
@@ -121,75 +116,41 @@ class USPS
         return $response->xml();
     }
 
+    /**
+     * @param array $array
+     * @return string
+     */
     protected function buildXML($array)
     {
-        $array['@USERID'] = $this->userId;
-        return $this->dom->loadArray($array);
+        if ($this->userId) {
+            $array[$this->apiMethod]['@USERID'] = $this->userId;
+        }
+        $this->domArray->loadArray($array);
+        $this->domArray->formatOutput = true;
+        return $this->domArray->saveXML();
     }
 
-/**
- * @param DOMDocument $dom
- * @param string  $apiClass
- * @return bool
- */
-    protected function validateXML(DOMDocument $dom, $apiClass)
+    /**
+     * @param string $xml
+     * @return bool
+     */
+    protected function validateXML($xml)
     {
+
+        $dom = new \DOMDocument();
+        $dom->loadXML($xml);
+
         libxml_use_internal_errors(true);
 
-        $schemaPath = __DIR__ . '/../xsd/' . $this->apiClasses[$apiClass] . '.xsd';
+        $schemaPath = __DIR__ . '/../xsd/' . $this->apiMethod . '.xsd';
 
         if ($dom->schemaValidate($schemaPath)) {
             return true;
         } else {
             $error = libxml_get_errors();
-
-            $this->error = true;
-            $this->errorMessage = trim($error->message);
-            $this->errorCode = $error->code;
-
             libxml_clear_errors();
 
-            return false;
+            throw new USPSException($error->code . ': ' . trim($error->message));
         }
-    }
-
-/**
- * @return bool
- */
-    public function isSuccess()
-    {
-        if ($this->error) {
-            return false;
-        } else {
-            return true;
-        }
-    }
-
-/**
- * @return bool
- */
-    public function isError()
-    {
-        if ($this->error) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-/**
- * @return null|string
- */
-    public function getErrorMessage()
-    {
-        return $this->errorMessage;
-    }
-
-/**
- * @return null|string
- */
-    public function getErrorCode()
-    {
-        return $this->errorCode;
     }
 }

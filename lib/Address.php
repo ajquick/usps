@@ -22,13 +22,12 @@
 namespace Multidimensional\Usps;
 
 use Multidimensional\ArraySanitization\Sanitization;
+use Multidimensional\ArrayValidation\Exception\ValidationException;
 use Multidimensional\ArrayValidation\Validation;
+use Multidimensional\Usps\Exception\AddressException;
 
 class Address
 {
-
-    protected $validation;
-
     /**
      * @var array $address
      */
@@ -69,7 +68,7 @@ class Address
             'type' => 'string'
         ],
         'Zip5' => [
-            'type' => 'integer',
+            'type' => 'string',
             'required' => [
                 [
                     'City' => null,
@@ -79,7 +78,7 @@ class Address
             'pattern' => '\d{5}'
         ],
         'Zip4' => [
-            'type' => 'integer',
+            'type' => 'string',
             'pattern' => '\d{4}'
         ]
     ];
@@ -90,14 +89,16 @@ class Address
     public function __construct(array $config = [])
     {
         if (is_array($config)) {
+            if (isset($config['ID'])) {
+                $config['@ID'] = $config['ID'];
+                unset($config['ID']);
+            }
             foreach ($config as $key => $value) {
                 $this->setField($key, $value);
             }
         }
         $this->address += array_combine(array_keys(self::FIELDS), array_fill(0, count(self::FIELDS), null));
-        
-        $this->validation = new Validation();
-        
+
         return;
     }
     
@@ -122,13 +123,16 @@ class Address
     public function toArray()
     {
         try {
-            if ($this->validation->validate($this->address, self::FIELDS)) {
-                return $this->address;
+            if (is_array($this->address) && count($this->address)) {
+                Validation::validate($this->address, self::FIELDS);
+            } else {
+                return null;
             }
         } catch (ValidationException $e) {
+            throw new AddressException($e->getMessage());
         }
-        
-        return null;
+
+        return $this->address;
     }
     
     /**

@@ -21,6 +21,7 @@
 
 namespace Multidimensional\Usps\Test\IntlRate\Package;
 
+use Multidimensional\Usps\IntlRate\Package\Exception\ExtraServicesException;
 use Multidimensional\Usps\IntlRate\Package\ExtraServices;
 use PHPUnit\Framework\TestCase;
 
@@ -92,15 +93,23 @@ class ExtraServicesTest extends TestCase
     public function testFailure()
     {
         $this->extraServices = new ExtraServices();
-        $result = $this->extraServices->toArray();
-        $this->assertNull($result);
+        try {
+            $result = $this->extraServices->toArray();
+            $this->assertNull($result);
+        } catch (ExtraServicesException $e) {
+            $this->assertEquals('Invalid value "5" for key: ExtraService. Did you mean "0"?', $e->getMessage());
+        }
         $this->extraServices->addService(6);
         $result = $this->extraServices->toArray();
         $expected = ['ExtraService' => 6];
         $this->assertEquals($expected, $result);
         $this->extraServices->addService(5);
-        $result = $this->extraServices->toArray();
-        $this->assertNull($result);
+        try {
+            $result = $this->extraServices->toArray();
+            $this->assertNull($result);
+        } catch (ExtraServicesException $e) {
+            $this->assertEquals('Invalid value "5" for key: ExtraService. Did you mean "0"?', $e->getMessage());
+        }
     }
     
     public function testOtherInputMethod()
@@ -114,10 +123,9 @@ class ExtraServicesTest extends TestCase
     public function testConstants()
     {
         $this->assertEquals(0, ExtraServices::REGISTERED_MAIL);
-        $this->assertEquals(1, ExtraServices::INSURANCE);    
-        $this->assertEquals(2, ExtraServices::RETURN_RECEIPT);    
-        $this->assertEquals(6, ExtraServices::CERTIFICATE_OF_MAILING);    
-        $this->assertEquals(9, ExtraServices::ELECTRONIC_DELIVERY_CONFIRMATION);    
+        $this->assertEquals(1, ExtraServices::INSURANCE);
+        $this->assertEquals(2, ExtraServices::RETURN_RECEIPT);
+        $this->assertEquals(6, ExtraServices::CERTIFICATE_OF_MAILING);
+        $this->assertEquals(9, ExtraServices::ELECTRONIC_DELIVERY_CONFIRMATION);
     }
-    
 }

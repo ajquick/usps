@@ -23,15 +23,9 @@ namespace Multidimensional\Usps;
 
 class IntlRate extends USPS
 {
-
-    /**
-     * @var string
-     */
     protected $apiClass = 'IntlRateV2';
-    
-    /**
-     * @var array
-     */
+    protected $apiMethod = '';
+
     protected $packages = [];
 
     public $revision = 2;

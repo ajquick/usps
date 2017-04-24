@@ -22,6 +22,7 @@
 namespace Multidimensional\Usps\Test\Rate\Package;
 
 use Multidimensional\Usps\Rate\Package\Content;
+use Multidimensional\Usps\Rate\Package\Exception\ContentException;
 use PHPUnit\Framework\TestCase;
 
 class ContentTest extends TestCase
@@ -30,12 +31,12 @@ class ContentTest extends TestCase
     
     public function tearDown()
     {
-        unset($this->content);    
+        unset($this->content);
     }
-    
-    public function testNormal()
+
+    public function testInitialize()
     {
-        $this->content = new Content(['ContentType' => Content::TYPE_HAZMAT]);    
+        $this->content = new Content(['ContentType' => Content::TYPE_HAZMAT]);
         $result = $this->content->toArray();
         $expected = ['ContentType' => 'HAZMAT', 'ContentDescription' => null];
         $this->assertEquals($expected, $result);
@@ -43,6 +44,11 @@ class ContentTest extends TestCase
         $result = $this->content->toArray();
         $expected = ['ContentType' => 'CREMATEDREMAINS', 'ContentDescription' => null];
         $this->assertEquals($expected, $result);
+    }
+    
+    public function testNormal()
+    {
+        $this->content = new Content;
         $this->content->setContentType(Content::TYPE_LIVES);
         $this->content->setContentDescription(Content::DESCRIPTION_OTHER);
         $result = $this->content->toArray();
@@ -60,9 +66,13 @@ class ContentTest extends TestCase
         $result = $this->content->toArray();
         $expected = ['ContentType' => 'HAZMAT', 'ContentDescription' => null];
         $this->assertEquals($expected, $result);
-        $this->content->setContentType('Not a valid value.');
-        $result = $this->content->toArray();
-        $this->assertNull($result);
+        $this->content->setContentType('Not a valid type');
+        try {
+            $result = $this->content->toArray();
+            $this->assertNull($result);
+        } catch (ContentException $e) {
+            $this->assertEquals('Invalid value "Not a valid type" for key: ContentType. Did you mean "HAZMAT"?', $e->getMessage());
+        }
     }
     
     public function testTypeHazmat()
@@ -83,7 +93,7 @@ class ContentTest extends TestCase
     
     public function testTypeLives()
     {
-        $this->content = new Content();    
+        $this->content = new Content();
         $this->content->setContentType(Content::TYPE_LIVES);
         $this->content->setContentDescription(Content::DESCRIPTION_BEES);
         $result = $this->content->toArray();
@@ -105,11 +115,15 @@ class ContentTest extends TestCase
     
     public function testTypeLivesFailure()
     {
-        $this->content = new Content();    
+        $this->content = new Content();
         $this->content->setContentType(Content::TYPE_LIVES);
         $this->content->setContentDescription(null);
-        $result = $this->content->toArray();
-        $this->assertNull($result);
+        try {
+            $result = $this->content->toArray();
+            $this->assertNull($result);
+        } catch (ContentException $e) {
+            $this->assertEquals('Invalid value "" for key: ContentDescription. Did you mean "BEES"?', $e->getMessage());
+        }
     }
     
     public function testConstants()
@@ -121,5 +135,5 @@ class ContentTest extends TestCase
         $this->assertEquals('DAYOLDPOULTRY', Content::DESCRIPTION_DAY_OLD_POULTRY);
         $this->assertEquals('ADULTBIRDS', Content::DESCRIPTION_ADULT_BIRDS);
         $this->assertEquals('OTHER', Content::DESCRIPTION_OTHER);
-    }    
+    }
 }

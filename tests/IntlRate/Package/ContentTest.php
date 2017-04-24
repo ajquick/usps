@@ -22,6 +22,7 @@
 namespace Multidimensional\Usps\Test\IntlRate\Package;
 
 use Multidimensional\Usps\IntlRate\Package\Content;
+use Multidimensional\Usps\IntlRate\Package\Exception\ContentException;
 use PHPUnit\Framework\TestCase;
 
 class ContentTest extends TestCase
@@ -30,12 +31,20 @@ class ContentTest extends TestCase
     
     public function tearDown()
     {
-        unset($this->content);    
+        unset($this->content);
     }
-    
+
+    public function testInitialize()
+    {
+        $this->content = new Content(['ContentType' => Content::TYPE_DOCUMENTS]);
+        $result = $this->content->toArray();
+        $expected = ['ContentType' => Content::TYPE_DOCUMENTS, 'ContentDescription' => null];
+        $this->assertEquals($expected, $result);
+    }
+
     public function testNormal()
     {
-        $this->content = new Content();
+        $this->content = new Content;
         $this->content->setContentType(Content::TYPE_DOCUMENTS);
         $result = $this->content->toArray();
         $expected = ['ContentType' => Content::TYPE_DOCUMENTS, 'ContentDescription' => null];
@@ -49,16 +58,23 @@ class ContentTest extends TestCase
     public function testFailure()
     {
         $this->content = new Content();
-        $result = $this->content->toArray();
-        $expected = ['ContentType' => null, 'ContentDescription' => null];
-        $this->assertEquals($expected, $result);
+        try {
+            $result = $this->content->toArray();
+            $this->assertNull($result);
+        } catch (ContentException $e) {
+            $this->assertEquals('Required value not found for key: ContentType.', $e->getMessage());
+        }
         $this->content->setContentType(Content::TYPE_DOCUMENTS);
         $result = $this->content->toArray();
         $expected = ['ContentType' => Content::TYPE_DOCUMENTS, 'ContentDescription' => null];
         $this->assertEquals($expected, $result);
         $this->content->setContentType('Not a valid type');
-        $result = $this->content->toArray();
-        $this->assertNull($result);            
+        try {
+            $result = $this->content->toArray();
+            $this->assertNull($result);
+        } catch (ContentException $e) {
+            $this->assertEquals('Invalid value "Not a valid type" for key: ContentType. Did you mean "MedicalSupplies"?', $e->getMessage());
+        }
     }
     
     public function testCrematedRemains()
@@ -107,6 +123,6 @@ class ContentTest extends TestCase
         $this->assertEquals('NonnegotiableDocument', Content::TYPE_NONNEGOTIABLE_DOCUMENT);
         $this->assertEquals('Pharmaceuticals', Content::TYPE_PHARMACEUTICALS);
         $this->assertEquals('MedicalSupplies', Content::TYPE_MEDICAL_SUPPLIES);
-        $this->assertEquals('Documents', Content::TYPE_DOCUMENTS);    
-    } 
+        $this->assertEquals('Documents', Content::TYPE_DOCUMENTS);
+    }
 }

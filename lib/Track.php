@@ -21,54 +21,89 @@
 
 namespace Multidimensional\Usps;
 
+use Multidimensional\Usps\Exception\TrackException;
+
 class Track extends USPS
 {
-/**
- * @var string
- */
+    /**
+     * @var string
+     */
     protected $apiClass = 'TrackV2';
+    protected $apiMethod = 'TrackRequest';
 
-/**
- * @var array
- */
+    /**
+     * @var array
+     */
     protected $trackingNumbers = [];
 
     const FIELDS = [
-    'TrackID' => [
-    'required' => true
-    ],
-    '@ID' => [
-    'type' => 'string',
-    'required' => true
-    ]
+        'TrackRequest' => [
+            'type' => 'group',
+            'fields' => [
+                'TrackID' => [
+                    'type' => 'array',
+                    'fields' => [
+                        '@ID' => [
+                            'type' => 'string',
+                            'required' => true
+                        ]
+                    ]
+                ]
+            ]
+        ]
     ];
 
     public function __construct(array $config = [])
     {
         parent::__construct($config);
+        if (is_array($config) && isset($config['TrackID'])) {
+            if (is_array($config['TrackID'])) {
+                foreach ($config['TrackID'] as $trackID) {
+                    $this->addTrackingNumber($trackID);
+                }
+            } else {
+                $this->addTrackingNumber($config['TrackID']);
+            }
+        }
     }
 
-/**
- * @param string $string
- */
-    public function addTrackingNumber($string)
+    /**
+     * @param string $string
+     */
+    public function addTrackingNumber($value)
     {
-        $this->trackingNumbers[] = $string;
+        if (count($this->trackingNumbers) < 10) {
+            $this->trackingNumbers[] = $value;
+        } else {
+            throw new TrackException('Tracking number not added. You can only have a maximum of 10 tracking numbers included in each look up request.');
+        }
     }
 
-/**
- * @return array
- */
+    /**
+     * @return array
+     */
     public function track()
     {
-        return $this->request($this->apiClass);
+        $xml = $this->buildXML($this->toArray());
+        if ($this->validateXML($xml)) {
+            $result = $this->request($xml);
+            return $this->parseResult($result);
+        } else {
+            throw new TrackException('Unable to validate XML.');
+        }
     }
 
-/**
- * @return array
- */
+    /**
+     * @return array
+     */
     public function toArray()
     {
-        return $this->trackingNumbers;
+        $array = [];
+        if (is_array($this->trackingNumbers) && count($this->trackingNumbers)) {
+            foreach ($this->trackingNumbers as $trackingNumber) {
+                $array['TrackRequest']['TrackID'][]['@ID'] = $trackingNumber;
+            }
+        }
+        return $array;
     }
 }

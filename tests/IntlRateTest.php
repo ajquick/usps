@@ -25,7 +25,9 @@ use Multidimensional\Usps\IntlRate;
 use PHPUnit\Framework\TestCase;
 
 class IntlRateTest extends TestCase
-{    
+{
+
+    
     public function testRevison()
     {
         $intlRate = new IntlRate();
@@ -40,8 +42,8 @@ class IntlRateTest extends TestCase
         $this->assertNull($intlRate->revision);
         $intlRate->setRevision(null);
         $this->assertNull($intlRate->revision);
-        unset($intlRate);        
+        unset($intlRate);
         $intlRate = new IntlRate(['revision' => 1]);
-        $this->assertNull($intlRate->revision);   
+        $this->assertNull($intlRate->revision);
     }
 }

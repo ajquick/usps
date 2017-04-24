@@ -22,13 +22,14 @@
 namespace Multidimensional\Usps\Rate\Package;
 
 use Multidimensional\ArraySanitization\Sanitization;
+use Multidimensional\ArrayValidation\Exception\ValidationException;
 use Multidimensional\ArrayValidation\Validation;
+use Multidimensional\Usps\Rate\Package\Exception\ContentException;
 
 class Content
 {
     protected $content = [];
-    protected $validation;
-    
+
     const TYPE_HAZMAT = 'HAZMAT';
     const TYPE_CREMATED_REMAINS = 'CREMATEDREMAINS';
     const TYPE_LIVES = 'LIVES';
@@ -69,41 +70,53 @@ class Content
         }
         
         $this->content += array_combine(array_keys(self::FIELDS), array_fill(0, count(self::FIELDS), null));
-        
-        $this->validation = new Validation();
-        
+
         return;
     }
-    
+
+    /**
+     * @param $key
+     * @param $value
+     */
     public function setField($key, $value)
     {
         if (in_array($key, array_keys(self::FIELDS))) {
-            $value = Sanitization::sanitizeField(self::FIELDS[$key]);
+            $value = Sanitization::sanitizeField($value, self::FIELDS[$key]);
             $this->content[$key] = $value;
         }
         
         return;
     }
-    
+
+    /**
+     * @return array|null
+     * @throws ContentException
+     */
     public function toArray()
     {
         try {
-            if (is_array($this->content)
-            && count($this->content)
-            && $this->validation->validate($this->content, self::FIELDS)) {
-                return $this->content;
+            if (is_array($this->content) && count($this->content)) {
+                Validation::validate($this->content, self::FIELDS);
+            } else {
+                return null;
             }
         } catch (ValidationException $e) {
+            throw new ContentException($e->getMessage());
         }
-        
-        return null;
+        return $this->content;
     }
-    
+
+    /**
+     * @param $value
+     */
     public function setContentType($value)
     {
         $this->setField('ContentType', $value);
     }
-    
+
+    /**
+     * @param $value
+     */
     public function setContentDescription($value)
     {
         $this->setField('ContentDescription', $value);

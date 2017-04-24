@@ -22,16 +22,17 @@
 namespace Multidimensional\Usps\Rate;
 
 use Multidimensional\ArraySanitization\Sanitization;
+use Multidimensional\ArrayValidation\Exception\ValidationException;
 use Multidimensional\ArrayValidation\Validation;
+use Multidimensional\Usps\Rate\Exception\PackageException;
 use Multidimensional\Usps\Rate\Package\Content;
 use Multidimensional\Usps\Rate\Package\SpecialServices;
 
 class Package
 {
     protected $package = [];
-    protected $content = [];
+    protected $content;
     protected $specialServices = [];
-    protected $validation;
 
     const CONTAINER_VARIABLE = 'VARIABLE';
     const CONTAINER_FLAT_RATE_ENVELOPE   = 'FLAT RATE ENVELOPE';
@@ -102,12 +103,12 @@ class Package
             ]
         ],
         'ZipOrigination' => [
-            'type' => 'integer',
+            'type' => 'string',
             'required' => true,
             'pattern' => '\d{5}'
         ],
         'ZipDestination' => [
-            'type' => 'integer',
+            'type' => 'string',
             'required' => true,
             'pattern' => '\d{5}'
         ],
@@ -170,11 +171,11 @@ class Package
             'type' => 'decimal'
         ],
         'SpecialServices' => [
-            'type' => 'SpecialServices',
+            'type' => 'group',
             'fields' => SpecialServices::FIELDS
         ],
         'Content' => [
-            'type' => 'Content',
+            'type' => 'array',
             'fields' => Content::FIELDS
         ],
         'GroundOnly' => [
@@ -236,15 +237,17 @@ class Package
     public function __construct(array $config = [])
     {
         if (is_array($config)) {
+            if (isset($config['ID'])) {
+                $config['@ID'] = $config['ID'];
+                unset($config['ID']);
+            }
             foreach ($config as $key => $value) {
                 $this->setField($key, $value);
             }
         }
         
         $this->package += array_combine(array_keys(self::FIELDS), array_fill(0, count(self::FIELDS), null));
-        
-        $this->validation = new Validation();
-        
+
         return;
     }
         
@@ -260,7 +263,17 @@ class Package
             $this->package[$key] = $value;
         }
     }
-     
+
+    /**
+     * @param $value
+     */
+    public function setID($value)
+    {
+        $this->setField('@ID', $value);
+
+        return;
+    }
+
     /**
      * @param string $value
      * @return void
@@ -464,15 +477,16 @@ class Package
         }
         
         try {
-            if (is_array($array)
-            && count($array)
-            && $this->validation->validate($array, self::FIELDS)) {
-                return $array;
+            if (is_array($array) && count($array)) {
+                Validation::validate($array, self::FIELDS);
+            } else {
+                return null;
             }
         } catch (ValidationException $e) {
+            throw new PackageException($e->getMessage());
         }
-        
-        return null;
+
+        return $array;
     }
     
     /**
@@ -481,7 +495,7 @@ class Package
      */
     public function addContent(Package\Content $content)
     {
-        $this->content[] = $content->toArray();
+        $this->content = $content->toArray();
     }
 
     /**

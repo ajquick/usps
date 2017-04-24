@@ -29,6 +29,7 @@ class CityStateLookup extends USPS
  * @var string
  */
     protected $apiClass = 'CityStateLookup';
+    protected $apiMethod = '';
 
     protected $addresses = [];
 

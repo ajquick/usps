@@ -21,27 +21,7 @@
 
 namespace Multidimensional\Usps\Test;
 
-use Multidimensional\Usps\Rate;
-use PHPUnit\Framework\TestCase;
-
-class RateTest extends TestCase
+class ZipCodeLookupTest
 {
-    public function testRevison()
-    {
-        $rate = new Rate();
-        $this->assertEquals($rate->revision, 2);
-        $rate->setRevision(1);
-        $this->assertNull($rate->revision);
-        $rate->setRevision(2);
-        $this->assertEquals($rate->revision, 2);
-        $rate->setRevision(true);
-        $this->assertNull($rate->revision);
-        $rate->setRevision(false);
-        $this->assertNull($rate->revision);
-        $rate->setRevision(null);
-        $this->assertNull($rate->revision);
-        unset($rate);
-        $rate = new Rate(['revision' => 1]);
-        $this->assertNull($rate->revision);
-    }
+
 }

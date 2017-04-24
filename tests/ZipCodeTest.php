@@ -21,6 +21,7 @@
 
 namespace Multidimensional\Usps\Test;
 
+use Multidimensional\Usps\Exception\ZipCodeException;
 use Multidimensional\Usps\ZipCode;
 use PHPUnit\Framework\TestCase;
 
@@ -29,31 +30,44 @@ class ZipCodeTest extends TestCase
     
     public function testZipCode()
     {
-        $config = ['@ID' => 0, 'Zip5' => 80110];
+        $config = ['@ID' => 0, 'Zip5' => '90210'];
         $zipCode = new ZipCode($config);
         $result = $zipCode->toArray();
         $expected = $config;
         $this->assertEquals($expected, $result);
-        
-        $zipCode->deleteField('@ID'); 
-        $zipCode->deleteField('Zip5');
-        $result = $zipCode->toArray();
-        $expected = [];
-        $this->assertEquals($expected, $result);
-        
         $zipCode->setField('@ID', 123);
-        $zipCode->setField('Zip5', 90210);
+        $zipCode->setField('Zip5', '90210');
         $result = $zipCode->toArray();
-        $expected = ['@ID' => 123, 'Zip5' => 90210];
+        $expected = ['@ID' => 123, 'Zip5' => '90210'];
         $this->assertEquals($expected, $result);
     }
     
-    public function testBlank()
+    public function testFailure()
     {
         $zipCode = new ZipCode();
+        try {
+            $result = $zipCode->toArray();
+        } catch (ZipCodeException $e) {
+            $this->assertEquals('Required value not found for key: @ID.', $e->getMessage());
+        }
+    }
+
+    public function testSetFields()
+    {
+        $zipCode = new ZipCode();
+        $zipCode->setID(123);
+        $zipCode->setZip5('90210');
         $result = $zipCode->toArray();
-        $expected = ['@ID' => null, 'Zip5' => null];
+        $expected = ['@ID' => 123, 'Zip5' => '90210'];
         $this->assertEquals($expected, $result);
     }
-    
+
+    public function testID()
+    {
+        $config = ['ID' => 123, 'Zip5' => '90210'];
+        $zipCode = new ZipCode($config);
+        $result = $zipCode->toArray();
+        $expected = ['@ID' => 123, 'Zip5' => '90210'];
+        $this->assertEquals($expected, $result);
+    }
 }

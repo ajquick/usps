@@ -22,12 +22,13 @@
 namespace Multidimensional\Usps;
 
 use Multidimensional\ArraySanitization\Sanitization;
+use Multidimensional\ArrayValidation\Exception\ValidationException;
 use Multidimensional\ArrayValidation\Validation;
+use Multidimensional\Usps\Exception\ZipCodeException;
 
 class ZipCode
 {
 
-    protected $validation;
     protected $zipCode = [];
 
     const FIELDS = [
@@ -36,7 +37,7 @@ class ZipCode
             'required' => true
         ],
         'Zip5' => [
-            'type' => 'integer',
+            'type' => 'string',
             'required' => true,
             'pattern' => '\d{5}'
         ]
@@ -48,14 +49,16 @@ class ZipCode
     public function __construct(array $config = [])
     {
         if (is_array($config)) {
+            if (isset($config['ID'])) {
+                $config['@ID'] = $config['ID'];
+                unset($config['ID']);
+            }
             foreach ($config as $key => $value) {
                 $this->setField($key, $value);
             }
         }
         $this->zipCode += array_combine(array_keys(self::FIELDS), array_fill(0, count(self::FIELDS), null));
-        
-        $this->validation = new Validation();
-        
+
         return;
     }
     
@@ -66,10 +69,9 @@ class ZipCode
      */
     public function setField($key, $value)
     {
-        if (self::FIELDS[$key] !== null || array_key_exists($key, self::FIELDS)) {
-            if (Sanitization::sanitizeField($value, self::FIELDS[$key])) {
-                $this->zipCode[$key] = $value;
-            }
+        if (in_array($key, array_keys(self::FIELDS))) {
+            $value = Sanitization::sanitizeField($value, self::FIELDS[$key]);
+            $this->zipCode[$key] = $value;
         }
         
         return;
@@ -77,7 +79,7 @@ class ZipCode
     
     
     /**
-     * @param string $value
+     * @param int $value
      * @return void
      */
     public function setID($value)
@@ -88,7 +90,7 @@ class ZipCode
     }
     
     /**
-     * @param int $value
+     * @param string $value
      * @return void
      */
     public function setZip5($value)
@@ -97,30 +99,22 @@ class ZipCode
         
         return;
     }
-    
-    /**
-     * @param string $key
-     * @return void
-     */
-    public function deleteField($key)
-    {
-        unset($this->zipCode[$key]);
-        
-        return;
-    }
-    
+
     /**
      * @return array|null
      */
     public function toArray()
     {
         try {
-            if ($this->validation->validate($this->zipCode, self::FIELDS)) {
-                return $this->zipCode;
+            if (is_array($this->zipCode) && count($this->zipCode)) {
+                Validation::validate($this->zipCode, self::FIELDS);
+            } else {
+                return null;
             }
         } catch (ValidationException $e) {
+            throw new ZipCodeException($e->getMessage());
         }
         
-        return null;
+        return $this->zipCode;
     }
 }

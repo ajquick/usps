@@ -22,7 +22,9 @@
 namespace Multidimensional\Usps\IntlRate\Package;
 
 use Multidimensional\ArraySanitization\Sanitization;
+use Multidimensional\ArrayValidation\Exception\ValidationException;
 use Multidimensional\ArrayValidation\Validation;
+use Multidimensional\Usps\IntlRate\Package\Exception\ExtraServicesException;
 
 class ExtraServices
 {
@@ -30,7 +32,6 @@ class ExtraServices
      * @var $services
      */
     protected $service = [];
-    protected $validation;
 
     const REGISTERED_MAIL = 0;
     const INSURANCE = 1;
@@ -60,28 +61,28 @@ class ExtraServices
                 }
             }
         }
-        
-        $this->validation = new Validation();
-        
+
         return;
     }
-    
+
     /**
      * @return array|null
+     * @throws ExtraServicesException
      */
     public function toArray()
     {
         
         try {
-            if (is_array($this->service)
-            && count($this->service)
-            && $this->validation->validate($this->service, self::FIELDS)) {
-                return $this->service;
+            if (is_array($this->service) && count($this->service)) {
+                Validation::validate($this->service, self::FIELDS);
+            } else {
+                return null;
             }
         } catch (ValidationException $e) {
+            throw new ExtraServicesException($e->getMessage());
         }
-        
-        return null;
+
+        return $this->service;
     }
     
     /**

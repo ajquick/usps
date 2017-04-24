@@ -35,21 +35,24 @@ class USPSTest extends TestCase
     
     public function tearDown()
     {
-        unset($this->usps);    
+        unset($this->usps);
     }
     
     public function testSetTestMode()
     {
-        $this->assertTrue($this->usps->setTestMode());
-        $this->assertTrue($this->usps->setTestMode(true));
-        $this->assertFalse($this->usps->setTestMode(false));    
+        $this->assertFalse($this->usps->testMode);
+        $this->usps->setTestMode(true);
+        $this->assertTrue($this->usps->testMode);
+        $this->usps->setTestMode(false);
+        $this->assertFalse($this->usps->testMode);
     }
     
     public function testSetProductionMode()
     {
-        $this->assertTrue($this->usps->setProductionMode());
-        $this->assertTrue($this->usps->setProductionMode(true));
-        $this->assertFalse($this->usps->setProductionMode(false));            
+        $this->assertFalse($this->usps->testMode);
+        $this->usps->setProductionMode(true);
+        $this->assertFalse($this->usps->testMode);
+        $this->usps->setProductionMode(false);
+        $this->assertTrue($this->usps->testMode);
     }
-    
 }

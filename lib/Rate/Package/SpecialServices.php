@@ -22,13 +22,14 @@
 namespace Multidimensional\Usps\Rate\Package;
 
 use Multidimensional\ArraySanitization\Sanitization;
+use Multidimensional\ArrayValidation\Exception\ValidationException;
 use Multidimensional\ArrayValidation\Validation;
+use Multidimensional\Usps\Rate\Package\Exception\SpecialServicesException;
 
 class SpecialServices
 {
     protected $service = [];
-    protected $validation;
-    
+
     const INSURANCE = 100;
     const INSURANCE_PRIORITY_EXPRESS = 101;
     const RETURN_RECEIPT = 102;
@@ -107,9 +108,7 @@ class SpecialServices
                 }
             }
         }
-        
-        $this->validation = new Validation();
-        
+
         return;
     }
     
@@ -119,15 +118,16 @@ class SpecialServices
     public function toArray()
     {
         try {
-            if (is_array($this->service)
-            && count($this->service)
-            && $this->validation->validate($this->service, self::FIELDS)) {
-                return $this->service;
+            if (is_array($this->service) && count($this->service)) {
+                Validation::validate($this->service, self::FIELDS);
+            } else {
+                return null;
             }
         } catch (ValidationException $e) {
+            throw new SpecialServicesException($e->getMessage());
         }
-        
-        return null;
+
+        return $this->service;
     }
     
     /**

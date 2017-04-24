@@ -25,14 +25,10 @@ use Multidimensional\Usps\Rate\Package;
 
 class Rate extends USPS
 {
-/**
- * @var string
- */
-    protected $apiClass = 'RateV4';
 
-/**
- * @var array
- */
+    protected $apiClass = 'RateV4';
+    protected $apiMethod = '';
+
     protected $packages = [];
 
     public $revision = 2;

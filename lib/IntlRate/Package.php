@@ -22,7 +22,9 @@
 namespace Multidimensional\Usps\IntlRate;
 
 use Multidimensional\ArraySanitization\Sanitization;
+use Multidimensional\ArrayValidation\Exception\ValidationException;
 use Multidimensional\ArrayValidation\Validation;
+use Multidimensional\Usps\IntlRate\Exception\PackageException;
 use Multidimensional\Usps\IntlRate\Package\Content;
 use Multidimensional\Usps\IntlRate\Package\ExtraServices;
 use Multidimensional\Usps\IntlRate\Package\GXG;
@@ -30,10 +32,9 @@ use Multidimensional\Usps\IntlRate\Package\GXG;
 class Package
 {
     protected $package = [];
-    protected $content = [];
+    protected $content;
     protected $extraServices = [];
-    protected $gxg = [];
-    protected $validation;
+    protected $gxg;
     
     const CONTAINER_RECTANGULAR = 'RECTANGULAR';
     const CONTAINER_NONRECTANGULAR  = 'NONRECTANGULAR';
@@ -68,7 +69,7 @@ class Package
             'required' => true
         ],
         'GXG' => [
-            'type' => 'GXG',
+            'type' => 'array',
             'fields' => GXG::FIELDS
         ],
         'ValueOfContents' => [
@@ -89,7 +90,11 @@ class Package
         ],
         'Size' => [
             'type' => 'string',
-            'required' => true
+            'required' => true,
+            'values' => [
+                self::SIZE_REGULAR,
+                self::SIZE_LARGE
+            ]
         ],
         'Width' => [
             'type' => 'integer',
@@ -140,18 +145,18 @@ class Package
             ]
         ],
         'ExtraServices' => [
-            'type' => 'ExtraServices',
+            'type' => 'group',
             'fields' => ExtraServices::FIELDS
         ],
         'AcceptanceDateTime' => [
-            'type' => 'DateTime',
+            'type' => 'datetime',
             'pattern' => 'ISO 8601'
         ],
         'DestinationPostalCode' => [
             'type' => 'string'
         ],
         'Content' => [
-            'type' => 'Content',
+            'type' => 'array',
             'fields' => Content::FIELDS
         ]
     ];
@@ -159,15 +164,17 @@ class Package
     public function __construct(array $config = [])
     {
         if (is_array($config)) {
+            if (isset($config['ID'])) {
+                $config['@ID'] = $config['ID'];
+                unset($config['ID']);
+            }
             foreach ($config as $key => $value) {
                 $this->setField($key, $value);
             }
         }
         
         $this->package += array_combine(array_keys(self::FIELDS), array_fill(0, count(self::FIELDS), null));
-        
-        $this->validation = new Validation();
-        
+
         return;
     }
     
@@ -178,6 +185,17 @@ class Package
             $this->package[$key] = $value;
         }
         
+        return;
+    }
+
+    /**
+     * @param string $value
+     * @return void
+     */
+    public function setID($value)
+    {
+        $this->setField('@ID', $value);
+
         return;
     }
     
@@ -350,20 +368,9 @@ class Package
      * @param string $value
      * @return void
      */
-    public function setExtraServices($value)
+    public function setAcceptanceDateTime($value)
     {
-        $this->setField('ExtraServices', $value);
-
-        return;
-    }
-    
-    /**
-     * @param string $value
-     * @return void
-     */
-    public function setAcceptanceDataTime($value)
-    {
-        $this->setField('AcceptanceDataTime', $value);
+        $this->setField('AcceptanceDateTime', $value);
 
         return;
     }
@@ -399,16 +406,16 @@ class Package
         }
         
         try {
-            if (is_array($array)
-            && count($array)
-            && $this->validation->validate($array, self::FIELDS)) {
-                return $array;
+            if (is_array($array) && count($array)) {
+                Validation::validate($array, self::FIELDS);
+            } else {
+                return null;
             }
         } catch (ValidationException $e) {
-            var_export($this->validation->getErrorMessage());
+            throw new PackageException($e->getMessage());
         }
-        
-        return null;
+
+        return $array;
     }
     
     /**
@@ -417,7 +424,7 @@ class Package
      */
     public function addContent(Package\Content $content)
     {
-        $this->content[] = $content->toArray();
+        $this->content = $content->toArray();
     }
     
     /**
@@ -435,6 +442,6 @@ class Package
      */
     public function addGXG(Package\GXG $gxg)
     {
-        $this->gxg[] = $gxg->toArray();
+        $this->gxg = $gxg->toArray();
     }
 }

@@ -18,18 +18,18 @@
   ~  of this information or reproduction of this material is strictly forbidden
   ~  unless prior written permission is obtained.
   -->
-
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
-  <xs:element name="TrackRequest">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element name="TrackID" minOccurs="1" maxOccurs="10">
-          <xs:complexType>
-            <xs:attribute name="ID" type="xs:string"/>
-          </xs:complexType>
-        </xs:element>
-      </xs:sequence>
-      <xs:attribute name="USERID" type="xs:string" use="required" />
-    </xs:complexType>
-  </xs:element>
-</xs:schema>
+<phpunit colors="true">
+    <testsuites>
+        <testsuite name="Test Suite">
+            <directory>./tests</directory>
+        </testsuite>
+    </testsuites>
+    <filter>
+        <whitelist>
+            <directory suffix=".php">./lib</directory>
+            <exclude>
+                <directory suffix=".php">./tests</directory>
+            </exclude>
+        </whitelist>
+    </filter>
+</phpunit>
