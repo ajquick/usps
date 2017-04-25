@@ -21,7 +21,10 @@
 
 namespace Multidimensional\Usps\Test;
 
-class ZipCodeLookupTest
+use Multidimensional\Usps\ZipCodeLookup;
+use PHPUnit\Framework\TestCase;
+
+class ZipCodeLookupTest extends TestCase
 {
 
 }

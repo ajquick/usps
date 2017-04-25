@@ -18,13 +18,3 @@
  *  of this information or reproduction of this material is strictly forbidden
  *  unless prior written permission is obtained.
  */
-
-namespace Multidimensional\Usps\Test;
-
-use Multidimensional\Usps\CityStateLookup;
-use PHPUnit\Framework\TestCase;
-
-class CityStateLookupTest extends TestCase
-{
-
-}

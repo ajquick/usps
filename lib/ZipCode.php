@@ -102,6 +102,7 @@ class ZipCode
 
     /**
      * @return array|null
+     * @throws ZipCodeException
      */
     public function toArray()
     {

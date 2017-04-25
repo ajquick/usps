@@ -37,7 +37,7 @@ class USPS
     public $domArray;
     public $testMode = false;
 
-    protected static $apiClasses = [
+    const apiClasses = [
         'CityStateLookup'   => 'CityStateLookupRequest',
         'IntlRateV2'        => 'IntlRateV2Request',
         'RateV4'            => 'RateV4Request',
@@ -93,6 +93,7 @@ class USPS
     /**
      * @param string $xml
      * @return string
+     * @throws USPSException
      */
     public function request($xml)
     {
@@ -123,6 +124,7 @@ class USPS
     protected function buildXML($array)
     {
         if ($this->userId) {
+            /** @noinspection PhpUndefinedFieldInspection */
             $array[$this->apiMethod]['@USERID'] = $this->userId;
         }
         $this->domArray->loadArray($array);
@@ -133,6 +135,7 @@ class USPS
     /**
      * @param string $xml
      * @return bool
+     * @throws USPSException
      */
     protected function validateXML($xml)
     {

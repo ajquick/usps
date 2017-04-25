@@ -68,7 +68,8 @@ class Track extends USPS
     }
 
     /**
-     * @param string $string
+     * @param $value
+     * @throws TrackException
      */
     public function addTrackingNumber($value)
     {
@@ -81,6 +82,7 @@ class Track extends USPS
 
     /**
      * @return array
+     * @throws TrackException
      */
     public function track()
     {

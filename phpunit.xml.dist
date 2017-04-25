@@ -18,7 +18,11 @@
   ~  of this information or reproduction of this material is strictly forbidden
   ~  unless prior written permission is obtained.
   -->
-<phpunit colors="true">
+<phpunit bootstrap="./tests/bootstrap.php" colors="true">
+    <php>
+        <server name="USPS_USERID" value="" />
+        <server name="USPS_PASSWORD" value="" />
+    </php>
     <testsuites>
         <testsuite name="Test Suite">
             <directory>./tests</directory>

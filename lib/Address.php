@@ -116,9 +116,10 @@ class Address
         
         return;
     }
-    
+
     /**
      * @return array|null
+     * @throws AddressException
      */
     public function toArray()
     {

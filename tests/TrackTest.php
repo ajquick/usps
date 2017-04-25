@@ -86,7 +86,7 @@ class TrackTest extends TestCase
 
     public function testFailure()
     {
-        $this->markTestIncomplete('Not yet implimented.');
+        $this->markTestIncomplete('Not yet implemented.');
     }
 
     public function testTooManyTrackingNumbers()

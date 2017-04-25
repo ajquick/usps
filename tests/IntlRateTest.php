@@ -28,7 +28,7 @@ class IntlRateTest extends TestCase
 {
 
     
-    public function testRevison()
+    public function testRevision()
     {
         $intlRate = new IntlRate();
         $this->assertEquals($intlRate->revision, 2);

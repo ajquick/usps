@@ -23,7 +23,7 @@ namespace Multidimensional\Usps;
 
 use Multidimensional\Usps\Address;
 use Multidimensional\Usps\Exception\AddressValidateException;
-use Multidimensional\XmlArray;
+use Multidimensional\XmlArray\XMLArray;
 
 class AddressValidate extends USPS
 {
@@ -119,6 +119,7 @@ class AddressValidate extends USPS
 
     /**
      * @return array
+     * @throws AddressValidateException
      */
     public function validate()
     {
@@ -126,6 +127,8 @@ class AddressValidate extends USPS
         if ($this->validateXML($xml)) {
             $result = $this->request($xml);
             return $this->parseResult($result);
+        } else {
+            throw new AddressValidateException();
         }
     }
 
@@ -135,7 +138,8 @@ class AddressValidate extends USPS
      */
     protected function parseResult($result)
     {
-        $array = (new XMLArray)->generateArray($result);
+        $xmlArray = new XMLArray;
+        $array = $xmlArray->generateArray($result);
         foreach ($array as $key => $value) {
             unset($array[$key]['@ID']);
             $array[$value['@ID']] = $array[$key];

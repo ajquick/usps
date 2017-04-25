@@ -385,9 +385,10 @@ class Package
 
         return;
     }
-    
+
     /**
      * @return array|null
+     * @throws PackageException
      */
     public function toArray()
     {

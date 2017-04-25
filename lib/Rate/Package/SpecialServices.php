@@ -111,9 +111,10 @@ class SpecialServices
 
         return;
     }
-    
+
     /**
      * @return array|null
+     * @throws SpecialServicesException
      */
     public function toArray()
     {

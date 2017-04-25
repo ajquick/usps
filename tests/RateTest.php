@@ -26,7 +26,7 @@ use PHPUnit\Framework\TestCase;
 
 class RateTest extends TestCase
 {
-    public function testRevison()
+    public function testRevision()
     {
         $rate = new Rate();
         $this->assertEquals($rate->revision, 2);
