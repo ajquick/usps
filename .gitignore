@@ -1,9 +1,9 @@
 # PHPUnit
-phpunit.xml
+/phpunit.xml
 
 # Composer
 vendor/
-composer.lock
+/composer.lock
 
 # PHPStorm
 .idea/
