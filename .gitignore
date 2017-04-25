@@ -1,20 +1,17 @@
 # PHPUnit
-/phpunit.xml
+phpunit.xml
 
 # Composer
-/vendor/
-/composer.lock
+vendor/
+composer.lock
 
 # PHPStorm
-
 .idea/
 
 # Dreamweaver
-
 _notes/
 
 # Netbeans
-
 nbproject/*
 
 # Windows image file caches
