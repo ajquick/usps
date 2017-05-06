@@ -19,12 +19,12 @@
  *  unless prior written permission is obtained.
  */
 
-namespace Multidimensional\Usps;
+namespace Multidimensional\USPS;
 
 use Multidimensional\ArraySanitization\Sanitization;
 use Multidimensional\ArrayValidation\Exception\ValidationException;
 use Multidimensional\ArrayValidation\Validation;
-use Multidimensional\Usps\Exception\AddressException;
+use Multidimensional\USPS\Exception\AddressException;
 
 class Address
 {
@@ -123,9 +123,12 @@ class Address
      */
     public function toArray()
     {
+        $array = $this->address;
+        list($array['Address2'], $array['Address1']) = [$array['Address1'], $array['Address2']];
+
         try {
-            if (is_array($this->address) && count($this->address)) {
-                Validation::validate($this->address, self::FIELDS);
+            if (is_array($array) && count($array)) {
+                Validation::validate($array, self::FIELDS);
             } else {
                 return null;
             }
@@ -133,7 +136,9 @@ class Address
             throw new AddressException($e->getMessage());
         }
 
-        return $this->address;
+        $array = array_replace(self::FIELDS, $array);
+
+        return $array;
     }
     
     /**

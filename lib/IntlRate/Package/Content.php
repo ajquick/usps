@@ -19,12 +19,12 @@
  *  unless prior written permission is obtained.
  */
 
-namespace Multidimensional\Usps\IntlRate\Package;
+namespace Multidimensional\USPS\IntlRate\Package;
 
 use Multidimensional\ArraySanitization\Sanitization;
 use Multidimensional\ArrayValidation\Exception\ValidationException;
 use Multidimensional\ArrayValidation\Validation;
-use Multidimensional\Usps\IntlRate\Package\Exception\ContentException;
+use Multidimensional\USPS\IntlRate\Package\Exception\ContentException;
 
 class Content
 {

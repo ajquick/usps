@@ -19,10 +19,10 @@
  *  unless prior written permission is obtained.
  */
 
-namespace Multidimensional\Usps\Test;
+namespace Multidimensional\USPS\Test;
 
-use Multidimensional\Usps\Address;
-use Multidimensional\Usps\Exception\AddressException;
+use Multidimensional\USPS\Address;
+use Multidimensional\USPS\Exception\AddressException;
 use PHPUnit\Framework\TestCase;
 
 class AddressTest extends TestCase
@@ -68,7 +68,7 @@ class AddressTest extends TestCase
         $address = new Address([
             '@ID' => 123,
             'FirmName' => 'XYZ Corp',
-            'Address2' => '123 Fake St.',
+            'Address1' => '123 Fake St.',
             'City' => 'Los Angeles',
             'State' => 'NY',
             'Zip5' => '90210'
@@ -83,7 +83,7 @@ class AddressTest extends TestCase
         $address = new Address();
         $address->setField('@ID', 123);
         $address->setField('FirmName', 'XYZ Corp');
-        $address->setField('Address2', '123 Fake St.');
+        $address->setField('Address1', '123 Fake St.');
         $address->setField('City', 'Los Angeles');
         $address->setField('State', 'NY');
         $address->setField('Zip5', '90210');
@@ -97,8 +97,8 @@ class AddressTest extends TestCase
         $address = new Address();
         $address->setID(123);
         $address->setFirmName('XYZ Corp');
-        $address->setAddress1('Apt 1.');
-        $address->setAddress2('123 Fake St.');
+        $address->setAddress1('123 Fake St.');
+        $address->setAddress2('Apt 1.');
         $address->setCity('Los Angeles');
         $address->setState('NY');
         $address->setUrbanization('ABC');
@@ -114,7 +114,7 @@ class AddressTest extends TestCase
         $address = new Address([
             'ID' => 123,
             'FirmName' => 'XYZ Corp',
-            'Address2' => '123 Fake St.',
+            'Address1' => '123 Fake St.',
             'City' => 'Los Angeles',
             'State' => 'NY',
             'Zip5' => '90210'

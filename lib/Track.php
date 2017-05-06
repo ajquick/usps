@@ -19,29 +19,24 @@
  *  unless prior written permission is obtained.
  */
 
-namespace Multidimensional\Usps;
+namespace Multidimensional\USPS;
 
-use Multidimensional\Usps\Exception\TrackException;
+use Multidimensional\ArraySanitization\Sanitization;
+use Multidimensional\USPS\Exception\TrackException;
+use Multidimensional\USPS\Exception\USPSException;
+use Multidimensional\ArrayValidation\Exception\ValidationException;
+use Multidimensional\ArrayValidation\Validation;
 
 class Track extends USPS
 {
-    /**
-     * @var string
-     */
-    protected $apiClass = 'TrackV2';
-    protected $apiMethod = 'TrackRequest';
-
-    /**
-     * @var array
-     */
     protected $trackingNumbers = [];
 
     const FIELDS = [
         'TrackRequest' => [
-            'type' => 'group',
+            'type' => 'array',
             'fields' => [
                 'TrackID' => [
-                    'type' => 'array',
+                    'type' => 'group',
                     'fields' => [
                         '@ID' => [
                             'type' => 'string',
@@ -53,9 +48,33 @@ class Track extends USPS
         ]
     ];
 
+    const RESPONSE = [
+        'TrackResponse' => [
+            'type' => 'array',
+            'fields' => [
+                'TrackInfo' => [
+                    'type' => 'group',
+                    'fields' => [
+                        '@ID' => [
+                            'type' => 'string'
+                        ],
+                        'TrackSummary' => [
+                            'type' => 'string'
+                        ],
+                        'TrackDetail' => [
+                            'type' => 'group',
+                            'fields' => []
+                        ]
+                    ]
+                ]
+            ]
+        ]
+    ];
+
     public function __construct(array $config = [])
     {
         parent::__construct($config);
+
         if (is_array($config) && isset($config['TrackID'])) {
             if (is_array($config['TrackID'])) {
                 foreach ($config['TrackID'] as $trackID) {
@@ -65,6 +84,9 @@ class Track extends USPS
                 $this->addTrackingNumber($config['TrackID']);
             }
         }
+
+        $this->apiClass = 'TrackV2';
+        $this->apiMethod = 'TrackRequest';
     }
 
     /**
@@ -81,22 +103,7 @@ class Track extends USPS
     }
 
     /**
-     * @return array
-     * @throws TrackException
-     */
-    public function track()
-    {
-        $xml = $this->buildXML($this->toArray());
-        if ($this->validateXML($xml)) {
-            $result = $this->request($xml);
-            return $this->parseResult($result);
-        } else {
-            throw new TrackException('Unable to validate XML.');
-        }
-    }
-
-    /**
-     * @return array
+     * @return array|null
      */
     public function toArray()
     {
@@ -106,6 +113,83 @@ class Track extends USPS
                 $array['TrackRequest']['TrackID'][]['@ID'] = $trackingNumber;
             }
         }
+        try {
+            if (is_array($array) && count($array)) {
+                Validation::validate($array, self::FIELDS);
+            } else {
+                return null;
+            }
+        } catch (ValidationException $e) {
+            throw new TrackException($e->getMessage());
+        }
         return $array;
+    }
+
+    /**
+     * @return array
+     * @throws TrackException
+     */
+    public function track()
+    {
+        $xml = $this->buildXML($this->toArray());
+        if ($this->validateXML($xml)) {
+            try {
+                $result = $this->request($xml);
+                return $this->parseResult($result);
+            } catch (USPSException $e) {
+                throw new TrackException($e->getMessage());
+            }
+        } else {
+            throw new TrackException('Unable to validate XML.');
+        }
+    }
+
+    /**
+     * @param string $result
+     * @return array
+     */
+    protected function parseResult($result)
+    {
+        $array = parent::parseResult($result);
+        $array = Sanitization::sanitize($array, self::RESPONSE);
+
+        try {
+            if (is_array($array) && count($array)) {
+                Validation::validate($array, self::RESPONSE);
+            } else {
+                return null;
+            }
+        } catch (ValidationException $e) {
+            throw new TrackException($e->getMessage());
+        }
+
+        $array = $array['TrackResponse'];
+
+        if (is_array($array) && count($array) && (isset($array['TrackInfo']) || array_key_exists('TrackInfo', $array) )) {
+
+            $array = $array['TrackInfo'];
+
+            foreach ($array AS $key => $value) {
+                if (is_int($key)) {
+                    $array[$value['@ID']] = $value;
+                    unset($array[$key]);
+                } else {
+                    $array2[$array['@ID']] = $array;
+                    $array = $array2;
+                    break;
+                }
+            }
+
+            foreach ($array AS $key => $value) {
+                $array[$key] += array_combine(array_keys(self::RESPONSE['TrackResponse']['fields']['TrackInfo']['fields']), array_fill(0, count(self::RESPONSE['TrackResponse']['fields']['TrackInfo']['fields']), null));
+                $array[$key] = array_replace(self::RESPONSE['TrackResponse']['fields']['TrackInfo']['fields'], $array[$key]);
+                unset($array[$key]['@ID']);
+            }
+
+            return $array;
+        }
+
+        throw new TrackException();
+
     }
 }

@@ -19,13 +19,13 @@
  *  unless prior written permission is obtained.
  */
 
-namespace Multidimensional\Usps\Test\IntlRate;
+namespace Multidimensional\USPS\Test\IntlRate;
 
-use Multidimensional\Usps\IntlRate\Exception\PackageException;
-use Multidimensional\Usps\IntlRate\Package;
-use Multidimensional\Usps\IntlRate\Package\Content;
-use Multidimensional\Usps\IntlRate\Package\ExtraServices;
-use Multidimensional\Usps\IntlRate\Package\GXG;
+use Multidimensional\USPS\IntlRate\Exception\PackageException;
+use Multidimensional\USPS\IntlRate\Package;
+use Multidimensional\USPS\IntlRate\Package\Content;
+use Multidimensional\USPS\IntlRate\Package\ExtraServices;
+use Multidimensional\USPS\IntlRate\Package\GXG;
 use PHPUnit\Framework\TestCase;
 
 class PackageTest extends TestCase
@@ -48,7 +48,7 @@ class PackageTest extends TestCase
     {
         $this->package = new Package($this->defaultArray);
         $result = $this->package->toArray();
-        $expected = $this->defaultArray + ['GXG' => null, 'Width' => null, 'Length' => null, 'Height' => null, 'Girth' => null, 'OriginZip' => null, 'CommercialFlag' => null, 'CommercialPlusFlag' => null, 'ExtraServices' => null, 'AcceptanceDateTime' => null, 'DestinationPostalCode' => null, 'Content' => null];
+        $expected = $this->defaultArray;
         $this->assertEquals($expected, $result);
     }
     
@@ -58,7 +58,7 @@ class PackageTest extends TestCase
         $content = new Content(['ContentType' => Content::TYPE_DOCUMENTS]);
         $this->package->addContent($content);
         $result = $this->package->toArray();
-        $expected = $this->defaultArray + ['GXG' => null, 'Width' => null, 'Length' => null, 'Height' => null, 'Girth' => null, 'OriginZip' => null, 'CommercialFlag' => null, 'CommercialPlusFlag' => null, 'ExtraServices' => null, 'AcceptanceDateTime' => null, 'DestinationPostalCode' => null, 'Content' => ['ContentType' => Content::TYPE_DOCUMENTS, 'ContentDescription' => null]];
+        $expected = $this->defaultArray + ['Content' => ['ContentType' => Content::TYPE_DOCUMENTS, 'ContentDescription' => null]];
         $this->assertEquals($expected, $result);
     }
     
@@ -68,7 +68,7 @@ class PackageTest extends TestCase
         $extraServices = new ExtraServices([ExtraServices::REGISTERED_MAIL]);
         $this->package->addExtraServices($extraServices);
         $result = $this->package->toArray();
-        $expected = $this->defaultArray + ['GXG' => null, 'Width' => null, 'Length' => null, 'Height' => null, 'Girth' => null, 'OriginZip' => null, 'CommercialFlag' => null, 'CommercialPlusFlag' => null, 'ExtraServices' => [['ExtraService' => ExtraServices::REGISTERED_MAIL]], 'AcceptanceDateTime' => null, 'DestinationPostalCode' => null, 'Content' => null];
+        $expected = $this->defaultArray + ['ExtraServices' => [['ExtraService' => ExtraServices::REGISTERED_MAIL]]];
         $this->assertEquals($expected, $result);
     }
 
@@ -80,7 +80,7 @@ class PackageTest extends TestCase
         $this->package->addExtraServices($extraServices);
         $this->package->addExtraServices($extraServices2);
         $result = $this->package->toArray();
-        $expected = $this->defaultArray + ['GXG' => null, 'Width' => null, 'Length' => null, 'Height' => null, 'Girth' => null, 'OriginZip' => null, 'CommercialFlag' => null, 'CommercialPlusFlag' => null, 'ExtraServices' => [['ExtraService' => ExtraServices::REGISTERED_MAIL],['ExtraService' => ExtraServices::INSURANCE]], 'AcceptanceDateTime' => null, 'DestinationPostalCode' => null, 'Content' => null];
+        $expected = $this->defaultArray + ['ExtraServices' => [['ExtraService' => ExtraServices::REGISTERED_MAIL],['ExtraService' => ExtraServices::INSURANCE]]];
         $this->assertEquals($expected, $result);
     }
 
@@ -90,7 +90,7 @@ class PackageTest extends TestCase
         $gxg = new GXG(['POBoxFlag' => GXG::POBOXFLAG_YES, 'GiftFlag' => GXG::GIFTFLAG_YES]);
         $this->package->addGXG($gxg);
         $result = $this->package->toArray();
-        $expected = $this->defaultArray + ['GXG' => ['POBoxFlag' => GXG::POBOXFLAG_YES, 'GiftFlag' => GXG::GIFTFLAG_YES], 'Width' => null, 'Length' => null, 'Height' => null, 'Girth' => null, 'OriginZip' => null, 'CommercialFlag' => null, 'CommercialPlusFlag' => null, 'ExtraServices' => null, 'AcceptanceDateTime' => null, 'DestinationPostalCode' => null, 'Content' => null];
+        $expected = $this->defaultArray + ['GXG' => ['POBoxFlag' => GXG::POBOXFLAG_YES, 'GiftFlag' => GXG::GIFTFLAG_YES]];
         $this->assertEquals($expected, $result);
     }
 
@@ -131,7 +131,7 @@ class PackageTest extends TestCase
         $this->package->setAcceptanceDateTime('2014-01-22T14:30:51-06:00');
         $this->package->setDestinationPostalCode('ABC123');
         $result = $this->package->toArray();
-        $expected = $this->defaultArray + ['GXG' => null, 'Width' => 12, 'Length' => 12, 'Height' => 12, 'Girth' => 60, 'OriginZip' => 90210, 'CommercialFlag' => 'Y', 'CommercialPlusFlag' => 'Y', 'ExtraServices' => null, 'AcceptanceDateTime' => '2014-01-22T14:30:51-06:00', 'DestinationPostalCode' => 'ABC123', 'Content' => null];
+        $expected = $this->defaultArray + ['Width' => 12, 'Length' => 12, 'Height' => 12, 'Girth' => 60, 'OriginZip' => 90210, 'CommercialFlag' => 'Y', 'CommercialPlusFlag' => 'Y', 'AcceptanceDateTime' => '2014-01-22T14:30:51-06:00', 'DestinationPostalCode' => 'ABC123'];
         $this->assertEquals($expected, $result);
     }
 
@@ -154,7 +154,7 @@ class PackageTest extends TestCase
         $result = $this->package->toArray();
         $this->defaultArray['@ID'] = 123;
         unset($this->defaultArray['ID']);
-        $expected = $this->defaultArray + ['GXG' => null, 'Width' => null, 'Length' => null, 'Height' => null, 'Girth' => null, 'OriginZip' => null, 'CommercialFlag' => null, 'CommercialPlusFlag' => null, 'ExtraServices' => null, 'AcceptanceDateTime' => null, 'DestinationPostalCode' => null, 'Content' => null];
+        $expected = $this->defaultArray;
         $this->assertEquals($expected, $result);
     }
 }

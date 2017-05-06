@@ -19,10 +19,10 @@
  *  unless prior written permission is obtained.
  */
 
-namespace Multidimensional\Usps\Test\IntlRate\Package;
+namespace Multidimensional\USPS\Test\IntlRate\Package;
 
-use Multidimensional\Usps\IntlRate\Package\Exception\GXGException;
-use Multidimensional\Usps\IntlRate\Package\GXG;
+use Multidimensional\USPS\IntlRate\Package\Exception\GXGException;
+use Multidimensional\USPS\IntlRate\Package\GXG;
 use PHPUnit\Framework\TestCase;
 
 class GXGTest extends TestCase

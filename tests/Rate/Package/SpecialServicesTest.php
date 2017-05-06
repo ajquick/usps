@@ -19,10 +19,10 @@
  *  unless prior written permission is obtained.
  */
 
-namespace Multidimensional\Usps\Test\Rate\Package;
+namespace Multidimensional\USPS\Test\Rate\Package;
 
-use Multidimensional\Usps\Rate\Package\Exception\SpecialServicesException;
-use Multidimensional\Usps\Rate\Package\SpecialServices;
+use Multidimensional\USPS\Rate\Package\Exception\SpecialServicesException;
+use Multidimensional\USPS\Rate\Package\SpecialServices;
 use PHPUnit\Framework\TestCase;
 
 class SpecialServicesTest extends TestCase

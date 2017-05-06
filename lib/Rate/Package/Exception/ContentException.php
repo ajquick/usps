@@ -19,7 +19,7 @@
  *  unless prior written permission is obtained.
  */
 
-namespace Multidimensional\Usps\Rate\Package\Exception;
+namespace Multidimensional\USPS\Rate\Package\Exception;
 
 class ContentException extends \Exception
 {

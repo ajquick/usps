@@ -19,27 +19,174 @@
  *  unless prior written permission is obtained.
  */
 
-namespace Multidimensional\Usps;
+namespace Multidimensional\USPS;
 
-use Multidimensional\Usps\Rate\Package;
+use Multidimensional\ArraySanitization\Sanitization;
+use Multidimensional\ArrayValidation\Exception\ValidationException;
+use Multidimensional\ArrayValidation\Validation;
+use Multidimensional\USPS\Exception\RateException;
+use Multidimensional\USPS\Exception\USPSException;
+use Multidimensional\USPS\Rate\Package;
 
 class Rate extends USPS
 {
-
-    protected $apiClass = 'RateV4';
-    protected $apiMethod = '';
-
     protected $packages = [];
 
-    public $revision = 2;
+    protected $revision = 2;
 
     const FIELDS = [
-        'Revision' => [
-            'type' => 'integer'
-        ],
-        'Package' => [
-            'type' => 'Package',
-            'fields' => Package::FIELDS
+        'RateV4Request' => [
+            'type' => 'array',
+            'fields' => [
+                'Revision' => [
+                    'type' => 'integer',
+                    'values' => [2]
+                ],
+                'Package' => [
+                    'type' => 'group',
+                    'fields' => Package::FIELDS
+                ]
+            ]
+        ]
+    ];
+
+    const RESPONSE = [
+        'RateV4Response' => [
+            'type' => 'array',
+            'fields' => [
+                'Package' => [
+                    'type' => 'group',
+                    'fields' => [
+                        '@ID' => [
+                            'type' => 'string',
+                            'required' => true
+                        ],
+                        'ZipOrigination' => [
+                            'type' => 'string',
+                            'required' => true,
+                            'pattern' => '\d{5}'
+                        ],
+                        'ZipDestination' => [
+                            'type' => 'string',
+                            'required' => true,
+                            'pattern' => '\d{5}'
+                        ],
+                        'Pounds' => [
+                            'type' => 'decimal',
+                            'required' => true,
+                        ],
+                        'Ounces' => [
+                            'type' => 'decimal',
+                            'required' => true,
+                        ],
+                        'FirstClassMailType' => [
+                            'type' => 'string'
+                        ],
+                        'Container' => [
+                            'type' => 'string',
+                        ],
+                        'Size' => [
+                            'type' => 'string',
+                            'required' => true,
+                            'values' => [
+                                Package::SIZE_REGULAR,
+                                Package::SIZE_LARGE
+                            ]
+                        ],
+                        'Width' => [
+                            'type' => 'decimal'
+                        ],
+                        'Length' => [
+                            'type' => 'decimal'
+                        ],
+                        'Height' => [
+                            'type' => 'decimal'
+                        ],
+                        'Girth' => [
+                            'type' => 'decimal'
+                        ],
+                        'Machinable' => [
+                            'type' => 'boolean'
+                        ],
+                        'Zone' => [
+                            'type' => 'string'
+                        ],
+                        'Postage' => [
+                            'type' => 'group',
+                            'required' => true,
+                            'fields' => [
+                                '@CLASSID' => [
+                                    'type' => 'integer'
+                                ],
+                                'MailService' => [
+                                    'type' => 'string'
+                                ],
+                                'Rate' => [
+                                    'type' => 'decimal'
+                                ],
+                                'CommercialRate' => [
+                                    'type' => 'decimal'
+                                ],
+                                'CommercialPlusRate' => [
+                                    'type' => 'decimal'
+                                ],
+                                'ServiceInformation' => [
+                                    'type' => 'string'
+                                ],
+                                'MaxDimensions' => [
+                                    'type' => 'string'
+                                ],
+                                'PEMSH' => [
+                                    'type' => 'array',
+                                    'fields' => [
+
+                                    ]
+                                ],
+                                'HFP' => [
+                                    'type' => 'array',
+                                    'fields' => [
+
+                                    ]
+                                ],
+                                'SpecialServices' => [
+                                    'type' => 'group',
+                                    'fields' => [
+                                        'SpecialService' => [
+                                            'type' => 'group',
+                                            'fields' => [
+                                                'ServiceID' => [
+                                                    'type' => 'integer'
+                                                ],
+                                                'ServiceName' => [
+                                                    'type' => 'string'
+                                                ],
+                                                'Available' => [
+                                                    'type' => 'boolean'
+                                                ],
+                                                'AvailableOnline' => [
+                                                    'type' => 'boolean'
+                                                ],
+                                                'Price' => [
+                                                    'type' => 'decimal'
+                                                ],
+                                                'PriceOnline' => [
+                                                    'type' => 'decimal'
+                                                ],
+                                                'DeclaredValueRequired' => [
+                                                    'type' => 'boolean'
+                                                ]
+                                            ]
+                                        ]
+                                    ]
+                                ],
+                                'Restrictions' => [
+                                    'type' => 'string'
+                                ]
+                            ]
+                        ]
+                    ]
+                ]
+            ]
         ]
     ];
 
@@ -49,24 +196,139 @@ class Rate extends USPS
         if (isset($config['revision'])) {
             $this->setRevision($config['revision']);
         }
+
+        if (is_array($config) && isset($config['Package'])) {
+            if (is_array($config['Package'])) {
+                foreach ($config['Package'] as $packageObject) {
+                    if(is_object($packageObject) && $packageObject instanceof Package) {
+                        $this->addPackage($packageObject);
+                    }
+                }
+            } elseif(is_object($config['Package']) && $config['Package'] instanceof Package) {
+                $this->addPackage($config['Package']);
+            }
+        }
+
+        $this->apiClass = 'RateV4';
+        $this->apiMethod = 'RateV4Request';
     }
 
+    /**
+     * @return string
+     */
     public function getRate()
     {
-        return $this->request($this->apiClass);
+        try {
+            $xml = $this->buildXML($this->toArray());
+            if ($this->validateXML($xml)) {
+                $result = $this->request($xml);
+                return $this->parseResult($result);
+            } else {
+                throw new RateException('Unable to validate XML.');
+            }
+        } catch (ValidationException $e) {
+            throw new RateException($e->getMessage());
+        }
     }
 
-    public function addPackage(Rate\Package $package)
+    /**
+     * @param Package $package
+     */
+    public function addPackage(Package $package)
     {
-        $this->packages[] = $package->toArray();
+        if (count($this->packages) < 25) {
+            $this->packages[] = $package->toArray();
+        } else {
+            throw new RateException('Package not added. You can only have a maximum of 25 packages included in each look up request.');
+        }
     }
 
+    /**
+     * @param $value
+     */
     public function setRevision($value)
     {
         if (intval($value) === 2) {
-            $this->revision = '2';
+            $this->revision = 2;
         } else {
             $this->revision = null;
+        }
+    }
+
+    /**
+     * @return array|null
+     * @throws RateException
+     */
+    public function toArray()
+    {
+        $array = [];
+
+        if ($this->revision === 2) {
+            $array['RateV4Request']['Revision'] = 2;
+        }
+
+        if (is_array($this->packages) && count($this->packages)) {
+            $array['RateV4Request']['Package'] = $this->packages;
+        }
+
+        try {
+            if (is_array($array) && count($array)) {
+                Validation::validate($array, self::FIELDS);
+            } else {
+                return null;
+            }
+        } catch (ValidationException $e) {
+            throw new RateException($e->getMessage());
+        }
+
+        return $array;
+    }
+
+    /**
+     * @param string $result
+     * @return array
+     */
+    protected function parseResult($result)
+    {
+        $array = parent::parseResult($result);
+        $array = Sanitization::sanitize($array, self::RESPONSE);
+
+        try {
+            if (is_array($array) && count($array)) {
+                Validation::validate($array, self::RESPONSE);
+            } else {
+                return null;
+            }
+        } catch (ValidationException $e) {
+            throw new RateException($e->getMessage());
+        }
+
+        $array = $array['RateV4Response'];
+
+        if (is_array($array) && count($array) && (isset($array['Package']) || array_key_exists('Package', $array) )) {
+
+            $array = $array['Package'];
+            foreach ($array AS $key => $value) {
+                if (is_int($key)) {
+                    $array[$value['@ID']] = $value;
+                    unset($array[$key]);
+                } else {
+                    $array2[$array['@ID']] = $array;
+                    $array = $array2;
+                    break;
+                }
+            }
+
+            foreach ($array AS $key => $value) {
+                $array[$key] += array_combine(array_keys(self::RESPONSE['RateV4Response']['fields']['Package']['fields']), array_fill(0, count(self::RESPONSE['RateV4Response']['fields']['Package']['fields']), null));
+                $array[$key] = array_replace(self::RESPONSE['RateV4Response']['fields']['Package']['fields'], $array[$key]);
+                unset($array[$key]['@ID']);
+            }
+
+            return $array;
+
+        } else {
+            throw new RateException();
         }
     }
 }

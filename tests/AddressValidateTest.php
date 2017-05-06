@@ -11,7 +11,7 @@
  *  @license Proprietary and Confidential
  *
  *  NOTICE:  All information contained herein is, and remains the property of
- *  Multidimension.al and its suppliers, if any.  The intellectual and
+ *  Multidimension.al and its suppliers, if aDC.  The intellectual and
  *  technical concepts contained herein are proprietary to Multidimension.al
  *  and its suppliers and may be covered by U.S. and Foreign Patents, patents in
  *  process, and are protected by trade secret or copyright law. Dissemination
@@ -19,12 +19,11 @@
  *  unless prior written permission is obtained.
  */
 
-namespace Multidimensional\Usps\Test;
+namespace Multidimensional\USPS\Test;
 
-use Multidimensional\Usps\Address;
-use Multidimensional\Usps\AddressValidate;
-use Multidimensional\Usps\Exception\AddressException;
-use Multidimensional\Usps\Exception\AddressValidateException;
+use Multidimensional\USPS\Address;
+use Multidimensional\USPS\AddressValidate;
+use Multidimensional\USPS\Exception\AddressValidateException;
 use PHPUnit\Framework\TestCase;
 
 class AddressValidateTest extends TestCase
@@ -34,12 +33,12 @@ class AddressValidateTest extends TestCase
     public function setUp()
     {
         $defaultAddressArray = [
-            '@ID' => 123,
-            'FirmName' => 'XYZ Corp',
-            'Address2' => '123 Fake St.',
-            'City' => 'Los Angeles',
-            'State' => 'NY',
-            'Zip5' => '90210'
+            'ID' => 123,
+            'FirmName' => 'The White House',
+            'Address1' => '1600 Pennsylvania Ave NW',
+            'City' => 'Washington',
+            'State' => 'DC',
+            'Zip5' => '20500'
         ];
         $this->address = new Address($defaultAddressArray);
     }
@@ -55,12 +54,16 @@ class AddressValidateTest extends TestCase
         $result = $addressValidate->toArray();
         $this->assertArrayHasKey('IncludeOptionalElements', $result['AddressValidateRequest']);
         $this->assertArrayHasKey('ReturnCarrierRoute', $result['AddressValidateRequest']);
-    }
 
-    public function testAddAddress()
-    {
-        $addressValidate = new AddressValidate();
-        $this->assertTrue($addressValidate->addAddress($this->address));
+        $addressValidate = new AddressValidate(['IncludeOptionalElements' => true, 'ReturnCarrierRoute' => true, 'Address' => $this->address]);
+        $result = $addressValidate->toArray();
+        $expected = ['AddressValidateRequest' => ['IncludeOptionalElements' => true, 'ReturnCarrierRoute' => true, 'Address' => [0 => ['@ID' => 123, 'FirmName' => 'The White House', 'Address1' => NULL, 'Address2' => '1600 Pennsylvania Ave NW', 'City' => 'Washington', 'State' => 'DC', 'Urbanization' => NULL, 'Zip5' => '20500', 'Zip4' => NULL]]]];
+        $this->assertEquals($expected, $result);
+
+        $addressValidate = new AddressValidate(['IncludeOptionalElements' => true, 'ReturnCarrierRoute' => true, 'Address' => [$this->address, $this->address]]);
+        $result = $addressValidate->toArray();
+        $expected = ['AddressValidateRequest' => ['IncludeOptionalElements' => true, 'ReturnCarrierRoute' => true, 'Address' => [0 => ['@ID' => 123, 'FirmName' => 'The White House', 'Address1' => NULL, 'Address2' => '1600 Pennsylvania Ave NW', 'City' => 'Washington', 'State' => 'DC', 'Urbanization' => NULL, 'Zip5' => '20500', 'Zip4' => NULL], 1 => ['@ID' => 123, 'FirmName' => 'The White House', 'Address1' => NULL, 'Address2' => '1600 Pennsylvania Ave NW', 'City' => 'Washington', 'State' => 'DC', 'Urbanization' => NULL, 'Zip5' => '20500', 'Zip4' => NULL]]]];
+        $this->assertEquals($expected, $result);
     }
 
     public function testAddMultipleAddresses()
@@ -72,18 +75,18 @@ class AddressValidateTest extends TestCase
         $this->address->setID('789');
         $addressValidate->addAddress($this->address);
         $result = $addressValidate->toArray();
-        $expected = ['AddressValidateRequest' => ['Address' => [0 => ['@ID' => 123, 'FirmName' => 'XYZ Corp', 'Address2' => '123 Fake St.', 'City' => 'Los Angeles', 'State' => 'NY', 'Zip5' => '90210', 'Address1' => null, 'Urbanization' => null, 'Zip4' => null], 1 => ['@ID' => 456, 'FirmName' => 'XYZ Corp', 'Address2' => '123 Fake St.', 'City' => 'Los Angeles', 'State' => 'NY', 'Zip5' => '90210', 'Address1' => null, 'Urbanization' => null, 'Zip4' => null], 2 => ['@ID' => 789, 'FirmName' => 'XYZ Corp', 'Address2' => '123 Fake St.', 'City' => 'Los Angeles', 'State' => 'NY', 'Zip5' => '90210', 'Address1' => null, 'Urbanization' => null, 'Zip4' => null]]]];
+        $expected = ['AddressValidateRequest' => ['Address' => [0 => ['@ID' => 123, 'FirmName' => 'The White House', 'Address2' => '1600 Pennsylvania Ave NW', 'City' => 'Washington', 'State' => 'DC', 'Zip5' => '20500', 'Address1' => null, 'Urbanization' => null, 'Zip4' => null], 1 => ['@ID' => 456, 'FirmName' => 'The White House', 'Address2' => '1600 Pennsylvania Ave NW', 'City' => 'Washington', 'State' => 'DC', 'Zip5' => '20500', 'Address1' => null, 'Urbanization' => null, 'Zip4' => null], 2 => ['@ID' => 789, 'FirmName' => 'The White House', 'Address2' => '1600 Pennsylvania Ave NW', 'City' => 'Washington', 'State' => 'DC', 'Zip5' => '20500', 'Address1' => null, 'Urbanization' => null, 'Zip4' => null]]]];
         $this->assertEquals($expected, $result);
     }
 
     public function testAddAddressFailure()
     {
         $addressValidate = new AddressValidate();
-        $this->assertTrue($addressValidate->addAddress($this->address));
-        $this->assertTrue($addressValidate->addAddress($this->address));
-        $this->assertTrue($addressValidate->addAddress($this->address));
-        $this->assertTrue($addressValidate->addAddress($this->address));
-        $this->assertTrue($addressValidate->addAddress($this->address));
+        $addressValidate->addAddress($this->address);
+        $addressValidate->addAddress($this->address);
+        $addressValidate->addAddress($this->address);
+        $addressValidate->addAddress($this->address);
+        $addressValidate->addAddress($this->address);
         try {
             $addressValidate->addAddress($this->address);
         } catch (AddressValidateException $e) {
@@ -115,8 +118,29 @@ class AddressValidateTest extends TestCase
 
     public function testValidate()
     {
-        $addressValidate = new AddressValidate();
+        $addressValidate = new AddressValidate(['userID' => $_SERVER['USPS_USERID']]);
         $addressValidate->addAddress($this->address);
-        $addressValidate->validate();
+        try {
+            $result = $addressValidate->validate();
+            $expected = [123 => ['FirmName' => 'THE WHITE HOUSE', 'Address1' => '1600 PENNSYLVANIA AVE NW', 'Address2' => NULL, 'City' => 'WASHINGTON', 'State' => 'DC', 'Urbanization' => NULL, 'Zip5' => '20500', 'Zip4' => '0004', 'DeliveryPoint' => null, 'CarrierRoute' => null, 'ReturnText' => null]];
+            $this->assertEquals($expected, $result);
+        } catch (AddressValidateException $e) {
+            $this->assertEquals('', $e->getMessage());
+        }
+    }
+
+    public function testValidateMultiple()
+    {
+        $addressValidate = new AddressValidate(['userID' => $_SERVER['USPS_USERID']]);
+        $addressValidate->addAddress($this->address);
+        $this->address->setID(456);
+        $addressValidate->addAddress($this->address);
+        try {
+            $result = $addressValidate->validate();
+            $expected = [123 => ['FirmName' => 'THE WHITE HOUSE', 'Address1' => '1600 PENNSYLVANIA AVE NW', 'Address2' => NULL, 'City' => 'WASHINGTON', 'State' => 'DC', 'Urbanization' => NULL, 'Zip5' => '20500', 'Zip4' => '0004', 'DeliveryPoint' => null, 'CarrierRoute' => null, 'ReturnText' => null], 456 => ['FirmName' => 'THE WHITE HOUSE', 'Address1' => '1600 PENNSYLVANIA AVE NW', 'Address2' => NULL, 'City' => 'WASHINGTON', 'State' => 'DC', 'Urbanization' => NULL, 'Zip5' => '20500', 'Zip4' => '0004', 'DeliveryPoint' => null, 'CarrierRoute' => null, 'ReturnText' => null]];
+            $this->assertEquals($expected, $result);
+        } catch (AddressValidateException $e) {
+            $this->assertEquals('', $e->getMessage());
+        }
     }
 }

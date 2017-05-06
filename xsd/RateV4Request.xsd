@@ -71,8 +71,6 @@
               <xs:element name="ZipOrigination">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
-                    <xs:whiteSpace value="collapse" />
-                    <xs:length value="5" />
                     <xs:pattern value="\d{5}" />
                   </xs:restriction>
                 </xs:simpleType>
@@ -80,8 +78,6 @@
               <xs:element name="ZipDestination">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
-                    <xs:whiteSpace value="collapse" />
-                    <xs:length value="5" />
                     <xs:pattern value="\d{5}" />
                   </xs:restriction>
                 </xs:simpleType>
@@ -131,60 +127,113 @@
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="Width" nillable="true">
+              <xs:element name="Width" nillable="true" minOccurs="0">
                 <xs:simpleType>
-                  <xs:restriction base="xs:decimal">
-                    <xs:minInclusive value="0.0" />
-                    <xs:totalDigits value="10" />
-                  </xs:restriction>
+                  <xs:union>
+                    <xs:simpleType>
+                      <xs:restriction base="xs:decimal">
+                        <xs:minInclusive value="0.0" />
+                        <xs:totalDigits value="10" />
+                      </xs:restriction>
+                    </xs:simpleType>
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:length value="0" />
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:union>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="Length" nillable="true">
+              <xs:element name="Length" nillable="true" minOccurs="0">
                 <xs:simpleType>
-                  <xs:restriction base="xs:decimal">
-                    <xs:minInclusive value="0.0" />
-                    <xs:totalDigits value="10" />
-                  </xs:restriction>
+                  <xs:union>
+                    <xs:simpleType>
+                      <xs:restriction base="xs:decimal">
+                        <xs:minInclusive value="0.0" />
+                        <xs:totalDigits value="10" />
+                      </xs:restriction>
+                    </xs:simpleType>
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:length value="0" />
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:union>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="Height" nillable="true">
+              <xs:element name="Height" nillable="true" minOccurs="0">
                 <xs:simpleType>
-                  <xs:restriction base="xs:decimal">
-                    <xs:minInclusive value="0.0" />
-                    <xs:totalDigits value="10" />
-                  </xs:restriction>
+                  <xs:union>
+                    <xs:simpleType>
+                      <xs:restriction base="xs:decimal">
+                        <xs:minInclusive value="0.0" />
+                        <xs:totalDigits value="10" />
+                      </xs:restriction>
+                    </xs:simpleType>
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:length value="0" />
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:union>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="Girth" nillable="true">
+              <xs:element name="Girth" nillable="true" minOccurs="0">
                 <xs:simpleType>
-                  <xs:restriction base="xs:decimal">
-                    <xs:minInclusive value="0.0" />
-                    <xs:totalDigits value="10" />
-                  </xs:restriction>
+                  <xs:union>
+                    <xs:simpleType>
+                      <xs:restriction base="xs:decimal">
+                        <xs:minInclusive value="0.0" />
+                        <xs:totalDigits value="10" />
+                      </xs:restriction>
+                    </xs:simpleType>
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:length value="0" />
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:union>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="Value" nillable="true">
+              <xs:element name="Value" nillable="true" minOccurs="0">
                 <xs:simpleType>
-                  <xs:restriction base="xs:decimal">
-                    <xs:minInclusive value="0.0" />
-                    <xs:totalDigits value="10" />
-                  </xs:restriction>
+                  <xs:union>
+                    <xs:simpleType>
+                      <xs:restriction base="xs:decimal">
+                        <xs:minInclusive value="0.0" />
+                        <xs:totalDigits value="10" />
+                      </xs:restriction>
+                    </xs:simpleType>
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:length value="0" />
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:union>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="AmountToCollect" nillable="true">
+              <xs:element name="AmountToCollect" nillable="true" minOccurs="0">
                 <xs:simpleType>
-                  <xs:restriction base="xs:decimal">
-                    <xs:minInclusive value="0.0" />
-                    <xs:totalDigits value="10" />
-                  </xs:restriction>
+                  <xs:union>
+                    <xs:simpleType>
+                      <xs:restriction base="xs:decimal">
+                        <xs:minInclusive value="0.0" />
+                        <xs:totalDigits value="10" />
+                      </xs:restriction>
+                    </xs:simpleType>
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:length value="0" />
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:union>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="SpecialServices" nillable="true">
+              <xs:element name="SpecialServices" nillable="true" minOccurs="0">
                 <xs:complexType>
                   <xs:sequence>
-                    <xs:element name="SpecialService" maxOccurs="10">
+                    <xs:element name="SpecialService" maxOccurs="10" minOccurs="0">
                       <xs:simpleType>
-
                         <xs:restriction base="xs:string">
                           <xs:enumeration value="100" />
                           <xs:enumeration value="101" />
@@ -222,21 +271,73 @@
                   </xs:sequence>
                 </xs:complexType>
               </xs:element>
-              <xs:element name="GroundOnly" default="false" nillable="true" type="xs:boolean" />
-              <xs:element name="SortBy" nillable="true">
+              <xs:element name="Content" minOccurs="0">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="ContentType" minOccurs="0">
+                      <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                          <xs:enumeration value="HAZMAT" />
+                          <xs:enumeration value="CREMATEDREMAINS" />
+                          <xs:enumeration value="LIVES" />
+                          <xs:enumeration value="" />
+                        </xs:restriction>
+                      </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="ContentDescription" minOccurs="0">
+                      <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                          <xs:enumeration value="BEES" />
+                          <xs:enumeration value="DAYOLDPOULTRY" />
+                          <xs:enumeration value="ADULTBIRDS" />
+                          <xs:enumeration value="OTHER" />
+                          <xs:enumeration value="" />
+                        </xs:restriction>
+                      </xs:simpleType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="GroundOnly" default="false" nillable="true" type="xs:boolean" minOccurs="0" />
+              <xs:element name="SortBy" nillable="true" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:enumeration value="LETTER" />
                     <xs:enumeration value="LARGEENVELOPE" />
                     <xs:enumeration value="PACKAGE" />
                     <xs:enumeration value="FLATRATE" />
+                    <xs:enumeration value="" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="Machinable" nillable="true" type="xs:boolean" />
-              <xs:element name="ReturnLocations" default="true" nillable="true" type="xs:boolean" />
-              <xs:element name="ReturnServiceInfo" nillable="true" type="xs:boolean" />
-              <xs:element name="DropOffTime" type="xs:string" nillable="true" />
+              <xs:element name="Machinable" nillable="true" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:enumeration value="true" />
+                    <xs:enumeration value="false" />
+                    <xs:enumeration value="" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="ReturnLocations" default="true" nillable="true" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:enumeration value="true" />
+                    <xs:enumeration value="false" />
+                    <xs:enumeration value="" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="ReturnServiceInfo" nillable="true" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:enumeration value="true" />
+                    <xs:enumeration value="false" />
+                    <xs:enumeration value="" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="DropOffTime" type="xs:string" nillable="true" minOccurs="0" />
               <xs:element name="ShipDate" minOccurs="0">
                 <xs:complexType>
                   <xs:simpleContent>
@@ -262,33 +363,17 @@
     </xs:complexType>
   </xs:element>
   <xs:simpleType name="ShipDateType">
-    <xs:restriction base="xs:string">
-      <xs:pattern value="\d{4}-\d{2}-\d{2}" />
-    </xs:restriction>
+    <xs:union>
+      <xs:simpleType >
+        <xs:restriction base="xs:string">
+          <xs:pattern value="\d{4}-\d{2}-\d{2}" />
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:length value="0" />
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:union>
   </xs:simpleType>
-  <xs:group name="Content">
-    <xs:sequence>
-      <xs:element name="ContentType" minOccurs="0">
-        <xs:simpleType>
-          <xs:restriction base="xs:string">
-            <xs:enumeration value="HAZMAT" />
-            <xs:enumeration value="CREMATEDREMAINS" />
-            <xs:enumeration value="LIVES" />
-            <xs:enumeration value="" />
-          </xs:restriction>
-        </xs:simpleType>
-      </xs:element>
-      <xs:element name="ContentDescription" minOccurs="0">
-        <xs:simpleType>
-          <xs:restriction base="xs:string">
-            <xs:enumeration value="BEES" />
-            <xs:enumeration value="DAYOLDPOULTRY" />
-            <xs:enumeration value="ADULTBIRDS" />
-            <xs:enumeration value="OTHER" />
-            <xs:enumeration value="" />
-          </xs:restriction>
-        </xs:simpleType>
-      </xs:element>
-    </xs:sequence>
-  </xs:group>
 </xs:schema>

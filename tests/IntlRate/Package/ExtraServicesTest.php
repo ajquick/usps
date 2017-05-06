@@ -19,10 +19,10 @@
  *  unless prior written permission is obtained.
  */
 
-namespace Multidimensional\Usps\Test\IntlRate\Package;
+namespace Multidimensional\USPS\Test\IntlRate\Package;
 
-use Multidimensional\Usps\IntlRate\Package\Exception\ExtraServicesException;
-use Multidimensional\Usps\IntlRate\Package\ExtraServices;
+use Multidimensional\USPS\IntlRate\Package\Exception\ExtraServicesException;
+use Multidimensional\USPS\IntlRate\Package\ExtraServices;
 use PHPUnit\Framework\TestCase;
 
 class ExtraServicesTest extends TestCase

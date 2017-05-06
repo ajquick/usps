@@ -19,12 +19,12 @@
  *  unless prior written permission is obtained.
  */
 
-namespace Multidimensional\Usps;
+namespace Multidimensional\USPS;
 
 use Multidimensional\ArraySanitization\Sanitization;
 use Multidimensional\ArrayValidation\Exception\ValidationException;
 use Multidimensional\ArrayValidation\Validation;
-use Multidimensional\Usps\Exception\ZipCodeException;
+use Multidimensional\USPS\Exception\ZipCodeException;
 
 class ZipCode
 {

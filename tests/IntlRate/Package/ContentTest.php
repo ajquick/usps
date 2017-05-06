@@ -19,10 +19,10 @@
  *  unless prior written permission is obtained.
  */
 
-namespace Multidimensional\Usps\Test\IntlRate\Package;
+namespace Multidimensional\USPS\Test\IntlRate\Package;
 
-use Multidimensional\Usps\IntlRate\Package\Content;
-use Multidimensional\Usps\IntlRate\Package\Exception\ContentException;
+use Multidimensional\USPS\IntlRate\Package\Content;
+use Multidimensional\USPS\IntlRate\Package\Exception\ContentException;
 use PHPUnit\Framework\TestCase;
 
 class ContentTest extends TestCase

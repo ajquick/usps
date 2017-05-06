@@ -19,12 +19,12 @@
  *  unless prior written permission is obtained.
  */
 
-namespace Multidimensional\Usps\Test\Rate;
+namespace Multidimensional\USPS\Test\Rate;
 
-use Multidimensional\Usps\Rate\Exception\PackageException;
-use Multidimensional\Usps\Rate\Package;
-use Multidimensional\Usps\Rate\Package\Content;
-use Multidimensional\Usps\Rate\Package\SpecialServices;
+use Multidimensional\USPS\Rate\Exception\PackageException;
+use Multidimensional\USPS\Rate\Package;
+use Multidimensional\USPS\Rate\Package\Content;
+use Multidimensional\USPS\Rate\Package\SpecialServices;
 use PHPUnit\Framework\TestCase;
 
 class PackageTest extends TestCase
@@ -34,7 +34,7 @@ class PackageTest extends TestCase
     
     public function setUp()
     {
-        $this->defaultArray = ['@ID' => '123', 'Service' => 'All', 'FirstClassMailType' => 'PARCEL', 'ZipOrigination' => '01234', 'ZipDestination' => '90210', 'Pounds' => 0, 'Ounces' => 32, 'Container' => 'VARIABLE', 'Size' => 'REGULAR', 'Machinable' => true];
+        $this->defaultArray = ['@ID' => '123', 'Service' => 'All', 'FirstClassMailType' => 'PARCEL', 'ZipOrigination' => '20500', 'ZipDestination' => '90210', 'Pounds' => 0, 'Ounces' => 32, 'Container' => 'VARIABLE', 'Size' => 'REGULAR', 'Machinable' => true];
     }
     
     public function tearDown()
@@ -47,7 +47,7 @@ class PackageTest extends TestCase
     {
         $this->package = new Package($this->defaultArray);
         $result = $this->package->toArray();
-        $expected = $this->defaultArray + ['Width' => null, 'Length' => null, 'Height' => null, 'Girth' => null, 'Value' => null, 'AmountToCollect' => null, 'SpecialServices' => null, 'Content' => null, 'GroundOnly' => null, 'SortBy' => null, 'ReturnLocations' => null, 'ReturnServiceInfo' => null, 'DropOffTime' => null, 'ShipDate' => null];
+        $expected = $this->defaultArray;
         $this->assertEquals($expected, $result);
     }
 
@@ -57,7 +57,7 @@ class PackageTest extends TestCase
         $this->package->setID(123);
         $this->package->setService(Package::SERVICE_ALL);
         $this->package->setFirstClassMailType(Package::FIRST_CLASS_MAIL_TYPE_PARCEL);
-        $this->package->setZipOrigination('01234');
+        $this->package->setZipOrigination('20500');
         $this->package->setZipDestination('90210');
         $this->package->setPounds(0.0);
         $this->package->setOunces(32);
@@ -73,7 +73,7 @@ class PackageTest extends TestCase
         $this->package->setSortBy(false);
         $this->package->setMachinable(true);
         $result = $this->package->toArray();
-        $expected = $this->defaultArray + ['Width' => 2, 'Length' => 2, 'Height' => 2, 'Girth' => 10, 'Value' => 100.00, 'AmountToCollect' => 0.00, 'GroundOnly' => false, 'SortBy' => false, 'SpecialServices' => null, 'Content' => null, 'ReturnLocations' => null, 'ReturnServiceInfo' => null, 'DropOffTime' => null, 'ShipDate' => null];
+        $expected = $this->defaultArray + ['Width' => 2, 'Length' => 2, 'Height' => 2, 'Girth' => 10, 'Value' => 100.00, 'AmountToCollect' => 0.00, 'GroundOnly' => false, 'SortBy' => false];
         $this->assertEquals($expected, $result);
     }
     
@@ -81,7 +81,7 @@ class PackageTest extends TestCase
     {
         $this->package = new Package($this->defaultArray);
         $result = $this->package->toArray();
-        $expected = $this->defaultArray + ['Width' => null, 'Length' => null, 'Height' => null, 'Girth' => null, 'Value' => null, 'AmountToCollect' => null, 'SpecialServices' => null, 'Content' => null, 'GroundOnly' => null, 'SortBy' => null, 'ReturnLocations' => null, 'ReturnServiceInfo' => null, 'DropOffTime' => null, 'ShipDate' => null];
+        $expected = $this->defaultArray;
         $this->assertEquals($expected, $result);
     }
     
@@ -91,7 +91,7 @@ class PackageTest extends TestCase
         $content = new Content(['ContentType' => Content::TYPE_HAZMAT]);
         $this->package->addContent($content);
         $result = $this->package->toArray();
-        $expected = $this->defaultArray + ['Content' => ['ContentType' => 'HAZMAT', 'ContentDescription' => null], 'GroundOnly' => null, 'SortBy' => null, 'ReturnLocations' => null, 'ReturnServiceInfo' => null, 'DropOffTime' => null, 'ShipDate' => null, 'Width' => null, 'Length' => null, 'Height' => null, 'Girth' => null, 'Value' => null, 'AmountToCollect' => null, 'SpecialServices' => null];
+        $expected = $this->defaultArray + ['Content' => ['ContentType' => 'HAZMAT', 'ContentDescription' => null]];
         $this->assertEquals($expected, $result);
     }
     
@@ -101,7 +101,7 @@ class PackageTest extends TestCase
         $specialServices = new SpecialServices([SpecialServices::INSURANCE]);
         $this->package->addSpecialServices($specialServices);
         $result = $this->package->toArray();
-        $expected = $this->defaultArray + ['Content' => null, 'GroundOnly' => null, 'SortBy' => null, 'ReturnLocations' => null, 'ReturnServiceInfo' => null, 'DropOffTime' => null, 'ShipDate' => null, 'Width' => null, 'Length' => null, 'Height' => null, 'Girth' => null, 'Value' => null, 'AmountToCollect' => null, 'SpecialServices' => [['SpecialService' => SpecialServices::INSURANCE]]];
+        $expected = $this->defaultArray + ['SpecialServices' => [['SpecialService' => SpecialServices::INSURANCE]]];
         $this->assertEquals($expected, $result);
     }
     
@@ -174,7 +174,7 @@ class PackageTest extends TestCase
         $result = $this->package->toArray();
         $this->defaultArray['@ID'] = 123;
         unset($this->defaultArray['ID']);
-        $expected = $this->defaultArray + ['Width' => null, 'Length' => null, 'Height' => null, 'Girth' => null, 'Value' => null, 'AmountToCollect' => null, 'SpecialServices' => null, 'Content' => null, 'GroundOnly' => null, 'SortBy' => null, 'ReturnLocations' => null, 'ReturnServiceInfo' => null, 'DropOffTime' => null, 'ShipDate' => null];
+        $expected = $this->defaultArray;
         $this->assertEquals($expected, $result);
     }
 }

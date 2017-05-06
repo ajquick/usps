@@ -19,16 +19,60 @@
  *  unless prior written permission is obtained.
  */
 
-namespace Multidimensional\Usps;
+namespace Multidimensional\USPS;
+
+use Multidimensional\USPS\IntlRate\Package;
 
 class IntlRate extends USPS
 {
-    protected $apiClass = 'IntlRateV2';
-    protected $apiMethod = '';
-
     protected $packages = [];
 
     public $revision = 2;
+
+    const FIELDS = [
+        'IntlRateV2Request' => [
+            'type' => 'array',
+            'fields' => [
+                '@USERID' => [
+                    'type' => 'string',
+                    'required' => true
+                ],
+                'Revision' => [
+                    'type' => 'integer',
+                    'values' => [2]
+                ],
+                'Package' => [
+                    'type' => 'group',
+                    'fields' => Package::FIELDS
+                ]
+            ]
+        ]
+    ];
+
+    const RESPONSE = [];
+
+    const ERROR_RESPONSE = [
+        'Error' => [
+            'type' => 'array',
+            'fields' => [
+                'Number' => [
+                    'type' => 'string'
+                ],
+                'Source' => [
+                    'type' => 'string'
+                ],
+                'Description' => [
+                    'type' => 'string'
+                ],
+                'HelpFile' => [
+                    'type' => 'string'
+                ],
+                'HelpContext' => [
+                    'type' => 'string'
+                ],
+            ]
+        ]
+    ];
 
     public function __construct(array $config = [])
     {
@@ -36,6 +80,9 @@ class IntlRate extends USPS
         if (isset($config['revision'])) {
             $this->setRevision($config['revision']);
         }
+
+        $this->apiClass = 'IntlRateV2';
+        $this->apiMethod = '';
     }
 
     public function getRate()

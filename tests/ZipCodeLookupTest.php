@@ -19,12 +19,72 @@
  *  unless prior written permission is obtained.
  */
 
-namespace Multidimensional\Usps\Test;
+namespace Multidimensional\USPS\Test;
 
-use Multidimensional\Usps\ZipCodeLookup;
+use Multidimensional\USPS\Address;
+use Multidimensional\USPS\Exception\ZipCodeLookupException;
+use Multidimensional\USPS\ZipCodeLookup;
 use PHPUnit\Framework\TestCase;
 
 class ZipCodeLookupTest extends TestCase
 {
+    private $address;
 
+    public function setUp()
+    {
+        $defaultAddressArray = [
+            '@ID' => 123,
+            'FirmName' => 'The White House',
+            'Address1' => '1600 Pennsylvania Ave NW',
+            'City' => 'Washington',
+            'State' => 'DC'
+        ];
+        $this->address = new Address($defaultAddressArray);
+    }
+
+    public function tearDown()
+    {
+        unset($this->address);
+    }
+
+    public function testConstructor()
+    {
+        $zipCodeLookup = new ZipCodeLookup(['Address' => $this->address]);
+        $result = $zipCodeLookup->toArray();
+        $expected = ['ZipCodeLookupRequest' => ['Address' => [0 => ['@ID' => 123, 'FirmName' => 'The White House', 'Address1' => NULL, 'Address2' => '1600 Pennsylvania Ave NW', 'City' => 'Washington', 'State' => 'DC']]]];
+        $this->assertEquals($expected, $result);
+
+        $zipCodeLookup = new ZipCodeLookup(['Address' => [$this->address, $this->address]]);
+        $result = $zipCodeLookup->toArray();
+        $expected = ['ZipCodeLookupRequest' => ['Address' => [0 => ['@ID' => 123, 'FirmName' => 'The White House', 'Address1' => NULL, 'Address2' => '1600 Pennsylvania Ave NW', 'City' => 'Washington', 'State' => 'DC'], 1 => ['@ID' => 123, 'FirmName' => 'The White House', 'Address1' => NULL, 'Address2' => '1600 Pennsylvania Ave NW', 'City' => 'Washington', 'State' => 'DC']]]];
+        $this->assertEquals($expected, $result);
+    }
+
+    public function testAddAddressFailure()
+    {
+        $zipCodeLookup = new ZipCodeLookup();
+        $zipCodeLookup->addAddress($this->address);
+        $zipCodeLookup->addAddress($this->address);
+        $zipCodeLookup->addAddress($this->address);
+        $zipCodeLookup->addAddress($this->address);
+        $zipCodeLookup->addAddress($this->address);
+        try {
+            $zipCodeLookup->addAddress($this->address);
+        } catch (ZipCodeLookupException $e) {
+            $this->assertEquals('Address not added. You can only have a maximum of 5 addresses included in each look up request.', $e->getMessage());
+        }
+    }
+
+    public function testValidate()
+    {
+        $zipCodeLookup = new ZipCodeLookup(['userID' => $_SERVER['USPS_USERID']]);
+        $zipCodeLookup->addAddress($this->address);
+        try {
+            $result = $zipCodeLookup->lookup();
+            $expected = [123 => ['FirmName' => 'THE WHITE HOUSE', 'Address1' => '1600 PENNSYLVANIA AVE NW', 'Address2' => NULL, 'City' => 'WASHINGTON', 'State' => 'DC', 'Zip5' => '20500', 'Zip4' => '0004']];
+            $this->assertEquals($expected, $result);
+        } catch (ZipCodeLookupException $e) {
+            $this->assertEquals('', $e->getMessage());
+        }
+    }    
 }

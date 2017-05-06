@@ -19,10 +19,10 @@
  *  unless prior written permission is obtained.
  */
 
-namespace Multidimensional\Usps\Test;
+namespace Multidimensional\USPS\Test;
 
-use Multidimensional\Usps\Exception\ZipCodeException;
-use Multidimensional\Usps\ZipCode;
+use Multidimensional\USPS\Exception\ZipCodeException;
+use Multidimensional\USPS\ZipCode;
 use PHPUnit\Framework\TestCase;
 
 class ZipCodeTest extends TestCase

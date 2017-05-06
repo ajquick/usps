@@ -19,15 +19,15 @@
  *  unless prior written permission is obtained.
  */
 
-namespace Multidimensional\Usps\IntlRate;
+namespace Multidimensional\USPS\IntlRate;
 
 use Multidimensional\ArraySanitization\Sanitization;
 use Multidimensional\ArrayValidation\Exception\ValidationException;
 use Multidimensional\ArrayValidation\Validation;
-use Multidimensional\Usps\IntlRate\Exception\PackageException;
-use Multidimensional\Usps\IntlRate\Package\Content;
-use Multidimensional\Usps\IntlRate\Package\ExtraServices;
-use Multidimensional\Usps\IntlRate\Package\GXG;
+use Multidimensional\USPS\IntlRate\Exception\PackageException;
+use Multidimensional\USPS\IntlRate\Package\Content;
+use Multidimensional\USPS\IntlRate\Package\ExtraServices;
+use Multidimensional\USPS\IntlRate\Package\GXG;
 
 class Package
 {
@@ -405,7 +405,15 @@ class Package
         if (is_array($this->gxg) && count($this->gxg)) {
             $array['GXG'] = $this->gxg;
         }
-        
+
+        $array = array_replace(self::FIELDS, $array);
+
+        foreach (self::FIELDS AS $key => $value) {
+            if (is_null($array[$key]) || $array[$key] === null) {
+                unset($array[$key]);
+            }
+        }
+
         try {
             if (is_array($array) && count($array)) {
                 Validation::validate($array, self::FIELDS);
@@ -423,7 +431,7 @@ class Package
      * @param Package\Content $content
      * @return void
      */
-    public function addContent(Package\Content $content)
+    public function addContent(Content $content)
     {
         $this->content = $content->toArray();
     }
@@ -432,7 +440,7 @@ class Package
      * @param Package\ExtraServices $extraServices
      * @return void
      */
-    public function addExtraServices(Package\ExtraServices $extraServices)
+    public function addExtraServices(ExtraServices $extraServices)
     {
         $this->extraServices[] = $extraServices->toArray();
     }
@@ -441,7 +449,7 @@ class Package
      * @param Package\GXG $gxg
      * @return void
      */
-    public function addGXG(Package\GXG $gxg)
+    public function addGXG(GXG $gxg)
     {
         $this->gxg = $gxg->toArray();
     }

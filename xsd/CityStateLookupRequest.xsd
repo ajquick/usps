@@ -26,10 +26,20 @@
           <xs:complexType>
             <xs:sequence>
               <xs:element name="Zip5">
-                <xs:restriction base="xs:string">
-                  <xs:length value="5" />
-                  <xs:pattern value="\d{5}" />
-                </xs:restriction>
+                <xs:simpleType>
+                  <xs:union>
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:pattern value="\d{5}" />
+                      </xs:restriction>
+                    </xs:simpleType>
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:length value="0" />
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:union>
+                </xs:simpleType>
               </xs:element>
             </xs:sequence>
             <xs:attribute name="ID" type="xs:int" use="required" />

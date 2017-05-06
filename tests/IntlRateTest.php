@@ -19,9 +19,9 @@
  *  unless prior written permission is obtained.
  */
 
-namespace Multidimensional\Usps\Test;
+namespace Multidimensional\USPS\Test;
 
-use Multidimensional\Usps\IntlRate;
+use Multidimensional\USPS\IntlRate;
 use PHPUnit\Framework\TestCase;
 
 class IntlRateTest extends TestCase

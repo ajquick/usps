@@ -19,19 +19,19 @@
  *  unless prior written permission is obtained.
  */
 
-namespace Multidimensional\Usps\Rate;
+namespace Multidimensional\USPS\Rate;
 
 use Multidimensional\ArraySanitization\Sanitization;
 use Multidimensional\ArrayValidation\Exception\ValidationException;
 use Multidimensional\ArrayValidation\Validation;
-use Multidimensional\Usps\Rate\Exception\PackageException;
-use Multidimensional\Usps\Rate\Package\Content;
-use Multidimensional\Usps\Rate\Package\SpecialServices;
+use Multidimensional\USPS\Rate\Exception\PackageException;
+use Multidimensional\USPS\Rate\Package\Content;
+use Multidimensional\USPS\Rate\Package\SpecialServices;
 
 class Package
 {
     protected $package = [];
-    protected $content;
+    protected $content = [];
     protected $specialServices = [];
 
     const CONTAINER_VARIABLE = 'VARIABLE';
@@ -468,15 +468,24 @@ class Package
     public function toArray()
     {
         $array = $this->package;
-        
+
         if (is_array($this->content) && count($this->content)) {
             $array['Content'] = $this->content;
         }
-        
+
+
         if (is_array($this->specialServices) && count($this->specialServices)) {
             $array['SpecialServices'] = $this->specialServices;
         }
-        
+
+        $array = array_replace(self::FIELDS, $array);
+
+        foreach (self::FIELDS AS $key => $value) {
+            if (is_null($array[$key]) || $array[$key] === null) {
+                unset($array[$key]);
+            }
+        }
+
         try {
             if (is_array($array) && count($array)) {
                 Validation::validate($array, self::FIELDS);

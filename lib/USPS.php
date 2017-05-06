@@ -19,25 +19,30 @@
  *  unless prior written permission is obtained.
  */
 
-namespace Multidimensional\Usps;
+namespace Multidimensional\USPS;
 
 use GuzzleHttp\Client;
-use GuzzleHttp\Psr7\Request;
+use GuzzleHttp\Exception\ClientException;
 use Multidimensional\DomArray\DOMArray;
-use Multidimensional\Usps\Exception\USPSException;
+use Multidimensional\USPS\Exception\USPSException;
 use Multidimensional\XmlArray\XMLArray;
 
 class USPS
 {
-    const PRODUCTION_URI = 'https://secure.shippingapis.com/ShippingAPI.dll';
-    const TESTING_URI = 'https://secure.shippingapis.com/ShippingAPITest.dll';
+    const SECURE_PRODUCTION_URI = 'https://secure.shippingapis.com/ShippingAPI.dll';
+    const SECURE_TESTING_URI = 'https://secure.shippingapis.com/ShippingAPITest.dll';
+    const PRODUCTION_URI = 'http://production.shippingapis.com/ShippingAPI.dll';
+    const TESTING_URI = 'http://stg-production.shippingapis.com/ShippingAPI.dll';
 
-    protected $userId;
+    protected $userID;
     protected $password;
-    public $domArray;
-    public $testMode = false;
 
-    const apiClasses = [
+    public $testMode = false;
+    public $secureMode = false;
+    public $apiClass;
+    public $apiMethod;
+
+    const API_CLASSES = [
         'CityStateLookup'   => 'CityStateLookupRequest',
         'IntlRateV2'        => 'IntlRateV2Request',
         'RateV4'            => 'RateV4Request',
@@ -46,35 +51,70 @@ class USPS
         'ZipCodeLookup'     => 'ZipCodeLookupRequest'
     ];
 
+    const ERROR_RESPONSE = [
+        'Error' => [
+            'type' => 'array',
+            'fields' => [
+                'Number' => [
+                    'type' => 'string'
+                ],
+                'Source' => [
+                    'type' => 'string'
+                ],
+                'Description' => [
+                    'type' => 'string'
+                ],
+                'HelpFile' => [
+                    'type' => 'string'
+                ],
+                'HelpContext' => [
+                    'type' => 'string'
+                ],
+            ]
+        ]
+    ];
+
     /**
      * @param array $config
      */
     public function __construct(array $config = [])
     {
-        if (isset($config['userId'])) {
-            $this->userId = $config['userId'];
+        if (isset($config['userID'])) {
+            $this->setUserID($config['userID']);
         }
         if (isset($config['password'])) {
-            $this->password = $config['password'];
+            $this->setPassword($config['password']);
         }
-
-        $this->domArray = new DOMArray();
     }
 
     /**
-     * @param $userId
-     * @param $password
-     * @return void
+     * @param string $userID
+     * @param string|null $password
      */
-    public function setCredentials($userId, $password = null)
+    public function setCredentials($userID, $password = null)
     {
-        $this->userId = $userId;
+        $this->setUserID($userID);
+        $this->setPassword($password);
+    }
+
+    /**
+     * @param string $userID
+     */
+    public function setUserID($userID)
+    {
+        $this->userID = $userID;
+    }
+
+    /**
+     * @param string $password
+     */
+    public function setPassword($password)
+    {
         $this->password = $password;
     }
 
     /**
      * @param bool $boolean
-     * @return void
      */
     public function setTestMode($boolean = true)
     {
@@ -83,11 +123,18 @@ class USPS
 
     /**
      * @param bool $boolean
-     * @return void
      */
-    public function setProductionMode($boolean = true)
+    public function setProductionMode()
     {
-        $this->testMode = (bool) !$boolean;
+        $this->setTestMode(false);
+    }
+
+    /**
+     * @param bool $boolean
+     */
+    public function setSecureMode($boolean = true)
+    {
+        $this->secureMode = (bool) $boolean;
     }
 
     /**
@@ -95,26 +142,32 @@ class USPS
      * @return string
      * @throws USPSException
      */
-    public function request($xml)
+    protected function request($xml)
     {
-
-        if (self::apiClasses[$this->apiClass] !== null || array_key_exists($this->apiClass, self::apiClasses)) {
+        if (isset($this->apiClass) && (self::API_CLASSES[$this->apiClass] || array_key_exists($this->apiClass, self::API_CLASSES))) {
         } else {
             throw new USPSException('Invalid API Class.');
         }
 
-        $client = new Client();
-
-        if ($this->testMode === true) {
-            $requestUri = self::TESTING_URI . '?API=' . $this->apiClass;
+        if ($this->testMode === true && $this->secureMode === true) {
+            $baseUri = self::SECURE_TESTING_URI;
+        } elseif ($this->secureMode === true) {
+            $baseUri = self::SECURE_PRODUCTION_URI;
+        } elseif ($this->testMode === true) {
+            $baseUri = self::TESTING_URI;
         } else {
-            $requestUri = self::PRODUCTION_URI . '?API=' . $this->apiClass;
+            $baseUri = self::PRODUCTION_URI;
         }
 
-        $request = new Request('POST', $requestUri, ['Content-Type' => 'text/xml; charset=UTF8'], $xml);
-        $response = $client->send($request);
-
-        return $response->xml();
+        try {
+            $client = new Client(['base_uri' => $baseUri]);
+            $requestUri = '?API=' . urlencode($this->apiClass);
+            $requestUri .= '&XML=' . urlencode($xml);
+            $response = $client->request('GET', $requestUri);
+            return $response->getBody();
+        } catch (ClientException $e) {
+            throw new USPSException($e->getMessage());
+        }
     }
 
     /**
@@ -123,18 +176,18 @@ class USPS
      */
     protected function buildXML($array)
     {
-        if ($this->userId) {
-            /** @noinspection PhpUndefinedFieldInspection */
-            $array[$this->apiMethod]['@USERID'] = $this->userId;
+        if ($this->userID) {
+            $array[$this->apiMethod]['@USERID'] = $this->userID;
         }
-        $this->domArray->loadArray($array);
-        $this->domArray->formatOutput = true;
-        return $this->domArray->saveXML();
+        $dom = new DOMArray('1.0', 'UTF-8');
+        $dom->loadArray($array);
+        $dom->formatOutput = true;
+        return $dom->saveXML();
     }
 
     /**
      * @param string $xml
-     * @return bool
+     * @return true
      * @throws USPSException
      */
     protected function validateXML($xml)
@@ -153,7 +206,16 @@ class USPS
             $error = libxml_get_errors();
             libxml_clear_errors();
 
-            throw new USPSException($error->code . ': ' . trim($error->message));
+            throw new USPSException($error->message);
         }
+    }
+
+    /**
+     * @param string $result
+     * @return array
+     */
+    protected function parseResult($result)
+    {
+        return XMLArray::generateArray($result);
     }
 }

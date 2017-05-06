@@ -19,9 +19,10 @@
  *  unless prior written permission is obtained.
  */
 
-namespace Multidimensional\Usps\Test;
+namespace Multidimensional\USPS\Test;
 
-use Multidimensional\Usps\USPS;
+use Multidimensional\USPS\Exception\USPSException;
+use Multidimensional\USPS\USPS;
 use PHPUnit\Framework\TestCase;
 
 class USPSTest extends TestCase
@@ -43,16 +44,30 @@ class USPSTest extends TestCase
         $this->assertFalse($this->usps->testMode);
         $this->usps->setTestMode(true);
         $this->assertTrue($this->usps->testMode);
+        $this->usps->setProductionMode();
+        $this->assertFalse($this->usps->testMode);
+        $this->usps->setTestMode();
+        $this->assertTrue($this->usps->testMode);
         $this->usps->setTestMode(false);
         $this->assertFalse($this->usps->testMode);
     }
-    
-    public function testSetProductionMode()
+
+    public function testSetSecureMode()
     {
-        $this->assertFalse($this->usps->testMode);
-        $this->usps->setProductionMode(true);
-        $this->assertFalse($this->usps->testMode);
-        $this->usps->setProductionMode(false);
-        $this->assertTrue($this->usps->testMode);
+        $this->assertFalse($this->usps->secureMode);
+        $this->usps->setSecureMode(true);
+        $this->assertTrue($this->usps->secureMode);
+        $this->usps->setSecureMode(false);
+        $this->assertFalse($this->usps->secureMode);
+    }
+
+    public function testSetCredentials()
+    {
+        unset($this->usps);
+        $this->usps = new USPS(['userID' => 'USERID123', 'password' => '123']);
+        $this->usps->setCredentials('USERID456', '456');
+        $this->usps->setUserID('USERID789');
+        $this->usps->setPassword('789');
+        $this->assertTrue(true);
     }
 }

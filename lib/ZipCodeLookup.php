@@ -19,43 +19,204 @@
  *  unless prior written permission is obtained.
  */
 
-namespace Multidimensional\Usps;
+namespace Multidimensional\USPS;
 
-use Multidimensional\Usps\ZipCode;
+use Multidimensional\ArraySanitization\Sanitization;
+use Multidimensional\ArrayValidation\Exception\ValidationException;
+use Multidimensional\ArrayValidation\Validation;
+use Multidimensional\USPS\Exception\ZipCodeLookupException;
 
 class ZipCodeLookup extends USPS
 {
-/**
- * @var string
- */
-    protected $apiClass = 'ZipCodeLookup';
-
     protected $addresses = [];
+
+    const FIELDS = [
+        'ZipCodeLookupRequest' => [
+            'type' => 'array',
+            'fields' => [
+                'Address' => [
+                    'type' => 'group',
+                    'fields' => Address::FIELDS
+                ]
+            ]
+        ]
+    ];
+
+    const RESPONSE = [
+        'ZipCodeLookupResponse' => [
+            'type' => 'array',
+            'fields' => [
+                'Address' => [
+                    'type' => 'group',
+                    'fields' => [
+                        '@ID' => [
+                            'type' => 'integer'
+                        ],
+                        'FirmName' => [
+                            'type' => 'string'
+                        ],
+                        'Address1' => [
+                            'type' => 'string'
+                        ],
+                        'Address2' => [
+                            'type' => 'string'
+                        ],
+                        'City' => [
+                            'type' => 'string'
+                        ],
+                        'State' => [
+                            'type' => 'string',
+                            'pattern' => '[A-Z]{2}'
+                        ],
+                        'Zip5' => [
+                            'type' => 'string',
+                            'pattern' => '\d{5}'
+                        ],
+                        'Zip4' => [
+                            'type' => 'string',
+                            'pattern' => '\d{4}'
+                        ],
+                    ]
+                ]
+            ]
+        ]
+    ];
 
     public function __construct(array $config = [])
     {
         parent::__construct($config);
+
+        if (is_array($config) && isset($config['Address'])) {
+            if (is_array($config['Address'])) {
+                foreach ($config['Address'] as $addressObject) {
+                    if(is_object($addressObject) && $addressObject instanceof Address) {
+                        $this->addAddress($addressObject);
+                    }
+                }
+            } elseif(is_object($config['Address']) && $config['Address'] instanceof Address) {
+                $this->addAddress($config['Address']);
+            }
+        }
+
+        $this->apiClass = 'ZipCodeLookup';
+        $this->apiMethod = 'ZipCodeLookupRequest';
     }
 
-/**
- * @param Address $address
- * @return true|false
- */
+    /**
+     * @param Address $address
+     * @throws ZipCodeLookupException
+     */
     public function addAddress(Address $address)
     {
         if (count($this->addresses) < 5) {
-            $this->addresses[] = $address->toArray();
-            return true;
+            $address = $address->toArray();
+            unset($address['Urbanization']);
+            unset($address['Zip5']);
+            unset($address['Zip4']);
+            $this->addresses[] = $address;
         } else {
-            return false;
+            throw new ZipCodeLookupException('Address not added. You can only have a maximum of 5 addresses included in each look up request.');
         }
     }
 
-/**
- * @return array
- */
+    /**
+     * @return array
+     */
     public function toArray()
     {
-        return $this->addresses;
+        $array = [];
+
+        if (is_array($this->addresses) && count($this->addresses)) {
+            $array['ZipCodeLookupRequest']['Address'] = $this->addresses;
+        }
+
+        try {
+            if (is_array($array) && count($array)) {
+                Validation::validate($array, self::FIELDS);
+            } else {
+                return null;
+            }
+        } catch (ValidationException $e) {
+            throw new ZipCodeLookupException($e->getMessage());
+        }
+
+        return $array;
+    }
+
+    /**
+     * @return array
+     * @throws ZipCodeLookupException
+     */
+    public function lookup()
+    {
+        try {
+            $xml = $this->buildXML($this->toArray());
+            if ($this->validateXML($xml)) {
+                $result = $this->request($xml);
+                return $this->parseResult($result);
+            } else {
+                throw new ZipCodeLookupException('Unable to validate XML.');
+            }
+        } catch (ValidationException $e) {
+            throw new ZipCodeLookupException($e->getMessage());
+        }
+    }
+
+    /**
+     * @param string $result
+     * @return array
+     */
+    protected function parseResult($result)
+    {
+        $array = parent::parseResult($result);
+        $array = Sanitization::sanitize($array, self::RESPONSE);
+
+        try {
+            if (is_array($array) && count($array)) {
+                Validation::validate($array, self::RESPONSE);
+            } else {
+                return null;
+            }
+        } catch (ValidationException $e) {
+            throw new ZipCodeLookupException($e->getMessage());
+        }
+
+        $array = $array['ZipCodeLookupResponse'];
+
+        if (is_array($array) && count($array) && (isset($array['Address']) || array_key_exists('Address', $array) )) {
+
+            $array = $array['Address'];
+
+            foreach ($array AS $key => $value) {
+                if (is_int($key)) {
+                    list($array[$key]['Address2'], $array[$key]['Address1']) = [isset($value['Address1']) ? $value['Address1'] : null, isset($value['Address2']) ? $value['Address2'] : null];
+                } else {
+                    list($array['Address2'], $array['Address1']) = [isset($array['Address1']) ? $array['Address1'] : null, isset($array['Address2']) ? $array['Address2'] : null];
+                    break;
+                }
+            }
+
+            foreach ($array AS $key => $value) {
+                if (is_int($key)) {
+                    $array[$value['@ID']] = $value;
+                    unset($array[$key]);
+                } else {
+                    $array2[$array['@ID']] = $array;
+                    $array = $array2;
+                    break;
+                }
+            }
+
+            foreach ($array AS $key => $value) {
+                $array[$key] += array_combine(array_keys(self::RESPONSE['ZipCodeLookupResponse']['fields']['Address']['fields']), array_fill(0, count(self::RESPONSE['ZipCodeLookupResponse']['fields']['Address']['fields']), null));
+                $array[$key] = array_replace(self::RESPONSE['ZipCodeLookupResponse']['fields']['Address']['fields'], $array[$key]);
+                unset($array[$key]['@ID']);
+            }
+
+            return $array;
+
+        } else {
+            throw new ZipCodeLookupException();
+        }
     }
 }

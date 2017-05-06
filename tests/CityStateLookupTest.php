@@ -19,12 +19,81 @@
  *  unless prior written permission is obtained.
  */
 
-namespace Multidimensional\Usps\Test;
+namespace Multidimensional\USPS\Test;
 
-use Multidimensional\Usps\CityStateLookup;
+use Multidimensional\USPS\CityStateLookup;
+use Multidimensional\USPS\Exception\CityStateLookupException;
+use Multidimensional\USPS\ZipCode;
 use PHPUnit\Framework\TestCase;
 
 class CityStateLookupTest extends TestCase
 {
+    private $zipCode;
+
+    public function setUp()
+    {
+        $this->zipCode = new ZipCode(['ID' => 123, 'Zip5' => 20500]);
+    }
+
+    public function tearDown()
+    {
+        unset($this->zipCode);
+    }
+
+    public function testConstructor()
+    {
+        $cityStateLookup = new CityStateLookup(['ZipCode' => $this->zipCode]);
+        $result = $cityStateLookup->toArray();
+        $expected = ['CityStateLookupRequest' => ['ZipCode' => [0 => ['@ID' => 123, 'Zip5' => 20500]]]];
+        $this->assertEquals($expected, $result);
+
+        $cityStateLookup = new CityStateLookup(['ZipCode' => [$this->zipCode, $this->zipCode]]);
+        $result = $cityStateLookup->toArray();
+        $expected = ['CityStateLookupRequest' => ['ZipCode' => [0 => ['@ID' => 123, 'Zip5' => 20500], 1 => ['@ID' => 123, 'Zip5' => 20500]]]];
+        $this->assertEquals($expected, $result);
+    }
+
+    public function testAddZipCodeFailure()
+    {
+        $cityStateLookup = new CityStateLookup();
+        $cityStateLookup->addZipCode($this->zipCode);
+        $cityStateLookup->addZipCode($this->zipCode);
+        $cityStateLookup->addZipCode($this->zipCode);
+        $cityStateLookup->addZipCode($this->zipCode);
+        $cityStateLookup->addZipCode($this->zipCode);
+        try {
+            $cityStateLookup->addZipCode($this->zipCode);
+        } catch (CityStateLookupException $e) {
+            $this->assertEquals('Zip code not added. You can only have a maximum of 5 zip codes included in each look up request.', $e->getMessage());
+        }
+    }
+
+    public function testValidate()
+    {
+        $cityStateLookup = new CityStateLookup(['userID' => $_SERVER['USPS_USERID']]);
+        $cityStateLookup->addZipCode($this->zipCode);
+        try {
+            $result = $cityStateLookup->lookup();
+            $expected = ['123' => ['City' => 'WASHINGTON', 'State' => 'DC', 'Zip5' => '20500']];
+            $this->assertEquals($expected, $result);
+        } catch (CityStateLookupException $e) {
+            $this->assertEquals('', $e->getMessage());
+        }
+    }
+
+    public function testValidateMultiple()
+    {
+        $cityStateLookup = new CityStateLookup(['userID' => $_SERVER['USPS_USERID']]);
+        $cityStateLookup->addZipCode($this->zipCode);
+        $this->zipCode->setID(456);
+        $cityStateLookup->addZipCode($this->zipCode);
+        try {
+            $result = $cityStateLookup->lookup();
+            $expected = ['123' => ['City' => 'WASHINGTON', 'State' => 'DC', 'Zip5' => '20500'], '456' => ['City' => 'WASHINGTON', 'State' => 'DC', 'Zip5' => '20500']];
+            $this->assertEquals($expected, $result);
+        } catch (CityStateLookupException $e) {
+            $this->assertEquals('', $e->getMessage());
+        }
+    }
 
 }

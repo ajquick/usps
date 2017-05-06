@@ -19,7 +19,7 @@
  *  unless prior written permission is obtained.
  */
 
-namespace Multidimensional\Usps\Exception;
+namespace Multidimensional\USPS\Exception;
 
 class ZipCodeException extends \Exception
 {

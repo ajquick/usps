@@ -45,7 +45,7 @@ Both methods can be used, and address objects can be updated or overridden on th
 ### AddressValidate Example
 
 ```php
-use Multidimensional\Usps;
+use Multidimensional\USPS;
 
 $address = new Address([
     '@ID' => 1,
