@@ -20,12 +20,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Multidimensional\\Usps\\": "lib"
+            "Multidimensional\\USPS\\": "lib"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Multidimensional\\Usps\\Test\\": "tests"
+            "Multidimensional\\USPS\\Test\\": "tests"
         }
     }
 }
