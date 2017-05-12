@@ -6,9 +6,9 @@
  *   / /  / / /_/ / / /_/ / /_/ / / / / / / /  __/ / / (__  ) / /_/ / / / // /_/ / /
  *  /_/  /_/\__,_/_/\__/_/\__,_/_/_/ /_/ /_/\___/_/ /_/____/_/\____/_/ /_(_)__,_/_/
  *
- *  @author Multidimension.al
- *  @copyright Copyright © 2016-2017 Multidimension.al - All Rights Reserved
- *  @license Proprietary and Confidential
+ * @author Multidimension.al
+ * @copyright Copyright © 2016-2017 Multidimension.al - All Rights Reserved
+ * @license Proprietary and Confidential
  *
  *  NOTICE:  All information contained herein is, and remains the property of
  *  Multidimension.al and its suppliers, if any.  The intellectual and
@@ -21,20 +21,16 @@
 
 namespace Multidimensional\USPS\IntlRate\Package;
 
+use Exception;
 use Multidimensional\ArraySanitization\Sanitization;
-use Multidimensional\ArrayValidation\Exception\ValidationException;
 use Multidimensional\ArrayValidation\Validation;
-use \Exception;
 
 class GXG
 {
-    protected $gxg = [];
-    
     const POBOXFLAG_YES = 'Y';
     const POBOXFLAG_NO = 'N';
     const GIFTFLAG_YES = 'Y';
     const GIFTFLAG_NO = 'N';
-
     const FIELDS = [
         'POBoxFlag' => [
             'type' => 'string',
@@ -53,6 +49,7 @@ class GXG
             ]
         ]
     ];
+    protected $gxg = [];
 
     public function __construct(array $config = [])
     {
@@ -61,19 +58,19 @@ class GXG
                 $this->setField($key, $value);
             }
         }
-        
+
         $this->gxg += array_combine(array_keys(self::FIELDS), array_fill(0, count(self::FIELDS), null));
-        
+
         return;
     }
-    
+
     public function setField($key, $value)
     {
         if (in_array($key, array_keys(self::FIELDS))) {
             $value = Sanitization::sanitizeField($value, self::FIELDS[$key]);
             $this->gxg[$key] = $value;
         }
-        
+
         return;
     }
 
@@ -89,7 +86,7 @@ class GXG
             } else {
                 return null;
             }
-        } catch (ValidationException $e) {
+        } catch (Exception $e) {
             throw $e;
         }
 

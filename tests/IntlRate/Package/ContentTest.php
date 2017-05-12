@@ -6,9 +6,9 @@
  *   / /  / / /_/ / / /_/ / /_/ / / / / / / /  __/ / / (__  ) / /_/ / / / // /_/ / /
  *  /_/  /_/\__,_/_/\__/_/\__,_/_/_/ /_/ /_/\___/_/ /_/____/_/\____/_/ /_(_)__,_/_/
  *
- *  @author Multidimension.al
- *  @copyright Copyright © 2016-2017 Multidimension.al - All Rights Reserved
- *  @license Proprietary and Confidential
+ * @author Multidimension.al
+ * @copyright Copyright © 2016-2017 Multidimension.al - All Rights Reserved
+ * @license Proprietary and Confidential
  *
  *  NOTICE:  All information contained herein is, and remains the property of
  *  Multidimension.al and its suppliers, if any.  The intellectual and
@@ -21,14 +21,14 @@
 
 namespace Multidimensional\USPS\Test\IntlRate\Package;
 
+use Exception;
 use Multidimensional\USPS\IntlRate\Package\Content;
-use \Exception;
 use PHPUnit\Framework\TestCase;
 
 class ContentTest extends TestCase
 {
     public $content;
-    
+
     public function tearDown()
     {
         unset($this->content);
@@ -54,7 +54,7 @@ class ContentTest extends TestCase
         $expected = ['ContentType' => Content::TYPE_DOCUMENTS, 'ContentDescription' => 'This is something.'];
         $this->assertEquals($expected, $result);
     }
-    
+
     public function testFailure()
     {
         $this->content = new Content();
@@ -76,7 +76,7 @@ class ContentTest extends TestCase
             $this->assertEquals('Invalid value "Not a valid type" for key: ContentType. Did you mean "MedicalSupplies"?', $e->getMessage());
         }
     }
-    
+
     public function testCrematedRemains()
     {
         $this->content = new Content(['ContentType' => Content::TYPE_CREMATED_REMAINS]);
@@ -84,7 +84,7 @@ class ContentTest extends TestCase
         $expected = ['ContentType' => 'CrematedRemains', 'ContentDescription' => null];
         $this->assertEquals($expected, $result);
     }
-    
+
     public function testNonnegotiableDocument()
     {
         $this->content = new Content(['ContentType' => Content::TYPE_NONNEGOTIABLE_DOCUMENT]);
@@ -92,7 +92,7 @@ class ContentTest extends TestCase
         $expected = ['ContentType' => 'NonnegotiableDocument', 'ContentDescription' => null];
         $this->assertEquals($expected, $result);
     }
-    
+
     public function testPharmaceuticals()
     {
         $this->content = new Content(['ContentType' => Content::TYPE_PHARMACEUTICALS]);
@@ -100,7 +100,7 @@ class ContentTest extends TestCase
         $expected = ['ContentType' => 'Pharmaceuticals', 'ContentDescription' => null];
         $this->assertEquals($expected, $result);
     }
-    
+
     public function testMedicalSupplies()
     {
         $this->content = new Content(['ContentType' => Content::TYPE_MEDICAL_SUPPLIES]);
@@ -108,7 +108,7 @@ class ContentTest extends TestCase
         $expected = ['ContentType' => 'MedicalSupplies', 'ContentDescription' => null];
         $this->assertEquals($expected, $result);
     }
-    
+
     public function testDocuments()
     {
         $this->content = new Content(['ContentType' => Content::TYPE_DOCUMENTS]);
@@ -116,7 +116,7 @@ class ContentTest extends TestCase
         $expected = ['ContentType' => 'Documents', 'ContentDescription' => null];
         $this->assertEquals($expected, $result);
     }
-    
+
     public function testConstants()
     {
         $this->assertEquals('CrematedRemains', Content::TYPE_CREMATED_REMAINS);

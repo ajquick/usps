@@ -6,9 +6,9 @@
  *   / /  / / /_/ / / /_/ / /_/ / / / / / / /  __/ / / (__  ) / /_/ / / / // /_/ / /
  *  /_/  /_/\__,_/_/\__/_/\__,_/_/_/ /_/ /_/\___/_/ /_/____/_/\____/_/ /_(_)__,_/_/
  *
- *  @author Multidimension.al
- *  @copyright Copyright © 2016-2017 Multidimension.al - All Rights Reserved
- *  @license Proprietary and Confidential
+ * @author Multidimension.al
+ * @copyright Copyright © 2016-2017 Multidimension.al - All Rights Reserved
+ * @license Proprietary and Confidential
  *
  *  NOTICE:  All information contained herein is, and remains the property of
  *  Multidimension.al and its suppliers, if any.  The intellectual and
@@ -21,33 +21,26 @@
 
 namespace Multidimensional\USPS\IntlRate;
 
+use Exception;
 use Multidimensional\ArraySanitization\Sanitization;
-use Multidimensional\ArrayValidation\Exception\ValidationException;
 use Multidimensional\ArrayValidation\Validation;
-use \Exception;
 use Multidimensional\USPS\IntlRate\Package\Content;
 use Multidimensional\USPS\IntlRate\Package\ExtraServices;
 use Multidimensional\USPS\IntlRate\Package\GXG;
 
 class Package
 {
-    protected $package = [];
-    protected $content;
-    protected $extraServices = [];
-    protected $gxg;
-    
     const CONTAINER_RECTANGULAR = 'RECTANGULAR';
-    const CONTAINER_NONRECTANGULAR  = 'NONRECTANGULAR';
+    const CONTAINER_NONRECTANGULAR = 'NONRECTANGULAR';
     const MAIL_TYPE_ALL = 'ALL';
     const MAIL_TYPE_PACKAGE = 'PACKAGE';
-    const MAIL_TYPE_POSTCARDS   = 'POSTCARDS';
+    const MAIL_TYPE_POSTCARDS = 'POSTCARDS';
     const MAIL_TYPE_ENVELOPE = 'ENVELOPE';
-    const MAIL_TYPE_LETTER  = 'LETTER';
-    const MAIL_TYPE_LARGEENVELOPE   = 'LARGEENVELOPE';
+    const MAIL_TYPE_LETTER = 'LETTER';
+    const MAIL_TYPE_LARGEENVELOPE = 'LARGEENVELOPE';
     const MAIL_TYPE_FLATRATE = 'FLATRATE';
     const SIZE_LARGE = 'LARGE';
-    const SIZE_REGULAR  = 'REGULAR';
-
+    const SIZE_REGULAR = 'REGULAR';
     const FIELDS = [
         '@ID' => [
             'type' => 'string'
@@ -160,6 +153,10 @@ class Package
             'fields' => Content::FIELDS
         ]
     ];
+    protected $package = [];
+    protected $content;
+    protected $extraServices = [];
+    protected $gxg;
 
     public function __construct(array $config = [])
     {
@@ -172,19 +169,19 @@ class Package
                 $this->setField($key, $value);
             }
         }
-        
+
         $this->package += array_combine(array_keys(self::FIELDS), array_fill(0, count(self::FIELDS), null));
 
         return;
     }
-    
+
     public function setField($key, $value)
     {
         if (in_array($key, array_keys(self::FIELDS))) {
             $value = Sanitization::sanitizeField($value, self::FIELDS[$key]);
             $this->package[$key] = $value;
         }
-        
+
         return;
     }
 
@@ -198,7 +195,7 @@ class Package
 
         return;
     }
-    
+
     /**
      * @param string $value
      * @return void
@@ -209,7 +206,7 @@ class Package
 
         return;
     }
-    
+
     /**
      * @param string $value
      * @return void
@@ -220,7 +217,7 @@ class Package
 
         return;
     }
-    
+
     /**
      * @param string $value
      * @return void
@@ -231,7 +228,7 @@ class Package
 
         return;
     }
-    
+
     /**
      * @param string $value
      * @return void
@@ -242,7 +239,7 @@ class Package
 
         return;
     }
-    
+
     /**
      * @param string $value
      * @return void
@@ -253,7 +250,7 @@ class Package
 
         return;
     }
-    
+
     /**
      * @param string $value
      * @return void
@@ -264,7 +261,7 @@ class Package
 
         return;
     }
-    
+
     /**
      * @param string $value
      * @return void
@@ -275,7 +272,7 @@ class Package
 
         return;
     }
-    
+
     /**
      * @param string $value
      * @return void
@@ -286,7 +283,7 @@ class Package
 
         return;
     }
-    
+
     /**
      * @param string $value
      * @return void
@@ -297,7 +294,7 @@ class Package
 
         return;
     }
-    
+
     /**
      * @param string $value
      * @return void
@@ -308,7 +305,7 @@ class Package
 
         return;
     }
-    
+
     /**
      * @param string $value
      * @return void
@@ -319,7 +316,7 @@ class Package
 
         return;
     }
-    
+
     /**
      * @param string $value
      * @return void
@@ -330,7 +327,7 @@ class Package
 
         return;
     }
-    
+
     /**
      * @param string $value
      * @return void
@@ -341,7 +338,7 @@ class Package
 
         return;
     }
-    
+
     /**
      * @param string $value
      * @return void
@@ -352,7 +349,7 @@ class Package
 
         return;
     }
-    
+
     /**
      * @param string $value
      * @return void
@@ -363,7 +360,7 @@ class Package
 
         return;
     }
-    
+
     /**
      * @param string $value
      * @return void
@@ -374,7 +371,7 @@ class Package
 
         return;
     }
-    
+
     /**
      * @param string $value
      * @return void
@@ -393,15 +390,15 @@ class Package
     public function toArray()
     {
         $array = $this->package;
-        
+
         if (is_array($this->content) && count($this->content)) {
             $array['Content'] = $this->content;
         }
-        
+
         if (is_array($this->extraServices) && count($this->extraServices)) {
             $array['ExtraServices'] = $this->extraServices;
         }
-        
+
         if (is_array($this->gxg) && count($this->gxg)) {
             $array['GXG'] = $this->gxg;
         }
@@ -420,13 +417,13 @@ class Package
             } else {
                 return null;
             }
-        } catch (ValidationException $e) {
+        } catch (Exception $e) {
             throw $e;
         }
 
         return $array;
     }
-    
+
     /**
      * @param Package\Content $content
      * @return void
@@ -435,7 +432,7 @@ class Package
     {
         $this->content = $content->toArray();
     }
-    
+
     /**
      * @param Package\ExtraServices $extraServices
      * @return void
@@ -444,7 +441,7 @@ class Package
     {
         $this->extraServices[] = $extraServices->toArray();
     }
-    
+
     /**
      * @param Package\GXG $gxg
      * @return void

@@ -6,9 +6,9 @@
  *   / /  / / /_/ / / /_/ / /_/ / / / / / / /  __/ / / (__  ) / /_/ / / / // /_/ / /
  *  /_/  /_/\__,_/_/\__/_/\__,_/_/_/ /_/ /_/\___/_/ /_/____/_/\____/_/ /_(_)__,_/_/
  *
- *  @author Multidimension.al
- *  @copyright Copyright © 2016-2017 Multidimension.al - All Rights Reserved
- *  @license Proprietary and Confidential
+ * @author Multidimension.al
+ * @copyright Copyright © 2016-2017 Multidimension.al - All Rights Reserved
+ * @license Proprietary and Confidential
  *
  *  NOTICE:  All information contained herein is, and remains the property of
  *  Multidimension.al and its suppliers, if any.  The intellectual and
@@ -21,7 +21,7 @@
 
 namespace Multidimensional\USPS\Test\Rate;
 
-use \Exception;
+use Exception;
 use Multidimensional\USPS\Rate\Package;
 use Multidimensional\USPS\Rate\Package\Content;
 use Multidimensional\USPS\Rate\Package\SpecialServices;
@@ -31,12 +31,12 @@ class PackageTest extends TestCase
 {
     public $package;
     public $defaultArray = [];
-    
+
     public function setUp()
     {
         $this->defaultArray = ['@ID' => '123', 'Service' => 'All', 'FirstClassMailType' => 'PARCEL', 'ZipOrigination' => '20500', 'ZipDestination' => '90210', 'Pounds' => 0, 'Ounces' => 32, 'Container' => 'VARIABLE', 'Size' => 'REGULAR', 'Machinable' => true];
     }
-    
+
     public function tearDown()
     {
         $this->package = null;
@@ -76,7 +76,7 @@ class PackageTest extends TestCase
         $expected = $this->defaultArray + ['Width' => 2, 'Length' => 2, 'Height' => 2, 'Girth' => 10, 'Value' => 100.00, 'AmountToCollect' => 0.00, 'GroundOnly' => false, 'SortBy' => false];
         $this->assertEquals($expected, $result);
     }
-    
+
     public function testDefaultArray()
     {
         $this->package = new Package($this->defaultArray);
@@ -84,7 +84,7 @@ class PackageTest extends TestCase
         $expected = $this->defaultArray;
         $this->assertEquals($expected, $result);
     }
-    
+
     public function testAddContent()
     {
         $this->package = new Package($this->defaultArray);
@@ -94,7 +94,7 @@ class PackageTest extends TestCase
         $expected = $this->defaultArray + ['Content' => ['ContentType' => 'HAZMAT', 'ContentDescription' => null]];
         $this->assertEquals($expected, $result);
     }
-    
+
     public function testAddSpecialServices()
     {
         $this->package = new Package($this->defaultArray);
@@ -104,8 +104,8 @@ class PackageTest extends TestCase
         $expected = $this->defaultArray + ['SpecialServices' => [['SpecialService' => SpecialServices::INSURANCE]]];
         $this->assertEquals($expected, $result);
     }
-    
-    
+
+
     public function testConstants()
     {
         $this->assertEquals('VARIABLE', Package::CONTAINER_VARIABLE);

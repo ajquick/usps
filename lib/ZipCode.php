@@ -6,9 +6,9 @@
  *   / /  / / /_/ / / /_/ / /_/ / / / / / / /  __/ / / (__  ) / /_/ / / / // /_/ / /
  *  /_/  /_/\__,_/_/\__/_/\__,_/_/_/ /_/ /_/\___/_/ /_/____/_/\____/_/ /_(_)__,_/_/
  *
- *  @author Multidimension.al
- *  @copyright Copyright © 2016-2017 Multidimension.al - All Rights Reserved
- *  @license Proprietary and Confidential
+ * @author Multidimension.al
+ * @copyright Copyright © 2016-2017 Multidimension.al - All Rights Reserved
+ * @license Proprietary and Confidential
  *
  *  NOTICE:  All information contained herein is, and remains the property of
  *  Multidimension.al and its suppliers, if any.  The intellectual and
@@ -21,15 +21,12 @@
 
 namespace Multidimensional\USPS;
 
+use Exception;
 use Multidimensional\ArraySanitization\Sanitization;
-use Multidimensional\ArrayValidation\Exception\ValidationException;
 use Multidimensional\ArrayValidation\Validation;
-use \Exception;
 
 class ZipCode
 {
-
-    protected $zipCode = [];
 
     const FIELDS = [
         '@ID' => [
@@ -42,6 +39,7 @@ class ZipCode
             'pattern' => '\d{5}'
         ]
     ];
+    protected $zipCode = [];
 
     /**
      * @param array $config
@@ -61,7 +59,7 @@ class ZipCode
 
         return;
     }
-    
+
     /**
      * @param string $key
      * @param string $value
@@ -73,11 +71,11 @@ class ZipCode
             $value = Sanitization::sanitizeField($value, self::FIELDS[$key]);
             $this->zipCode[$key] = $value;
         }
-        
+
         return;
     }
-    
-    
+
+
     /**
      * @param int $value
      * @return void
@@ -85,10 +83,10 @@ class ZipCode
     public function setID($value)
     {
         $this->setField('@ID', $value);
-        
+
         return;
     }
-    
+
     /**
      * @param string $value
      * @return void
@@ -96,7 +94,7 @@ class ZipCode
     public function setZip5($value)
     {
         $this->setField('Zip5', $value);
-        
+
         return;
     }
 
@@ -112,10 +110,10 @@ class ZipCode
             } else {
                 return null;
             }
-        } catch (ValidationException $e) {
+        } catch (Exception $e) {
             throw $e;
         }
-        
+
         return $this->zipCode;
     }
 }

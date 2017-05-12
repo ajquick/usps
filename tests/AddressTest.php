@@ -6,9 +6,9 @@
  *   / /  / / /_/ / / /_/ / /_/ / / / / / / /  __/ / / (__  ) / /_/ / / / // /_/ / /
  *  /_/  /_/\__,_/_/\__/_/\__,_/_/_/ /_/ /_/\___/_/ /_/____/_/\____/_/ /_(_)__,_/_/
  *
- *  @author Multidimension.al
- *  @copyright Copyright © 2016-2017 Multidimension.al - All Rights Reserved
- *  @license Proprietary and Confidential
+ * @author Multidimension.al
+ * @copyright Copyright © 2016-2017 Multidimension.al - All Rights Reserved
+ * @license Proprietary and Confidential
  *
  *  NOTICE:  All information contained herein is, and remains the property of
  *  Multidimension.al and its suppliers, if any.  The intellectual and
@@ -21,13 +21,13 @@
 
 namespace Multidimensional\USPS\Test;
 
+use Exception;
 use Multidimensional\USPS\Address;
-use \Exception;
 use PHPUnit\Framework\TestCase;
 
 class AddressTest extends TestCase
 {
-    
+
     public function testEmptyAddress()
     {
         $address = new Address();
@@ -38,7 +38,7 @@ class AddressTest extends TestCase
             $this->assertEquals('Required value not found for key: @ID.', $e->getMessage());
         }
     }
-    
+
     public function testShortAddress()
     {
         $address = new Address([
@@ -62,7 +62,7 @@ class AddressTest extends TestCase
             $this->assertEquals('Required value not found for key: Address2.', $e->getMessage());
         }
     }
-    
+
     public function testFullAddress()
     {
         $address = new Address([
@@ -77,7 +77,7 @@ class AddressTest extends TestCase
         $expected = ['@ID' => 123, 'FirmName' => 'XYZ Corp', 'Address1' => null, 'Address2' => '123 Fake St.', 'City' => 'Los Angeles', 'State' => 'NY', 'Urbanization' => null, 'Zip5' => '90210', 'Zip4' => null];
         $this->assertEquals($expected, $result);
     }
-    
+
     public function testSetFields()
     {
         $address = new Address();
@@ -91,7 +91,7 @@ class AddressTest extends TestCase
         $expected = ['@ID' => 123, 'FirmName' => 'XYZ Corp', 'Address1' => null, 'Address2' => '123 Fake St.', 'City' => 'Los Angeles', 'State' => 'NY', 'Urbanization' => null, 'Zip5' => '90210', 'Zip4' => null];
         $this->assertEquals($expected, $result);
     }
-    
+
     public function testManualSetFields()
     {
         $address = new Address();

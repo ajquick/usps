@@ -6,9 +6,9 @@
  *   / /  / / /_/ / / /_/ / /_/ / / / / / / /  __/ / / (__  ) / /_/ / / / // /_/ / /
  *  /_/  /_/\__,_/_/\__/_/\__,_/_/_/ /_/ /_/\___/_/ /_/____/_/\____/_/ /_(_)__,_/_/
  *
- *  @author Multidimension.al
- *  @copyright Copyright © 2016-2017 Multidimension.al - All Rights Reserved
- *  @license Proprietary and Confidential
+ * @author Multidimension.al
+ * @copyright Copyright © 2016-2017 Multidimension.al - All Rights Reserved
+ * @license Proprietary and Confidential
  *
  *  NOTICE:  All information contained herein is, and remains the property of
  *  Multidimension.al and its suppliers, if any.  The intellectual and
@@ -21,18 +21,12 @@
 
 namespace Multidimensional\USPS;
 
+use Exception;
 use Multidimensional\ArraySanitization\Sanitization;
-use Multidimensional\ArrayValidation\Exception\ValidationException;
 use Multidimensional\ArrayValidation\Validation;
-use \Exception;
 
 class Address
 {
-    /**
-     * @var array $address
-     */
-    public $address = [];
-
     /**
      * @var array $fields
      */
@@ -82,6 +76,10 @@ class Address
             'pattern' => '\d{4}'
         ]
     ];
+    /**
+     * @var array $address
+     */
+    public $address = [];
 
     /**
      * @param array $config
@@ -101,7 +99,7 @@ class Address
 
         return;
     }
-    
+
     /**
      * @param string $key
      * @param mixed
@@ -113,7 +111,7 @@ class Address
             $value = Sanitization::sanitizeField($value, self::FIELDS[$key]);
             $this->address[$key] = $value;
         }
-        
+
         return;
     }
 
@@ -132,7 +130,7 @@ class Address
             } else {
                 return null;
             }
-        } catch (ValidationException $e) {
+        } catch (Exception $e) {
             throw $e;
         }
 
@@ -140,7 +138,7 @@ class Address
 
         return $array;
     }
-    
+
     /**
      * @param string $value
      * @return void
@@ -148,7 +146,7 @@ class Address
     public function setID($value)
     {
         $this->setField('@ID', $value);
-        
+
         return;
     }
 
@@ -159,10 +157,10 @@ class Address
     public function setFirmName($value)
     {
         $this->setField('FirmName', $value);
-        
+
         return;
     }
-    
+
     /**
      * @param string $value
      * @return void
@@ -170,10 +168,10 @@ class Address
     public function setAddress1($value)
     {
         $this->setField('Address1', $value);
-        
+
         return;
     }
-    
+
     /**
      * @param string $value
      * @return void
@@ -181,7 +179,7 @@ class Address
     public function setAddress2($value)
     {
         $this->setField('Address2', $value);
-        
+
         return;
     }
 
@@ -192,7 +190,7 @@ class Address
     public function setCity($value)
     {
         $this->setField('City', $value);
-        
+
         return;
     }
 
@@ -203,7 +201,7 @@ class Address
     public function setState($value)
     {
         $this->setField('State', $value);
-        
+
         return;
     }
 
@@ -214,7 +212,7 @@ class Address
     public function setUrbanization($value)
     {
         $this->setField('Urbanization', $value);
-        
+
         return;
     }
 
@@ -225,7 +223,7 @@ class Address
     public function setZip5($value)
     {
         $this->setField('Zip5', $value);
-        
+
         return;
     }
 
@@ -236,7 +234,7 @@ class Address
     public function setZip4($value)
     {
         $this->setField('Zip4', $value);
-        
+
         return;
     }
 }

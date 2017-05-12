@@ -6,9 +6,9 @@
  *   / /  / / /_/ / / /_/ / /_/ / / / / / / /  __/ / / (__  ) / /_/ / / / // /_/ / /
  *  /_/  /_/\__,_/_/\__/_/\__,_/_/_/ /_/ /_/\___/_/ /_/____/_/\____/_/ /_(_)__,_/_/
  *
- *  @author Multidimension.al
- *  @copyright Copyright © 2016-2017 Multidimension.al - All Rights Reserved
- *  @license Proprietary and Confidential
+ * @author Multidimension.al
+ * @copyright Copyright © 2016-2017 Multidimension.al - All Rights Reserved
+ * @license Proprietary and Confidential
  *
  *  NOTICE:  All information contained herein is, and remains the property of
  *  Multidimension.al and its suppliers, if any.  The intellectual and
@@ -21,7 +21,7 @@
 
 namespace Multidimensional\USPS\Test;
 
-use \Exception;
+use Exception;
 use Multidimensional\USPS\Track;
 use PHPUnit\Framework\TestCase;
 
@@ -96,10 +96,10 @@ class TrackTest extends TestCase
         $track->addTrackingNumber($this->trackingNumber3);
         $track->addTrackingNumber($this->trackingNumber2 . '1');
         $track->addTrackingNumber($this->trackingNumber3 . '2');
-        $track->addTrackingNumber($this->trackingNumber  . '3');
+        $track->addTrackingNumber($this->trackingNumber . '3');
         $track->addTrackingNumber($this->trackingNumber2 . '4');
         $track->addTrackingNumber($this->trackingNumber3 . '5');
-        $track->addTrackingNumber($this->trackingNumber  . '6');
+        $track->addTrackingNumber($this->trackingNumber . '6');
         $track->addTrackingNumber($this->trackingNumber2 . '7');
         try {
             $track->addTrackingNumber($this->trackingNumber3 . '8');
@@ -114,7 +114,7 @@ class TrackTest extends TestCase
         $method = self::getMethod('parseResult');
         $track = new Track();
         $result = $method->invokeArgs($track, [$xml]);
-        $expected = ['XXXXXXXXXXXX1' => ['TrackSummary' => 'Your item was delivered at 6:50 am on February 6 in BARTOW FL 33830.', 'TrackDetail' => [0 => 'February 6 6:49 am NOTICE LEFT BARTOW FL 33830',1 => 'February 6 6:48 am ARRIVAL AT UNIT BARTOW FL 33830',2 => 'February 6 3:49 am ARRIVAL AT UNIT LAKELAND FL 33805',3 => 'February 5 7:28 pm ENROUTE 33699',4 => 'February 5 7:18 pm ACCEPT OR PICKUP 33699']], 'XXXXXXXXXXXX2' => ['TrackSummary' => 'There is no record of that mail item. If it was mailed recently, It may not yet be tracked. Please try again later. ', 'TrackDetail' => null], 'XXXXXXXXXXXX3' => ['TrackSummary' => ' That&#39;s not a valid number. Please check to make sure you entered it correctly.', 'TrackDetail' => null]];
+        $expected = ['XXXXXXXXXXXX1' => ['TrackSummary' => 'Your item was delivered at 6:50 am on February 6 in BARTOW FL 33830.', 'TrackDetail' => [0 => 'February 6 6:49 am NOTICE LEFT BARTOW FL 33830', 1 => 'February 6 6:48 am ARRIVAL AT UNIT BARTOW FL 33830', 2 => 'February 6 3:49 am ARRIVAL AT UNIT LAKELAND FL 33805', 3 => 'February 5 7:28 pm ENROUTE 33699', 4 => 'February 5 7:18 pm ACCEPT OR PICKUP 33699']], 'XXXXXXXXXXXX2' => ['TrackSummary' => 'There is no record of that mail item. If it was mailed recently, It may not yet be tracked. Please try again later. ', 'TrackDetail' => null], 'XXXXXXXXXXXX3' => ['TrackSummary' => ' That&#39;s not a valid number. Please check to make sure you entered it correctly.', 'TrackDetail' => null]];
         $this->assertEquals($expected, $result);
     }
 

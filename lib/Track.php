@@ -6,9 +6,9 @@
  *   / /  / / /_/ / / /_/ / /_/ / / / / / / /  __/ / / (__  ) / /_/ / / / // /_/ / /
  *  /_/  /_/\__,_/_/\__/_/\__,_/_/_/ /_/ /_/\___/_/ /_/____/_/\____/_/ /_(_)__,_/_/
  *
- *  @author Multidimension.al
- *  @copyright Copyright © 2016-2017 Multidimension.al - All Rights Reserved
- *  @license Proprietary and Confidential
+ * @author Multidimension.al
+ * @copyright Copyright © 2016-2017 Multidimension.al - All Rights Reserved
+ * @license Proprietary and Confidential
  *
  *  NOTICE:  All information contained herein is, and remains the property of
  *  Multidimension.al and its suppliers, if any.  The intellectual and
@@ -21,15 +21,12 @@
 
 namespace Multidimensional\USPS;
 
-use \Exception;
+use Exception;
 use Multidimensional\ArraySanitization\Sanitization;
-use Multidimensional\ArrayValidation\Exception\ValidationException;
 use Multidimensional\ArrayValidation\Validation;
 
 class Track extends USPS
 {
-    protected $trackingNumbers = [];
-
     const FIELDS = [
         'TrackRequest' => [
             'type' => 'array',
@@ -46,7 +43,6 @@ class Track extends USPS
             ]
         ]
     ];
-
     const RESPONSE = [
         'TrackResponse' => [
             'type' => 'array',
@@ -69,6 +65,7 @@ class Track extends USPS
             ]
         ]
     ];
+    protected $trackingNumbers = [];
 
     public function __construct(array $config = [])
     {
@@ -102,29 +99,6 @@ class Track extends USPS
     }
 
     /**
-     * @return array|null
-     */
-    public function toArray()
-    {
-        $array = [];
-        if (is_array($this->trackingNumbers) && count($this->trackingNumbers)) {
-            foreach ($this->trackingNumbers as $trackingNumber) {
-                $array['TrackRequest']['TrackID'][]['@ID'] = $trackingNumber;
-            }
-        }
-        try {
-            if (is_array($array) && count($array)) {
-                Validation::validate($array, self::FIELDS);
-            } else {
-                return null;
-            }
-        } catch (ValidationException $e) {
-            throw $e;
-        }
-        return $array;
-    }
-
-    /**
      * @return array
      * @throws Exception
      */
@@ -144,6 +118,29 @@ class Track extends USPS
     }
 
     /**
+     * @return array|null
+     */
+    public function toArray()
+    {
+        $array = [];
+        if (is_array($this->trackingNumbers) && count($this->trackingNumbers)) {
+            foreach ($this->trackingNumbers as $trackingNumber) {
+                $array['TrackRequest']['TrackID'][]['@ID'] = $trackingNumber;
+            }
+        }
+        try {
+            if (is_array($array) && count($array)) {
+                Validation::validate($array, self::FIELDS);
+            } else {
+                return null;
+            }
+        } catch (Exception $e) {
+            throw $e;
+        }
+        return $array;
+    }
+
+    /**
      * @param string $result
      * @return array
      */
@@ -158,13 +155,13 @@ class Track extends USPS
             } else {
                 return null;
             }
-        } catch (ValidationException $e) {
+        } catch (Exception $e) {
             throw $e;
         }
 
         $array = $array['TrackResponse'];
 
-        if (is_array($array) && count($array) && (isset($array['TrackInfo']) || array_key_exists('TrackInfo', $array) )) {
+        if (is_array($array) && count($array) && (isset($array['TrackInfo']) || array_key_exists('TrackInfo', $array))) {
             $array = $array['TrackInfo'];
 
             foreach ($array as $key => $value) {

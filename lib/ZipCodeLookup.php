@@ -6,9 +6,9 @@
  *   / /  / / /_/ / / /_/ / /_/ / / / / / / /  __/ / / (__  ) / /_/ / / / // /_/ / /
  *  /_/  /_/\__,_/_/\__/_/\__,_/_/_/ /_/ /_/\___/_/ /_/____/_/\____/_/ /_(_)__,_/_/
  *
- *  @author Multidimension.al
- *  @copyright Copyright © 2016-2017 Multidimension.al - All Rights Reserved
- *  @license Proprietary and Confidential
+ * @author Multidimension.al
+ * @copyright Copyright © 2016-2017 Multidimension.al - All Rights Reserved
+ * @license Proprietary and Confidential
  *
  *  NOTICE:  All information contained herein is, and remains the property of
  *  Multidimension.al and its suppliers, if any.  The intellectual and
@@ -21,15 +21,12 @@
 
 namespace Multidimensional\USPS;
 
+use Exception;
 use Multidimensional\ArraySanitization\Sanitization;
-use Multidimensional\ArrayValidation\Exception\ValidationException;
 use Multidimensional\ArrayValidation\Validation;
-use \Exception;
 
 class ZipCodeLookup extends USPS
 {
-    protected $addresses = [];
-
     const FIELDS = [
         'ZipCodeLookupRequest' => [
             'type' => 'array',
@@ -41,7 +38,6 @@ class ZipCodeLookup extends USPS
             ]
         ]
     ];
-
     const RESPONSE = [
         'ZipCodeLookupResponse' => [
             'type' => 'array',
@@ -81,6 +77,7 @@ class ZipCodeLookup extends USPS
             ]
         ]
     ];
+    protected $addresses = [];
 
     public function __construct(array $config = [])
     {
@@ -121,6 +118,25 @@ class ZipCodeLookup extends USPS
 
     /**
      * @return array
+     * @throws Exception
+     */
+    public function lookup()
+    {
+        try {
+            $xml = $this->buildXML($this->toArray());
+            if ($this->validateXML($xml)) {
+                $result = $this->request($xml);
+                return $this->parseResult($result);
+            } else {
+                throw new Exception('Unable to validate XML.');
+            }
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     * @return array
      */
     public function toArray()
     {
@@ -136,30 +152,11 @@ class ZipCodeLookup extends USPS
             } else {
                 return null;
             }
-        } catch (ValidationException $e) {
+        } catch (Exception $e) {
             throw $e;
         }
 
         return $array;
-    }
-
-    /**
-     * @return array
-     * @throws Exception
-     */
-    public function lookup()
-    {
-        try {
-            $xml = $this->buildXML($this->toArray());
-            if ($this->validateXML($xml)) {
-                $result = $this->request($xml);
-                return $this->parseResult($result);
-            } else {
-                throw new Exception('Unable to validate XML.');
-            }
-        } catch (ValidationException $e) {
-            throw $e;
-        }
     }
 
     /**
@@ -177,13 +174,13 @@ class ZipCodeLookup extends USPS
             } else {
                 return null;
             }
-        } catch (ValidationException $e) {
+        } catch (Exception $e) {
             throw $e;
         }
 
         $array = $array['ZipCodeLookupResponse'];
 
-        if (is_array($array) && count($array) && (isset($array['Address']) || array_key_exists('Address', $array) )) {
+        if (is_array($array) && count($array) && (isset($array['Address']) || array_key_exists('Address', $array))) {
             $array = $array['Address'];
 
             foreach ($array as $key => $value) {

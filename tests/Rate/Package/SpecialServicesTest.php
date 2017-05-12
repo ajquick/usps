@@ -6,9 +6,9 @@
  *   / /  / / /_/ / / /_/ / /_/ / / / / / / /  __/ / / (__  ) / /_/ / / / // /_/ / /
  *  /_/  /_/\__,_/_/\__/_/\__,_/_/_/ /_/ /_/\___/_/ /_/____/_/\____/_/ /_(_)__,_/_/
  *
- *  @author Multidimension.al
- *  @copyright Copyright © 2016-2017 Multidimension.al - All Rights Reserved
- *  @license Proprietary and Confidential
+ * @author Multidimension.al
+ * @copyright Copyright © 2016-2017 Multidimension.al - All Rights Reserved
+ * @license Proprietary and Confidential
  *
  *  NOTICE:  All information contained herein is, and remains the property of
  *  Multidimension.al and its suppliers, if any.  The intellectual and
@@ -21,20 +21,20 @@
 
 namespace Multidimensional\USPS\Test\Rate\Package;
 
-use \Exception;
+use Exception;
 use Multidimensional\USPS\Rate\Package\SpecialServices;
 use PHPUnit\Framework\TestCase;
 
 class SpecialServicesTest extends TestCase
 {
-    
+
     public $specialServices;
-    
+
     public function tearDown()
     {
         unset($this->specialServices);
     }
-    
+
     public function testNormal()
     {
         $this->specialServices = new SpecialServices([100]);
@@ -50,7 +50,7 @@ class SpecialServicesTest extends TestCase
         $expected = ['SpecialService' => 100];
         $this->assertEquals($expected, $result);
     }
-    
+
     public function testFailure()
     {
         $this->specialServices = new SpecialServices();
@@ -68,7 +68,7 @@ class SpecialServicesTest extends TestCase
             $this->assertEquals('Invalid value "666" for key: SpecialService. Did you mean "156"?', $e->getMessage());
         }
     }
-    
+
     public function testInsurance()
     {
         $this->specialServices = new SpecialServices([SpecialServices::INSURANCE]);
@@ -76,7 +76,7 @@ class SpecialServicesTest extends TestCase
         $expected = ['SpecialService' => 100];
         $this->assertEquals($expected, $result);
     }
-    
+
     public function testInsurancePriorityExpress()
     {
         $this->specialServices = new SpecialServices([SpecialServices::INSURANCE_PRIORITY_EXPRESS]);
@@ -84,7 +84,7 @@ class SpecialServicesTest extends TestCase
         $expected = ['SpecialService' => 101];
         $this->assertEquals($expected, $result);
     }
-    
+
     public function testReturnReceipt()
     {
         $this->specialServices = new SpecialServices([SpecialServices::RETURN_RECEIPT]);
@@ -92,7 +92,7 @@ class SpecialServicesTest extends TestCase
         $expected = ['SpecialService' => 102];
         $this->assertEquals($expected, $result);
     }
-    
+
     public function testCollectOnDelivery()
     {
         $this->specialServices = new SpecialServices([SpecialServices::COLLECT_ON_DELIVERY]);
@@ -100,7 +100,7 @@ class SpecialServicesTest extends TestCase
         $expected = ['SpecialService' => 103];
         $this->assertEquals($expected, $result);
     }
-    
+
     public function testCertificateOfMailing3665()
     {
         $this->specialServices = new SpecialServices([SpecialServices::CERTIFICATE_OF_MAILING_3665]);
@@ -108,7 +108,7 @@ class SpecialServicesTest extends TestCase
         $expected = ['SpecialService' => 104];
         $this->assertEquals($expected, $result);
     }
-    
+
     public function testCertifiedMail()
     {
         $this->specialServices = new SpecialServices([SpecialServices::CERTIFIED_MAIL]);
@@ -116,7 +116,7 @@ class SpecialServicesTest extends TestCase
         $expected = ['SpecialService' => 105];
         $this->assertEquals($expected, $result);
     }
-    
+
     public function testUspsTracking()
     {
         $this->specialServices = new SpecialServices([SpecialServices::USPS_TRACKING]);
@@ -124,7 +124,7 @@ class SpecialServicesTest extends TestCase
         $expected = ['SpecialService' => 106];
         $this->assertEquals($expected, $result);
     }
-    
+
     public function testReturnReceiptMerchandise()
     {
         $this->specialServices = new SpecialServices([SpecialServices::RETURN_RECEIPT_MERCHANDISE]);
@@ -132,7 +132,7 @@ class SpecialServicesTest extends TestCase
         $expected = ['SpecialService' => 107];
         $this->assertEquals($expected, $result);
     }
-    
+
     public function testSignatureConfirmation()
     {
         $this->specialServices = new SpecialServices([SpecialServices::SIGNATURE_CONFIRMATION]);
@@ -140,7 +140,7 @@ class SpecialServicesTest extends TestCase
         $expected = ['SpecialService' => 108];
         $this->assertEquals($expected, $result);
     }
-    
+
     public function testRegisteredMail()
     {
         $this->specialServices = new SpecialServices([SpecialServices::REGISTERED_MAIL]);
@@ -148,7 +148,7 @@ class SpecialServicesTest extends TestCase
         $expected = ['SpecialService' => 109];
         $this->assertEquals($expected, $result);
     }
-    
+
     public function testReturnReceiptElectronic()
     {
         $this->specialServices = new SpecialServices([SpecialServices::RETURN_RECEIPT_ELECTRONIC]);
@@ -156,7 +156,7 @@ class SpecialServicesTest extends TestCase
         $expected = ['SpecialService' => 110];
         $this->assertEquals($expected, $result);
     }
-    
+
     public function testRegisteredMailCollectOnDelivery()
     {
         $this->specialServices = new SpecialServices([SpecialServices::REGISTERED_MAIL_COLLECT_ON_DELIVERY]);
@@ -164,7 +164,7 @@ class SpecialServicesTest extends TestCase
         $expected = ['SpecialService' => 112];
         $this->assertEquals($expected, $result);
     }
-    
+
     public function testReturnReceiptPriorityExpress()
     {
         $this->specialServices = new SpecialServices([SpecialServices::RETURN_RECEIPT_PRIORITY_EXPRESS]);
@@ -172,7 +172,7 @@ class SpecialServicesTest extends TestCase
         $expected = ['SpecialService' => 118];
         $this->assertEquals($expected, $result);
     }
-    
+
     public function testAdultSignatureRequired()
     {
         $this->specialServices = new SpecialServices([SpecialServices::ADULT_SIGNATURE_REQUIRED]);
@@ -180,7 +180,7 @@ class SpecialServicesTest extends TestCase
         $expected = ['SpecialService' => 119];
         $this->assertEquals($expected, $result);
     }
-    
+
     public function testAdultSignatureRestrictedDelivery()
     {
         $this->specialServices = new SpecialServices([SpecialServices::ADULT_SIGNATURE_RESTRICTED_DELIVERY]);
@@ -188,7 +188,7 @@ class SpecialServicesTest extends TestCase
         $expected = ['SpecialService' => 120];
         $this->assertEquals($expected, $result);
     }
-    
+
     public function testInsurancePriority()
     {
         $this->specialServices = new SpecialServices([SpecialServices::INSURANCE_PRIORITY]);
@@ -196,7 +196,7 @@ class SpecialServicesTest extends TestCase
         $expected = ['SpecialService' => 125];
         $this->assertEquals($expected, $result);
     }
-    
+
     public function testSignatureConfirmationElectronic()
     {
         $this->specialServices = new SpecialServices([SpecialServices::SIGNATURE_CONFIRMATION_ELECTRONIC]);
@@ -204,7 +204,7 @@ class SpecialServicesTest extends TestCase
         $expected = ['SpecialService' => 156];
         $this->assertEquals($expected, $result);
     }
-    
+
     public function testCertificateOfMailing3817()
     {
         $this->specialServices = new SpecialServices([SpecialServices::CERTIFICATE_OF_MAILING_3817]);
@@ -212,7 +212,7 @@ class SpecialServicesTest extends TestCase
         $expected = ['SpecialService' => 160];
         $this->assertEquals($expected, $result);
     }
-    
+
     public function testPriorityExpressAMDelivery()
     {
         $this->specialServices = new SpecialServices([SpecialServices::PRIORITY_EXPRESS_AM_DELIVERY]);
@@ -220,7 +220,7 @@ class SpecialServicesTest extends TestCase
         $expected = ['SpecialService' => 161];
         $this->assertEquals($expected, $result);
     }
-    
+
     public function testCertifiedMailRestrictedDelivery()
     {
         $this->specialServices = new SpecialServices([SpecialServices::CERTIFIED_MAIL_RESTRICTED_DELIVERY]);
@@ -228,7 +228,7 @@ class SpecialServicesTest extends TestCase
         $expected = ['SpecialService' => 170];
         $this->assertEquals($expected, $result);
     }
-    
+
     public function testCertifiedMailAdultSignatureRequired()
     {
         $this->specialServices = new SpecialServices([SpecialServices::CERTIFIED_MAIL_ADULT_SIGNATURE_REQUIRED]);
@@ -236,7 +236,7 @@ class SpecialServicesTest extends TestCase
         $expected = ['SpecialService' => 171];
         $this->assertEquals($expected, $result);
     }
-    
+
     public function testCertifiedMailAdultSignatureRestrictedDelivery()
     {
         $this->specialServices = new SpecialServices([SpecialServices::CERTIFIED_MAIL_ADULT_SIGNATURE_RESTRICTED_DELIVERY]);
@@ -244,7 +244,7 @@ class SpecialServicesTest extends TestCase
         $expected = ['SpecialService' => 172];
         $this->assertEquals($expected, $result);
     }
-    
+
     public function testSignatureConfirmationRestrictedDelivery()
     {
         $this->specialServices = new SpecialServices([SpecialServices::SIGNATURE_CONFIRMATION_RESTRICTED_DELIVERY]);
@@ -252,7 +252,7 @@ class SpecialServicesTest extends TestCase
         $expected = ['SpecialService' => 173];
         $this->assertEquals($expected, $result);
     }
-    
+
     public function testSignatureConfirmationElectronicRestrictedDelivery()
     {
         $this->specialServices = new SpecialServices([SpecialServices::SIGNATURE_CONFIRMATION_ELECTRONIC_RESTRICTED_DELIVERY]);
@@ -260,7 +260,7 @@ class SpecialServicesTest extends TestCase
         $expected = ['SpecialService' => 174];
         $this->assertEquals($expected, $result);
     }
-    
+
     public function testCollectOnDeliveryRestrictedDelivery()
     {
         $this->specialServices = new SpecialServices([SpecialServices::COLLECT_ON_DELIVERY_RESTRICTED_DELIVERY]);
@@ -268,7 +268,7 @@ class SpecialServicesTest extends TestCase
         $expected = ['SpecialService' => 175];
         $this->assertEquals($expected, $result);
     }
-    
+
     public function testRegisteredMailRestrictedDelivery()
     {
         $this->specialServices = new SpecialServices([SpecialServices::REGISTERED_MAIL_RESTRICTED_DELIVERY]);
@@ -276,7 +276,7 @@ class SpecialServicesTest extends TestCase
         $expected = ['SpecialService' => 176];
         $this->assertEquals($expected, $result);
     }
-    
+
     public function testInsuranceRestrictedDelivery()
     {
         $this->specialServices = new SpecialServices([SpecialServices::INSURANCE_RESTRICTED_DELIVERY]);
@@ -284,7 +284,7 @@ class SpecialServicesTest extends TestCase
         $expected = ['SpecialService' => 177];
         $this->assertEquals($expected, $result);
     }
-    
+
     public function testInsuranceRestrictedDeliveryPriority()
     {
         $this->specialServices = new SpecialServices([SpecialServices::INSURANCE_RESTRICTED_DELIVERY_PRIORITY]);
@@ -292,7 +292,7 @@ class SpecialServicesTest extends TestCase
         $expected = ['SpecialService' => 178];
         $this->assertEquals($expected, $result);
     }
-    
+
     public function testInsuranceRestrictedDeliveryPriorityExpress()
     {
         $this->specialServices = new SpecialServices([SpecialServices::INSURANCE_RESTRICTED_DELIVERY_PRIORITY_EXPRESS]);
@@ -300,7 +300,7 @@ class SpecialServicesTest extends TestCase
         $expected = ['SpecialService' => 179];
         $this->assertEquals($expected, $result);
     }
-    
+
     public function testInsuranceRestrictedDeliveryBulk()
     {
         $this->specialServices = new SpecialServices([SpecialServices::INSURANCE_RESTRICTED_DELIVERY_BULK]);
@@ -308,7 +308,7 @@ class SpecialServicesTest extends TestCase
         $expected = ['SpecialService' => 180];
         $this->assertEquals($expected, $result);
     }
-    
+
     public function testConstants()
     {
         $this->assertEquals(100, SpecialServices::INSURANCE);

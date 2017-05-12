@@ -6,9 +6,9 @@
  *   / /  / / /_/ / / /_/ / /_/ / / / / / / /  __/ / / (__  ) / /_/ / / / // /_/ / /
  *  /_/  /_/\__,_/_/\__/_/\__,_/_/_/ /_/ /_/\___/_/ /_/____/_/\____/_/ /_(_)__,_/_/
  *
- *  @author Multidimension.al
- *  @copyright Copyright © 2016-2017 Multidimension.al - All Rights Reserved
- *  @license Proprietary and Confidential
+ * @author Multidimension.al
+ * @copyright Copyright © 2016-2017 Multidimension.al - All Rights Reserved
+ * @license Proprietary and Confidential
  *
  *  NOTICE:  All information contained herein is, and remains the property of
  *  Multidimension.al and its suppliers, if any.  The intellectual and
@@ -21,21 +21,16 @@
 
 namespace Multidimensional\USPS\Rate;
 
+use Exception;
 use Multidimensional\ArraySanitization\Sanitization;
-use Multidimensional\ArrayValidation\Exception\ValidationException;
 use Multidimensional\ArrayValidation\Validation;
-use \Exception;
 use Multidimensional\USPS\Rate\Package\Content;
 use Multidimensional\USPS\Rate\Package\SpecialServices;
 
 class Package
 {
-    protected $package = [];
-    protected $content = [];
-    protected $specialServices = [];
-
     const CONTAINER_VARIABLE = 'VARIABLE';
-    const CONTAINER_FLAT_RATE_ENVELOPE   = 'FLAT RATE ENVELOPE';
+    const CONTAINER_FLAT_RATE_ENVELOPE = 'FLAT RATE ENVELOPE';
     const CONTAINER_PADDED_FLAT_RATE_ENVELOPE = 'PADDED FLAT RATE ENVELOPE';
     const CONTAINER_LEGAL_FLAT_RATE_ENVELOPE = 'LEGAL FLAT RATE ENVELOPE';
     const CONTAINER_SM_FLAT_RATE_ENVELOPE = 'SM FLAT RATE ENVELOPE';
@@ -47,39 +42,38 @@ class Package
     const CONTAINER_LG_FLAT_RATE_BOX = 'LG FLAT RATE BOX';
     const CONTAINER_REGIONALRATEBOXA = 'REGIONALRATEBOXA';
     const CONTAINER_REGIONALRATEBOXB = 'REGIONALRATEBOXB';
-    const CONTAINER_RECTANGULAR  = 'RECTANGULAR';
-    const CONTAINER_NONRECTANGULAR   = 'NONRECTANGULAR';
-    const FIRST_CLASS_MAIL_TYPE_LETTER   = 'LETTER';
+    const CONTAINER_RECTANGULAR = 'RECTANGULAR';
+    const CONTAINER_NONRECTANGULAR = 'NONRECTANGULAR';
+    const FIRST_CLASS_MAIL_TYPE_LETTER = 'LETTER';
     const FIRST_CLASS_MAIL_TYPE_FLAT = 'FLAT';
-    const FIRST_CLASS_MAIL_TYPE_PARCEL   = 'PARCEL';
+    const FIRST_CLASS_MAIL_TYPE_PARCEL = 'PARCEL';
     const FIRST_CLASS_MAIL_TYPE_POSTCARD = 'POSTCARD';
-    const FIRST_CLASS_MAIL_TYPE_PACKAGE  = 'PACKAGE';
-    const FIRST_CLASS_MAIL_TYPE_PACKAGE_SERVICE  = 'PACKAGE SERVICE';
+    const FIRST_CLASS_MAIL_TYPE_PACKAGE = 'PACKAGE';
+    const FIRST_CLASS_MAIL_TYPE_PACKAGE_SERVICE = 'PACKAGE SERVICE';
     const SERVICE_FIRST_CLASS = 'First Class';
     const SERVICE_FIRST_CLASS_COMMERCIAL = 'First Class Commercial';
     const SERVICE_FIRST_CLASS_HFP_COMMERCIAL = 'First Class HFP Commercial';
-    const SERVICE_PRIORITY   = 'Priority';
+    const SERVICE_PRIORITY = 'Priority';
     const SERVICE_PRIORITY_COMMERCIAL = 'Priority Commercial';
-    const SERVICE_PRIORITY_CPP   = 'Priority Cpp';
-    const SERVICE_PRIORITY_HFP_COMMERCIAL= 'Priority HFP Commercial';
-    const SERVICE_PRIORITY_HFP_CPP   = 'Priority HFP CPP';
-    const SERVICE_PRIORITY_EXPRESS   = 'Priority Mail Express';
+    const SERVICE_PRIORITY_CPP = 'Priority Cpp';
+    const SERVICE_PRIORITY_HFP_COMMERCIAL = 'Priority HFP Commercial';
+    const SERVICE_PRIORITY_HFP_CPP = 'Priority HFP CPP';
+    const SERVICE_PRIORITY_EXPRESS = 'Priority Mail Express';
     const SERVICE_PRIORITY_EXPRESS_COMMERCIAL = 'Priority Mail Express Commercial';
-    const SERVICE_PRIORITY_EXPRESS_CPP   = 'Priority Mail Express CPP';
+    const SERVICE_PRIORITY_EXPRESS_CPP = 'Priority Mail Express CPP';
     const SERVICE_PRIORITY_EXPRESS_SH = 'Priority Mail Express SH';
     const SERVICE_PRIORITY_EXPRESS_SH_COMMERCIAL = 'Priority Mail Express SH COMMERCIAL';
-    const SERVICE_PRIORITY_EXPRESS_HFP   = 'Priority Mail Express HFP';
+    const SERVICE_PRIORITY_EXPRESS_HFP = 'Priority Mail Express HFP';
     const SERVICE_PRIORITY_EXPRESS_HFP_COMMERCIAL = 'Priority Mail Express HFP COMMERCIAL';
-    const SERVICE_PRIORITY_EXPRESS_HFP_CPP   = 'Priority Mail Express HFP CPP';
+    const SERVICE_PRIORITY_EXPRESS_HFP_CPP = 'Priority Mail Express HFP CPP';
     const SERVICE_GROUND = 'Retail Ground';
-    const SERVICE_MEDIA  = 'Media';
+    const SERVICE_MEDIA = 'Media';
     const SERVICE_LIBRARY = 'Library';
     const SERVICE_ALL = 'All';
     const SERVICE_ONLINE = 'Online';
-    const SERVICE_PLUS   = 'Plus';
+    const SERVICE_PLUS = 'Plus';
     const SIZE_LARGE = 'LARGE';
-    const SIZE_REGULAR   = 'REGULAR';
-
+    const SIZE_REGULAR = 'REGULAR';
     const FIELDS = [
         '@ID' => [
             'type' => 'string'
@@ -92,13 +86,13 @@ class Package
             'type' => 'string',
             'required' => [
                 [
-                        'Service' => self::SERVICE_FIRST_CLASS
+                    'Service' => self::SERVICE_FIRST_CLASS
                 ],
                 [
-                'Service' => self::SERVICE_FIRST_CLASS_COMMERCIAL
+                    'Service' => self::SERVICE_FIRST_CLASS_COMMERCIAL
                 ],
                 [
-                'Service' => self::SERVICE_FIRST_CLASS_HFP_COMMERCIAL
+                    'Service' => self::SERVICE_FIRST_CLASS_HFP_COMMERCIAL
                 ]
             ]
         ],
@@ -215,7 +209,7 @@ class Package
                 ['Service' => self::SERVICE_ALL],
                 ['Service' => self::SERVICE_ONLINE],
                 ['Service' => self::SERVICE_GROUND]
-             ]
+            ]
         ],
         'ReturnLocations' => [
             'type' => 'boolean',
@@ -233,6 +227,9 @@ class Package
             'pattern' => '\d{4}-d{2}-d{2}'
         ]
     ];
+    protected $package = [];
+    protected $content = [];
+    protected $specialServices = [];
 
     public function __construct(array $config = [])
     {
@@ -245,14 +242,14 @@ class Package
                 $this->setField($key, $value);
             }
         }
-        
+
         $this->package += array_combine(array_keys(self::FIELDS), array_fill(0, count(self::FIELDS), null));
 
         return;
     }
-        
+
     /**
-     * @param string                $key
+     * @param string $key
      * @param int|bool|string|float
      * @return void
      */
@@ -284,7 +281,7 @@ class Package
 
         return;
     }
-        
+
     /**
      * @param string $value
      * @return void
@@ -295,7 +292,7 @@ class Package
 
         return;
     }
-    
+
     /**
      * @param string $value
      * @return void
@@ -306,7 +303,7 @@ class Package
 
         return;
     }
-        
+
     /**
      * @param string $value
      * @return void
@@ -317,7 +314,7 @@ class Package
 
         return;
     }
-    
+
     /**
      * @param string $value
      * @return void
@@ -328,7 +325,7 @@ class Package
 
         return;
     }
-    
+
     /**
      * @param string $value
      * @return void
@@ -339,7 +336,7 @@ class Package
 
         return;
     }
-    
+
     /**
      * @param string $value
      * @return void
@@ -350,7 +347,7 @@ class Package
 
         return;
     }
-    
+
     /**
      * @param string $value
      * @return void
@@ -361,7 +358,7 @@ class Package
 
         return;
     }
-    
+
     /**
      * @param string $value
      * @return void
@@ -372,7 +369,7 @@ class Package
 
         return;
     }
-    
+
     /**
      * @param string $value
      * @return void
@@ -383,7 +380,7 @@ class Package
 
         return;
     }
-    
+
     /**
      * @param string $value
      * @return void
@@ -394,7 +391,7 @@ class Package
 
         return;
     }
-    
+
     /**
      * @param string $value
      * @return void
@@ -416,7 +413,7 @@ class Package
 
         return;
     }
-    
+
     /**
      * @param string $value
      * @return void
@@ -427,7 +424,7 @@ class Package
 
         return;
     }
-    
+
     /**
      * @param string $value
      * @return void
@@ -438,7 +435,7 @@ class Package
 
         return;
     }
-    
+
     /**
      * @param string $value
      * @return void
@@ -449,7 +446,7 @@ class Package
 
         return;
     }
-    
+
     /**
      * @param string $value
      * @return void
@@ -492,13 +489,13 @@ class Package
             } else {
                 return null;
             }
-        } catch (ValidationException $e) {
+        } catch (Exception $e) {
             throw $e;
         }
 
         return $array;
     }
-    
+
     /**
      * @param Package\Content $content
      * @return void

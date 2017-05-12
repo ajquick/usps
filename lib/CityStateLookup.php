@@ -6,9 +6,9 @@
  *   / /  / / /_/ / / /_/ / /_/ / / / / / / /  __/ / / (__  ) / /_/ / / / // /_/ / /
  *  /_/  /_/\__,_/_/\__/_/\__,_/_/_/ /_/ /_/\___/_/ /_/____/_/\____/_/ /_(_)__,_/_/
  *
- *  @author Multidimension.al
- *  @copyright Copyright © 2016-2017 Multidimension.al - All Rights Reserved
- *  @license Proprietary and Confidential
+ * @author Multidimension.al
+ * @copyright Copyright © 2016-2017 Multidimension.al - All Rights Reserved
+ * @license Proprietary and Confidential
  *
  *  NOTICE:  All information contained herein is, and remains the property of
  *  Multidimension.al and its suppliers, if any.  The intellectual and
@@ -21,15 +21,12 @@
 
 namespace Multidimensional\USPS;
 
-use \Exception;
+use Exception;
 use Multidimensional\ArraySanitization\Sanitization;
-use Multidimensional\ArrayValidation\Exception\ValidationException;
 use Multidimensional\ArrayValidation\Validation;
 
 class CityStateLookup extends USPS
 {
-    private $zipCodes = [];
-
     const FIELDS = [
         'CityStateLookupRequest' => [
             'type' => 'array',
@@ -41,7 +38,6 @@ class CityStateLookup extends USPS
             ]
         ]
     ];
-
     const RESPONSE = [
         'CityStateLookupResponse' => [
             'type' => 'array',
@@ -67,6 +63,7 @@ class CityStateLookup extends USPS
             ]
         ]
     ];
+    private $zipCodes = [];
 
     public function __construct(array $config = [])
     {
@@ -103,6 +100,25 @@ class CityStateLookup extends USPS
 
     /**
      * @return array
+     * @throws Exception
+     */
+    public function lookup()
+    {
+        try {
+            $xml = $this->buildXML($this->toArray());
+            if ($this->validateXML($xml)) {
+                $result = $this->request($xml);
+                return $this->parseResult($result);
+            } else {
+                throw new Exception('Unable to validate XML.');
+            }
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     * @return array
      */
     public function toArray()
     {
@@ -118,30 +134,11 @@ class CityStateLookup extends USPS
             } else {
                 return null;
             }
-        } catch (ValidationException $e) {
+        } catch (Exception $e) {
             throw $e;
         }
 
         return $array;
-    }
-
-    /**
-     * @return array
-     * @throws Exception
-     */
-    public function lookup()
-    {
-        try {
-            $xml = $this->buildXML($this->toArray());
-            if ($this->validateXML($xml)) {
-                $result = $this->request($xml);
-                return $this->parseResult($result);
-            } else {
-                throw new Exception('Unable to validate XML.');
-            }
-        } catch (ValidationException $e) {
-            throw $e;
-        }
     }
 
     /**
@@ -160,11 +157,11 @@ class CityStateLookup extends USPS
             } else {
                 return null;
             }
-        } catch (ValidationException $e) {
+        } catch (Exception $e) {
             throw $e;
         }
 
-        if (is_array($array) && count($array) && (isset($array['ZipCode']) || array_key_exists('ZipCode', $array) )) {
+        if (is_array($array) && count($array) && (isset($array['ZipCode']) || array_key_exists('ZipCode', $array))) {
             $array = $array['ZipCode'];
 
             foreach ($array as $key => $value) {

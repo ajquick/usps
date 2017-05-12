@@ -18,35 +18,36 @@
   ~  of this information or reproduction of this material is strictly forbidden
   ~  unless prior written permission is obtained.
   -->
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
-  <xs:element name="CityStateLookupRequest">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element name="ZipCode" maxOccurs="5">
-          <xs:complexType>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+           attributeFormDefault="unqualified">
+    <xs:element name="CityStateLookupRequest">
+        <xs:complexType>
             <xs:sequence>
-              <xs:element name="Zip5">
-                <xs:simpleType>
-                  <xs:union>
-                    <xs:simpleType>
-                      <xs:restriction base="xs:string">
-                        <xs:pattern value="\d{5}" />
-                      </xs:restriction>
-                    </xs:simpleType>
-                    <xs:simpleType>
-                      <xs:restriction base="xs:string">
-                        <xs:length value="0" />
-                      </xs:restriction>
-                    </xs:simpleType>
-                  </xs:union>
-                </xs:simpleType>
-              </xs:element>
+                <xs:element name="ZipCode" maxOccurs="5">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="Zip5">
+                                <xs:simpleType>
+                                    <xs:union>
+                                        <xs:simpleType>
+                                            <xs:restriction base="xs:string">
+                                                <xs:pattern value="\d{5}"/>
+                                            </xs:restriction>
+                                        </xs:simpleType>
+                                        <xs:simpleType>
+                                            <xs:restriction base="xs:string">
+                                                <xs:length value="0"/>
+                                            </xs:restriction>
+                                        </xs:simpleType>
+                                    </xs:union>
+                                </xs:simpleType>
+                            </xs:element>
+                        </xs:sequence>
+                        <xs:attribute name="ID" type="xs:int" use="required"/>
+                    </xs:complexType>
+                </xs:element>
             </xs:sequence>
-            <xs:attribute name="ID" type="xs:int" use="required" />
-          </xs:complexType>
-        </xs:element>
-      </xs:sequence>
-      <xs:attribute name="USERID" type="xs:string" use="required" />
-    </xs:complexType>
-  </xs:element>
+            <xs:attribute name="USERID" type="xs:string" use="required"/>
+        </xs:complexType>
+    </xs:element>
 </xs:schema>

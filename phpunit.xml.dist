@@ -20,8 +20,8 @@
   -->
 <phpunit colors="true">
     <php>
-        <server name="USPS_USERID" value="" />
-        <server name="USPS_PASSWORD" value="" />
+        <server name="USPS_USERID" value=""/>
+        <server name="USPS_PASSWORD" value=""/>
     </php>
     <testsuites>
         <testsuite name="Test Suite">

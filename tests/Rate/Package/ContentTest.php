@@ -6,9 +6,9 @@
  *   / /  / / /_/ / / /_/ / /_/ / / / / / / /  __/ / / (__  ) / /_/ / / / // /_/ / /
  *  /_/  /_/\__,_/_/\__/_/\__,_/_/_/ /_/ /_/\___/_/ /_/____/_/\____/_/ /_(_)__,_/_/
  *
- *  @author Multidimension.al
- *  @copyright Copyright © 2016-2017 Multidimension.al - All Rights Reserved
- *  @license Proprietary and Confidential
+ * @author Multidimension.al
+ * @copyright Copyright © 2016-2017 Multidimension.al - All Rights Reserved
+ * @license Proprietary and Confidential
  *
  *  NOTICE:  All information contained herein is, and remains the property of
  *  Multidimension.al and its suppliers, if any.  The intellectual and
@@ -21,14 +21,14 @@
 
 namespace Multidimensional\USPS\Test\Rate\Package;
 
+use Exception;
 use Multidimensional\USPS\Rate\Package\Content;
-use \Exception;
 use PHPUnit\Framework\TestCase;
 
 class ContentTest extends TestCase
 {
     public $content;
-    
+
     public function tearDown()
     {
         unset($this->content);
@@ -45,7 +45,7 @@ class ContentTest extends TestCase
         $expected = ['ContentType' => 'CREMATEDREMAINS', 'ContentDescription' => null];
         $this->assertEquals($expected, $result);
     }
-    
+
     public function testNormal()
     {
         $this->content = new Content;
@@ -55,7 +55,7 @@ class ContentTest extends TestCase
         $expected = ['ContentType' => 'LIVES', 'ContentDescription' => 'OTHER'];
         $this->assertEquals($expected, $result);
     }
-    
+
     public function testFailure()
     {
         $this->content = new Content();
@@ -74,7 +74,7 @@ class ContentTest extends TestCase
             $this->assertEquals('Invalid value "Not a valid type" for key: ContentType. Did you mean "HAZMAT"?', $e->getMessage());
         }
     }
-    
+
     public function testTypeHazmat()
     {
         $this->content = new Content(['ContentType' => Content::TYPE_HAZMAT]);
@@ -82,7 +82,7 @@ class ContentTest extends TestCase
         $expected = ['ContentType' => 'HAZMAT', 'ContentDescription' => null];
         $this->assertEquals($expected, $result);
     }
-    
+
     public function testTypeCrematedRemains()
     {
         $this->content = new Content(['ContentType' => Content::TYPE_CREMATED_REMAINS]);
@@ -90,7 +90,7 @@ class ContentTest extends TestCase
         $expected = ['ContentType' => 'CREMATEDREMAINS', 'ContentDescription' => null];
         $this->assertEquals($expected, $result);
     }
-    
+
     public function testTypeLives()
     {
         $this->content = new Content();
@@ -112,7 +112,7 @@ class ContentTest extends TestCase
         $expected = ['ContentType' => 'LIVES', 'ContentDescription' => 'OTHER'];
         $this->assertEquals($expected, $result);
     }
-    
+
     public function testTypeLivesFailure()
     {
         $this->content = new Content();
@@ -125,7 +125,7 @@ class ContentTest extends TestCase
             $this->assertEquals('Invalid value "" for key: ContentDescription. Did you mean "BEES"?', $e->getMessage());
         }
     }
-    
+
     public function testConstants()
     {
         $this->assertEquals('HAZMAT', Content::TYPE_HAZMAT);

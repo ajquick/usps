@@ -6,9 +6,9 @@
  *   / /  / / /_/ / / /_/ / /_/ / / / / / / /  __/ / / (__  ) / /_/ / / / // /_/ / /
  *  /_/  /_/\__,_/_/\__/_/\__,_/_/_/ /_/ /_/\___/_/ /_/____/_/\____/_/ /_(_)__,_/_/
  *
- *  @author Multidimension.al
- *  @copyright Copyright © 2016-2017 Multidimension.al - All Rights Reserved
- *  @license Proprietary and Confidential
+ * @author Multidimension.al
+ * @copyright Copyright © 2016-2017 Multidimension.al - All Rights Reserved
+ * @license Proprietary and Confidential
  *
  *  NOTICE:  All information contained herein is, and remains the property of
  *  Multidimension.al and its suppliers, if any.  The intellectual and
@@ -21,15 +21,12 @@
 
 namespace Multidimensional\USPS\Rate\Package;
 
+use Exception;
 use Multidimensional\ArraySanitization\Sanitization;
-use Multidimensional\ArrayValidation\Exception\ValidationException;
 use Multidimensional\ArrayValidation\Validation;
-use \Exception;
 
 class Content
 {
-    protected $content = [];
-
     const TYPE_HAZMAT = 'HAZMAT';
     const TYPE_CREMATED_REMAINS = 'CREMATEDREMAINS';
     const TYPE_LIVES = 'LIVES';
@@ -37,7 +34,6 @@ class Content
     const DESCRIPTION_DAY_OLD_POULTRY = 'DAYOLDPOULTRY';
     const DESCRIPTION_ADULT_BIRDS = 'ADULTBIRDS';
     const DESCRIPTION_OTHER = 'OTHER';
-
     const FIELDS = [
         'ContentType' => [
             'type' => 'string',
@@ -60,7 +56,8 @@ class Content
             ]
         ]
     ];
-    
+    protected $content = [];
+
     public function __construct(array $config = [])
     {
         if (is_array($config)) {
@@ -68,7 +65,7 @@ class Content
                 $this->setField($key, $value);
             }
         }
-        
+
         $this->content += array_combine(array_keys(self::FIELDS), array_fill(0, count(self::FIELDS), null));
 
         return;
@@ -84,7 +81,7 @@ class Content
             $value = Sanitization::sanitizeField($value, self::FIELDS[$key]);
             $this->content[$key] = $value;
         }
-        
+
         return;
     }
 
@@ -100,7 +97,7 @@ class Content
             } else {
                 return null;
             }
-        } catch (ValidationException $e) {
+        } catch (Exception $e) {
             throw $e;
         }
         return $this->content;

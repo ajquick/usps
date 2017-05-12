@@ -6,9 +6,9 @@
  *   / /  / / /_/ / / /_/ / /_/ / / / / / / /  __/ / / (__  ) / /_/ / / / // /_/ / /
  *  /_/  /_/\__,_/_/\__/_/\__,_/_/_/ /_/ /_/\___/_/ /_/____/_/\____/_/ /_(_)__,_/_/
  *
- *  @author Multidimension.al
- *  @copyright Copyright © 2016-2017 Multidimension.al - All Rights Reserved
- *  @license Proprietary and Confidential
+ * @author Multidimension.al
+ * @copyright Copyright © 2016-2017 Multidimension.al - All Rights Reserved
+ * @license Proprietary and Confidential
  *
  *  NOTICE:  All information contained herein is, and remains the property of
  *  Multidimension.al and its suppliers, if any.  The intellectual and
@@ -21,18 +21,13 @@
 
 namespace Multidimensional\USPS;
 
-use \Exception;
+use Exception;
 use Multidimensional\ArraySanitization\Sanitization;
-use Multidimensional\ArrayValidation\Exception\ValidationException;
 use Multidimensional\ArrayValidation\Validation;
 use Multidimensional\USPS\Rate\Package;
 
 class Rate extends USPS
 {
-    protected $packages = [];
-
-    protected $revision = 2;
-
     const FIELDS = [
         'RateV4Request' => [
             'type' => 'array',
@@ -48,7 +43,6 @@ class Rate extends USPS
             ]
         ]
     ];
-
     const RESPONSE = [
         'RateV4Response' => [
             'type' => 'array',
@@ -188,6 +182,8 @@ class Rate extends USPS
             ]
         ]
     ];
+    protected $packages = [];
+    protected $revision = 2;
 
     public function __construct(array $config = [])
     {
@@ -213,22 +209,14 @@ class Rate extends USPS
     }
 
     /**
-     * @return array
-     * @throws Exception
-     * @throws ValidationException
+     * @param $value
      */
-    public function getRate()
+    public function setRevision($value)
     {
-        try {
-            $xml = $this->buildXML($this->toArray());
-            if ($this->validateXML($xml)) {
-                $result = $this->request($xml);
-                return $this->parseResult($result);
-            } else {
-                throw new Exception('Unable to validate XML.');
-            }
-        } catch (ValidationException $e) {
-            throw $e;
+        if (intval($value) === 2) {
+            $this->revision = 2;
+        } else {
+            $this->revision = null;
         }
     }
 
@@ -245,14 +233,22 @@ class Rate extends USPS
     }
 
     /**
-     * @param $value
+     * @return array
+     * @throws Exception
+     * @throws Exception
      */
-    public function setRevision($value)
+    public function getRate()
     {
-        if (intval($value) === 2) {
-            $this->revision = 2;
-        } else {
-            $this->revision = null;
+        try {
+            $xml = $this->buildXML($this->toArray());
+            if ($this->validateXML($xml)) {
+                $result = $this->request($xml);
+                return $this->parseResult($result);
+            } else {
+                throw new Exception('Unable to validate XML.');
+            }
+        } catch (Exception $e) {
+            throw $e;
         }
     }
 
@@ -278,7 +274,7 @@ class Rate extends USPS
             } else {
                 return null;
             }
-        } catch (ValidationException $e) {
+        } catch (Exception $e) {
             throw $e;
         }
 
@@ -300,13 +296,13 @@ class Rate extends USPS
             } else {
                 return null;
             }
-        } catch (ValidationException $e) {
+        } catch (Exception $e) {
             throw $e;
         }
 
         $array = $array['RateV4Response'];
 
-        if (is_array($array) && count($array) && (isset($array['Package']) || array_key_exists('Package', $array) )) {
+        if (is_array($array) && count($array) && (isset($array['Package']) || array_key_exists('Package', $array))) {
             $array = $array['Package'];
             foreach ($array as $key => $value) {
                 if (is_int($key)) {

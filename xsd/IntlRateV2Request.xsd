@@ -18,188 +18,189 @@
   ~  of this information or reproduction of this material is strictly forbidden
   ~  unless prior written permission is obtained.
   -->
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
-  <xs:element name="IntlRateV2Request">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element name="Revision" minOccurs="0" type="xs:int" />
-        <xs:element name="Package" maxOccurs="25">
-          <xs:complexType>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+           attributeFormDefault="unqualified">
+    <xs:element name="IntlRateV2Request">
+        <xs:complexType>
             <xs:sequence>
-              <xs:element name="Pounds">
-                <xs:simpleType>
-                  <xs:restriction base="xs:integer">
-                    <xs:minInclusive value="0" />
-                    <xs:maxInclusive value="70" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="Ounces">
-                <xs:simpleType>
-                  <xs:restriction base="xs:decimal">
-                    <xs:minInclusive value="0.0" />
-                    <xs:maxInclusive value="1120.0" />
-                    <xs:totalDigits value="10" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="Machinable" minOccurs="0" type="xs:boolean" default="true" />
-              <xs:element name="MailType">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:whiteSpace value="collapse" />
-                    <xs:enumeration value="ALL" />
-                    <xs:enumeration value="PACKAGE" />
-                    <xs:enumeration value="POSTCARDS" />
-                    <xs:enumeration value="ENVELOPE" />
-                    <xs:enumeration value="LETTER" />
-                    <xs:enumeration value="LARGEENVELOPE" />
-                    <xs:enumeration value="FLATRATE" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="GXG" minOccurs="0">
-                <xs:complexType>
-                  <xs:sequence>
-                    <xs:element name="POBoxFlag">
-                      <xs:simpleType>
-                        <xs:restriction base="xs:string">
-                          <xs:whiteSpace value="collapse" />
-                          <xs:enumeration value="Y" />
-                          <xs:enumeration value="N" />
-                        </xs:restriction>
-                      </xs:simpleType>
-                    </xs:element>
-                    <xs:element name="GiftFlag">
-                      <xs:simpleType>
-                        <xs:restriction base="xs:string">
-                          <xs:whiteSpace value="collapse" />
-                          <xs:enumeration value="Y" />
-                          <xs:enumeration value="N" />
-                        </xs:restriction>
-                      </xs:simpleType>
-                    </xs:element>
-                  </xs:sequence>
-                </xs:complexType>
-              </xs:element>
-              <xs:element name="ValueOfContents" type="xs:string" />
-              <xs:element name="Country" type="xs:string" />
-              <xs:element name="Container">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:whiteSpace value="collapse" />
-                    <xs:enumeration value="RECTANGULAR" />
-                    <xs:enumeration value="NONRECTANGULAR" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="Size">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:whiteSpace value="collapse" />
-                    <xs:enumeration value="REGULAR" />
-                    <xs:enumeration value="LARGE" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="Width">
-                <xs:simpleType>
-                  <xs:restriction base="xs:int">
-                    <xs:minExclusive value="0" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="Length">
-                <xs:simpleType>
-                  <xs:restriction base="xs:int">
-                    <xs:minExclusive value="0" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="Height">
-                <xs:simpleType>
-                  <xs:restriction base="xs:int">
-                    <xs:minExclusive value="0" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="Girth">
-                <xs:simpleType>
-                  <xs:restriction base="xs:int">
-                    <xs:minExclusive value="0" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="OriginZip" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:whiteSpace value="collapse" />
-                    <xs:length value="5" />
-                    <xs:pattern value="\d{5}" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="CommercialFlag" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:whiteSpace value="collapse" />
-                    <xs:enumeration value="Y" />
-                    <xs:enumeration value="N" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="CommercialPlusFlag" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:whiteSpace value="collapse" />
-                    <xs:enumeration value="Y" />
-                    <xs:enumeration value="N" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="ExtraServices" minOccurs="0">
-                <xs:complexType>
-                  <xs:sequence>
-                    <xs:element name="ExtraService" maxOccurs="6">
-                      <xs:simpleType>
-                        <xs:restriction base="xs:string">
-                          <xs:enumeration value="0" />
-                          <xs:enumeration value="1" />
-                          <xs:enumeration value="2" />
-                          <xs:enumeration value="6" />
-                          <xs:enumeration value="9" />
-                        </xs:restriction>
-                      </xs:simpleType>
-                    </xs:element>
-                  </xs:sequence>
-                </xs:complexType>
-              </xs:element>
-              <xs:element name="AcceptanceDateTime" type="xs:dateTime" minOccurs="0" />
-              <xs:element name="DestinationPostalCode" type="xs:string" minOccurs="0" />
-              <xs:element name="Content" minOccurs="0">
-                <xs:complexType>
-                  <xs:sequence>
-                    <xs:element name="ContentType">
-                      <xs:simpleType>
-                        <xs:restriction base="xs:string">
-                          <xs:enumeration value="CrematedRemains" />
-                          <xs:enumeration value="NonnegotiableDocument" />
-                          <xs:enumeration value="Pharmaceuticals" />
-                          <xs:enumeration value="MedicalSupplies" />
-                          <xs:enumeration value="Documents" />
-                        </xs:restriction>
-                      </xs:simpleType>
-                    </xs:element>
-                    <xs:element name="ContentDescription" type="xs:string" />
-                  </xs:sequence>
-                </xs:complexType>
-              </xs:element>
+                <xs:element name="Revision" minOccurs="0" type="xs:int"/>
+                <xs:element name="Package" maxOccurs="25">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="Pounds">
+                                <xs:simpleType>
+                                    <xs:restriction base="xs:integer">
+                                        <xs:minInclusive value="0"/>
+                                        <xs:maxInclusive value="70"/>
+                                    </xs:restriction>
+                                </xs:simpleType>
+                            </xs:element>
+                            <xs:element name="Ounces">
+                                <xs:simpleType>
+                                    <xs:restriction base="xs:decimal">
+                                        <xs:minInclusive value="0.0"/>
+                                        <xs:maxInclusive value="1120.0"/>
+                                        <xs:totalDigits value="10"/>
+                                    </xs:restriction>
+                                </xs:simpleType>
+                            </xs:element>
+                            <xs:element name="Machinable" minOccurs="0" type="xs:boolean" default="true"/>
+                            <xs:element name="MailType">
+                                <xs:simpleType>
+                                    <xs:restriction base="xs:string">
+                                        <xs:whiteSpace value="collapse"/>
+                                        <xs:enumeration value="ALL"/>
+                                        <xs:enumeration value="PACKAGE"/>
+                                        <xs:enumeration value="POSTCARDS"/>
+                                        <xs:enumeration value="ENVELOPE"/>
+                                        <xs:enumeration value="LETTER"/>
+                                        <xs:enumeration value="LARGEENVELOPE"/>
+                                        <xs:enumeration value="FLATRATE"/>
+                                    </xs:restriction>
+                                </xs:simpleType>
+                            </xs:element>
+                            <xs:element name="GXG" minOccurs="0">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="POBoxFlag">
+                                            <xs:simpleType>
+                                                <xs:restriction base="xs:string">
+                                                    <xs:whiteSpace value="collapse"/>
+                                                    <xs:enumeration value="Y"/>
+                                                    <xs:enumeration value="N"/>
+                                                </xs:restriction>
+                                            </xs:simpleType>
+                                        </xs:element>
+                                        <xs:element name="GiftFlag">
+                                            <xs:simpleType>
+                                                <xs:restriction base="xs:string">
+                                                    <xs:whiteSpace value="collapse"/>
+                                                    <xs:enumeration value="Y"/>
+                                                    <xs:enumeration value="N"/>
+                                                </xs:restriction>
+                                            </xs:simpleType>
+                                        </xs:element>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="ValueOfContents" type="xs:string"/>
+                            <xs:element name="Country" type="xs:string"/>
+                            <xs:element name="Container">
+                                <xs:simpleType>
+                                    <xs:restriction base="xs:string">
+                                        <xs:whiteSpace value="collapse"/>
+                                        <xs:enumeration value="RECTANGULAR"/>
+                                        <xs:enumeration value="NONRECTANGULAR"/>
+                                    </xs:restriction>
+                                </xs:simpleType>
+                            </xs:element>
+                            <xs:element name="Size">
+                                <xs:simpleType>
+                                    <xs:restriction base="xs:string">
+                                        <xs:whiteSpace value="collapse"/>
+                                        <xs:enumeration value="REGULAR"/>
+                                        <xs:enumeration value="LARGE"/>
+                                    </xs:restriction>
+                                </xs:simpleType>
+                            </xs:element>
+                            <xs:element name="Width">
+                                <xs:simpleType>
+                                    <xs:restriction base="xs:int">
+                                        <xs:minExclusive value="0"/>
+                                    </xs:restriction>
+                                </xs:simpleType>
+                            </xs:element>
+                            <xs:element name="Length">
+                                <xs:simpleType>
+                                    <xs:restriction base="xs:int">
+                                        <xs:minExclusive value="0"/>
+                                    </xs:restriction>
+                                </xs:simpleType>
+                            </xs:element>
+                            <xs:element name="Height">
+                                <xs:simpleType>
+                                    <xs:restriction base="xs:int">
+                                        <xs:minExclusive value="0"/>
+                                    </xs:restriction>
+                                </xs:simpleType>
+                            </xs:element>
+                            <xs:element name="Girth">
+                                <xs:simpleType>
+                                    <xs:restriction base="xs:int">
+                                        <xs:minExclusive value="0"/>
+                                    </xs:restriction>
+                                </xs:simpleType>
+                            </xs:element>
+                            <xs:element name="OriginZip" minOccurs="0">
+                                <xs:simpleType>
+                                    <xs:restriction base="xs:string">
+                                        <xs:whiteSpace value="collapse"/>
+                                        <xs:length value="5"/>
+                                        <xs:pattern value="\d{5}"/>
+                                    </xs:restriction>
+                                </xs:simpleType>
+                            </xs:element>
+                            <xs:element name="CommercialFlag" minOccurs="0">
+                                <xs:simpleType>
+                                    <xs:restriction base="xs:string">
+                                        <xs:whiteSpace value="collapse"/>
+                                        <xs:enumeration value="Y"/>
+                                        <xs:enumeration value="N"/>
+                                    </xs:restriction>
+                                </xs:simpleType>
+                            </xs:element>
+                            <xs:element name="CommercialPlusFlag" minOccurs="0">
+                                <xs:simpleType>
+                                    <xs:restriction base="xs:string">
+                                        <xs:whiteSpace value="collapse"/>
+                                        <xs:enumeration value="Y"/>
+                                        <xs:enumeration value="N"/>
+                                    </xs:restriction>
+                                </xs:simpleType>
+                            </xs:element>
+                            <xs:element name="ExtraServices" minOccurs="0">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="ExtraService" maxOccurs="6">
+                                            <xs:simpleType>
+                                                <xs:restriction base="xs:string">
+                                                    <xs:enumeration value="0"/>
+                                                    <xs:enumeration value="1"/>
+                                                    <xs:enumeration value="2"/>
+                                                    <xs:enumeration value="6"/>
+                                                    <xs:enumeration value="9"/>
+                                                </xs:restriction>
+                                            </xs:simpleType>
+                                        </xs:element>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="AcceptanceDateTime" type="xs:dateTime" minOccurs="0"/>
+                            <xs:element name="DestinationPostalCode" type="xs:string" minOccurs="0"/>
+                            <xs:element name="Content" minOccurs="0">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="ContentType">
+                                            <xs:simpleType>
+                                                <xs:restriction base="xs:string">
+                                                    <xs:enumeration value="CrematedRemains"/>
+                                                    <xs:enumeration value="NonnegotiableDocument"/>
+                                                    <xs:enumeration value="Pharmaceuticals"/>
+                                                    <xs:enumeration value="MedicalSupplies"/>
+                                                    <xs:enumeration value="Documents"/>
+                                                </xs:restriction>
+                                            </xs:simpleType>
+                                        </xs:element>
+                                        <xs:element name="ContentDescription" type="xs:string"/>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                        <xs:attribute name="ID" type="xs:string" use="required"/>
+                    </xs:complexType>
+                </xs:element>
             </xs:sequence>
-            <xs:attribute name="ID" type="xs:string" use="required" />
-          </xs:complexType>
-        </xs:element>
-      </xs:sequence>
-      <xs:attribute name="USERID" type="xs:string" use="required" />
-    </xs:complexType>
-  </xs:element>
+            <xs:attribute name="USERID" type="xs:string" use="required"/>
+        </xs:complexType>
+    </xs:element>
 </xs:schema>

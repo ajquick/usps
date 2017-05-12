@@ -6,9 +6,9 @@
  *   / /  / / /_/ / / /_/ / /_/ / / / / / / /  __/ / / (__  ) / /_/ / / / // /_/ / /
  *  /_/  /_/\__,_/_/\__/_/\__,_/_/_/ /_/ /_/\___/_/ /_/____/_/\____/_/ /_(_)__,_/_/
  *
- *  @author Multidimension.al
- *  @copyright Copyright © 2016-2017 Multidimension.al - All Rights Reserved
- *  @license Proprietary and Confidential
+ * @author Multidimension.al
+ * @copyright Copyright © 2016-2017 Multidimension.al - All Rights Reserved
+ * @license Proprietary and Confidential
  *
  *  NOTICE:  All information contained herein is, and remains the property of
  *  Multidimension.al and its suppliers, if any.  The intellectual and
@@ -21,10 +21,10 @@
 
 namespace Multidimensional\USPS;
 
+use Exception;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 use Multidimensional\DomArray\DOMArray;
-use \Exception;
 use Multidimensional\XmlArray\XMLArray;
 
 class USPS
@@ -33,24 +33,14 @@ class USPS
     const SECURE_TESTING_URI = 'https://secure.shippingapis.com/ShippingAPITest.dll';
     const PRODUCTION_URI = 'http://production.shippingapis.com/ShippingAPI.dll';
     const TESTING_URI = 'http://stg-production.shippingapis.com/ShippingAPI.dll';
-
-    protected $userID;
-    protected $password;
-
-    public $testMode = false;
-    public $secureMode = false;
-    public $apiClass;
-    public $apiMethod;
-
     const API_CLASSES = [
-        'CityStateLookup'   => 'CityStateLookupRequest',
-        'IntlRateV2'        => 'IntlRateV2Request',
-        'RateV4'            => 'RateV4Request',
-        'TrackV2'           => 'TrackFieldRequest',
-        'Verify'            => 'AddressValidateRequest',
-        'ZipCodeLookup'     => 'ZipCodeLookupRequest'
+        'CityStateLookup' => 'CityStateLookupRequest',
+        'IntlRateV2' => 'IntlRateV2Request',
+        'RateV4' => 'RateV4Request',
+        'TrackV2' => 'TrackFieldRequest',
+        'Verify' => 'AddressValidateRequest',
+        'ZipCodeLookup' => 'ZipCodeLookupRequest'
     ];
-
     const ERROR_RESPONSE = [
         'Error' => [
             'type' => 'array',
@@ -73,6 +63,12 @@ class USPS
             ]
         ]
     ];
+    public $testMode = false;
+    public $secureMode = false;
+    public $apiClass;
+    public $apiMethod;
+    protected $userID;
+    protected $password;
 
     /**
      * @param array $config
@@ -85,16 +81,6 @@ class USPS
         if (isset($config['password'])) {
             $this->setPassword($config['password']);
         }
-    }
-
-    /**
-     * @param string $userID
-     * @param string|null $password
-     */
-    public function setCredentials($userID, $password = null)
-    {
-        $this->setUserID($userID);
-        $this->setPassword($password);
     }
 
     /**
@@ -114,11 +100,13 @@ class USPS
     }
 
     /**
-     * @param bool $boolean
+     * @param string $userID
+     * @param string|null $password
      */
-    public function setTestMode($boolean = true)
+    public function setCredentials($userID, $password = null)
     {
-        $this->testMode = (bool) $boolean;
+        $this->setUserID($userID);
+        $this->setPassword($password);
     }
 
     public function setProductionMode()
@@ -129,9 +117,17 @@ class USPS
     /**
      * @param bool $boolean
      */
+    public function setTestMode($boolean = true)
+    {
+        $this->testMode = (bool)$boolean;
+    }
+
+    /**
+     * @param bool $boolean
+     */
     public function setSecureMode($boolean = true)
     {
-        $this->secureMode = (bool) $boolean;
+        $this->secureMode = (bool)$boolean;
     }
 
     /**

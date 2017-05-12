@@ -6,9 +6,9 @@
  *   / /  / / /_/ / / /_/ / /_/ / / / / / / /  __/ / / (__  ) / /_/ / / / // /_/ / /
  *  /_/  /_/\__,_/_/\__/_/\__,_/_/_/ /_/ /_/\___/_/ /_/____/_/\____/_/ /_(_)__,_/_/
  *
- *  @author Multidimension.al
- *  @copyright Copyright © 2016-2017 Multidimension.al - All Rights Reserved
- *  @license Proprietary and Confidential
+ * @author Multidimension.al
+ * @copyright Copyright © 2016-2017 Multidimension.al - All Rights Reserved
+ * @license Proprietary and Confidential
  *
  *  NOTICE:  All information contained herein is, and remains the property of
  *  Multidimension.al and its suppliers, if any.  The intellectual and
@@ -21,13 +21,13 @@
 
 namespace Multidimensional\USPS\Test;
 
-use \Exception;
+use Exception;
 use Multidimensional\USPS\ZipCode;
 use PHPUnit\Framework\TestCase;
 
 class ZipCodeTest extends TestCase
 {
-    
+
     public function testZipCode()
     {
         $config = ['@ID' => 0, 'Zip5' => '90210'];
@@ -41,7 +41,7 @@ class ZipCodeTest extends TestCase
         $expected = ['@ID' => 123, 'Zip5' => '90210'];
         $this->assertEquals($expected, $result);
     }
-    
+
     public function testFailure()
     {
         $zipCode = new ZipCode();

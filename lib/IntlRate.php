@@ -6,9 +6,9 @@
  *   / /  / / /_/ / / /_/ / /_/ / / / / / / /  __/ / / (__  ) / /_/ / / / // /_/ / /
  *  /_/  /_/\__,_/_/\__/_/\__,_/_/_/ /_/ /_/\___/_/ /_/____/_/\____/_/ /_(_)__,_/_/
  *
- *  @author Multidimension.al
- *  @copyright Copyright © 2016-2017 Multidimension.al - All Rights Reserved
- *  @license Proprietary and Confidential
+ * @author Multidimension.al
+ * @copyright Copyright © 2016-2017 Multidimension.al - All Rights Reserved
+ * @license Proprietary and Confidential
  *
  *  NOTICE:  All information contained herein is, and remains the property of
  *  Multidimension.al and its suppliers, if any.  The intellectual and
@@ -25,10 +25,6 @@ use Multidimensional\USPS\IntlRate\Package;
 
 class IntlRate extends USPS
 {
-    protected $packages = [];
-
-    public $revision = 2;
-
     const FIELDS = [
         'IntlRateV2Request' => [
             'type' => 'array',
@@ -48,9 +44,7 @@ class IntlRate extends USPS
             ]
         ]
     ];
-
     const RESPONSE = [];
-
     const ERROR_RESPONSE = [
         'Error' => [
             'type' => 'array',
@@ -73,6 +67,8 @@ class IntlRate extends USPS
             ]
         ]
     ];
+    public $revision = 2;
+    protected $packages = [];
 
     public function __construct(array $config = [])
     {
@@ -85,6 +81,15 @@ class IntlRate extends USPS
         $this->apiMethod = '';
     }
 
+    public function setRevision($value)
+    {
+        if (intval($value) === 2) {
+            $this->revision = '2';
+        } else {
+            $this->revision = null;
+        }
+    }
+
     public function getRate()
     {
         return $this->request($this->apiClass);
@@ -93,14 +98,5 @@ class IntlRate extends USPS
     public function addPackage(IntlRate\Package $package)
     {
         $this->packages[] = $package->toArray();
-    }
-
-    public function setRevision($value)
-    {
-        if (intval($value) === 2) {
-            $this->revision = '2';
-        } else {
-            $this->revision = null;
-        }
     }
 }
