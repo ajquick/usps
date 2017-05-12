@@ -4,6 +4,7 @@
 # Composer
 vendor/
 /composer.lock
+/composer.json
 
 # PHPStorm
 .idea/
@@ -61,3 +62,4 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
+
