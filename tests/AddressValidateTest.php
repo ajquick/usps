@@ -11,7 +11,7 @@
  *  @license Proprietary and Confidential
  *
  *  NOTICE:  All information contained herein is, and remains the property of
- *  Multidimension.al and its suppliers, if aDC.  The intellectual and
+ *  Multidimension.al and its suppliers, if any.  The intellectual and
  *  technical concepts contained herein are proprietary to Multidimension.al
  *  and its suppliers and may be covered by U.S. and Foreign Patents, patents in
  *  process, and are protected by trade secret or copyright law. Dissemination
@@ -23,7 +23,7 @@ namespace Multidimensional\USPS\Test;
 
 use Multidimensional\USPS\Address;
 use Multidimensional\USPS\AddressValidate;
-use Multidimensional\USPS\Exception\AddressValidateException;
+use \Exception;
 use PHPUnit\Framework\TestCase;
 
 class AddressValidateTest extends TestCase
@@ -57,12 +57,12 @@ class AddressValidateTest extends TestCase
 
         $addressValidate = new AddressValidate(['IncludeOptionalElements' => true, 'ReturnCarrierRoute' => true, 'Address' => $this->address]);
         $result = $addressValidate->toArray();
-        $expected = ['AddressValidateRequest' => ['IncludeOptionalElements' => true, 'ReturnCarrierRoute' => true, 'Address' => [0 => ['@ID' => 123, 'FirmName' => 'The White House', 'Address1' => NULL, 'Address2' => '1600 Pennsylvania Ave NW', 'City' => 'Washington', 'State' => 'DC', 'Urbanization' => NULL, 'Zip5' => '20500', 'Zip4' => NULL]]]];
+        $expected = ['AddressValidateRequest' => ['IncludeOptionalElements' => true, 'ReturnCarrierRoute' => true, 'Address' => [0 => ['@ID' => 123, 'FirmName' => 'The White House', 'Address1' => null, 'Address2' => '1600 Pennsylvania Ave NW', 'City' => 'Washington', 'State' => 'DC', 'Urbanization' => null, 'Zip5' => '20500', 'Zip4' => null]]]];
         $this->assertEquals($expected, $result);
 
         $addressValidate = new AddressValidate(['IncludeOptionalElements' => true, 'ReturnCarrierRoute' => true, 'Address' => [$this->address, $this->address]]);
         $result = $addressValidate->toArray();
-        $expected = ['AddressValidateRequest' => ['IncludeOptionalElements' => true, 'ReturnCarrierRoute' => true, 'Address' => [0 => ['@ID' => 123, 'FirmName' => 'The White House', 'Address1' => NULL, 'Address2' => '1600 Pennsylvania Ave NW', 'City' => 'Washington', 'State' => 'DC', 'Urbanization' => NULL, 'Zip5' => '20500', 'Zip4' => NULL], 1 => ['@ID' => 123, 'FirmName' => 'The White House', 'Address1' => NULL, 'Address2' => '1600 Pennsylvania Ave NW', 'City' => 'Washington', 'State' => 'DC', 'Urbanization' => NULL, 'Zip5' => '20500', 'Zip4' => NULL]]]];
+        $expected = ['AddressValidateRequest' => ['IncludeOptionalElements' => true, 'ReturnCarrierRoute' => true, 'Address' => [0 => ['@ID' => 123, 'FirmName' => 'The White House', 'Address1' => null, 'Address2' => '1600 Pennsylvania Ave NW', 'City' => 'Washington', 'State' => 'DC', 'Urbanization' => null, 'Zip5' => '20500', 'Zip4' => null], 1 => ['@ID' => 123, 'FirmName' => 'The White House', 'Address1' => null, 'Address2' => '1600 Pennsylvania Ave NW', 'City' => 'Washington', 'State' => 'DC', 'Urbanization' => null, 'Zip5' => '20500', 'Zip4' => null]]]];
         $this->assertEquals($expected, $result);
     }
 
@@ -89,7 +89,7 @@ class AddressValidateTest extends TestCase
         $addressValidate->addAddress($this->address);
         try {
             $addressValidate->addAddress($this->address);
-        } catch (AddressValidateException $e) {
+        } catch (Exception $e) {
             $this->assertEquals('Address not added. You can only have a maximum of 5 addresses included in each look up request.', $e->getMessage());
         }
     }
@@ -122,9 +122,9 @@ class AddressValidateTest extends TestCase
         $addressValidate->addAddress($this->address);
         try {
             $result = $addressValidate->validate();
-            $expected = [123 => ['FirmName' => 'THE WHITE HOUSE', 'Address1' => '1600 PENNSYLVANIA AVE NW', 'Address2' => NULL, 'City' => 'WASHINGTON', 'State' => 'DC', 'Urbanization' => NULL, 'Zip5' => '20500', 'Zip4' => '0004', 'DeliveryPoint' => null, 'CarrierRoute' => null, 'ReturnText' => null]];
+            $expected = [123 => ['FirmName' => 'THE WHITE HOUSE', 'Address1' => '1600 PENNSYLVANIA AVE NW', 'Address2' => null, 'City' => 'WASHINGTON', 'State' => 'DC', 'Urbanization' => null, 'Zip5' => '20500', 'Zip4' => '0004', 'DeliveryPoint' => null, 'CarrierRoute' => null, 'ReturnText' => null]];
             $this->assertEquals($expected, $result);
-        } catch (AddressValidateException $e) {
+        } catch (Exception $e) {
             $this->assertEquals('', $e->getMessage());
         }
     }
@@ -137,9 +137,9 @@ class AddressValidateTest extends TestCase
         $addressValidate->addAddress($this->address);
         try {
             $result = $addressValidate->validate();
-            $expected = [123 => ['FirmName' => 'THE WHITE HOUSE', 'Address1' => '1600 PENNSYLVANIA AVE NW', 'Address2' => NULL, 'City' => 'WASHINGTON', 'State' => 'DC', 'Urbanization' => NULL, 'Zip5' => '20500', 'Zip4' => '0004', 'DeliveryPoint' => null, 'CarrierRoute' => null, 'ReturnText' => null], 456 => ['FirmName' => 'THE WHITE HOUSE', 'Address1' => '1600 PENNSYLVANIA AVE NW', 'Address2' => NULL, 'City' => 'WASHINGTON', 'State' => 'DC', 'Urbanization' => NULL, 'Zip5' => '20500', 'Zip4' => '0004', 'DeliveryPoint' => null, 'CarrierRoute' => null, 'ReturnText' => null]];
+            $expected = [123 => ['FirmName' => 'THE WHITE HOUSE', 'Address1' => '1600 PENNSYLVANIA AVE NW', 'Address2' => null, 'City' => 'WASHINGTON', 'State' => 'DC', 'Urbanization' => null, 'Zip5' => '20500', 'Zip4' => '0004', 'DeliveryPoint' => null, 'CarrierRoute' => null, 'ReturnText' => null], 456 => ['FirmName' => 'THE WHITE HOUSE', 'Address1' => '1600 PENNSYLVANIA AVE NW', 'Address2' => null, 'City' => 'WASHINGTON', 'State' => 'DC', 'Urbanization' => null, 'Zip5' => '20500', 'Zip4' => '0004', 'DeliveryPoint' => null, 'CarrierRoute' => null, 'ReturnText' => null]];
             $this->assertEquals($expected, $result);
-        } catch (AddressValidateException $e) {
+        } catch (Exception $e) {
             $this->assertEquals('', $e->getMessage());
         }
     }

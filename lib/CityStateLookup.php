@@ -21,11 +21,10 @@
 
 namespace Multidimensional\USPS;
 
+use \Exception;
 use Multidimensional\ArraySanitization\Sanitization;
 use Multidimensional\ArrayValidation\Exception\ValidationException;
 use Multidimensional\ArrayValidation\Validation;
-use Multidimensional\USPS\Exception\CityStateLookupException;
-use Multidimensional\USPS\ZipCode;
 
 class CityStateLookup extends USPS
 {
@@ -76,11 +75,11 @@ class CityStateLookup extends USPS
         if (is_array($config) && isset($config['ZipCode'])) {
             if (is_array($config['ZipCode'])) {
                 foreach ($config['ZipCode'] as $zipCodeObject) {
-                    if(is_object($zipCodeObject) && $zipCodeObject instanceof ZipCode) {
+                    if (is_object($zipCodeObject) && $zipCodeObject instanceof ZipCode) {
                         $this->addZipCode($zipCodeObject);
                     }
                 }
-            } elseif(is_object($config['ZipCode']) && $config['ZipCode'] instanceof ZipCode) {
+            } elseif (is_object($config['ZipCode']) && $config['ZipCode'] instanceof ZipCode) {
                 $this->addZipCode($config['ZipCode']);
             }
         }
@@ -91,14 +90,14 @@ class CityStateLookup extends USPS
 
     /**
      * @param \Multidimensional\Usps\ZipCode $zipCode
-     * @throws CityStateLookupException
+     * @throws Exception
      */
     public function addZipCode(ZipCode $zipCode)
     {
         if (count($this->zipCodes) < 5) {
             $this->zipCodes[] = $zipCode->toArray();
         } else {
-            throw new CityStateLookupException('Zip code not added. You can only have a maximum of 5 zip codes included in each look up request.');
+            throw new Exception('Zip code not added. You can only have a maximum of 5 zip codes included in each look up request.');
         }
     }
 
@@ -120,7 +119,7 @@ class CityStateLookup extends USPS
                 return null;
             }
         } catch (ValidationException $e) {
-            throw new CityStateLookupException($e->getMessage());
+            throw $e;
         }
 
         return $array;
@@ -128,7 +127,7 @@ class CityStateLookup extends USPS
 
     /**
      * @return array
-     * @throws CityStateLookupException
+     * @throws Exception
      */
     public function lookup()
     {
@@ -138,17 +137,17 @@ class CityStateLookup extends USPS
                 $result = $this->request($xml);
                 return $this->parseResult($result);
             } else {
-                throw new CityStateLookupException('Unable to validate XML.');
+                throw new Exception('Unable to validate XML.');
             }
         } catch (ValidationException $e) {
-            throw new CityStateLookupException($e->getMessage());
+            throw $e;
         }
     }
 
     /**
      * @param string $result
      * @return array
-     * @throws CityStateLookupException
+     * @throws Exception
      */
     protected function parseResult($result)
     {
@@ -162,14 +161,13 @@ class CityStateLookup extends USPS
                 return null;
             }
         } catch (ValidationException $e) {
-            throw new CityStateLookupException($e->getMessage());
+            throw $e;
         }
 
         if (is_array($array) && count($array) && (isset($array['ZipCode']) || array_key_exists('ZipCode', $array) )) {
-
             $array = $array['ZipCode'];
 
-            foreach ($array AS $key => $value) {
+            foreach ($array as $key => $value) {
                 if (is_int($key)) {
                     $array[$value['@ID']] = $value;
                     unset($array[$key]);
@@ -182,7 +180,7 @@ class CityStateLookup extends USPS
                 }
             }
 
-            foreach ($array AS $key => $value) {
+            foreach ($array as $key => $value) {
                 $array[$key] += array_combine(array_keys(self::RESPONSE['CityStateLookupResponse']['fields']['ZipCode']['fields']), array_fill(0, count(self::RESPONSE['CityStateLookupResponse']['fields']['ZipCode']['fields']), null));
                 $array[$key] = array_replace(self::RESPONSE['CityStateLookupResponse']['fields']['ZipCode']['fields'], $array[$key]);
                 unset($array[$key]['@ID']);
@@ -191,6 +189,6 @@ class CityStateLookup extends USPS
             return $array;
         }
 
-        throw new CityStateLookupException();
+        throw new Exception();
     }
 }

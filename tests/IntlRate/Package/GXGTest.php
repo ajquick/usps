@@ -21,7 +21,7 @@
 
 namespace Multidimensional\USPS\Test\IntlRate\Package;
 
-use Multidimensional\USPS\IntlRate\Package\Exception\GXGException;
+use \Exception;
 use Multidimensional\USPS\IntlRate\Package\GXG;
 use PHPUnit\Framework\TestCase;
 
@@ -67,7 +67,7 @@ class GXGTest extends TestCase
         try {
             $result = $this->gxg->toArray();
             $this->assertNull($result);
-        } catch (GXGException $e) {
+        } catch (Exception $e) {
             $this->assertEquals('Required value not found for key: POBoxFlag.', $e->getMessage());
         }
         $this->gxg->setPOBoxFlag(GXG::POBOXFLAG_YES);
@@ -81,7 +81,7 @@ class GXGTest extends TestCase
         try {
             $result = $this->gxg->toArray();
             $this->assertNull($result);
-        } catch (GXGException $e) {
+        } catch (Exception $e) {
             $this->assertEquals('Invalid value "NOT A VALID ANSWER" for key: POBoxFlag. Did you mean "N"?', $e->getMessage());
         }
     }

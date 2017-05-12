@@ -24,7 +24,7 @@ namespace Multidimensional\USPS;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 use Multidimensional\DomArray\DOMArray;
-use Multidimensional\USPS\Exception\USPSException;
+use \Exception;
 use Multidimensional\XmlArray\XMLArray;
 
 class USPS
@@ -121,9 +121,6 @@ class USPS
         $this->testMode = (bool) $boolean;
     }
 
-    /**
-     * @param bool $boolean
-     */
     public function setProductionMode()
     {
         $this->setTestMode(false);
@@ -140,13 +137,13 @@ class USPS
     /**
      * @param string $xml
      * @return string
-     * @throws USPSException
+     * @throws Exception
      */
     protected function request($xml)
     {
         if (isset($this->apiClass) && (self::API_CLASSES[$this->apiClass] || array_key_exists($this->apiClass, self::API_CLASSES))) {
         } else {
-            throw new USPSException('Invalid API Class.');
+            throw new Exception('Invalid API Class.');
         }
 
         if ($this->testMode === true && $this->secureMode === true) {
@@ -166,7 +163,7 @@ class USPS
             $response = $client->request('GET', $requestUri);
             return $response->getBody();
         } catch (ClientException $e) {
-            throw new USPSException($e->getMessage());
+            throw $e;
         }
     }
 
@@ -188,7 +185,7 @@ class USPS
     /**
      * @param string $xml
      * @return true
-     * @throws USPSException
+     * @throws Exception
      */
     protected function validateXML($xml)
     {
@@ -206,7 +203,7 @@ class USPS
             $error = libxml_get_errors();
             libxml_clear_errors();
 
-            throw new USPSException($error->message);
+            throw new Exception($error->message);
         }
     }
 

@@ -24,7 +24,7 @@ namespace Multidimensional\USPS;
 use Multidimensional\ArraySanitization\Sanitization;
 use Multidimensional\ArrayValidation\Exception\ValidationException;
 use Multidimensional\ArrayValidation\Validation;
-use Multidimensional\USPS\Exception\ZipCodeLookupException;
+use \Exception;
 
 class ZipCodeLookup extends USPS
 {
@@ -89,11 +89,11 @@ class ZipCodeLookup extends USPS
         if (is_array($config) && isset($config['Address'])) {
             if (is_array($config['Address'])) {
                 foreach ($config['Address'] as $addressObject) {
-                    if(is_object($addressObject) && $addressObject instanceof Address) {
+                    if (is_object($addressObject) && $addressObject instanceof Address) {
                         $this->addAddress($addressObject);
                     }
                 }
-            } elseif(is_object($config['Address']) && $config['Address'] instanceof Address) {
+            } elseif (is_object($config['Address']) && $config['Address'] instanceof Address) {
                 $this->addAddress($config['Address']);
             }
         }
@@ -104,7 +104,7 @@ class ZipCodeLookup extends USPS
 
     /**
      * @param Address $address
-     * @throws ZipCodeLookupException
+     * @throws Exception
      */
     public function addAddress(Address $address)
     {
@@ -115,7 +115,7 @@ class ZipCodeLookup extends USPS
             unset($address['Zip4']);
             $this->addresses[] = $address;
         } else {
-            throw new ZipCodeLookupException('Address not added. You can only have a maximum of 5 addresses included in each look up request.');
+            throw new Exception('Address not added. You can only have a maximum of 5 addresses included in each look up request.');
         }
     }
 
@@ -137,7 +137,7 @@ class ZipCodeLookup extends USPS
                 return null;
             }
         } catch (ValidationException $e) {
-            throw new ZipCodeLookupException($e->getMessage());
+            throw $e;
         }
 
         return $array;
@@ -145,7 +145,7 @@ class ZipCodeLookup extends USPS
 
     /**
      * @return array
-     * @throws ZipCodeLookupException
+     * @throws Exception
      */
     public function lookup()
     {
@@ -155,10 +155,10 @@ class ZipCodeLookup extends USPS
                 $result = $this->request($xml);
                 return $this->parseResult($result);
             } else {
-                throw new ZipCodeLookupException('Unable to validate XML.');
+                throw new Exception('Unable to validate XML.');
             }
         } catch (ValidationException $e) {
-            throw new ZipCodeLookupException($e->getMessage());
+            throw $e;
         }
     }
 
@@ -178,16 +178,15 @@ class ZipCodeLookup extends USPS
                 return null;
             }
         } catch (ValidationException $e) {
-            throw new ZipCodeLookupException($e->getMessage());
+            throw $e;
         }
 
         $array = $array['ZipCodeLookupResponse'];
 
         if (is_array($array) && count($array) && (isset($array['Address']) || array_key_exists('Address', $array) )) {
-
             $array = $array['Address'];
 
-            foreach ($array AS $key => $value) {
+            foreach ($array as $key => $value) {
                 if (is_int($key)) {
                     list($array[$key]['Address2'], $array[$key]['Address1']) = [isset($value['Address1']) ? $value['Address1'] : null, isset($value['Address2']) ? $value['Address2'] : null];
                 } else {
@@ -196,7 +195,7 @@ class ZipCodeLookup extends USPS
                 }
             }
 
-            foreach ($array AS $key => $value) {
+            foreach ($array as $key => $value) {
                 if (is_int($key)) {
                     $array[$value['@ID']] = $value;
                     unset($array[$key]);
@@ -207,16 +206,15 @@ class ZipCodeLookup extends USPS
                 }
             }
 
-            foreach ($array AS $key => $value) {
+            foreach ($array as $key => $value) {
                 $array[$key] += array_combine(array_keys(self::RESPONSE['ZipCodeLookupResponse']['fields']['Address']['fields']), array_fill(0, count(self::RESPONSE['ZipCodeLookupResponse']['fields']['Address']['fields']), null));
                 $array[$key] = array_replace(self::RESPONSE['ZipCodeLookupResponse']['fields']['Address']['fields'], $array[$key]);
                 unset($array[$key]['@ID']);
             }
 
             return $array;
-
         } else {
-            throw new ZipCodeLookupException();
+            throw new Exception();
         }
     }
 }

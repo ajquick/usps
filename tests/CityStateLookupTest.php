@@ -22,7 +22,7 @@
 namespace Multidimensional\USPS\Test;
 
 use Multidimensional\USPS\CityStateLookup;
-use Multidimensional\USPS\Exception\CityStateLookupException;
+use \Exception;
 use Multidimensional\USPS\ZipCode;
 use PHPUnit\Framework\TestCase;
 
@@ -63,7 +63,7 @@ class CityStateLookupTest extends TestCase
         $cityStateLookup->addZipCode($this->zipCode);
         try {
             $cityStateLookup->addZipCode($this->zipCode);
-        } catch (CityStateLookupException $e) {
+        } catch (Exception $e) {
             $this->assertEquals('Zip code not added. You can only have a maximum of 5 zip codes included in each look up request.', $e->getMessage());
         }
     }
@@ -76,7 +76,7 @@ class CityStateLookupTest extends TestCase
             $result = $cityStateLookup->lookup();
             $expected = ['123' => ['City' => 'WASHINGTON', 'State' => 'DC', 'Zip5' => '20500']];
             $this->assertEquals($expected, $result);
-        } catch (CityStateLookupException $e) {
+        } catch (Exception $e) {
             $this->assertEquals('', $e->getMessage());
         }
     }
@@ -91,9 +91,8 @@ class CityStateLookupTest extends TestCase
             $result = $cityStateLookup->lookup();
             $expected = ['123' => ['City' => 'WASHINGTON', 'State' => 'DC', 'Zip5' => '20500'], '456' => ['City' => 'WASHINGTON', 'State' => 'DC', 'Zip5' => '20500']];
             $this->assertEquals($expected, $result);
-        } catch (CityStateLookupException $e) {
+        } catch (Exception $e) {
             $this->assertEquals('', $e->getMessage());
         }
     }
-
 }

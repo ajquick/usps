@@ -22,7 +22,7 @@
 namespace Multidimensional\USPS\Test\IntlRate\Package;
 
 use Multidimensional\USPS\IntlRate\Package\Content;
-use Multidimensional\USPS\IntlRate\Package\Exception\ContentException;
+use \Exception;
 use PHPUnit\Framework\TestCase;
 
 class ContentTest extends TestCase
@@ -61,7 +61,7 @@ class ContentTest extends TestCase
         try {
             $result = $this->content->toArray();
             $this->assertNull($result);
-        } catch (ContentException $e) {
+        } catch (Exception $e) {
             $this->assertEquals('Required value not found for key: ContentType.', $e->getMessage());
         }
         $this->content->setContentType(Content::TYPE_DOCUMENTS);
@@ -72,7 +72,7 @@ class ContentTest extends TestCase
         try {
             $result = $this->content->toArray();
             $this->assertNull($result);
-        } catch (ContentException $e) {
+        } catch (Exception $e) {
             $this->assertEquals('Invalid value "Not a valid type" for key: ContentType. Did you mean "MedicalSupplies"?', $e->getMessage());
         }
     }

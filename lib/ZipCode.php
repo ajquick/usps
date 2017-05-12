@@ -24,7 +24,7 @@ namespace Multidimensional\USPS;
 use Multidimensional\ArraySanitization\Sanitization;
 use Multidimensional\ArrayValidation\Exception\ValidationException;
 use Multidimensional\ArrayValidation\Validation;
-use Multidimensional\USPS\Exception\ZipCodeException;
+use \Exception;
 
 class ZipCode
 {
@@ -102,7 +102,7 @@ class ZipCode
 
     /**
      * @return array|null
-     * @throws ZipCodeException
+     * @throws Exception
      */
     public function toArray()
     {
@@ -113,7 +113,7 @@ class ZipCode
                 return null;
             }
         } catch (ValidationException $e) {
-            throw new ZipCodeException($e->getMessage());
+            throw $e;
         }
         
         return $this->zipCode;

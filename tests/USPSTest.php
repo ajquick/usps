@@ -21,7 +21,6 @@
 
 namespace Multidimensional\USPS\Test;
 
-use Multidimensional\USPS\Exception\USPSException;
 use Multidimensional\USPS\USPS;
 use PHPUnit\Framework\TestCase;
 

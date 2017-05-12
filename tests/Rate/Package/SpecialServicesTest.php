@@ -21,7 +21,7 @@
 
 namespace Multidimensional\USPS\Test\Rate\Package;
 
-use Multidimensional\USPS\Rate\Package\Exception\SpecialServicesException;
+use \Exception;
 use Multidimensional\USPS\Rate\Package\SpecialServices;
 use PHPUnit\Framework\TestCase;
 
@@ -64,7 +64,7 @@ class SpecialServicesTest extends TestCase
         try {
             $result = $this->specialServices->toArray();
             $this->assertNull($result);
-        } catch (SpecialServicesException $e) {
+        } catch (Exception $e) {
             $this->assertEquals('Invalid value "666" for key: SpecialService. Did you mean "156"?', $e->getMessage());
         }
     }

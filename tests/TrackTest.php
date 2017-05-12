@@ -21,7 +21,7 @@
 
 namespace Multidimensional\USPS\Test;
 
-use Multidimensional\USPS\Exception\TrackException;
+use \Exception;
 use Multidimensional\USPS\Track;
 use PHPUnit\Framework\TestCase;
 
@@ -83,7 +83,7 @@ class TrackTest extends TestCase
             $result = $track->track();
             $expected = ['EJ123456780US' => ['TrackSummary' => 'The Postal Service could not locate the tracking information for your request. Please verify your tracking number and try again later.', 'TrackDetail' => null], 'EJ123456789US' => ['TrackSummary' => 'The Postal Service could not locate the tracking information for your request. Please verify your tracking number and try again later.', 'TrackDetail' => null], 'EJ123456781US' => ['TrackSummary' => 'The Postal Service could not locate the tracking information for your request. Please verify your tracking number and try again later.', 'TrackDetail' => null]];
             $this->assertEquals($expected, $result);
-        } catch (TrackException $e) {
+        } catch (Exception $e) {
             $this->assertContains('Could not resolve host', $e->getMessage());
         }
     }
@@ -103,7 +103,7 @@ class TrackTest extends TestCase
         $track->addTrackingNumber($this->trackingNumber2 . '7');
         try {
             $track->addTrackingNumber($this->trackingNumber3 . '8');
-        } catch (TrackException $e) {
+        } catch (Exception $e) {
             $this->assertEquals('Tracking number not added. You can only have a maximum of 10 tracking numbers included in each look up request.', $e->getMessage());
         }
     }
@@ -114,11 +114,12 @@ class TrackTest extends TestCase
         $method = self::getMethod('parseResult');
         $track = new Track();
         $result = $method->invokeArgs($track, [$xml]);
-        $expected = ['XXXXXXXXXXXX1' => ['TrackSummary' => 'Your item was delivered at 6:50 am on February 6 in BARTOW FL 33830.', 'TrackDetail' => [0 => 'February 6 6:49 am NOTICE LEFT BARTOW FL 33830',1 => 'February 6 6:48 am ARRIVAL AT UNIT BARTOW FL 33830',2 => 'February 6 3:49 am ARRIVAL AT UNIT LAKELAND FL 33805',3 => 'February 5 7:28 pm ENROUTE 33699',4 => 'February 5 7:18 pm ACCEPT OR PICKUP 33699']], 'XXXXXXXXXXXX2' => ['TrackSummary' => 'There is no record of that mail item. If it was mailed recently, It may not yet be tracked. Please try again later. ', 'TrackDetail' => NULL], 'XXXXXXXXXXXX3' => ['TrackSummary' => ' That&#39;s not a valid number. Please check to make sure you entered it correctly.', 'TrackDetail' => NULL]];
+        $expected = ['XXXXXXXXXXXX1' => ['TrackSummary' => 'Your item was delivered at 6:50 am on February 6 in BARTOW FL 33830.', 'TrackDetail' => [0 => 'February 6 6:49 am NOTICE LEFT BARTOW FL 33830',1 => 'February 6 6:48 am ARRIVAL AT UNIT BARTOW FL 33830',2 => 'February 6 3:49 am ARRIVAL AT UNIT LAKELAND FL 33805',3 => 'February 5 7:28 pm ENROUTE 33699',4 => 'February 5 7:18 pm ACCEPT OR PICKUP 33699']], 'XXXXXXXXXXXX2' => ['TrackSummary' => 'There is no record of that mail item. If it was mailed recently, It may not yet be tracked. Please try again later. ', 'TrackDetail' => null], 'XXXXXXXXXXXX3' => ['TrackSummary' => ' That&#39;s not a valid number. Please check to make sure you entered it correctly.', 'TrackDetail' => null]];
         $this->assertEquals($expected, $result);
     }
 
-    protected static function getMethod($name) {
+    protected static function getMethod($name)
+    {
         $class = new \ReflectionClass('Multidimensional\Usps\Track');
         $method = $class->getMethod($name);
         $method->setAccessible(true);

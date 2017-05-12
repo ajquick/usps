@@ -24,7 +24,7 @@ namespace Multidimensional\USPS;
 use Multidimensional\ArraySanitization\Sanitization;
 use Multidimensional\ArrayValidation\Exception\ValidationException;
 use Multidimensional\ArrayValidation\Validation;
-use Multidimensional\USPS\Exception\AddressException;
+use \Exception;
 
 class Address
 {
@@ -119,7 +119,7 @@ class Address
 
     /**
      * @return array|null
-     * @throws AddressException
+     * @throws Exception
      */
     public function toArray()
     {
@@ -133,7 +133,7 @@ class Address
                 return null;
             }
         } catch (ValidationException $e) {
-            throw new AddressException($e->getMessage());
+            throw $e;
         }
 
         $array = array_replace(self::FIELDS, $array);

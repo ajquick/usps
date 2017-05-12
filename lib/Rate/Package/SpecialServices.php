@@ -24,7 +24,7 @@ namespace Multidimensional\USPS\Rate\Package;
 use Multidimensional\ArraySanitization\Sanitization;
 use Multidimensional\ArrayValidation\Exception\ValidationException;
 use Multidimensional\ArrayValidation\Validation;
-use Multidimensional\USPS\Rate\Package\Exception\SpecialServicesException;
+use \Exception;
 
 class SpecialServices
 {
@@ -114,7 +114,7 @@ class SpecialServices
 
     /**
      * @return array|null
-     * @throws SpecialServicesException
+     * @throws Exception
      */
     public function toArray()
     {
@@ -125,7 +125,7 @@ class SpecialServices
                 return null;
             }
         } catch (ValidationException $e) {
-            throw new SpecialServicesException($e->getMessage());
+            throw $e;
         }
 
         return $this->service;

@@ -21,11 +21,10 @@
 
 namespace Multidimensional\USPS;
 
+use \Exception;
 use Multidimensional\ArraySanitization\Sanitization;
 use Multidimensional\ArrayValidation\Exception\ValidationException;
 use Multidimensional\ArrayValidation\Validation;
-use Multidimensional\USPS\Exception\RateException;
-use Multidimensional\USPS\Exception\USPSException;
 use Multidimensional\USPS\Rate\Package;
 
 class Rate extends USPS
@@ -200,11 +199,11 @@ class Rate extends USPS
         if (is_array($config) && isset($config['Package'])) {
             if (is_array($config['Package'])) {
                 foreach ($config['Package'] as $packageObject) {
-                    if(is_object($packageObject) && $packageObject instanceof Package) {
+                    if (is_object($packageObject) && $packageObject instanceof Package) {
                         $this->addPackage($packageObject);
                     }
                 }
-            } elseif(is_object($config['Package']) && $config['Package'] instanceof Package) {
+            } elseif (is_object($config['Package']) && $config['Package'] instanceof Package) {
                 $this->addPackage($config['Package']);
             }
         }
@@ -214,7 +213,9 @@ class Rate extends USPS
     }
 
     /**
-     * @return string
+     * @return array
+     * @throws Exception
+     * @throws ValidationException
      */
     public function getRate()
     {
@@ -224,10 +225,10 @@ class Rate extends USPS
                 $result = $this->request($xml);
                 return $this->parseResult($result);
             } else {
-                throw new RateException('Unable to validate XML.');
+                throw new Exception('Unable to validate XML.');
             }
         } catch (ValidationException $e) {
-            throw new RateException($e->getMessage());
+            throw $e;
         }
     }
 
@@ -239,7 +240,7 @@ class Rate extends USPS
         if (count($this->packages) < 25) {
             $this->packages[] = $package->toArray();
         } else {
-            throw new RateException('Package not added. You can only have a maximum of 25 packages included in each look up request.');
+            throw new Exception('Package not added. You can only have a maximum of 25 packages included in each look up request.');
         }
     }
 
@@ -257,7 +258,7 @@ class Rate extends USPS
 
     /**
      * @return array|null
-     * @throws RateException
+     * @throws Exception
      */
     public function toArray()
     {
@@ -278,7 +279,7 @@ class Rate extends USPS
                 return null;
             }
         } catch (ValidationException $e) {
-            throw new RateException($e->getMessage());
+            throw $e;
         }
 
         return $array;
@@ -300,15 +301,14 @@ class Rate extends USPS
                 return null;
             }
         } catch (ValidationException $e) {
-            throw new RateException($e->getMessage());
+            throw $e;
         }
 
         $array = $array['RateV4Response'];
 
         if (is_array($array) && count($array) && (isset($array['Package']) || array_key_exists('Package', $array) )) {
-
             $array = $array['Package'];
-            foreach ($array AS $key => $value) {
+            foreach ($array as $key => $value) {
                 if (is_int($key)) {
                     $array[$value['@ID']] = $value;
                     unset($array[$key]);
@@ -319,16 +319,15 @@ class Rate extends USPS
                 }
             }
 
-            foreach ($array AS $key => $value) {
+            foreach ($array as $key => $value) {
                 $array[$key] += array_combine(array_keys(self::RESPONSE['RateV4Response']['fields']['Package']['fields']), array_fill(0, count(self::RESPONSE['RateV4Response']['fields']['Package']['fields']), null));
                 $array[$key] = array_replace(self::RESPONSE['RateV4Response']['fields']['Package']['fields'], $array[$key]);
                 unset($array[$key]['@ID']);
             }
 
             return $array;
-
         } else {
-            throw new RateException();
+            throw new Exception();
         }
     }
 }

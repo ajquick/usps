@@ -24,7 +24,7 @@ namespace Multidimensional\USPS\IntlRate;
 use Multidimensional\ArraySanitization\Sanitization;
 use Multidimensional\ArrayValidation\Exception\ValidationException;
 use Multidimensional\ArrayValidation\Validation;
-use Multidimensional\USPS\IntlRate\Exception\PackageException;
+use \Exception;
 use Multidimensional\USPS\IntlRate\Package\Content;
 use Multidimensional\USPS\IntlRate\Package\ExtraServices;
 use Multidimensional\USPS\IntlRate\Package\GXG;
@@ -388,7 +388,7 @@ class Package
 
     /**
      * @return array|null
-     * @throws PackageException
+     * @throws Exception
      */
     public function toArray()
     {
@@ -408,7 +408,7 @@ class Package
 
         $array = array_replace(self::FIELDS, $array);
 
-        foreach (self::FIELDS AS $key => $value) {
+        foreach (self::FIELDS as $key => $value) {
             if (is_null($array[$key]) || $array[$key] === null) {
                 unset($array[$key]);
             }
@@ -421,7 +421,7 @@ class Package
                 return null;
             }
         } catch (ValidationException $e) {
-            throw new PackageException($e->getMessage());
+            throw $e;
         }
 
         return $array;

@@ -24,7 +24,7 @@ namespace Multidimensional\USPS\IntlRate\Package;
 use Multidimensional\ArraySanitization\Sanitization;
 use Multidimensional\ArrayValidation\Exception\ValidationException;
 use Multidimensional\ArrayValidation\Validation;
-use Multidimensional\USPS\IntlRate\Package\Exception\GXGException;
+use \Exception;
 
 class GXG
 {
@@ -79,7 +79,7 @@ class GXG
 
     /**
      * @return array|null
-     * @throws GXGException
+     * @throws Exception
      */
     public function toArray()
     {
@@ -90,7 +90,7 @@ class GXG
                 return null;
             }
         } catch (ValidationException $e) {
-            throw new GXGException($e->getMessage());
+            throw $e;
         }
 
         return $this->gxg;

@@ -21,7 +21,7 @@
 
 namespace Multidimensional\USPS\Test\IntlRate\Package;
 
-use Multidimensional\USPS\IntlRate\Package\Exception\ExtraServicesException;
+use \Exception;
 use Multidimensional\USPS\IntlRate\Package\ExtraServices;
 use PHPUnit\Framework\TestCase;
 
@@ -96,7 +96,7 @@ class ExtraServicesTest extends TestCase
         try {
             $result = $this->extraServices->toArray();
             $this->assertNull($result);
-        } catch (ExtraServicesException $e) {
+        } catch (Exception $e) {
             $this->assertEquals('Invalid value "5" for key: ExtraService. Did you mean "0"?', $e->getMessage());
         }
         $this->extraServices->addService(6);
@@ -107,7 +107,7 @@ class ExtraServicesTest extends TestCase
         try {
             $result = $this->extraServices->toArray();
             $this->assertNull($result);
-        } catch (ExtraServicesException $e) {
+        } catch (Exception $e) {
             $this->assertEquals('Invalid value "5" for key: ExtraService. Did you mean "0"?', $e->getMessage());
         }
     }

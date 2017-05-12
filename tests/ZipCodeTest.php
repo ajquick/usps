@@ -21,7 +21,7 @@
 
 namespace Multidimensional\USPS\Test;
 
-use Multidimensional\USPS\Exception\ZipCodeException;
+use \Exception;
 use Multidimensional\USPS\ZipCode;
 use PHPUnit\Framework\TestCase;
 
@@ -46,8 +46,8 @@ class ZipCodeTest extends TestCase
     {
         $zipCode = new ZipCode();
         try {
-            $result = $zipCode->toArray();
-        } catch (ZipCodeException $e) {
+            $zipCode->toArray();
+        } catch (Exception $e) {
             $this->assertEquals('Required value not found for key: @ID.', $e->getMessage());
         }
     }

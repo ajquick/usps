@@ -21,9 +21,8 @@
 
 namespace Multidimensional\USPS;
 
+use \Exception;
 use Multidimensional\ArraySanitization\Sanitization;
-use Multidimensional\USPS\Exception\TrackException;
-use Multidimensional\USPS\Exception\USPSException;
 use Multidimensional\ArrayValidation\Exception\ValidationException;
 use Multidimensional\ArrayValidation\Validation;
 
@@ -91,14 +90,14 @@ class Track extends USPS
 
     /**
      * @param $value
-     * @throws TrackException
+     * @throws Exception
      */
     public function addTrackingNumber($value)
     {
         if (count($this->trackingNumbers) < 10) {
             $this->trackingNumbers[] = $value;
         } else {
-            throw new TrackException('Tracking number not added. You can only have a maximum of 10 tracking numbers included in each look up request.');
+            throw new Exception('Tracking number not added. You can only have a maximum of 10 tracking numbers included in each look up request.');
         }
     }
 
@@ -120,14 +119,14 @@ class Track extends USPS
                 return null;
             }
         } catch (ValidationException $e) {
-            throw new TrackException($e->getMessage());
+            throw $e;
         }
         return $array;
     }
 
     /**
      * @return array
-     * @throws TrackException
+     * @throws Exception
      */
     public function track()
     {
@@ -136,11 +135,11 @@ class Track extends USPS
             try {
                 $result = $this->request($xml);
                 return $this->parseResult($result);
-            } catch (USPSException $e) {
-                throw new TrackException($e->getMessage());
+            } catch (Exception $e) {
+                throw $e;
             }
         } else {
-            throw new TrackException('Unable to validate XML.');
+            throw new Exception('Unable to validate XML.');
         }
     }
 
@@ -160,16 +159,15 @@ class Track extends USPS
                 return null;
             }
         } catch (ValidationException $e) {
-            throw new TrackException($e->getMessage());
+            throw $e;
         }
 
         $array = $array['TrackResponse'];
 
         if (is_array($array) && count($array) && (isset($array['TrackInfo']) || array_key_exists('TrackInfo', $array) )) {
-
             $array = $array['TrackInfo'];
 
-            foreach ($array AS $key => $value) {
+            foreach ($array as $key => $value) {
                 if (is_int($key)) {
                     $array[$value['@ID']] = $value;
                     unset($array[$key]);
@@ -180,7 +178,7 @@ class Track extends USPS
                 }
             }
 
-            foreach ($array AS $key => $value) {
+            foreach ($array as $key => $value) {
                 $array[$key] += array_combine(array_keys(self::RESPONSE['TrackResponse']['fields']['TrackInfo']['fields']), array_fill(0, count(self::RESPONSE['TrackResponse']['fields']['TrackInfo']['fields']), null));
                 $array[$key] = array_replace(self::RESPONSE['TrackResponse']['fields']['TrackInfo']['fields'], $array[$key]);
                 unset($array[$key]['@ID']);
@@ -189,7 +187,6 @@ class Track extends USPS
             return $array;
         }
 
-        throw new TrackException();
-
+        throw new Exception();
     }
 }

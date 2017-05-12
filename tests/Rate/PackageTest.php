@@ -21,7 +21,7 @@
 
 namespace Multidimensional\USPS\Test\Rate;
 
-use Multidimensional\USPS\Rate\Exception\PackageException;
+use \Exception;
 use Multidimensional\USPS\Rate\Package;
 use Multidimensional\USPS\Rate\Package\Content;
 use Multidimensional\USPS\Rate\Package\SpecialServices;
@@ -161,7 +161,7 @@ class PackageTest extends TestCase
         try {
             $result = $this->package->toArray();
             $this->assertNull($result);
-        } catch (PackageException $e) {
+        } catch (Exception $e) {
             $this->assertEquals('Required value not found for key: Service.', $e->getMessage());
         }
     }

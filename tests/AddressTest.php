@@ -22,7 +22,7 @@
 namespace Multidimensional\USPS\Test;
 
 use Multidimensional\USPS\Address;
-use Multidimensional\USPS\Exception\AddressException;
+use \Exception;
 use PHPUnit\Framework\TestCase;
 
 class AddressTest extends TestCase
@@ -34,7 +34,7 @@ class AddressTest extends TestCase
         try {
             $result = $address->toArray();
             $this->assertNull($result);
-        } catch (AddressException $e) {
+        } catch (Exception $e) {
             $this->assertEquals('Required value not found for key: @ID.', $e->getMessage());
         }
     }
@@ -49,7 +49,7 @@ class AddressTest extends TestCase
         try {
             $result = $address->toArray();
             $this->assertNull($result);
-        } catch (AddressException $e) {
+        } catch (Exception $e) {
             $this->assertEquals('Required value not found for key: Address2.', $e->getMessage());
         }
 
@@ -58,7 +58,7 @@ class AddressTest extends TestCase
         try {
             $result = $address->toArray();
             $this->assertNull($result);
-        } catch (AddressException $e) {
+        } catch (Exception $e) {
             $this->assertEquals('Required value not found for key: Address2.', $e->getMessage());
         }
     }

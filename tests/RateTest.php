@@ -21,7 +21,7 @@
 
 namespace Multidimensional\USPS\Test;
 
-use Multidimensional\USPS\Exception\RateException;
+use \Exception;
 use Multidimensional\USPS\Rate;
 use Multidimensional\USPS\Rate\Package;
 use PHPUnit\Framework\TestCase;
@@ -125,7 +125,7 @@ class RateTest extends TestCase
         $rate->addPackage($this->package);
         try {
             $rate->addPackage($this->package);
-        } catch (RateException $e) {
+        } catch (Exception $e) {
             $this->assertEquals('Package not added. You can only have a maximum of 25 packages included in each look up request.', $e->getMessage());
         }
     }
@@ -135,9 +135,9 @@ class RateTest extends TestCase
         $rate = new Rate(['userID' => $_SERVER['USPS_USERID'], 'Package' => $this->package]);
         try {
             $result = $rate->getRate();
-            $expected = [123 => ['ZipOrigination' => '20500', 'ZipDestination' => '90210', 'Pounds' => 0.0, 'Ounces' => 32.0, 'FirstClassMailType' => NULL, 'Container' => NULL, 'Size' => 'REGULAR', 'Width' => NULL, 'Length' => NULL, 'Height' => NULL, 'Girth' => NULL, 'Machinable' => true, 'Zone' => '8', 'Postage' => [0 => ['MailService' => 'Priority Mail 2-Day&lt;sup&gt;&#8482;&lt;/sup&gt;', 'Rate' => 12.75, '@CLASSID' => 1], 1 => ['MailService' => 'Priority Mail 2-Day&lt;sup&gt;&#8482;&lt;/sup&gt; Large Flat Rate Box', 'Rate' => 18.85, '@CLASSID' => 22], 2 => ['MailService' => 'Priority Mail 2-Day&lt;sup&gt;&#8482;&lt;/sup&gt; Medium Flat Rate Box', 'Rate' => 13.6, '@CLASSID' => 17], 3 => ['MailService' => 'Priority Mail 2-Day&lt;sup&gt;&#8482;&lt;/sup&gt; Small Flat Rate Box', 'Rate' => 7.15, '@CLASSID' => 28], 4 => ['MailService' => 'Priority Mail 2-Day&lt;sup&gt;&#8482;&lt;/sup&gt; Flat Rate Envelope', 'Rate' => 6.65, '@CLASSID' => 16], 5 => ['MailService' => 'Priority Mail 2-Day&lt;sup&gt;&#8482;&lt;/sup&gt; Legal Flat Rate Envelope', 'Rate' => 6.95, '@CLASSID' => 44], 6 => ['MailService' => 'Priority Mail 2-Day&lt;sup&gt;&#8482;&lt;/sup&gt; Padded Flat Rate Envelope', 'Rate' => 7.2, '@CLASSID' => 29], 7 => ['MailService' => 'Priority Mail 2-Day&lt;sup&gt;&#8482;&lt;/sup&gt; Gift Card Flat Rate Envelope', 'Rate' => 6.65, '@CLASSID' => 38], 8 => ['MailService' => 'Priority Mail 2-Day&lt;sup&gt;&#8482;&lt;/sup&gt; Small Flat Rate Envelope', 'Rate' => 6.65, '@CLASSID' => 42], 9 => ['MailService' => 'Priority Mail 2-Day&lt;sup&gt;&#8482;&lt;/sup&gt; Window Flat Rate Envelope', 'Rate' => 6.65, '@CLASSID' => 40], 10 => ['MailService' => 'USPS Retail Ground&lt;sup&gt;&#8482;&lt;/sup&gt;', 'Rate' => 12.21, '@CLASSID' => 4], 11 => ['MailService' => 'Media Mail Parcel', 'Rate' => 3.12, '@CLASSID' => 6], 12 => ['MailService' => 'Library Mail Parcel', 'Rate' => 2.97, '@CLASSID' => 7]]]];
+            $expected = [123 => ['ZipOrigination' => '20500', 'ZipDestination' => '90210', 'Pounds' => 0.0, 'Ounces' => 32.0, 'FirstClassMailType' => null, 'Container' => null, 'Size' => 'REGULAR', 'Width' => null, 'Length' => null, 'Height' => null, 'Girth' => null, 'Machinable' => true, 'Zone' => '8', 'Postage' => [0 => ['MailService' => 'Priority Mail 2-Day&lt;sup&gt;&#8482;&lt;/sup&gt;', 'Rate' => 12.75, '@CLASSID' => 1], 1 => ['MailService' => 'Priority Mail 2-Day&lt;sup&gt;&#8482;&lt;/sup&gt; Large Flat Rate Box', 'Rate' => 18.85, '@CLASSID' => 22], 2 => ['MailService' => 'Priority Mail 2-Day&lt;sup&gt;&#8482;&lt;/sup&gt; Medium Flat Rate Box', 'Rate' => 13.6, '@CLASSID' => 17], 3 => ['MailService' => 'Priority Mail 2-Day&lt;sup&gt;&#8482;&lt;/sup&gt; Small Flat Rate Box', 'Rate' => 7.15, '@CLASSID' => 28], 4 => ['MailService' => 'Priority Mail 2-Day&lt;sup&gt;&#8482;&lt;/sup&gt; Flat Rate Envelope', 'Rate' => 6.65, '@CLASSID' => 16], 5 => ['MailService' => 'Priority Mail 2-Day&lt;sup&gt;&#8482;&lt;/sup&gt; Legal Flat Rate Envelope', 'Rate' => 6.95, '@CLASSID' => 44], 6 => ['MailService' => 'Priority Mail 2-Day&lt;sup&gt;&#8482;&lt;/sup&gt; Padded Flat Rate Envelope', 'Rate' => 7.2, '@CLASSID' => 29], 7 => ['MailService' => 'Priority Mail 2-Day&lt;sup&gt;&#8482;&lt;/sup&gt; Gift Card Flat Rate Envelope', 'Rate' => 6.65, '@CLASSID' => 38], 8 => ['MailService' => 'Priority Mail 2-Day&lt;sup&gt;&#8482;&lt;/sup&gt; Small Flat Rate Envelope', 'Rate' => 6.65, '@CLASSID' => 42], 9 => ['MailService' => 'Priority Mail 2-Day&lt;sup&gt;&#8482;&lt;/sup&gt; Window Flat Rate Envelope', 'Rate' => 6.65, '@CLASSID' => 40], 10 => ['MailService' => 'USPS Retail Ground&lt;sup&gt;&#8482;&lt;/sup&gt;', 'Rate' => 12.21, '@CLASSID' => 4], 11 => ['MailService' => 'Media Mail Parcel', 'Rate' => 3.12, '@CLASSID' => 6], 12 => ['MailService' => 'Library Mail Parcel', 'Rate' => 2.97, '@CLASSID' => 7]]]];
             $this->assertEquals($expected, $result);
-        } catch (RateException $e) {
+        } catch (Exception $e) {
             $this->assertEquals('', $e->getMessage());
         }
     }

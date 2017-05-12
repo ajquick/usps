@@ -21,12 +21,10 @@
 
 namespace Multidimensional\USPS;
 
+use \Exception;
 use Multidimensional\ArraySanitization\Sanitization;
 use Multidimensional\ArrayValidation\Exception\ValidationException;
 use Multidimensional\ArrayValidation\Validation;
-use Multidimensional\USPS\Address;
-use Multidimensional\USPS\Exception\AddressValidateException;
-use Multidimensional\XmlArray\XMLArray;
 
 class AddressValidate extends USPS
 {
@@ -118,11 +116,11 @@ class AddressValidate extends USPS
         if (is_array($config) && isset($config['Address'])) {
             if (is_array($config['Address'])) {
                 foreach ($config['Address'] as $addressObject) {
-                    if(is_object($addressObject) && $addressObject instanceof Address) {
+                    if (is_object($addressObject) && $addressObject instanceof Address) {
                         $this->addAddress($addressObject);
                     }
                 }
-            } elseif(is_object($config['Address']) && $config['Address'] instanceof Address) {
+            } elseif (is_object($config['Address']) && $config['Address'] instanceof Address) {
                 $this->addAddress($config['Address']);
             }
         }
@@ -133,14 +131,14 @@ class AddressValidate extends USPS
 
     /**
      * @param \Multidimensional\Usps\Address $address
-     * @throws AddressValidateException
+     * @throws Exception
      */
     public function addAddress(Address $address)
     {
         if (count($this->addresses) < 5) {
             $this->addresses[] = $address->toArray();
         } else {
-            throw new AddressValidateException('Address not added. You can only have a maximum of 5 addresses included in each look up request.');
+            throw new Exception('Address not added. You can only have a maximum of 5 addresses included in each look up request.');
         }
     }
 
@@ -185,7 +183,7 @@ class AddressValidate extends USPS
                 return null;
             }
         } catch (ValidationException $e) {
-            throw new AddressValidateException($e->getMessage());
+            throw $e;
         }
 
         return $array;
@@ -193,7 +191,7 @@ class AddressValidate extends USPS
 
     /**
      * @return array
-     * @throws AddressValidateException
+     * @throws Exception
      */
     public function validate()
     {
@@ -203,17 +201,17 @@ class AddressValidate extends USPS
                 $result = $this->request($xml);
                 return $this->parseResult($result);
             } else {
-                throw new AddressValidateException('Unable to validate XML.');
+                throw new Exception('Unable to validate XML.');
             }
         } catch (ValidationException $e) {
-            throw new AddressValidateException($e->getMessage());
+            throw $e;
         }
     }
 
     /**
      * @param string $result
      * @return array
-     * @throws AddressValidateException
+     * @throws Exception
      */
     protected function parseResult($result)
     {
@@ -227,16 +225,15 @@ class AddressValidate extends USPS
                 return null;
             }
         } catch (ValidationException $e) {
-            throw new AddressValidateException($e->getMessage());
+            throw $e;
         }
 
         $array = $array['AddressValidateResponse'];
 
         if (is_array($array) && count($array) && (isset($array['Address']) || array_key_exists('Address', $array) )) {
-
             $array = $array['Address'];
 
-            foreach ($array AS $key => $value) {
+            foreach ($array as $key => $value) {
                 if (is_int($key)) {
                     list($array[$key]['Address2'], $array[$key]['Address1']) = [isset($value['Address1']) ? $value['Address1'] : null, isset($value['Address2']) ? $value['Address2'] : null];
                 } else {
@@ -245,7 +242,7 @@ class AddressValidate extends USPS
                 }
             }
 
-            foreach ($array AS $key => $value) {
+            foreach ($array as $key => $value) {
                 if (is_int($key)) {
                     $array[$value['@ID']] = $value;
                     unset($array[$key]);
@@ -256,7 +253,7 @@ class AddressValidate extends USPS
                 }
             }
 
-            foreach ($array AS $key => $value) {
+            foreach ($array as $key => $value) {
                 $array[$key] += array_combine(array_keys(self::RESPONSE['AddressValidateResponse']['fields']['Address']['fields']), array_fill(0, count(self::RESPONSE['AddressValidateResponse']['fields']['Address']['fields']), null));
                 $array[$key] = array_replace(self::RESPONSE['AddressValidateResponse']['fields']['Address']['fields'], $array[$key]);
                 unset($array[$key]['@ID']);
@@ -265,6 +262,6 @@ class AddressValidate extends USPS
             return $array;
         }
 
-        throw new AddressValidateException('Unable to find address data.');
+        throw new Exception('Unable to find address data.');
     }
 }

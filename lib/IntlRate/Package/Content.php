@@ -24,7 +24,7 @@ namespace Multidimensional\USPS\IntlRate\Package;
 use Multidimensional\ArraySanitization\Sanitization;
 use Multidimensional\ArrayValidation\Exception\ValidationException;
 use Multidimensional\ArrayValidation\Validation;
-use Multidimensional\USPS\IntlRate\Package\Exception\ContentException;
+use \Exception;
 
 class Content
 {
@@ -82,7 +82,7 @@ class Content
 
     /**
      * @return array|null
-     * @throws ContentException
+     * @throws Exception
      */
     public function toArray()
     {
@@ -93,7 +93,7 @@ class Content
                 return null;
             }
         } catch (ValidationException $e) {
-            throw new ContentException($e->getMessage());
+            throw $e;
         }
 
         return $this->content;

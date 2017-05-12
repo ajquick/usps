@@ -22,7 +22,7 @@
 namespace Multidimensional\USPS\Test\Rate\Package;
 
 use Multidimensional\USPS\Rate\Package\Content;
-use Multidimensional\USPS\Rate\Package\Exception\ContentException;
+use \Exception;
 use PHPUnit\Framework\TestCase;
 
 class ContentTest extends TestCase
@@ -70,7 +70,7 @@ class ContentTest extends TestCase
         try {
             $result = $this->content->toArray();
             $this->assertNull($result);
-        } catch (ContentException $e) {
+        } catch (Exception $e) {
             $this->assertEquals('Invalid value "Not a valid type" for key: ContentType. Did you mean "HAZMAT"?', $e->getMessage());
         }
     }
@@ -121,7 +121,7 @@ class ContentTest extends TestCase
         try {
             $result = $this->content->toArray();
             $this->assertNull($result);
-        } catch (ContentException $e) {
+        } catch (Exception $e) {
             $this->assertEquals('Invalid value "" for key: ContentDescription. Did you mean "BEES"?', $e->getMessage());
         }
     }
