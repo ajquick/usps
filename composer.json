@@ -1,11 +1,13 @@
 {
     "name": "multidimensional/usps",
     "description": "A USPS API Library for PHP.",
-    "authors": [{
-        "name": "multidimension.al",
-        "homepage": "https://multidimension.al",
-        "role": "Developer"
-    }],
+    "authors": [
+        {
+            "name": "multidimension.al",
+            "homepage": "https://multidimension.al",
+            "role": "Developer"
+        }
+    ],
     "require": {
         "php": ">=5.6",
         "guzzlehttp/guzzle": "~6.0",
@@ -26,6 +28,24 @@
     "autoload-dev": {
         "psr-4": {
             "Multidimensional\\USPS\\Test\\": "tests"
+        }
+    },
+    "repositories": {
+        "multidimensional/dom-array": {
+            "type": "vcs",
+            "url": "https://ajquick:DDnS9UV75DBSFNE8w79a@github.com/ajquick/dom-array.git"
+        },
+        "multidimensional/xml-array": {
+            "type": "vcs",
+            "url": "https://ajquick:DDnS9UV75DBSFNE8w79a@github.com/ajquick/xml-array.git"
+        },
+        "multidimensional/array-validation": {
+            "type": "vcs",
+            "url": "https://ajquick:DDnS9UV75DBSFNE8w79a@github.com/ajquick/array-validation.git"
+        },
+        "multidimensional/array-sanitization": {
+            "type": "vcs",
+            "url": "https://ajquick:DDnS9UV75DBSFNE8w79a@github.com/ajquick/array-sanitization.git"
         }
     }
 }

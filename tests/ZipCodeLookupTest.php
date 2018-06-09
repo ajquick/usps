@@ -7,7 +7,7 @@
  * /_/  /_/\__,_/_/\__/_/\__,_/_/_/ /_/ /_/\___/_/ /_/____/_/\____/_/ /_(_)__,_/_/
  *
  * @author Multidimension.al
- * @copyright Copyright © 2016-2017 Multidimension.al - All Rights Reserved
+ * @copyright Copyright © 2016-2018 Multidimension.al - All Rights Reserved
  * @license Proprietary and Confidential
  *
  * NOTICE:  All information contained herein is, and remains the property of
@@ -79,12 +79,8 @@ class ZipCodeLookupTest extends TestCase
     {
         $zipCodeLookup = new ZipCodeLookup(['userID' => $_SERVER['USPS_USERID']]);
         $zipCodeLookup->addAddress($this->address);
-        try {
-            $result = $zipCodeLookup->lookup();
-            $expected = [123 => ['FirmName' => 'THE WHITE HOUSE', 'Address1' => '1600 PENNSYLVANIA AVE NW', 'Address2' => null, 'City' => 'WASHINGTON', 'State' => 'DC', 'Zip5' => '20500', 'Zip4' => '0004']];
-            $this->assertEquals($expected, $result);
-        } catch (Exception $e) {
-            $this->assertEquals('', $e->getMessage());
-        }
+        $result = $zipCodeLookup->lookup();
+        $expected = [123 => ['FirmName' => 'THE WHITE HOUSE', 'Address1' => '1600 PENNSYLVANIA AVE NW', 'Address2' => null, 'City' => 'WASHINGTON', 'State' => 'DC', 'Zip5' => '20500', 'Zip4' => '0004']];
+        $this->assertEquals($expected, $result);
     }
 }

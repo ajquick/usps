@@ -7,7 +7,7 @@
  * /_/  /_/\__,_/_/\__/_/\__,_/_/_/ /_/ /_/\___/_/ /_/____/_/\____/_/ /_(_)__,_/_/
  *
  * @author Multidimension.al
- * @copyright Copyright © 2016-2017 Multidimension.al - All Rights Reserved
+ * @copyright Copyright © 2016-2018 Multidimension.al - All Rights Reserved
  * @license Proprietary and Confidential
  *
  * NOTICE:  All information contained herein is, and remains the property of
@@ -122,7 +122,13 @@ class Address
     public function toArray()
     {
         $array = $this->address;
-        list($array['Address2'], $array['Address1']) = [$array['Address1'], $array['Address2']];
+
+        if (!is_null($array['Address1'])) {
+            list($array['Address2'], $array['Address1']) = [$array['Address1'], $array['Address2']];
+        }
+
+        $array += array_combine(array_keys(self::FIELDS), array_fill(0, count(self::FIELDS), ''));
+        $array = array_replace(self::FIELDS, $array);
 
         try {
             if (is_array($array) && count($array)) {
@@ -133,9 +139,7 @@ class Address
         } catch (Exception $e) {
             throw $e;
         }
-
-        $array = array_replace(self::FIELDS, $array);
-
+        print_r($array);
         return $array;
     }
 
