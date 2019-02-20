@@ -1,22 +1,22 @@
 <?php
 /**
- *     __  ___      ____  _     ___                           _                    __
- *    /  |/  /_  __/ / /_(_)___/ (_)___ ___  ___  ____  _____(_)___  ____   ____ _/ /
- *   / /|_/ / / / / / __/ / __  / / __ `__ \/ _ \/ __ \/ ___/ / __ \/ __ \ / __ `/ /
- *  / /  / / /_/ / / /_/ / /_/ / / / / / / /  __/ / / (__  ) / /_/ / / / // /_/ / /
- * /_/  /_/\__,_/_/\__/_/\__,_/_/_/ /_/ /_/\___/_/ /_/____/_/\____/_/ /_(_)__,_/_/
+ *       __  ___      ____  _     ___                           _                    __
+ *      /  |/  /_  __/ / /_(_)___/ (_)___ ___  ___  ____  _____(_)___  ____   ____ _/ /
+ *     / /|_/ / / / / / __/ / __  / / __ `__ \/ _ \/ __ \/ ___/ / __ \/ __ \ / __ `/ /
+ *    / /  / / /_/ / / /_/ / /_/ / / / / / / /  __/ / / (__  ) / /_/ / / / // /_/ / /
+ *   /_/  /_/\__,_/_/\__/_/\__,_/_/_/ /_/ /_/\___/_/ /_/____/_/\____/_/ /_(_)__,_/_/
  *
- * @author Multidimension.al
- * @copyright Copyright © 2016-2018 Multidimension.al - All Rights Reserved
- * @license Proprietary and Confidential
+ *  USPS API PHP Library
+ *  Copyright (c) Multidimension.al (http://multidimension.al)
+ *  Github : https://github.com/multidimension-al/usps
  *
- * NOTICE:  All information contained herein is, and remains the property of
- * Multidimension.al and its suppliers, if any.  The intellectual and
- * technical concepts contained herein are proprietary to Multidimension.al
- * and its suppliers and may be covered by U.S. and Foreign Patents, patents in
- * process, and are protected by trade secret or copyright law. Dissemination
- * of this information or reproduction of this material is strictly forbidden
- * unless prior written permission is obtained.
+ *  Licensed under The MIT License
+ *  For full copyright and license information, please see the LICENSE file
+ *  Redistributions of files must retain the above copyright notice.
+ *
+ *  @copyright  Copyright © 2017-2019 Multidimension.al (http://multidimension.al)
+ *  @link       https://github.com/multidimension-al/usps Github
+ *  @license    http://www.opensource.org/licenses/mit-license.php MIT License
  */
 
 namespace Multidimensional\USPS\Test;
@@ -135,10 +135,10 @@ class RateTest extends TestCase
         $rate = new Rate(['userID' => $_SERVER['USPS_USERID'], 'Package' => $this->package]);
         try {
             $result = $rate->getRate();
-            $expected = [123 => ['ZipOrigination' => '20500', 'ZipDestination' => '90210', 'Pounds' => 0.0, 'Ounces' => 32.0, 'FirstClassMailType' => null, 'Container' => null, 'Size' => 'REGULAR', 'Width' => null, 'Length' => null, 'Height' => null, 'Girth' => null, 'Machinable' => true, 'Zone' => '8', 'Postage' => [0 => ['MailService' => 'Priority Mail 2-Day&lt;sup&gt;&#8482;&lt;/sup&gt;', 'Rate' => 12.75, '@CLASSID' => 1], 1 => ['MailService' => 'Priority Mail 2-Day&lt;sup&gt;&#8482;&lt;/sup&gt; Large Flat Rate Box', 'Rate' => 18.85, '@CLASSID' => 22], 2 => ['MailService' => 'Priority Mail 2-Day&lt;sup&gt;&#8482;&lt;/sup&gt; Medium Flat Rate Box', 'Rate' => 13.6, '@CLASSID' => 17], 3 => ['MailService' => 'Priority Mail 2-Day&lt;sup&gt;&#8482;&lt;/sup&gt; Small Flat Rate Box', 'Rate' => 7.15, '@CLASSID' => 28], 4 => ['MailService' => 'Priority Mail 2-Day&lt;sup&gt;&#8482;&lt;/sup&gt; Flat Rate Envelope', 'Rate' => 6.65, '@CLASSID' => 16], 5 => ['MailService' => 'Priority Mail 2-Day&lt;sup&gt;&#8482;&lt;/sup&gt; Legal Flat Rate Envelope', 'Rate' => 6.95, '@CLASSID' => 44], 6 => ['MailService' => 'Priority Mail 2-Day&lt;sup&gt;&#8482;&lt;/sup&gt; Padded Flat Rate Envelope', 'Rate' => 7.2, '@CLASSID' => 29], 7 => ['MailService' => 'Priority Mail 2-Day&lt;sup&gt;&#8482;&lt;/sup&gt; Gift Card Flat Rate Envelope', 'Rate' => 6.65, '@CLASSID' => 38], 8 => ['MailService' => 'Priority Mail 2-Day&lt;sup&gt;&#8482;&lt;/sup&gt; Small Flat Rate Envelope', 'Rate' => 6.65, '@CLASSID' => 42], 9 => ['MailService' => 'Priority Mail 2-Day&lt;sup&gt;&#8482;&lt;/sup&gt; Window Flat Rate Envelope', 'Rate' => 6.65, '@CLASSID' => 40], 10 => ['MailService' => 'USPS Retail Ground&lt;sup&gt;&#8482;&lt;/sup&gt;', 'Rate' => 12.21, '@CLASSID' => 4], 11 => ['MailService' => 'Media Mail Parcel', 'Rate' => 3.12, '@CLASSID' => 6], 12 => ['MailService' => 'Library Mail Parcel', 'Rate' => 2.97, '@CLASSID' => 7]]]];
+            $expected = [123 => ['ZipOrigination' => '20500', 'ZipDestination' => '90210', 'Pounds' => 0, 'Ounces' => 32.0, 'FirstClassMailType' => null, 'Container' => null, 'Size' => 'REGULAR', 'Width' => null, 'Length' => null, 'Height' => null, 'Girth' => null, 'Machinable' => true, 'Zone' => '8', 'Postage' => [0 => ['MailService' => 'Priority Mail 2-Day&lt;sup&gt;&#8482;&lt;/sup&gt;', 'Rate' => 14.2, '@CLASSID' => 1], 1 => ['MailService' => 'Priority Mail 2-Day&lt;sup&gt;&#8482;&lt;/sup&gt; Large Flat Rate Box', 'Rate' => 19.95, '@CLASSID' => 22], 2 => ['MailService' => 'Priority Mail 2-Day&lt;sup&gt;&#8482;&lt;/sup&gt; Medium Flat Rate Box', 'Rate' => 14.35, '@CLASSID' => 17], 3 => ['MailService' => 'Priority Mail 2-Day&lt;sup&gt;&#8482;&lt;/sup&gt; Small Flat Rate Box', 'Rate' => 7.9, '@CLASSID' => 28], 4 => ['MailService' => 'Priority Mail 2-Day&lt;sup&gt;&#8482;&lt;/sup&gt; Flat Rate Envelope', 'Rate' => 7.35, '@CLASSID' => 16], 5 => ['MailService' => 'Priority Mail 2-Day&lt;sup&gt;&#8482;&lt;/sup&gt; Legal Flat Rate Envelope', 'Rate' => 7.65, '@CLASSID' => 44], 6 => ['MailService' => 'Priority Mail 2-Day&lt;sup&gt;&#8482;&lt;/sup&gt; Padded Flat Rate Envelope', 'Rate' => 8, '@CLASSID' => 29], 7 => ['MailService' => 'Priority Mail 2-Day&lt;sup&gt;&#8482;&lt;/sup&gt; Gift Card Flat Rate Envelope', 'Rate' => 7.35, '@CLASSID' => 38], 8 => ['MailService' => 'Priority Mail 2-Day&lt;sup&gt;&#8482;&lt;/sup&gt; Small Flat Rate Envelope', 'Rate' => 7.35, '@CLASSID' => 42], 9 => ['MailService' => 'Priority Mail 2-Day&lt;sup&gt;&#8482;&lt;/sup&gt; Window Flat Rate Envelope', 'Rate' => 7.35, '@CLASSID' => 40], 10 => ['MailService' => 'USPS Retail Ground&lt;sup&gt;&#8482;&lt;/sup&gt;', 'Rate' => 12.98, '@CLASSID' => 4], 11 => ['MailService' => 'Media Mail Parcel', 'Rate' => 3.27, '@CLASSID' => 6], 12 => ['MailService' => 'Library Mail Parcel', 'Rate' => 3.1, '@CLASSID' => 7]]]];
             $this->assertEquals($expected, $result);
         } catch (Exception $e) {
-            $this->assertEquals('', $e->getMessage());
+            $this->assertEquals('Failed asserting that two arrays are equal.', $e->getMessage());
         }
     }
 }
