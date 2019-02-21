@@ -11,6 +11,10 @@
 ## Requirements
 
 * PHP 5.5+
+* [Array Validation Library](https://github.com/multidimension-al/array-validation)
+* [Array Sanitization Library](https://github.com/multidimension-al/array-sanitization)
+* [DOM Array Library](https://github.com/multidimension-al/dom-array)
+* [XML Array Library](https://github.com/multidimension-al/xml-array)
 
 ### Address Object Example
 
