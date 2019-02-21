@@ -10,7 +10,7 @@
 
 ## Requirements
 
-* PHP 5.5+
+* PHP 5.6+
 * [Array Validation Library](https://github.com/multidimension-al/array-validation)
 * [Array Sanitization Library](https://github.com/multidimension-al/array-sanitization)
 * [DOM Array Library](https://github.com/multidimension-al/dom-array)
