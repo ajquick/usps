@@ -8,6 +8,10 @@ php:
 before_install:
 - "travis_retry composer install"
 
+before_script:
+  - "USPS_USERID=$USPS_USERID"
+  - "USPS_PASSWORD=$USPS_PASSWORD"
+
 script:
 - "./vendor/bin/phpunit ./tests  --coverage-clover=coverage.clover"
 
