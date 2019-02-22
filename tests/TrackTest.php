@@ -79,7 +79,6 @@ class TrackTest extends TestCase
     public function testTrack()
     {
         $track = new Track(['userID' => $_ENV['USPS_USERID'], 'TrackID' => [$this->trackingNumber, $this->trackingNumber2, $this->trackingNumber3]]);
-        $track->setTestMode(true);
         try {
             $result = $track->track();
             $expected = ['EJ123456780US' => ['TrackSummary' => 'The Postal Service could not locate the tracking information for your request. Please verify your tracking number and try again later.', 'TrackDetail' => null], 'EJ123456789US' => ['TrackSummary' => 'The Postal Service could not locate the tracking information for your request. Please verify your tracking number and try again later.', 'TrackDetail' => null], 'EJ123456781US' => ['TrackSummary' => 'The Postal Service could not locate the tracking information for your request. Please verify your tracking number and try again later.', 'TrackDetail' => null]];

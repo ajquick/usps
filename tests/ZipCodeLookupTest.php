@@ -78,7 +78,6 @@ class ZipCodeLookupTest extends TestCase
     public function testValidate()
     {
         $zipCodeLookup = new ZipCodeLookup(['userID' => $_ENV['USPS_USERID']]);
-        $zipCodeLookup->setTestMode(true);
         $zipCodeLookup->addAddress($this->address);
         $result = $zipCodeLookup->lookup();
         $expected = [123 => ['FirmName' => 'THE WHITE HOUSE', 'Address1' => '1600 PENNSYLVANIA AVE NW', 'Address2' => null, 'City' => 'WASHINGTON', 'State' => 'DC', 'Zip5' => '20500', 'Zip4' => '0004']];

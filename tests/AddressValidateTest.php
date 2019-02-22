@@ -119,7 +119,6 @@ class AddressValidateTest extends TestCase
     public function testValidate()
     {
         $addressValidate = new AddressValidate(['userID' => $_ENV['USPS_USERID']]);
-        $addressValidate->setTestMode(true);
         $addressValidate->addAddress($this->address);
         try {
             $result = $addressValidate->validate();
@@ -133,7 +132,6 @@ class AddressValidateTest extends TestCase
     public function testValidateMultiple()
     {
         $addressValidate = new AddressValidate(['userID' => $_ENV['USPS_USERID']]);
-        $addressValidate->setTestMode(true);
         $addressValidate->addAddress($this->address);
         $this->address->setID(456);
         $addressValidate->addAddress($this->address);

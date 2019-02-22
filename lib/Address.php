@@ -96,14 +96,11 @@ class Address
             }
         }
         $this->address += array_combine(array_keys(self::FIELDS), array_fill(0, count(self::FIELDS), null));
-
-        return;
     }
 
     /**
      * @param string $key
      * @param mixed
-     * @return void
      */
     public function setField($key, $value)
     {
@@ -111,8 +108,6 @@ class Address
             $value = Sanitization::sanitizeField($value, self::FIELDS[$key]);
             $this->address[$key] = $value;
         }
-
-        return;
     }
 
     /**
@@ -145,100 +140,73 @@ class Address
 
     /**
      * @param string $value
-     * @return void
      */
     public function setID($value)
     {
         $this->setField('@ID', $value);
-
-        return;
     }
 
     /**
      * @param string $value
-     * @return void
      */
     public function setFirmName($value)
     {
         $this->setField('FirmName', $value);
-
-        return;
     }
 
     /**
      * @param string $value
-     * @return void
      */
     public function setAddress1($value)
     {
         $this->setField('Address1', $value);
-
-        return;
     }
 
     /**
      * @param string $value
-     * @return void
      */
     public function setAddress2($value)
     {
         $this->setField('Address2', $value);
-
-        return;
     }
 
     /**
      * @param string $value
-     * @return void
      */
     public function setCity($value)
     {
         $this->setField('City', $value);
-
-        return;
     }
 
     /**
      * @param string $value
-     * @return void
      */
     public function setState($value)
     {
         $this->setField('State', $value);
-
-        return;
     }
 
     /**
      * @param string $value
-     * @return void
      */
     public function setUrbanization($value)
     {
         $this->setField('Urbanization', $value);
-
-        return;
     }
 
     /**
      * @param int $value
-     * @return void
      */
     public function setZip5($value)
     {
         $this->setField('Zip5', $value);
-
-        return;
     }
 
     /**
-     * @param int $value
-     * @return void
+     * @param $value
      */
     public function setZip4($value)
     {
         $this->setField('Zip4', $value);
-
-        return;
     }
 }

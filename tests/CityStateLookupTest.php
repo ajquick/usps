@@ -71,7 +71,6 @@ class CityStateLookupTest extends TestCase
     public function testValidate()
     {
         $cityStateLookup = new CityStateLookup(['userID' => $_ENV['USPS_USERID']]);
-        $cityStateLookup->setTestMode(true);
         $cityStateLookup->addZipCode($this->zipCode);
         try {
             $result = $cityStateLookup->lookup();
@@ -85,7 +84,6 @@ class CityStateLookupTest extends TestCase
     public function testValidateMultiple()
     {
         $cityStateLookup = new CityStateLookup(['userID' => $_ENV['USPS_USERID']]);
-        $cityStateLookup->setTestMode(true);
         $cityStateLookup->addZipCode($this->zipCode);
         $this->zipCode->setID(456);
         $cityStateLookup->addZipCode($this->zipCode);
