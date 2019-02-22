@@ -95,7 +95,7 @@ CityStateLookup is a USPS API method for looking up the city and state when prov
 
 ```php
 $zipCode = new ZipCode(['ID' => 123, 'Zip5' => 20500]);
-$cityStateLookup = new CityStateLookup(['userID' => $_SERVER['USPS_USERID']]);
+$cityStateLookup = new CityStateLookup(['userID' => $_ENV['USPS_USERID']]);
 $cityStateLookup->addZipCode($zipCode);
 $result = $cityStateLookup->lookup();
 ```
