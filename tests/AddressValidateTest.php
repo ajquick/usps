@@ -43,7 +43,7 @@ class AddressValidateTest extends TestCase
         $this->address = new Address($defaultAddressArray);
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         unset($this->address);
     }
