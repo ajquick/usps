@@ -65,7 +65,7 @@ class SpecialServicesTest extends TestCase
             $result = $this->specialServices->toArray();
             $this->assertNull($result);
         } catch (Exception $e) {
-            $this->assertEquals('Invalid value "666" for key: SpecialService. Did you mean "156"?', $e->getMessage());
+            $this->assertContains('Invalid value "666" for key: SpecialService. Did you mean "', $e->getMessage());
         }
     }
 

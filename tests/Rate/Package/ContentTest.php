@@ -71,7 +71,7 @@ class ContentTest extends TestCase
             $result = $this->content->toArray();
             $this->assertNull($result);
         } catch (Exception $e) {
-            $this->assertEquals('Invalid value "Not a valid type" for key: ContentType. Did you mean "HAZMAT"?', $e->getMessage());
+            $this->assertContains('Invalid value "Not a valid type" for key: ContentType. Did you mean "', $e->getMessage());
         }
     }
 
