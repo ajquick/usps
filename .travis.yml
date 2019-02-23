@@ -5,10 +5,10 @@ php:
 - 7.1
 - 7.2
 - 7.3
-
+env: # important!
 matrix:
   allow_failures:
-  - env: USPS_USERID=
+  - env: USPS_USERID=""
 
 before_install:
 - "travis_retry composer install"
