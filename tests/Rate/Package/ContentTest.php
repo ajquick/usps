@@ -122,7 +122,7 @@ class ContentTest extends TestCase
             $result = $this->content->toArray();
             $this->assertNull($result);
         } catch (Exception $e) {
-            $this->assertEquals('Invalid value "" for key: ContentDescription. Did you mean "BEES"?', $e->getMessage());
+            $this->assertEquals('Required value not found for key: ContentDescription.', $e->getMessage());
         }
     }
 

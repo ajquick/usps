@@ -224,11 +224,18 @@ class USPS
     }
 
     /**
-     * @param string $result
-     * @return array
+     * @param $result
+     * @return array|null
+     * @throws Exception
      */
     protected function parseResult($result)
     {
-        return XMLArray::generateArray($result);
+        $array = XMLArray::generateArray($result);
+
+        if (isset($array['Error'])){
+            throw new Exception($array['Error']['Description'], $array['Error']['Number']);
+        }
+
+        return $array;
     }
 }

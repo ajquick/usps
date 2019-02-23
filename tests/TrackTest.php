@@ -84,7 +84,7 @@ class TrackTest extends TestCase
             $expected = ['EJ123456780US' => ['TrackSummary' => 'The Postal Service could not locate the tracking information for your request. Please verify your tracking number and try again later.', 'TrackDetail' => null], 'EJ123456789US' => ['TrackSummary' => 'The Postal Service could not locate the tracking information for your request. Please verify your tracking number and try again later.', 'TrackDetail' => null], 'EJ123456781US' => ['TrackSummary' => 'The Postal Service could not locate the tracking information for your request. Please verify your tracking number and try again later.', 'TrackDetail' => null]];
             $this->assertEquals($expected, $result);
         } catch (Exception $e) {
-            $this->assertContains('Could not resolve host', $e->getMessage());
+            $this->assertContains('The element \'TrackInfo\' has incomplete content. List of possible elements expected: \'Error, ExpectedDeliveryDate, ExpectedDeliveryTime, GuaranteedDeliveryDate, TrackSummary\'.', $e->getMessage());
         }
     }
 

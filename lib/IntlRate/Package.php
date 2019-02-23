@@ -142,7 +142,7 @@ class Package
             'fields' => ExtraServices::FIELDS
         ],
         'AcceptanceDateTime' => [
-            'type' => 'datetime',
+            'type' => 'string',
             'pattern' => 'ISO 8601'
         ],
         'DestinationPostalCode' => [
