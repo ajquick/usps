@@ -18,7 +18,7 @@
         "multidimensional/array-sanitization": "~1"
     },
     "require-dev": {
-        "phpunit/phpunit": "*",
+        "phpunit/phpunit": "~5|~6|~7",
         "squizlabs/php_codesniffer": "*"
     },
     "autoload": {

@@ -30,7 +30,7 @@ class AddressValidateTest extends TestCase
 {
     protected $address;
 
-    public function setUp(): void
+    public function setUp()
     {
         $defaultAddressArray = [
             'ID' => 123,
@@ -43,7 +43,7 @@ class AddressValidateTest extends TestCase
         $this->address = new Address($defaultAddressArray);
     }
 
-    public function tearDown(): void
+    public function tearDown()
     {
         unset($this->address);
     }
