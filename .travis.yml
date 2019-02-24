@@ -17,7 +17,7 @@ before_script:
   - "USPS_USERID=$USPS_USERID"
 
 script:
-- "./vendor/bin/phpunit ./tests  --coverage-clover=coverage.clover"
+- "./vendor/bin/phpunit --configuration phpunit.xml.dist --coverage-clover=coverage.clover"
 
 after_script:
 - wget https://scrutinizer-ci.com/ocular.phar
