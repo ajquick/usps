@@ -14,7 +14,7 @@ before_install:
 - "travis_retry composer install"
 
 before_script:
-  - "USPS_USERID=$USPS_USERID"
+  - "export USPS_USERID=$USPS_USERID"
 
 script:
 - "./vendor/bin/phpunit --configuration phpunit.xml.dist --coverage-clover=coverage.clover"
